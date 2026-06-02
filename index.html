@@ -252,11 +252,20 @@
         <div class="box">
           <p class="section-note">
             Use this calculator when working with a specific isotope or
-            custom element composition. Enter the number of protons and
-            neutrons, while the constants remain fixed.
+            custom element composition. You may optionally select an
+            element to auto-fill the proton count and reference inertial
+            mass, then manually adjust the neutron count and inertial
+            mass of the isotope as needed.
           </p>
 
           <div class="form-grid">
+            <div class="manual-element-full">
+              <label for="manual-element-select">Select element</label>
+              <select id="manual-element-select">
+                <option value="">Choose an element...</option>
+              </select>
+            </div>
+
             <div>
               <label for="protons">
                 Number of protons
@@ -298,11 +307,8 @@
             </div>
 
             <div>
-              <label for="mass">
-                Mass of element
-              </label>
-
-              <input id="mass" disabled />
+              <label for="mass">Inertial mass of isotope</label>
+              <input id="mass" type="number" step="any" />
             </div>
           </div>
 

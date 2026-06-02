@@ -48,6 +48,7 @@ function initializeConstants() {
 function populateAllDropdowns() {
   [
     "element-select",
+    "manual-element-select",
     "molecule-element-1",
     "molecule-element-2",
     "mixed-element-1",
@@ -101,7 +102,7 @@ function formatIsotopes(element) {
   if (!element.isotopes || element.isotopes.length === 0) {
     return `
       <div>
-        No isotope abundance data available.
+        The G-value is based on the half-life distribution.
       </div>
     `;
   }
@@ -188,28 +189,18 @@ document.getElementById("element-select").addEventListener("change", event => {
 
   `;
 
-  const protons =
-    document.getElementById("protons");
+  document.getElementById("manual-element-select").addEventListener("change", event => {
+  const element = elements[event.target.value];
 
-  const neutrons =
-    document.getElementById("neutrons");
+  document.getElementById("protons").value =
+    element?.atomicNumber ?? "";
 
-  const mass =
-    document.getElementById("mass");
+  document.getElementById("neutrons").value = "";
 
-  if (protons) {
-    protons.value =
-      element.atomicNumber ?? "";
-  }
+  document.getElementById("mass").value =
+    element?.inertialMass ?? "";
+  });
 
-  if (neutrons) {
-    neutrons.value = "";
-  }
-
-  if (mass) {
-    mass.value =
-      element.inertialMass ?? "";
-  }
 });
 
 /* ISOTOPE / MANUAL ELEMENT CALCULATOR */

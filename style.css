@@ -432,6 +432,10 @@ input:disabled {
   color: #1e3a5f;
 }
 
+.manual-element-full {
+  grid-column: 1 / -1;
+}
+
 /* VALUE ROWS */
 
 .lookup-row {
