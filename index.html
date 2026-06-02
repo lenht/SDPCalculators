@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SPD Formulae and Constants</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <h1>SPD Formulae</h1>
+    <p class="subtitle">Interactive calculators for SPD formulae and constants.</p>
+
+    <div class="category open">
+      <button class="category-button">Space particle dualism <span>▾</span></button>
+      <div class="formula-list">
+        <button class="formula-link">Elementary space radius</button>
+        <button class="formula-link">Granular dimensionality</button>
+        <button class="formula-link">Critical photon energy</button>
+      </div>
+    </div>
+
+    <div class="category">
+      <button class="category-button">Entropic expansion <span>▾</span></button>
+      <div class="formula-list">
+        <button class="formula-link">Hubble parameter</button>
+        <button class="formula-link">Time-redshift equation</button>
+      </div>
+    </div>
+
+    <div class="category">
+      <button class="category-button">SPD-chromogravity and electrogravity <span>▾</span></button>
+      <div class="formula-list">
+        <button class="formula-link active">G-value calculator</button>
+      </div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="page-header">
+
+      <h2>G-value Calculator</h2>
+
+      <div class="description-box">
+
+        <p>
+          In the SPD framework, the G-value represents
+          the gravitational coupling strength associated
+          with a specific element, isotope, molecule,
+          or material composition.
+        </p>
+
+        <p>
+          This calculator allows users to explore and
+          calculate predicted G-value variations for
+          elements, isotopes, molecules, mixed materials,
+          and interacting masses.
+        </p>
+
+      </div>
+
+
+
+      <p class="unit-note">
+        All displayed G-values are expressed in units of
+        10⁻¹¹ m³ kg⁻¹ s⁻².
+      </p>
+
+    </div>
+
+    <section class="calculator-card">
+      <div class="formula-box">
+        G<sub>X</sub> = G<sub>H</sub> ×
+        (n<sub>pX</sub>m<sub>p</sub> + n<sub>nX</sub>m<sub>n</sub>) / m<sub>X</sub>
+      </div>
+
+      <div class="legend-box">
+        <p><strong>G<sub>X</sub></strong> = G-value of element X</p>
+        <p><strong>G<sub>H</sub></strong> = G-value of hydrogen</p>
+        <p><strong>n<sub>pX</sub></strong> = number of protons</p>
+        <p><strong>n<sub>nX</sub></strong> = number of neutrons</p>
+        <p><strong>m<sub>p</sub></strong> = mass of proton</p>
+        <p><strong>m<sub>n</sub></strong> = mass of neutron</p>
+        <p><strong>m<sub>X</sub></strong> = inertial mass of element X</p>
+      </div>
+
+      <h3>Individual element lookup</h3>
+      <div class="box">
+        <label>Select element</label>
+        <select id="element-select"><option value="">Choose an element...</option></select>
+        <div class="result-box" id="lookup-result">Select an element</div>
+      </div>
+
+      <h3>Isotope / manual element calculator</h3>
+      <div class="box">
+        <div class="form-grid">
+          <div><label>Number of protons</label><input id="protons" type="number" /></div>
+          <div><label>Number of neutrons</label><input id="neutrons" type="number" /></div>
+          <div><label>G-value of hydrogen</label><input id="gh" disabled /></div>
+          <div><label>Mass of proton</label><input id="mp" disabled /></div>
+          <div><label>Mass of neutron</label><input id="mn" disabled /></div>
+          <div><label>Mass of element</label><input id="mass" disabled /></div>
+        </div>
+        <button class="primary" id="calculate-btn">Calculate</button>
+        <div class="result-box" id="manual-result">G<sub>X</sub> = —</div>
+      </div>
+
+      <h3>Molecule calculator</h3>
+      <div class="box">
+        <div class="form-grid">
+          <div><label>Element 1</label><select id="molecule-element-1"></select></div>
+          <div><label>Count</label><input id="molecule-count-1" type="number" value="2" /></div>
+          <div><label>Element 2</label><select id="molecule-element-2"></select></div>
+          <div><label>Count</label><input id="molecule-count-2" type="number" value="1" /></div>
+        </div>
+        <button class="primary" id="molecule-btn">Calculate Molecule</button>
+        <div class="result-box" id="molecule-result">—</div>
+      </div>
+
+      <h3>Mixed materials calculator</h3>
+      <div class="box">
+        <label>Percentage type</label>
+        <select id="percentage-type">
+          <option value="atomic">Atomic percentage</option>
+          <option value="mass">Mass percentage</option>
+        </select>
+
+        <div class="form-grid mixed-grid">
+          <div><label>Element 1</label><select id="mixed-element-1"></select></div>
+          <div><label>Percentage</label><input id="mixed-percent-1" type="number" value="50" /></div>
+          <div><label>Element 2</label><select id="mixed-element-2"></select></div>
+          <div><label>Percentage</label><input id="mixed-percent-2" type="number" value="50" /></div>
+        </div>
+
+        <button class="primary" id="mixed-btn">Calculate Mixed Material</button>
+        <div class="result-box" id="mixed-result">—</div>
+      </div>
+
+      <h3>Effective G-value calculator</h3>
+      <div class="box">
+        <p>
+          The effective G-value is the geometric mean of the source mass
+          G-value and the test mass G-value.
+        </p>
+
+        <div class="formula-box small-formula">
+          G<sub>effective</sub> =
+          √(G<sub>source</sub> × G<sub>test</sub>)
+        </div>
+
+        <div class="form-grid">
+          <div>
+            <label>Source mass G-value</label>
+            <input id="source-g" type="number" step="any" placeholder="Example: 6.674280" />
+          </div>
+
+          <div>
+            <label>Test mass G-value</label>
+            <input id="test-g" type="number" step="any" placeholder="Example: 6.661803" />
+          </div>
+        </div>
+
+        <button class="primary" id="effective-btn">
+          Calculate Effective G-value
+        </button>
+
+        <div class="result-box" id="effective-result">
+          —
+        </div>
+      </div>
+
+      
+    </section>
+  </main>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
+
