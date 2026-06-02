@@ -1,57 +1,463 @@
 :root {
-  --sidebar-width: 300px;
-  --bg: #f5f6f8;
-  --border: #d8dce3;
-  --text: #1f2933;
-  --muted: #667085;
-  --accent: #2f5f8f;
-  --accent-light: #e8f0fa;
+
+  --bg: #f8fbff;
+
+  --card: #ffffff;
+
+  --accent: #4a7db2;
+  --accent-dark: #2f5f8f;
+
+  --text: #243244;
+  --muted: #5f7187;
+
+  --border: #dbe8f5;
+
+  --soft-blue:
+    linear-gradient(
+      to bottom,
+      #fbfdff,
+      #f1f7fd
+    );
+
+  --radius: 18px;
+
 }
 
-* { box-sizing: border-box; }
-:root {
-  --sidebar-width: 300px;
-
-  --bg: #f5f8fc;
-  --panel: #ffffff;
-
-  --border: #d7e6f7;
-  --border-strong: #cbdff3;
-
-  --text: #1f2933;
-  --muted: #64748b;
-
-  --accent: #2f5f8f;
-  --accent-dark: #244f78;
-  --accent-light: #eef5ff;
-
-  --heading: #1e3a5f;
-
-  --shadow-soft: 0 8px 22px rgba(30, 58, 95, 0.06);
-  --shadow-card: 0 12px 30px rgba(30, 58, 95, 0.08);
-}
+/* GLOBAL */
 
 * {
   box-sizing: border-box;
 }
 
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: var(--bg);
-  color: var(--text);
+html {
+  scroll-behavior: smooth;
 }
 
+body {
+
+  margin: 0;
+
+  background: var(--bg);
+
+  color: var(--text);
+
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Arial,
+    sans-serif;
+
+  -webkit-font-smoothing: antialiased;
+
+  text-rendering: optimizeLegibility;
+
+}
+
+/* LAYOUT */
+
+.app {
+
+  display: flex;
+
+  min-height: 100vh;
+
+}
+
+/* SIDEBAR */
+
+.sidebar {
+
+  width: 320px;
+
+  background: white;
+
+  border-right:
+    1px solid var(--border);
+
+  padding: 32px 24px;
+
+  position: sticky;
+
+  top: 0;
+
+  height: 100vh;
+
+  overflow-y: auto;
+
+}
+
+.sidebar h1 {
+
+  margin-top: 0;
+
+  margin-bottom: 10px;
+
+  font-size: 30px;
+
+  color: var(--accent-dark);
+
+}
+
+.subtitle {
+
+  color: var(--muted);
+
+  line-height: 1.7;
+
+  font-size: 15px;
+
+  margin-bottom: 34px;
+
+}
+
+/* CATEGORY */
+
+.category {
+
+  border:
+    1px solid var(--border);
+
+  border-radius: 16px;
+
+  margin-bottom: 18px;
+
+  overflow: hidden;
+
+  background: white;
+
+}
+
+.category-button {
+
+  width: 100%;
+
+  background: white;
+
+  border: none;
+
+  padding: 22px;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  font-size: 18px;
+
+  font-weight: 700;
+
+  color: var(--accent-dark);
+
+  cursor: pointer;
+
+}
+
+.category-button span {
+
+  transition: transform 0.2s ease;
+
+}
+
+.category.open .category-button span {
+
+  transform: rotate(180deg);
+
+}
+
+/* FORMULA LIST */
+
+.formula-list {
+
+  display: none;
+
+  border-top:
+    1px solid var(--border);
+
+  background:
+    linear-gradient(
+      to bottom,
+      #fcfdff,
+      #f6f9ff
+    );
+
+}
+
+.category.open .formula-list {
+
+  display: block;
+
+}
+
+.formula-link {
+
+  width: 100%;
+
+  text-align: left;
+
+  border: none;
+
+  background: transparent;
+
+  padding: 18px 22px;
+
+  font-size: 16px;
+
+  color: var(--text);
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+
+}
+
+.formula-link:hover {
+
+  background: #eef5ff;
+
+  color: var(--accent-dark);
+
+}
+
+.formula-link.active {
+
+  background: #e7f0fb;
+
+  color: var(--accent);
+
+  font-weight: 700;
+
+}
+
+/* MAIN */
+
+.main {
+
+  flex: 1;
+
+  padding: 42px;
+
+}
+
+/* PAGE HEADER */
+
+.page-header {
+
+  margin-bottom: 38px;
+
+}
+
+.page-header h2 {
+
+  margin-top: 0;
+  margin-bottom: 18px;
+
+  font-size: 26px;
+  font-weight: 800;
+
+  line-height: 1.2;
+
+  color: var(--accent-dark);
+
+}
+
+/* DESCRIPTION BOX */
+
+.description-box {
+
+  background: white;
+
+  border:
+    1px solid var(--border);
+
+  border-left:
+    5px solid var(--accent);
+
+  border-radius: 18px;
+
+  padding: 28px 32px;
+
+  max-width: 1000px;
+
+}
+
+.description-box p {
+
+  margin-top: 0;
+
+  margin-bottom: 18px;
+
+  font-size: 16px;
+
+  line-height: 1.8;
+
+  color: var(--muted);
+
+}
+
+.description-box p:last-child {
+
+  margin-bottom: 0;
+
+}
+
+/* UNIT NOTE */
+
+.unit-note {
+
+  margin-top: 26px;
+  margin-bottom: 44px;
+
+  background: var(--soft-blue);
+
+  border:
+    1px solid var(--border);
+
+  border-left:
+    5px solid var(--accent);
+
+  border-radius: 16px;
+
+  padding: 20px 24px;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  line-height: 1.6;
+
+  color: var(--accent-dark);
+
+}
+
+/* MAIN CARD */
+
+.calculator-card {
+
+  background: white;
+
+  border:
+    1px solid var(--border);
+
+  border-radius: 22px;
+
+  padding: 42px;
+
+}
+
+/* SECTION TITLES */
+
+.calculator-card h3 {
+
+  margin-top: 42px;
+  margin-bottom: 18px;
+
+  font-size: 22px;
+  font-weight: 700;
+
+  line-height: 1.3;
+
+  color: var(--accent-dark);
+
+}
+
+.calculator-card h3:first-of-type {
+
+  margin-top: 0;
+
+}
+
+/* BOX */
+
+.box {
+
+  border:
+    1px solid var(--border);
+
+  border-radius: 20px;
+
+  padding: 22px;
+
+  background: #fcfdff;
+
+}
+
+/* LABELS */
+
+label {
+
+  display: block;
+
+  margin-bottom: 10px;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  color: var(--accent-dark);
+
+}
+
+/* INPUTS */
+
+input,
 select {
+
+  width: 100%;
+
+  padding: 15px 16px;
+
+  border:
+    1px solid #bfd4ec;
+
+  border-radius: 16px;
+
+  font-size: 16px;
+
+  color: var(--text);
+
+  background: white;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+}
+
+input:focus,
+select:focus {
+
+  outline: none;
+
+  border-color: var(--accent);
+
+  box-shadow:
+    0 0 0 4px rgba(47,95,143,0.12);
+
+}
+
+/* CUSTOM SELECT */
+
+select {
+
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
 
-  background-color: #ffffff;
-
   background-image:
-    linear-gradient(45deg, transparent 50%, #1e3a5f 50%),
-    linear-gradient(135deg, #1e3a5f 50%, transparent 50%);
+    linear-gradient(
+      45deg,
+      transparent 50%,
+      var(--accent-dark) 50%
+    ),
+    linear-gradient(
+      135deg,
+      var(--accent-dark) 50%,
+      transparent 50%
+    );
 
   background-position:
     calc(100% - 22px) 50%,
@@ -64,689 +470,475 @@ select {
   background-repeat: no-repeat;
 
   padding-right: 48px;
+
 }
 
-/* APP LAYOUT */
+/* DISABLED */
 
-.app {
-  display: flex;
-  min-height: 100vh;
-}
+input:disabled {
 
-/* SIDEBAR */
+  background: #f1f5f9;
 
-.sidebar {
-  width: var(--sidebar-width);
-  background: var(--panel);
-  border-right: 1px solid var(--border);
-  padding: 24px 18px;
-  height: 100vh;
-  overflow-y: auto;
-}
+  color: #64748b;
 
-.sidebar h1 {
-  margin-top: 0;
-  margin-bottom: 8px;
-  color: var(--heading);
-  font-size: 24px;
-}
-
-.subtitle {
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.5;
-  margin-bottom: 24px;
-}
-
-/* SIDEBAR CATEGORIES */
-
-.category {
-  margin-bottom: 12px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  overflow: hidden;
-  background: #ffffff;
-}
-
-.category-button {
-  width: 100%;
-  border: none;
-  background: #ffffff;
-  padding: 14px 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  text-align: left;
-  gap: 12px;
-  cursor: pointer;
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--heading);
-}
-
-.category-button:hover {
-  background: var(--accent-light);
-}
-
-.category-button span {
-  flex-shrink: 0;
-}
-
-.formula-list {
-  display: none;
-  padding: 8px;
-  border-top: 1px solid var(--border);
-}
-
-.category.open .formula-list {
-  display: block;
-}
-
-.formula-link {
-  width: 100%;
-  border: none;
-  background: transparent;
-  text-align: left;
-  padding: 10px 12px;
-  margin-bottom: 4px;
-  border-radius: 8px;
-  cursor: pointer;
-  color: var(--text);
-  font-size: 14px;
-}
-
-.formula-link:hover,
-.formula-link.active {
-  background: var(--accent-light);
-  color: var(--accent);
-  font-weight: 700;
-}
-
-/* MAIN */
-
-.main {
-  flex: 1;
-  padding: 36px;
-}
-
-.page-header {
-  max-width: 1100px;
-  margin-bottom: 28px;
-}
-
-.page-header h2 {
-  margin: 0 0 12px;
-  font-size: 34px;
-  color: var(--heading);
-}
-
-/* DESCRIPTION */
-
-.description-box {
-  margin-top: 20px;
-  margin-bottom: 24px;
-  padding: 22px 24px;
-  background: linear-gradient(to bottom, #f8fbff, #eef5ff);
-  border: 1px solid var(--border);
-  border-left: 5px solid var(--accent);
-  border-radius: 12px;
-  line-height: 1.7;
-  color: #334155;
-}
-
-.description-box p {
-  margin-top: 0;
-  margin-bottom: 14px;
-  font-size: 15px;
-}
-
-.description-box p:last-child {
-  margin-bottom: 0;
-}
-
-/* UNIT NOTE */
-
-.unit-note {
-  margin-top: 14px;
-  padding: 14px 18px;
-  background: var(--accent-light);
-  border: 1px solid var(--border);
-  border-left: 5px solid var(--accent);
-  border-radius: 12px;
-  color: var(--heading);
-  font-weight: 600;
-  line-height: 1.5;
-}
-
-/* MAIN CARD */
-
-.calculator-card {
-  max-width: 1100px;
-  background: #ffffff;
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 32px;
-  box-shadow: var(--shadow-card);
-}
-
-/* FORMULA */
-
-.formula-box {
-  background: linear-gradient(to bottom, #f8fbff, #eef5ff);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 22px;
-  margin-bottom: 20px;
-  text-align: center;
-  font-size: 24px;
-  color: var(--heading);
-  line-height: 1.5;
-}
-
-/* LEGEND */
-
-.legend-box {
-  background: #ffffff;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 22px 24px;
-  margin-bottom: 28px;
-  color: #475569;
-  font-size: 14px;
-  box-shadow: var(--shadow-soft);
-}
-
-.legend-box p {
-  margin: 6px 0;
-}
-
-/* SECTIONS */
-
-h3 {
-  margin-top: 38px;
-  margin-bottom: 14px;
-  color: var(--heading);
-  font-size: 21px;
-}
-
-h3:first-of-type {
-  margin-top: 24px;
-}
-
-/* CONTENT BOXES */
-
-.box,
-.note-box {
-  background: #ffffff;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 22px 24px;
-  margin-bottom: 28px;
-  box-shadow: var(--shadow-soft);
-}
-
-.note-box p {
-  color: #475569;
-  line-height: 1.6;
 }
 
 /* FORM GRID */
 
 .form-grid {
+
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(240px, 1fr)
+    );
+
+  row-gap: 26px;
+  column-gap: 22px;
+
 }
 
-.mixed-grid {
-  margin-top: 24px;
-}
+.form-grid > div,
+.mixed-grid > div {
 
-/* FORM FIELDS */
+  display: flex;
+  flex-direction: column;
 
-label {
-  display: block;
-  margin-bottom: 6px;
-  font-weight: 700;
-  color: #334155;
-  font-size: 14px;
-}
-
-input,
-select {
-  width: 100%;
-  padding: 12px 13px;
-  border: 1px solid var(--border-strong);
-  border-radius: 10px;
-  font-size: 15px;
-  background: #ffffff;
-  color: var(--text);
-}
-
-input:focus,
-select:focus {
-  outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(47, 95, 143, 0.12);
-}
-
-input:disabled {
-  background: #f1f5f9;
-  color: #64748b;
-  cursor: not-allowed;
 }
 
 /* BUTTONS */
 
 .primary {
-  margin-top: 22px;
-  border: none;
+
+  margin-top: 28px;
+
   background: var(--accent);
-  color: #ffffff;
-  padding: 12px 20px;
-  border-radius: 10px;
-  cursor: pointer;
+
+  color: white;
+
+  border: none;
+
+  padding: 16px 28px;
+
+  border-radius: 14px;
+
+  font-size: 15px;
   font-weight: 700;
-  box-shadow: 0 6px 14px rgba(47, 95, 143, 0.22);
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+
 }
 
 .primary:hover {
+
   background: var(--accent-dark);
+
+  transform: translateY(-1px);
+
 }
 
-/* RESULTS */
+/* RESULT BOX */
 
 .result-box {
-  margin-top: 20px;
-  padding: 18px 20px;
-  border-radius: 12px;
-  background: var(--accent-light);
-  border: 1px solid var(--border);
-  font-family: monospace;
-  line-height: 1.7;
-  color: var(--heading);
-}
 
-/* SMALL FORMULA */
-
-.small-formula {
-  font-size: 20px;
-  margin-top: 16px;
-}
-
-/* SECTION NOTES */
-
-.section-note,
-.lookup-methodology p {
-  color: #475569;
-  line-height: 1.8;
-  font-size: 15px;
-  margin-bottom: 18px;
-  max-width: 850px;
-}
-
-/* LOOKUP METHODOLOGY */
-
-.lookup-methodology {
-  margin-top: 32px;
-  padding-top: 28px;
-  border-top: 1px solid #dbe7f5;
-}
-
-.lookup-methodology h4 {
-  margin-top: 0;
-  margin-bottom: 18px;
-  font-size: 24px;
-  color: #1e3a5f;
-}
-
-/* LOOKUP RESULT CARD */
-
-#lookup-result {
-  margin-top: 22px;
-
-  background: linear-gradient(
-    to bottom,
-    #f7fbff,
-    #edf5ff
-  );
-
-  border: 1px solid #d7e6f7;
-
-  color: #1e3a5f;
-
-  padding: 22px 24px;
-
-  border-radius: 14px;
-}
-
-/* ELEMENT NAME */
-
-#lookup-result h4 {
-  margin-top: 0;
-  margin-bottom: 18px;
-
-  font-size: 17px;
-  font-weight: 700;
-
-  color: #1e3a5f;
-}
-
-/* VALUE ROWS */
-
-.lookup-row {
-  margin-bottom: 8px;
-
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.lookup-label {
-  font-size: 13px;
-  font-weight: 700;
-
-  color: #1e3a5f;
-}
-
-.lookup-value {
-  font-size: 13px;
-
-  font-family: monospace;
-
-  color: #334155;
-}
-
-/* ISOTOPE SECTION TITLE */
-
-.lookup-isotopes-title {
-  margin-top: 18px;
-  margin-bottom: 10px;
-
-  font-size: 15px;
-  font-weight: 700;
-
-  color: #1e3a5f;
-}
-
-/* ISOTOPE BOX */
-
-.isotope-list {
-  padding: 12px 14px;
-
-  background: rgba(255,255,255,0.65);
-
-  border: 1px solid #dbe7f5;
-
-  border-radius: 10px;
-}
-
-/* ISOTOPE ROWS */
-
-.isotope-list div {
-  margin-bottom: 6px;
-
-  font-size: 12px;
-  line-height: 1.4;
-
-  color: #334155;
-}
-
-.isotope-list div:last-child {
-  margin-bottom: 0;
-}
-
-.isotope-list strong {
-  font-size: 12px;
-}
-
-/* ELEMENT NAME */
-
-#lookup-result h4 {
-  margin-top: 0;
-  margin-bottom: 18px;
-
-  font-size: 20px;
-  font-weight: 700;
-
-  color: #1e3a5f;
-}
-
-/* VALUE ROWS */
-
-.lookup-row {
-  margin-bottom: 10px;
-
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.lookup-label {
-  font-weight: 700;
-  color: #1e3a5f;
-}
-
-.lookup-value {
-  font-family: monospace;
-  color: #334155;
-}
-
-/* ISOTOPE SECTION */
-
-.lookup-isotopes-title {
   margin-top: 24px;
-  margin-bottom: 14px;
 
-  font-size: 18px;
-  font-weight: 700;
+  background: var(--soft-blue);
 
-  color: #1e3a5f;
-}
+  border:
+    1px solid var(--border);
 
-.isotope-list {
-  padding: 16px 18px;
+  border-radius: 16px;
 
-  background: rgba(255,255,255,0.6);
+  padding: 24px;
 
-  border: 1px solid #dbe7f5;
-
-  border-radius: 10px;
-}
-
-.isotope-list div {
-  margin-bottom: 8px;
-
-  font-size: 14px;
-  line-height: 1.5;
-}
-
-.isotope-list div:last-child {
-  margin-bottom: 0;
-}
-
-/* REFERENCE VALUES */
-
-.reference-values {
-  margin: 22px 0;
-  padding: 18px 22px;
-  background: linear-gradient(
-    to bottom,
-    #f8fbff,
-    #eef5ff
-  );
-
-  border: 1px solid #d7e6f7;
-  border-left: 5px solid var(--accent);
-
-  border-radius: 12px;
-}
-
-.reference-values div {
-  margin-bottom: 10px;
-  color: #334155;
-}
-
-.reference-values div:last-child {
-  margin-bottom: 0;
-}
-
-/* SMALL FORMULAS */
-
-.small-formula {
-  font-size: 16px;
-  line-height: 1.6;
-
-  margin-top: 18px;
-  margin-bottom: 18px;
-
-  font-size: 22px;
-  line-height: 1.7;
-
-  background: linear-gradient(
-    to bottom,
-    #f8fbff,
-    #eef5ff
-  );
-
-  border-left: 5px solid var(--accent);
 }
 
 /* LOOKUP RESULT */
 
 #lookup-result {
-  margin-top: 26px;
 
-  background: linear-gradient(
-    to bottom,
-    #f7fbff,
-    #edf5ff
-  );
+  color: var(--accent-dark);
 
-  border: 1px solid #d7e6f7;
-
-  color: #1e3a5f;
-
-  font-size: 17px;
-  line-height: 1.9;
 }
 
-/* LOOKUP RESULT HEADINGS */
+/* LOOKUP TITLE */
 
-#lookup-result strong {
-  color: #1e3a5f;
-  font-size: 18px;
+#lookup-result h4 {
+
+  margin-top: 0;
+  margin-bottom: 16px;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  color: var(--accent-dark);
+
 }
 
-/* ISOTOPE LIST */
+/* LOOKUP ROWS */
+
+.lookup-row {
+
+  margin-bottom: 6px;
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 6px;
+
+}
+
+.lookup-label {
+
+  font-size: 11px;
+  font-weight: 700;
+
+  color: var(--accent-dark);
+
+}
+
+.lookup-value {
+
+  font-size: 11px;
+
+  font-family:
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    monospace;
+
+  color: #334155;
+
+}
+
+/* ISOTOPE TITLE */
+
+.lookup-isotopes-title {
+
+  margin-top: 18px;
+  margin-bottom: 10px;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  color: var(--accent-dark);
+
+}
+
+/* ISOTOPE BOX */
 
 .isotope-list {
-  margin-top: 12px;
 
-  padding: 16px 18px;
+  padding: 12px 14px;
 
-  background: rgba(255,255,255,0.5);
+  background:
+    rgba(255,255,255,0.65);
 
-  border-radius: 10px;
-
-  border: 1px solid #dbe7f5;
-}
-
-.isotope-list div {
-  margin-bottom: 10px;
-}
-
-.isotope-list div:last-child {
-  margin-bottom: 0;
-}
-
-/* FORMULA EMPHASIS */
-
-.formula-box {
-  background: linear-gradient(
-    to bottom,
-    #f8fbff,
-    #eef5ff
-  );
-
-  border: 1px solid #d7e6f7;
-  border-left: 5px solid var(--accent);
+  border:
+    1px solid var(--border);
 
   border-radius: 12px;
 
-  padding: 18px 22px;
+}
 
-  margin-top: 20px;
-  margin-bottom: 20px;
+.isotope-list div {
+
+  margin-bottom: 5px;
+
+  font-size: 11px;
+
+  line-height: 1.45;
+
+  color: #334155;
+
+}
+
+.isotope-list div:last-child {
+
+  margin-bottom: 0;
+
+}
+
+/* FORMULAS */
+
+.formula-section-title {
+
+  margin-top: 0;
+  margin-bottom: 18px;
+
+  font-size: 24px;
+  font-weight: 700;
+
+  color: var(--accent-dark);
+
+}
+
+.formula-box {
+
+  background: var(--soft-blue);
+
+  border:
+    1px solid var(--border);
+
+  border-left:
+    5px solid var(--accent);
+
+  border-radius: 16px;
+
+  padding: 22px;
+
+  margin-top: 22px;
+  margin-bottom: 22px;
 
   text-align: center;
 
   font-size: 16px;
+
   line-height: 1.8;
 
-  color: #1e3a5f;
+  color: var(--accent-dark);
 
   overflow-wrap: break-word;
-  word-break: normal;
+
 }
 
-/* LINK */
-.note-box a,
+/* LEGEND */
+
+.legend-box {
+
+  background: #f8fbff;
+
+  border:
+    1px solid var(--border);
+
+  border-radius: 16px;
+
+  padding: 22px;
+
+  margin-top: 22px;
+  margin-bottom: 42px;
+
+}
+
+.legend-box p {
+
+  margin-top: 0;
+  margin-bottom: 10px;
+
+  font-size: 14px;
+
+  color: var(--muted);
+
+}
+
+.legend-box p:last-child {
+
+  margin-bottom: 0;
+
+}
+
+/* NOTES */
+
+.section-note,
+.lookup-methodology p {
+
+  font-size: 15px;
+
+  line-height: 1.8;
+
+  color: var(--muted);
+
+}
+
+/* LOOKUP METHODOLOGY */
+
+.lookup-methodology {
+
+  margin-top: 34px;
+
+  padding-top: 28px;
+
+  border-top:
+    1px solid var(--border);
+
+}
+
+.lookup-methodology h4 {
+
+  margin-top: 0;
+  margin-bottom: 20px;
+
+  font-size: 24px;
+
+  color: var(--accent-dark);
+
+}
+
+/* REFERENCES */
+
+.reference-values {
+
+  margin-top: 22px;
+  margin-bottom: 22px;
+
+  padding: 18px 20px;
+
+  background: var(--soft-blue);
+
+  border:
+    1px solid var(--border);
+
+  border-left:
+    5px solid var(--accent);
+
+  border-radius: 14px;
+
+}
+
+.reference-values div {
+
+  margin-bottom: 10px;
+
+  color: #334155;
+
+}
+
+.reference-values div:last-child {
+
+  margin-bottom: 0;
+
+}
+
+/* LINKS */
+
 .lookup-methodology a,
-.section-note a {
+.section-note a,
+.description-box a {
+
   color: var(--accent);
 
   text-decoration: none;
 
   font-weight: 600;
 
-  border-bottom: 1px solid rgba(59, 130, 246, 0.35);
+  border-bottom:
+    1px solid rgba(47,95,143,0.35);
 
   transition:
     color 0.2s ease,
     border-color 0.2s ease;
+
 }
 
-.note-box a:hover,
 .lookup-methodology a:hover,
-.section-note a:hover {
-  color: #1d4ed8;
+.section-note a:hover,
+.description-box a:hover {
 
-  border-bottom-color: #1d4ed8;
+  color: var(--accent-dark);
+
+  border-bottom-color:
+    var(--accent-dark);
+
 }
 
-/* MOBILE */
+/* MIXED MATERIALS LAYOUT */
 
-@media (max-width: 800px) {
+.mixed-grid {
+
+  margin-top: 26px;
+
+}
+
+/* MIXED MATERIAL LABELS */
+
+.mixed-grid label {
+
+  margin-bottom: 12px;
+
+}
+
+/* PERCENTAGE TYPE SPACING */
+
+#percentage-type {
+
+  margin-bottom: 6px;
+
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1000px) {
+
   .app {
+
     flex-direction: column;
+
   }
 
   .sidebar {
+
     width: 100%;
+
     height: auto;
+
+    position: relative;
+
     border-right: none;
-    border-bottom: 1px solid var(--border);
+
+    border-bottom:
+      1px solid var(--border);
+
   }
 
   .main {
-    padding: 24px 16px;
+
+    padding: 24px;
+
   }
 
   .calculator-card {
-    padding: 22px;
+
+    padding: 24px;
+
   }
 
-  .form-grid {
-    grid-template-columns: 1fr;
-  }
+}
+
+@media (max-width: 640px) {
 
   .page-header h2 {
-    font-size: 28px;
+
+    font-size: 32px;
+
+  }
+
+  .calculator-card h3 {
+
+    font-size: 20px;
+
+  }
+
+  .description-box,
+  .box {
+
+    padding: 24px;
+
   }
 
   .formula-box {
-    font-size: 20px;
+
+    font-size: 14px;
+
   }
+
 }
