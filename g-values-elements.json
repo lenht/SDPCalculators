@@ -1,0 +1,2342 @@
+{
+  "version": "2026-06",
+  "elements": [
+    {
+      "atomicNumber": 1,
+      "symbol": "H",
+      "name": "Hydrogen",
+      "inertialMass": 55.845144405992,
+      "gravitationalMass": 56.35828776345,
+      "gValue": 6.613511,
+      "isotopes": [
+        {
+          "massNumber": 1,
+          "abundance": "[0.999 72, 0.999 99]"
+        },
+        {
+          "massNumber": 2,
+          "abundance": "[0.000 01, 0.000 28]"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 2,
+      "symbol": "He",
+      "name": "Helium",
+      "inertialMass": 4.002601280982136,
+      "gravitationalMass": 4.03188092267,
+      "gValue": 6.66189,
+      "isotopes": [
+        {
+          "massNumber": 3,
+          "abundance": "0.000 002(2)"
+        },
+        {
+          "massNumber": 4,
+          "abundance": "0.999 998(2)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 3,
+      "symbol": "Li",
+      "name": "Lithium",
+      "inertialMass": 6.9674607274899,
+      "gravitationalMass": 7.0075691575,
+      "gValue": 6.651582,
+      "isotopes": [
+        {
+          "massNumber": 6,
+          "abundance": "[0.019, 0.078]"
+        },
+        {
+          "massNumber": 7,
+          "abundance": "[0.922, 0.981]"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 4,
+      "symbol": "Be",
+      "name": "Beryllium",
+      "inertialMass": 9.01218306,
+      "gravitationalMass": 9.07243088,
+      "gValue": 6.657723,
+      "isotopes": [
+        {
+          "massNumber": 9,
+          "abundance": "1"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 5,
+      "symbol": "B",
+      "name": "Boron",
+      "inertialMass": 10.8135187950675,
+      "gravitationalMass": 10.8901696775,
+      "gValue": 6.66039,
+      "isotopes": [
+        {
+          "massNumber": 10,
+          "abundance": "[0.189, 0.204]"
+        },
+        {
+          "massNumber": 11,
+          "abundance": "[0.796, 0.811]"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 6,
+      "symbol": "C",
+      "name": "Carbon",
+      "inertialMass": 12.011638916089897,
+      "gravitationalMass": 12.107349334,
+      "gValue": 6.666128,
+      "isotopes": [
+        {
+          "massNumber": 12,
+          "abundance": "[0.9884, 0.9904]"
+        },
+        {
+          "massNumber": 13,
+          "abundance": "[0.0096, 0.0116]"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 7,
+      "symbol": "N",
+      "name": "Nitrogen",
+      "inertialMass": 14.00706214382706,
+      "gravitationalMass": 14.11562495,
+      "gValue": 6.664689,
+      "isotopes": [
+        {
+          "massNumber": 14,
+          "abundance": "[0.995 78, 0.996 63]"
+        },
+        {
+          "massNumber": 15,
+          "abundance": "[0.003 37, 0.004 22]"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 8,
+      "symbol": "O",
+      "name": "Oxygen",
+      "inertialMass": 15.99940092389292,
+      "gravitationalMass": 16.13204654454,
+      "gValue": 6.668261,
+      "isotopes": [
+        {
+          "massNumber": 16,
+          "abundance": "[0.997 38, 0.997 76]"
+        },
+        {
+          "massNumber": 17,
+          "abundance": "[0.000 367, 0.000 400]"
+        },
+        {
+          "massNumber": 18,
+          "abundance": "[0.001 87, 0.002 22]"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 9,
+      "symbol": "F",
+      "name": "Fluorine",
+      "inertialMass": 18.998403162067,
+      "gravitationalMass": 19.15213823,
+      "gValue": 6.666947,
+      "isotopes": [
+        {
+          "massNumber": 19,
+          "abundance": "1"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 10,
+      "symbol": "Ne",
+      "name": "Neon",
+      "inertialMass": 20.1840448677545,
+      "gravitationalMass": 20.3487411205,
+      "gValue": 6.667395,
+      "isotopes": [
+        {
+          "massNumber": 20,
+          "abundance": "0.9048(3)"
+        },
+        {
+          "massNumber": 21,
+          "abundance": "0.0027(1)"
+        },
+        {
+          "massNumber": 22,
+          "abundance": "0.0925(3)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 11,
+      "symbol": "Na",
+      "name": "Sodium",
+      "inertialMass": 22.989769282,
+      "gravitationalMass": 23.18402117,
+      "gValue": 6.669311,
+      "isotopes": [
+        {
+          "massNumber": 23,
+          "abundance": "1"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 12,
+      "symbol": "Mg",
+      "name": "Magnesium",
+      "inertialMass": 24.30485185801,
+      "gravitationalMass": 24.51407044,
+      "gValue": 6.67036,
+      "isotopes": [
+        {
+          "massNumber": 24,
+          "abundance": "[0.7888, 0.7905]"
+        },
+        {
+          "massNumber": 25,
+          "abundance": "[0.099 88, 0.100 34]"
+        },
+        {
+          "massNumber": 26,
+          "abundance": "[0.1096, 0.1109]"
+        }
+      ]
+    },
+    {
+      "atomicNumber": null,
+      "symbol": "Al",
+      "name": "Aluminum",
+      "inertialMass": 26.98153841,
+      "gravitationalMass": 27.21590411,
+      "gValue": 6.670876,
+      "isotopes": []
+    },
+    {
+      "atomicNumber": 14,
+      "symbol": "Si",
+      "name": "Silicon",
+      "inertialMass": 28.0858083887861,
+      "gravitationalMass": 28.333125065,
+      "gValue": 6.671667,
+      "isotopes": [
+        {
+          "massNumber": 28,
+          "abundance": "[0.921 91, 0.923 18]"
+        },
+        {
+          "massNumber": 29,
+          "abundance": "[0.046 45, 0.046 99]"
+        },
+        {
+          "massNumber": 30,
+          "abundance": "[0.030 37, 0.031 10]"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 15,
+      "symbol": "P",
+      "name": "Phosphorus",
+      "inertialMass": 30.9737619986,
+      "gravitationalMass": 31.24778705,
+      "gValue": 6.67194,
+      "isotopes": [
+        {
+          "massNumber": 31,
+          "abundance": "1"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 16,
+      "symbol": "S",
+      "name": "Sulfur",
+      "inertialMass": 32.06438858900013,
+      "gravitationalMass": 32.3483650325,
+      "gValue": 6.672002,
+      "isotopes": [
+        {
+          "massNumber": 32,
+          "abundance": "[0.9441, 0.9529]"
+        },
+        {
+          "massNumber": 33,
+          "abundance": "[0.007 29, 0.007 97]"
+        },
+        {
+          "massNumber": 34,
+          "abundance": "[0.0396, 0.0477]"
+        },
+        {
+          "massNumber": 36,
+          "abundance": "[0.000 129, 0.000 187]"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 17,
+      "symbol": "Cl",
+      "name": "Chlorine",
+      "inertialMass": 35.4481446636,
+      "gravitationalMass": 35.76382919,
+      "gValue": 6.672327,
+      "isotopes": [
+        {
+          "massNumber": 35,
+          "abundance": "[0.755, 0.761]"
+        },
+        {
+          "massNumber": 37,
+          "abundance": "[0.239, 0.245]"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 18,
+      "symbol": "Ar",
+      "name": "Argon",
+      "inertialMass": 39.947660735667,
+      "gravitationalMass": 40.3067387379,
+      "gValue": 6.672877,
+      "isotopes": [
+        {
+          "massNumber": 36,
+          "abundance": "[0.0000, 0.0207]"
+        },
+        {
+          "massNumber": 38,
+          "abundance": "[0.000, 0.043]"
+        },
+        {
+          "massNumber": 40,
+          "abundance": "[0.936, 1.000]"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 19,
+      "symbol": "K",
+      "name": "Potassium",
+      "inertialMass": 39.09829991529026,
+      "gravitationalMass": 39.4474402788,
+      "gValue": 6.672488,
+      "isotopes": [
+        {
+          "massNumber": 39,
+          "abundance": "0.932 581(44)"
+        },
+        {
+          "massNumber": 40,
+          "abundance": "0.000 117(1)"
+        },
+        {
+          "massNumber": 41,
+          "abundance": "0.067 302(44)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 20,
+      "symbol": "Ca",
+      "name": "Calcium",
+      "inertialMass": 40.07802251288266,
+      "gravitationalMass": 40.43546133395,
+      "gValue": 6.672413,
+      "isotopes": [
+        {
+          "massNumber": 40,
+          "abundance": "0.969 41(156)"
+        },
+        {
+          "massNumber": 42,
+          "abundance": "0.006 47(23)"
+        },
+        {
+          "massNumber": 43,
+          "abundance": "0.001 35(10)"
+        },
+        {
+          "massNumber": 44,
+          "abundance": "0.020 86(110)"
+        },
+        {
+          "massNumber": 46,
+          "abundance": "0.000 04(3)"
+        },
+        {
+          "massNumber": 48,
+          "abundance": "0.001 87(21)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 21,
+      "symbol": "Sc",
+      "name": "Scandium",
+      "inertialMass": 44.9559119,
+      "gravitationalMass": 45.36076587,
+      "gValue": 6.672989,
+      "isotopes": [
+        {
+          "massNumber": 45,
+          "abundance": "1"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 22,
+      "symbol": "Ti",
+      "name": "Titanium",
+      "inertialMass": 47.86674924516,
+      "gravitationalMass": 48.3029644095,
+      "gValue": 6.6737,
+      "isotopes": [
+        {
+          "massNumber": 46,
+          "abundance": "0.0825(3)"
+        },
+        {
+          "massNumber": 47,
+          "abundance": "0.0744(2)"
+        },
+        {
+          "massNumber": 48,
+          "abundance": "0.7372(3)"
+        },
+        {
+          "massNumber": 49,
+          "abundance": "0.0541(2)"
+        },
+        {
+          "massNumber": 50,
+          "abundance": "0.0518(2)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 23,
+      "symbol": "V",
+      "name": "Vanadium",
+      "inertialMass": 50.9414674975,
+      "gravitationalMass": 51.4074571475,
+      "gValue": 6.673928,
+      "isotopes": [
+        {
+          "massNumber": 50,
+          "abundance": "0.002 50(10)"
+        },
+        {
+          "massNumber": 51,
+          "abundance": "0.997 50(10)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 24,
+      "symbol": "Cr",
+      "name": "Chromium",
+      "inertialMass": 51.996133070619,
+      "gravitationalMass": 52.47314540765,
+      "gValue": 6.674103,
+      "isotopes": [
+        {
+          "massNumber": 50,
+          "abundance": "0.043 45(13)"
+        },
+        {
+          "massNumber": 52,
+          "abundance": "0.837 89(18)"
+        },
+        {
+          "massNumber": 53,
+          "abundance": "0.095 01(17)"
+        },
+        {
+          "massNumber": 54,
+          "abundance": "0.023 65(7)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 25,
+      "symbol": "Mn",
+      "name": "Manganese",
+      "inertialMass": 54.9380451,
+      "gravitationalMass": 55.44186175,
+      "gValue": 6.67408,
+      "isotopes": [
+        {
+          "massNumber": 55,
+          "abundance": "1"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 26,
+      "symbol": "Fe",
+      "name": "Iron",
+      "inertialMass": 55.845144405992,
+      "gravitationalMass": 56.35828776345,
+      "gValue": 6.67428,
+      "isotopes": [
+        {
+          "massNumber": 54,
+          "abundance": "0.058 45(105)"
+        },
+        {
+          "massNumber": 56,
+          "abundance": "0.917 54(106)"
+        },
+        {
+          "massNumber": 57,
+          "abundance": "0.021 19(29)"
+        },
+        {
+          "massNumber": 58,
+          "abundance": "0.002 82(12)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 27,
+      "symbol": "Co",
+      "name": "Cobalt",
+      "inertialMass": 58.933194,
+      "gravitationalMass": 59.47374469,
+      "gValue": 6.674091,
+      "isotopes": [
+        {
+          "massNumber": 59,
+          "abundance": "1"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 28,
+      "symbol": "Ni",
+      "name": "Nickel",
+      "inertialMass": 58.693351562448,
+      "gravitationalMass": 59.229847877375,
+      "gValue": 6.673882,
+      "isotopes": [
+        {
+          "massNumber": 58,
+          "abundance": "0.680 769(190)"
+        },
+        {
+          "massNumber": 60,
+          "abundance": "0.262 231(150)"
+        },
+        {
+          "massNumber": 61,
+          "abundance": "0.011 399(13)"
+        },
+        {
+          "massNumber": 62,
+          "abundance": "0.036 345(40)"
+        },
+        {
+          "massNumber": 64,
+          "abundance": "0.009 256(19)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 29,
+      "symbol": "Cu",
+      "name": "Copper",
+      "inertialMass": 63.546039732,
+      "gravitationalMass": 64.127973935,
+      "gValue": 6.673995,
+      "isotopes": [
+        {
+          "massNumber": 63,
+          "abundance": "0.6915(15)"
+        },
+        {
+          "massNumber": 65,
+          "abundance": "0.3085(15)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 30,
+      "symbol": "Zn",
+      "name": "Zinc",
+      "inertialMass": 65.37778242711,
+      "gravitationalMass": 65.975871816,
+      "gValue": 6.673932,
+      "isotopes": [
+        {
+          "massNumber": 64,
+          "abundance": "0.4917(75)"
+        },
+        {
+          "massNumber": 66,
+          "abundance": "0.2773(98)"
+        },
+        {
+          "massNumber": 67,
+          "abundance": "0.0404(16)"
+        },
+        {
+          "massNumber": 68,
+          "abundance": "0.1845(63)"
+        },
+        {
+          "massNumber": 70,
+          "abundance": "0.0061(10)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 31,
+      "symbol": "Ga",
+      "name": "Gallium",
+      "inertialMass": 69.723065622084,
+      "gravitationalMass": 70.3595938536,
+      "gValue": 6.673808,
+      "isotopes": [
+        {
+          "massNumber": 69,
+          "abundance": "0.601 08(50)"
+        },
+        {
+          "massNumber": 71,
+          "abundance": "0.398 92(50)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 32,
+      "symbol": "Ge",
+      "name": "Germanium",
+      "inertialMass": 72.62984861828,
+      "gravitationalMass": 73.293178394,
+      "gValue": 6.673832,
+      "isotopes": [
+        {
+          "massNumber": 70,
+          "abundance": "0.2052(19)"
+        },
+        {
+          "massNumber": 72,
+          "abundance": "0.2745(15)"
+        },
+        {
+          "massNumber": 73,
+          "abundance": "0.0776(8)"
+        },
+        {
+          "massNumber": 74,
+          "abundance": "0.3652(12)"
+        },
+        {
+          "massNumber": 76,
+          "abundance": "0.0775(12)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 33,
+      "symbol": "As",
+      "name": "Arsenic",
+      "inertialMass": 74.9215965,
+      "gravitationalMass": 75.60405351,
+      "gValue": 6.673672,
+      "isotopes": [
+        {
+          "massNumber": 75,
+          "abundance": "1"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 34,
+      "symbol": "Se",
+      "name": "Selenium",
+      "inertialMass": 78.97108119659,
+      "gravitationalMass": 79.691591157,
+      "gValue": 6.67377,
+      "isotopes": [
+        {
+          "massNumber": 74,
+          "abundance": "0.0086(3)"
+        },
+        {
+          "massNumber": 76,
+          "abundance": "0.0923(7)"
+        },
+        {
+          "massNumber": 77,
+          "abundance": "0.0760(7)"
+        },
+        {
+          "massNumber": 78,
+          "abundance": "0.2369(22)"
+        },
+        {
+          "massNumber": 80,
+          "abundance": "0.4980(36)"
+        },
+        {
+          "massNumber": 82,
+          "abundance": "0.0882(15)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 35,
+      "symbol": "Br",
+      "name": "Bromine",
+      "inertialMass": 79.8973335,
+      "gravitationalMass": 80.62442815,
+      "gValue": 6.673616,
+      "isotopes": [
+        {
+          "massNumber": 79,
+          "abundance": "[0.505, 0.508]"
+        },
+        {
+          "massNumber": 81,
+          "abundance": "[0.492, 0.495]"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 36,
+      "symbol": "Kr",
+      "name": "Krypton",
+      "inertialMass": 83.83977608209,
+      "gravitationalMass": 84.60502231346,
+      "gValue": 6.673795,
+      "isotopes": [
+        {
+          "massNumber": 78,
+          "abundance": "0.003 55(3)"
+        },
+        {
+          "massNumber": 80,
+          "abundance": "0.022 86(10)"
+        },
+        {
+          "massNumber": 82,
+          "abundance": "0.115 93(31)"
+        },
+        {
+          "massNumber": 83,
+          "abundance": "0.115 00(19)"
+        },
+        {
+          "massNumber": 84,
+          "abundance": "0.569 87(15)"
+        },
+        {
+          "massNumber": 86,
+          "abundance": "0.172 79(41)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 37,
+      "symbol": "Rb",
+      "name": "Rubidium",
+      "inertialMass": 85.4676635945787,
+      "gravitationalMass": 86.246572329,
+      "gValue": 6.673702,
+      "isotopes": [
+        {
+          "massNumber": 85,
+          "abundance": "0.7217(2)"
+        },
+        {
+          "massNumber": 87,
+          "abundance": "0.2783(2)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 38,
+      "symbol": "Sr",
+      "name": "Strontium",
+      "inertialMass": 87.61664431476991,
+      "gravitationalMass": 88.417646476,
+      "gValue": 6.673892,
+      "isotopes": [
+        {
+          "massNumber": 84,
+          "abundance": "0.0056(2)"
+        },
+        {
+          "massNumber": 86,
+          "abundance": "0.0986(20)"
+        },
+        {
+          "massNumber": 87,
+          "abundance": "0.0700(20)"
+        },
+        {
+          "massNumber": 88,
+          "abundance": "0.8258(35)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 39,
+      "symbol": "Y",
+      "name": "Yttrium",
+      "inertialMass": 88.9058483,
+      "gravitationalMass": 89.71703233,
+      "gValue": 6.673772,
+      "isotopes": [
+        {
+          "massNumber": 89,
+          "abundance": "1"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 40,
+      "symbol": "Zr",
+      "name": "Zirconium",
+      "inertialMass": 91.22364577039,
+      "gravitationalMass": 92.054132736,
+      "gValue": 6.673639,
+      "isotopes": [
+        {
+          "massNumber": 90,
+          "abundance": "0.5147(6)"
+        },
+        {
+          "massNumber": 91,
+          "abundance": "0.1123(6)"
+        },
+        {
+          "massNumber": 92,
+          "abundance": "0.1716(4)"
+        },
+        {
+          "massNumber": 94,
+          "abundance": "0.1736(7)"
+        },
+        {
+          "massNumber": 96,
+          "abundance": "0.0278(4)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 41,
+      "symbol": "Nb",
+      "name": "Niobium",
+      "inertialMass": 92.9063781,
+      "gravitationalMass": 93.74891527,
+      "gValue": 6.673406,
+      "isotopes": [
+        {
+          "massNumber": 93,
+          "abundance": "1"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 42,
+      "symbol": "Mo",
+      "name": "Molybdenum",
+      "inertialMass": 95.9487812129634,
+      "gravitationalMass": 96.81688424835,
+      "gValue": 6.673266,
+      "isotopes": [
+        {
+          "massNumber": 92,
+          "abundance": "0.146 49(106)"
+        },
+        {
+          "massNumber": 94,
+          "abundance": "0.091 87(33)"
+        },
+        {
+          "massNumber": 95,
+          "abundance": "0.158 73(30)"
+        },
+        {
+          "massNumber": 96,
+          "abundance": "0.166 73(8)"
+        },
+        {
+          "massNumber": 97,
+          "abundance": "0.095 82(15)"
+        },
+        {
+          "massNumber": 98,
+          "abundance": "0.242 92(80)"
+        },
+        {
+          "massNumber": 100,
+          "abundance": "0.097 44(65)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 43,
+      "symbol": "Tc",
+      "name": "Technetium",
+      "inertialMass": 98.9062547,
+      "gravitationalMass": 99.79812821,
+      "gValue": 6.673067,
+      "isotopes": [
+        {
+          "massNumber": 97,
+          "abundance": "-"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 44,
+      "symbol": "Ru",
+      "name": "Ruthenium",
+      "inertialMass": 101.06494544279,
+      "gravitationalMass": 101.975254347,
+      "gValue": 6.672999,
+      "isotopes": [
+        {
+          "massNumber": 96,
+          "abundance": "0.0554(14)"
+        },
+        {
+          "massNumber": 98,
+          "abundance": "0.0187(3)"
+        },
+        {
+          "massNumber": 99,
+          "abundance": "0.1276(14)"
+        },
+        {
+          "massNumber": 100,
+          "abundance": "0.1260(7)"
+        },
+        {
+          "massNumber": 101,
+          "abundance": "0.1706(2)"
+        },
+        {
+          "massNumber": 102,
+          "abundance": "0.3155(14)"
+        },
+        {
+          "massNumber": 104,
+          "abundance": "0.1862(27)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 45,
+      "symbol": "Rh",
+      "name": "Rhodium",
+      "inertialMass": 102.90549,
+      "gravitationalMass": 103.83001115,
+      "gValue": 6.672847,
+      "isotopes": [
+        {
+          "massNumber": 103,
+          "abundance": "1"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 46,
+      "symbol": "Pd",
+      "name": "Palladium",
+      "inertialMass": 106.4153287813,
+      "gravitationalMass": 107.3701463015,
+      "gValue": 6.67277,
+      "isotopes": [
+        {
+          "massNumber": 102,
+          "abundance": "0.0102(1)"
+        },
+        {
+          "massNumber": 104,
+          "abundance": "0.1114(8)"
+        },
+        {
+          "massNumber": 105,
+          "abundance": "0.2233(8)"
+        },
+        {
+          "massNumber": 106,
+          "abundance": "0.2733(3)"
+        },
+        {
+          "massNumber": 108,
+          "abundance": "0.2646(9)"
+        },
+        {
+          "massNumber": 110,
+          "abundance": "0.1172(9)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 47,
+      "symbol": "Ag",
+      "name": "Silver",
+      "inertialMass": 107.868149823523,
+      "gravitationalMass": 108.8334603913,
+      "gValue": 6.672615,
+      "isotopes": [
+        {
+          "massNumber": 107,
+          "abundance": "0.518 39(8)"
+        },
+        {
+          "massNumber": 109,
+          "abundance": "0.481 61(8)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 48,
+      "symbol": "Cd",
+      "name": "Cadmium",
+      "inertialMass": 112.413812565906,
+      "gravitationalMass": 113.4185119629,
+      "gValue": 6.672539,
+      "isotopes": [
+        {
+          "massNumber": 106,
+          "abundance": "0.012 45(22)"
+        },
+        {
+          "massNumber": 108,
+          "abundance": "0.008 88(11)"
+        },
+        {
+          "massNumber": 110,
+          "abundance": "0.124 70(61)"
+        },
+        {
+          "massNumber": 111,
+          "abundance": "0.127 95(12)"
+        },
+        {
+          "massNumber": 112,
+          "abundance": "0.241 09(7)"
+        },
+        {
+          "massNumber": 113,
+          "abundance": "0.122 27(7)"
+        },
+        {
+          "massNumber": 114,
+          "abundance": "0.287 54(81)"
+        },
+        {
+          "massNumber": 116,
+          "abundance": "0.075 12(54)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 49,
+      "symbol": "In",
+      "name": "Indium",
+      "inertialMass": 114.8182657058,
+      "gravitationalMass": 115.8420751327,
+      "gValue": 6.672402,
+      "isotopes": [
+        {
+          "massNumber": 113,
+          "abundance": "0.042 81(52)"
+        },
+        {
+          "massNumber": 115,
+          "abundance": "0.957 19(52)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 50,
+      "symbol": "Sn",
+      "name": "Tin",
+      "inertialMass": 118.71010831537,
+      "gravitationalMass": 119.7677422205,
+      "gValue": 6.672353,
+      "isotopes": [
+        {
+          "massNumber": 112,
+          "abundance": "0.0097(1)"
+        },
+        {
+          "massNumber": 114,
+          "abundance": "0.0066(1)"
+        },
+        {
+          "massNumber": 115,
+          "abundance": "0.0034(1)"
+        },
+        {
+          "massNumber": 116,
+          "abundance": "0.1454(9)"
+        },
+        {
+          "massNumber": 117,
+          "abundance": "0.0768(7)"
+        },
+        {
+          "massNumber": 118,
+          "abundance": "0.2422(9)"
+        },
+        {
+          "massNumber": 119,
+          "abundance": "0.0859(4)"
+        },
+        {
+          "massNumber": 120,
+          "abundance": "0.3258(9)"
+        },
+        {
+          "massNumber": 122,
+          "abundance": "0.0463(3)"
+        },
+        {
+          "massNumber": 124,
+          "abundance": "0.0579(5)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 51,
+      "symbol": "Sb",
+      "name": "Antimony",
+      "inertialMass": 121.75978613257,
+      "gravitationalMass": 122.840865477,
+      "gValue": 6.67215,
+      "isotopes": [
+        {
+          "massNumber": 121,
+          "abundance": "0.5721(5)"
+        },
+        {
+          "massNumber": 123,
+          "abundance": "0.4279(5)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 52,
+      "symbol": "Te",
+      "name": "Tellurium",
+      "inertialMass": 127.60312784714,
+      "gravitationalMass": 128.732703076,
+      "gValue": 6.671975,
+      "isotopes": [
+        {
+          "massNumber": 120,
+          "abundance": "0.0009(1)"
+        },
+        {
+          "massNumber": 122,
+          "abundance": "0.0255(12)"
+        },
+        {
+          "massNumber": 123,
+          "abundance": "0.0089(3)"
+        },
+        {
+          "massNumber": 124,
+          "abundance": "0.0474(14)"
+        },
+        {
+          "massNumber": 125,
+          "abundance": "0.0707(15)"
+        },
+        {
+          "massNumber": 126,
+          "abundance": "0.1884(25)"
+        },
+        {
+          "massNumber": 128,
+          "abundance": "0.3174(8)"
+        },
+        {
+          "massNumber": 130,
+          "abundance": "0.3408(62)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 53,
+      "symbol": "I",
+      "name": "Iodine",
+      "inertialMass": 126.904473,
+      "gravitationalMass": 128.02686291,
+      "gValue": 6.671923,
+      "isotopes": [
+        {
+          "massNumber": 127,
+          "abundance": "1"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 54,
+      "symbol": "Xe",
+      "name": "Xenon",
+      "inertialMass": 131.2927712714044,
+      "gravitationalMass": 132.45138544685,
+      "gValue": 6.671792,
+      "isotopes": [
+        {
+          "massNumber": 124,
+          "abundance": "0.000 95(5)"
+        },
+        {
+          "massNumber": 126,
+          "abundance": "0.000 89(3)"
+        },
+        {
+          "massNumber": 128,
+          "abundance": "0.019 10(13)"
+        },
+        {
+          "massNumber": 129,
+          "abundance": "0.264 01(138)"
+        },
+        {
+          "massNumber": 130,
+          "abundance": "0.040 71(22)"
+        },
+        {
+          "massNumber": 131,
+          "abundance": "0.212 32(51)"
+        },
+        {
+          "massNumber": 132,
+          "abundance": "0.269 09(55)"
+        },
+        {
+          "massNumber": 134,
+          "abundance": "0.104 36(35)"
+        },
+        {
+          "massNumber": 136,
+          "abundance": "0.088 57(72)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 55,
+      "symbol": "Cs",
+      "name": "Caesium",
+      "inertialMass": 132.905451933,
+      "gravitationalMass": 134.07607585,
+      "gValue": 6.671682,
+      "isotopes": [
+        {
+          "massNumber": 133,
+          "abundance": "1"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 56,
+      "symbol": "Ba",
+      "name": "Barium",
+      "inertialMass": 137.32667186377,
+      "gravitationalMass": 138.534398751,
+      "gValue": 6.671593,
+      "isotopes": [
+        {
+          "massNumber": 130,
+          "abundance": "0.0011(1)"
+        },
+        {
+          "massNumber": 132,
+          "abundance": "0.0010(1)"
+        },
+        {
+          "massNumber": 134,
+          "abundance": "0.0242(15)"
+        },
+        {
+          "massNumber": 135,
+          "abundance": "0.0659(10)"
+        },
+        {
+          "massNumber": 136,
+          "abundance": "0.0785(24)"
+        },
+        {
+          "massNumber": 137,
+          "abundance": "0.1123(23)"
+        },
+        {
+          "massNumber": 138,
+          "abundance": "0.7170(29)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 57,
+      "symbol": "La",
+      "name": "Lanthanum",
+      "inertialMass": 138.9054658738015,
+      "gravitationalMass": 140.1243929946135,
+      "gValue": 6.671465,
+      "isotopes": [
+        {
+          "massNumber": 138,
+          "abundance": "0.000 8881(71)"
+        },
+        {
+          "massNumber": 139,
+          "abundance": "0.999 1119(71)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 58,
+      "symbol": "Ce",
+      "name": "Cerium",
+      "inertialMass": 140.11572621392,
+      "gravitationalMass": 141.3442436969,
+      "gValue": 6.671417,
+      "isotopes": [
+        {
+          "massNumber": 136,
+          "abundance": "0.001 85(2)"
+        },
+        {
+          "massNumber": 138,
+          "abundance": "0.002 51(2)"
+        },
+        {
+          "massNumber": 140,
+          "abundance": "0.884 50(51)"
+        },
+        {
+          "massNumber": 142,
+          "abundance": "0.111 14(51)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 59,
+      "symbol": "Pr",
+      "name": "Praseodymium",
+      "inertialMass": 140.9076528,
+      "gravitationalMass": 142.13984173,
+      "gValue": 6.671263,
+      "isotopes": [
+        {
+          "massNumber": 141,
+          "abundance": "1"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 60,
+      "symbol": "Nd",
+      "name": "Neodymium",
+      "inertialMass": 144.241589987201,
+      "gravitationalMass": 145.49776154925,
+      "gValue": 6.671026,
+      "isotopes": [
+        {
+          "massNumber": 142,
+          "abundance": "0.271 52(40)"
+        },
+        {
+          "massNumber": 143,
+          "abundance": "0.121 74(26)"
+        },
+        {
+          "massNumber": 144,
+          "abundance": "0.237 98(19)"
+        },
+        {
+          "massNumber": 145,
+          "abundance": "0.082 93(12)"
+        },
+        {
+          "massNumber": 146,
+          "abundance": "0.171 89(32)"
+        },
+        {
+          "massNumber": 148,
+          "abundance": "0.057 56(21)"
+        },
+        {
+          "massNumber": 150,
+          "abundance": "0.056 38(28)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 61,
+      "symbol": "Pm",
+      "name": "Promethium",
+      "inertialMass": 145.33025058680485,
+      "gravitationalMass": 146.5921792706328,
+      "gValue": 6.670857,
+      "isotopes": [
+        {
+          "massNumber": 145,
+          "abundance": "-"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 62,
+      "symbol": "Sm",
+      "name": "Samarium",
+      "inertialMass": 150.36464677642,
+      "gravitationalMass": 151.663929196,
+      "gValue": 6.670577,
+      "isotopes": [
+        {
+          "massNumber": 144,
+          "abundance": "0.0308(4)"
+        },
+        {
+          "massNumber": 147,
+          "abundance": "0.1500(14)"
+        },
+        {
+          "massNumber": 148,
+          "abundance": "0.1125(9)"
+        },
+        {
+          "massNumber": 149,
+          "abundance": "0.1382(10)"
+        },
+        {
+          "massNumber": 150,
+          "abundance": "0.0737(9)"
+        },
+        {
+          "massNumber": 152,
+          "abundance": "0.2674(9)"
+        },
+        {
+          "massNumber": 154,
+          "abundance": "0.2274(14)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 63,
+      "symbol": "Eu",
+      "name": "Europium",
+      "inertialMass": 151.96437047419,
+      "gravitationalMass": 153.273782137,
+      "gValue": 6.670416,
+      "isotopes": [
+        {
+          "massNumber": 151,
+          "abundance": "0.4781(6)"
+        },
+        {
+          "massNumber": 153,
+          "abundance": "0.5219(6)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 64,
+      "symbol": "Gd",
+      "name": "Gadolinium",
+      "inertialMass": 157.25212221544,
+      "gravitationalMass": 158.6024820665,
+      "gValue": 6.670222,
+      "isotopes": [
+        {
+          "massNumber": 152,
+          "abundance": "0.002 04(2)"
+        },
+        {
+          "massNumber": 154,
+          "abundance": "0.021 87(9)"
+        },
+        {
+          "massNumber": 155,
+          "abundance": "0.148 28(60)"
+        },
+        {
+          "massNumber": 156,
+          "abundance": "0.204 93(22)"
+        },
+        {
+          "massNumber": 157,
+          "abundance": "0.156 57(17)"
+        },
+        {
+          "massNumber": 158,
+          "abundance": "0.248 20(20)"
+        },
+        {
+          "massNumber": 160,
+          "abundance": "0.218 11(28)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 65,
+      "symbol": "Tb",
+      "name": "Terbium",
+      "inertialMass": 158.9253468,
+      "gravitationalMass": 160.28748055,
+      "gValue": 6.670114,
+      "isotopes": [
+        {
+          "massNumber": 159,
+          "abundance": "1"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 66,
+      "symbol": "Dy",
+      "name": "Dysprosium",
+      "inertialMass": 162.499465697163,
+      "gravitationalMass": 163.88856932745,
+      "gValue": 6.669965,
+      "isotopes": [
+        {
+          "massNumber": 156,
+          "abundance": "0.000 56(3)"
+        },
+        {
+          "massNumber": 158,
+          "abundance": "0.000 95(3)"
+        },
+        {
+          "massNumber": 160,
+          "abundance": "0.023 29(18)"
+        },
+        {
+          "massNumber": 161,
+          "abundance": "0.188 89(42)"
+        },
+        {
+          "massNumber": 162,
+          "abundance": "0.254 75(36)"
+        },
+        {
+          "massNumber": 163,
+          "abundance": "0.248 96(42)"
+        },
+        {
+          "massNumber": 164,
+          "abundance": "0.282 60(54)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 67,
+      "symbol": "Ho",
+      "name": "Holmium",
+      "inertialMass": 164.9303221,
+      "gravitationalMass": 166.33669349,
+      "gValue": 6.669824,
+      "isotopes": [
+        {
+          "massNumber": 165,
+          "abundance": "1"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 68,
+      "symbol": "Er",
+      "name": "Erbium",
+      "inertialMass": 167.2590842122034,
+      "gravitationalMass": 168.68253902155,
+      "gValue": 6.669714,
+      "isotopes": [
+        {
+          "massNumber": 162,
+          "abundance": "0.001 39(5)"
+        },
+        {
+          "massNumber": 164,
+          "abundance": "0.016 01(3)"
+        },
+        {
+          "massNumber": 166,
+          "abundance": "0.335 03(36)"
+        },
+        {
+          "massNumber": 167,
+          "abundance": "0.228 69(9)"
+        },
+        {
+          "massNumber": 168,
+          "abundance": "0.269 78(18)"
+        },
+        {
+          "massNumber": 170,
+          "abundance": "0.149 10(36)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 69,
+      "symbol": "Tm",
+      "name": "Thulium",
+      "inertialMass": 168.9342133,
+      "gravitationalMass": 170.36857643,
+      "gValue": 6.669583,
+      "isotopes": [
+        {
+          "massNumber": 169,
+          "abundance": "1"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 70,
+      "symbol": "Yb",
+      "name": "Ytterbium",
+      "inertialMass": 173.0449299994397,
+      "gravitationalMass": 174.5094926288,
+      "gValue": 6.669404,
+      "isotopes": [
+        {
+          "massNumber": 168,
+          "abundance": "0.001 26(1)"
+        },
+        {
+          "massNumber": 170,
+          "abundance": "0.030 23(2)"
+        },
+        {
+          "massNumber": 171,
+          "abundance": "0.142 16(7)"
+        },
+        {
+          "massNumber": 172,
+          "abundance": "0.217 54(10)"
+        },
+        {
+          "massNumber": 173,
+          "abundance": "0.160 98(9)"
+        },
+        {
+          "massNumber": 174,
+          "abundance": "0.318 96(26)"
+        },
+        {
+          "massNumber": 176,
+          "abundance": "0.128 87(30)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 71,
+      "symbol": "Lu",
+      "name": "Lutetium",
+      "inertialMass": 174.966811557855,
+      "gravitationalMass": 176.44400457335,
+      "gValue": 6.669266,
+      "isotopes": [
+        {
+          "massNumber": 175,
+          "abundance": "0.974 14(5)"
+        },
+        {
+          "massNumber": 176,
+          "abundance": "0.025 86(5)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 72,
+      "symbol": "Hf",
+      "name": "Hafnium",
+      "inertialMass": 178.50600781783,
+      "gravitationalMass": 180.0084879874424,
+      "gValue": 6.669096,
+      "isotopes": [
+        {
+          "massNumber": 174,
+          "abundance": "0.001 61(2)"
+        },
+        {
+          "massNumber": 176,
+          "abundance": "0.0524(14)"
+        },
+        {
+          "massNumber": 177,
+          "abundance": "0.1858(9)"
+        },
+        {
+          "massNumber": 178,
+          "abundance": "0.2728(6)"
+        },
+        {
+          "massNumber": 179,
+          "abundance": "0.1363(3)"
+        },
+        {
+          "massNumber": 180,
+          "abundance": "0.3512(16)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 73,
+      "symbol": "Ta",
+      "name": "Tantalum",
+      "inertialMass": 180.9478781375544,
+      "gravitationalMass": 182.466883690996,
+      "gValue": 6.668949,
+      "isotopes": [
+        {
+          "massNumber": 180,
+          "abundance": "0.000 1176(23)"
+        },
+        {
+          "massNumber": 181,
+          "abundance": "0.999 8824(23)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 74,
+      "symbol": "W",
+      "name": "Tungsten",
+      "inertialMass": 183.84177810241,
+      "gravitationalMass": 185.3813616955,
+      "gValue": 6.668815,
+      "isotopes": [
+        {
+          "massNumber": 180,
+          "abundance": "0.0012(1)"
+        },
+        {
+          "massNumber": 182,
+          "abundance": "0.2650(16)"
+        },
+        {
+          "massNumber": 183,
+          "abundance": "0.1431(4)"
+        },
+        {
+          "massNumber": 184,
+          "abundance": "0.3064(2)"
+        },
+        {
+          "massNumber": 186,
+          "abundance": "0.2843(19)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 75,
+      "symbol": "Re",
+      "name": "Rhenium",
+      "inertialMass": 186.2067066106,
+      "gravitationalMass": 187.76173383,
+      "gValue": 6.66866,
+      "isotopes": [
+        {
+          "massNumber": 185,
+          "abundance": "0.3740(5)"
+        },
+        {
+          "massNumber": 187,
+          "abundance": "0.6260(5)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 76,
+      "symbol": "Os",
+      "name": "Osmium",
+      "inertialMass": 190.22486304559,
+      "gravitationalMass": 191.8088240105,
+      "gValue": 6.6685,
+      "isotopes": [
+        {
+          "massNumber": 184,
+          "abundance": "0.0002(2)"
+        },
+        {
+          "massNumber": 186,
+          "abundance": "0.0159(64)"
+        },
+        {
+          "massNumber": 187,
+          "abundance": "0.0196(17)"
+        },
+        {
+          "massNumber": 188,
+          "abundance": "0.1324(27)"
+        },
+        {
+          "massNumber": 189,
+          "abundance": "0.1615(23)"
+        },
+        {
+          "massNumber": 190,
+          "abundance": "0.2626(20)"
+        },
+        {
+          "massNumber": 192,
+          "abundance": "0.4078(32)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 77,
+      "symbol": "Ir",
+      "name": "Iridium",
+      "inertialMass": 192.21745804748,
+      "gravitationalMass": 193.814376231,
+      "gValue": 6.668375,
+      "isotopes": [
+        {
+          "massNumber": 191,
+          "abundance": "0.3723(9)"
+        },
+        {
+          "massNumber": 193,
+          "abundance": "0.6277(9)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 78,
+      "symbol": "Pt",
+      "name": "Platinum",
+      "inertialMass": 195.084426088562,
+      "gravitationalMass": 196.70250023985,
+      "gValue": 6.668284,
+      "isotopes": [
+        {
+          "massNumber": 190,
+          "abundance": "0.000 12(2)"
+        },
+        {
+          "massNumber": 192,
+          "abundance": "0.007 82(24)"
+        },
+        {
+          "massNumber": 194,
+          "abundance": "0.328 64(410)"
+        },
+        {
+          "massNumber": 195,
+          "abundance": "0.337 75(240)"
+        },
+        {
+          "massNumber": 196,
+          "abundance": "0.252 11(340)"
+        },
+        {
+          "massNumber": 198,
+          "abundance": "0.073 56(130)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 79,
+      "symbol": "Au",
+      "name": "Gold",
+      "inertialMass": 196.9665687,
+      "gravitationalMass": 198.59731113,
+      "gValue": 6.668185,
+      "isotopes": [
+        {
+          "massNumber": 197,
+          "abundance": "1"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 80,
+      "symbol": "Hg",
+      "name": "Mercury",
+      "inertialMass": 200.59255993365,
+      "gravitationalMass": 202.2504167615,
+      "gValue": 6.66809,
+      "isotopes": [
+        {
+          "massNumber": 196,
+          "abundance": "0.0015(1)"
+        },
+        {
+          "massNumber": 198,
+          "abundance": "0.1004(3)"
+        },
+        {
+          "massNumber": 199,
+          "abundance": "0.1694(12)"
+        },
+        {
+          "massNumber": 200,
+          "abundance": "0.2314(9)"
+        },
+        {
+          "massNumber": 201,
+          "abundance": "0.1317(9)"
+        },
+        {
+          "massNumber": 202,
+          "abundance": "0.2974(13)"
+        },
+        {
+          "massNumber": 204,
+          "abundance": "0.0682(4)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 81,
+      "symbol": "Tl",
+      "name": "Thallium",
+      "inertialMass": 204.3838129265,
+      "gravitationalMass": 206.06874172,
+      "gValue": 6.667952,
+      "isotopes": [
+        {
+          "massNumber": 203,
+          "abundance": "[0.2944, 0.2959]"
+        },
+        {
+          "massNumber": 205,
+          "abundance": "[0.7041, 0.7056]"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 82,
+      "symbol": "Pb",
+      "name": "Lead",
+      "inertialMass": 207.216907663,
+      "gravitationalMass": 208.922883805,
+      "gValue": 6.667878,
+      "isotopes": [
+        {
+          "massNumber": 204,
+          "abundance": "[0.0000, 0.0158]"
+        },
+        {
+          "massNumber": 206,
+          "abundance": "[0.0190, 0.8673]"
+        },
+        {
+          "massNumber": 207,
+          "abundance": "[0.0035, 0.2351]"
+        },
+        {
+          "massNumber": 208,
+          "abundance": "[0.0338, 0.9775]"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 83,
+      "symbol": "Bi",
+      "name": "Bismuth",
+      "inertialMass": 208.9803987,
+      "gravitationalMass": 210.69573701,
+      "gValue": 6.667715,
+      "isotopes": [
+        {
+          "massNumber": 209,
+          "abundance": "1"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 84,
+      "symbol": "Po",
+      "name": "Polonium",
+      "inertialMass": 209.9828737,
+      "gravitationalMass": 211.70301348,
+      "gValue": 6.667607,
+      "isotopes": [
+        {
+          "massNumber": 209,
+          "abundance": "-"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 85,
+      "symbol": "At",
+      "name": "Astatine",
+      "inertialMass": 210.07388721298264,
+      "gravitationalMass": 211.78925028783783,
+      "gValue": 6.667433,
+      "isotopes": [
+        {
+          "massNumber": 210,
+          "abundance": "-"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 86,
+      "symbol": "Rn",
+      "name": "Radon",
+      "inertialMass": 222.0175777,
+      "gravitationalMass": 223.80421642,
+      "gValue": 6.666651,
+      "isotopes": [
+        {
+          "massNumber": 222,
+          "abundance": "-"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 87,
+      "symbol": "Fr",
+      "name": "Francium",
+      "inertialMass": 219.01435888852453,
+      "gravitationalMass": 220.78013998836065,
+      "gValue": 6.666751,
+      "isotopes": [
+        {
+          "massNumber": 223,
+          "abundance": "-"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 88,
+      "symbol": "Ra",
+      "name": "Radium",
+      "inertialMass": 226.0324994170956,
+      "gravitationalMass": 227.84323016616304,
+      "gValue": 6.666411,
+      "isotopes": [
+        {
+          "massNumber": 226,
+          "abundance": "-"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 89,
+      "symbol": "Ac",
+      "name": "Actinium",
+      "inertialMass": 227.02510138300704,
+      "gravitationalMass": 228.84070808237533,
+      "gValue": 6.666321,
+      "isotopes": [
+        {
+          "massNumber": 227,
+          "abundance": "-"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 90,
+      "symbol": "Th",
+      "name": "Thorium",
+      "inertialMass": 232.0376543157,
+      "gravitationalMass": 233.884908834,
+      "gValue": 6.666081,
+      "isotopes": [
+        {
+          "massNumber": 230,
+          "abundance": "0.0002(2)"
+        },
+        {
+          "massNumber": 232,
+          "abundance": "0.9998(2)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 91,
+      "symbol": "Pa",
+      "name": "Protactinium",
+      "inertialMass": 231.035884,
+      "gravitationalMass": 232.87525877,
+      "gValue": 6.666083,
+      "isotopes": [
+        {
+          "massNumber": 231,
+          "abundance": "1"
+        }
+      ]
+    },
+    {
+      "atomicNumber": 92,
+      "symbol": "U",
+      "name": "Uranium",
+      "inertialMass": 238.0289102616574,
+      "gravitationalMass": 239.91250810038,
+      "gValue": 6.665765,
+      "isotopes": [
+        {
+          "massNumber": 234,
+          "abundance": "0.000 054(5)"
+        },
+        {
+          "massNumber": 235,
+          "abundance": "0.007 204(6)"
+        },
+        {
+          "massNumber": 238,
+          "abundance": "0.992 742(10)"
+        }
+      ]
+    },
+    {
+      "atomicNumber": null,
+      "symbol": "Np",
+      "name": "Neptunium",
+      "inertialMass": 236.9810502447234,
+      "gravitationalMass": 238.8568753170649,
+      "gValue": 6.66578,
+      "isotopes": []
+    },
+    {
+      "atomicNumber": null,
+      "symbol": "Pu",
+      "name": "Plutonium",
+      "inertialMass": 244.0531916683223,
+      "gravitationalMass": 245.97266015202888,
+      "gValue": 6.665445,
+      "isotopes": []
+    },
+    {
+      "atomicNumber": null,
+      "symbol": "Am",
+      "name": "Americium",
+      "inertialMass": 242.93420794827747,
+      "gravitationalMass": 244.8456919461682,
+      "gValue": 6.665468,
+      "isotopes": []
+    },
+    {
+      "atomicNumber": null,
+      "symbol": "Cm",
+      "name": "Curium",
+      "inertialMass": 247.09240700375128,
+      "gravitationalMass": 249.0291556668413,
+      "gValue": 6.665268,
+      "isotopes": []
+    },
+    {
+      "atomicNumber": null,
+      "symbol": "Bk",
+      "name": "Berkelium",
+      "inertialMass": 247.2503356272436,
+      "gravitationalMass": 249.1866526694924,
+      "gValue": 6.665223,
+      "isotopes": []
+    },
+    {
+      "atomicNumber": null,
+      "symbol": "Cf",
+      "name": "Californium",
+      "inertialMass": 250.5137369737619,
+      "gravitationalMass": 252.469442842086,
+      "gValue": 6.665061,
+      "isotopes": []
+    },
+    {
+      "atomicNumber": null,
+      "symbol": "Es",
+      "name": "Einsteinium",
+      "inertialMass": 252.94098896629689,
+      "gravitationalMass": 254.9094134791005,
+      "gValue": 6.664898,
+      "isotopes": []
+    },
+    {
+      "atomicNumber": null,
+      "symbol": "Fm",
+      "name": "Fermium",
+      "inertialMass": 256.9147400657097,
+      "gravitationalMass": 258.9065771576028,
+      "gValue": 6.664704,
+      "isotopes": []
+    },
+    {
+      "atomicNumber": null,
+      "symbol": "Md",
+      "name": "Mendelevium",
+      "inertialMass": 258.8576403655052,
+      "gravitationalMass": 260.85912406205773,
+      "gValue": 6.664566,
+      "isotopes": []
+    },
+    {
+      "atomicNumber": null,
+      "symbol": "No",
+      "name": "Nobelium",
+      "inertialMass": 258.6545597125841,
+      "gravitationalMass": 260.65311957878816,
+      "gValue": 6.664531,
+      "isotopes": []
+    },
+    {
+      "atomicNumber": null,
+      "symbol": "Lr",
+      "name": "Lawrencium",
+      "inertialMass": 264.6908725139277,
+      "gravitationalMass": 266.72432919851894,
+      "gValue": 6.664238,
+      "isotopes": []
+    },
+    {
+      "atomicNumber": null,
+      "symbol": "Rf",
+      "name": "Rutherfordium",
+      "inertialMass": 266.1464188812661,
+      "gravitationalMass": 268.1876123276495,
+      "gValue": 6.664152,
+      "isotopes": []
+    },
+    {
+      "atomicNumber": null,
+      "symbol": "Db",
+      "name": "Dubnium",
+      "inertialMass": 268.1331610894401,
+      "gravitationalMass": 270.18397114836023,
+      "gValue": 6.664014,
+      "isotopes": []
+    },
+    {
+      "atomicNumber": null,
+      "symbol": "Sg",
+      "name": "Seaborgium",
+      "inertialMass": 265.5014208926943,
+      "gravitationalMass": 267.528935147024,
+      "gValue": 6.663935,
+      "isotopes": []
+    },
+    {
+      "atomicNumber": null,
+      "symbol": "Bh",
+      "name": "Bohrium",
+      "inertialMass": 270.74387532675127,
+      "gravitationalMass": 272.8050916176916,
+      "gValue": 6.66378,
+      "isotopes": []
+    },
+    {
+      "atomicNumber": null,
+      "symbol": "Hs",
+      "name": "Hassium",
+      "inertialMass": 270.94132240148906,
+      "gravitationalMass": 273.00101481198016,
+      "gValue": 6.663706,
+      "isotopes": []
+    },
+    {
+      "atomicNumber": null,
+      "symbol": "Mt",
+      "name": "Meitnerium",
+      "inertialMass": 277.4322178326996,
+      "gravitationalMass": 279.5288268839924,
+      "gValue": 6.66341,
+      "isotopes": []
+    },
+    {
+      "atomicNumber": null,
+      "symbol": "Ds",
+      "name": "Darmstadtium",
+      "inertialMass": 281.13627887323946,
+      "gravitationalMass": 283.25371360140844,
+      "gValue": 6.663241,
+      "isotopes": []
+    },
+    {
+      "atomicNumber": null,
+      "symbol": "Rg",
+      "name": "Roentgenium",
+      "inertialMass": 282.82064965373365,
+      "gravitationalMass": 284.9456907240262,
+      "gValue": 6.663123,
+      "isotopes": []
+    },
+    {
+      "atomicNumber": null,
+      "symbol": "Cn",
+      "name": "Copernicium",
+      "inertialMass": 284.95130904170367,
+      "gravitationalMass": 287.08667964,
+      "gValue": 6.662991,
+      "isotopes": []
+    },
+    {
+      "atomicNumber": null,
+      "symbol": "Nh",
+      "name": "Nihonium",
+      "inertialMass": 286.2354396315848,
+      "gravitationalMass": 288.37514147759043,
+      "gValue": 6.662869,
+      "isotopes": []
+    },
+    {
+      "atomicNumber": null,
+      "symbol": "Fl",
+      "name": "Flerovium",
+      "inertialMass": 288.55976950271247,
+      "gravitationalMass": 290.7111449850633,
+      "gValue": 6.662738,
+      "isotopes": []
+    },
+    {
+      "atomicNumber": null,
+      "symbol": "Mc",
+      "name": "Moscovium",
+      "inertialMass": 289.5316002829354,
+      "gravitationalMass": 291.68429305530503,
+      "gValue": 6.662602,
+      "isotopes": []
+    },
+    {
+      "atomicNumber": null,
+      "symbol": "Lv",
+      "name": "Livermorium",
+      "inertialMass": 292.4178345454545,
+      "gravitationalMass": 294.5858484538843,
+      "gValue": 6.662464,
+      "isotopes": []
+    },
+    {
+      "atomicNumber": null,
+      "symbol": "Ts",
+      "name": "Tennessine",
+      "inertialMass": 293.880782368421,
+      "gravitationalMass": 296.0532542926316,
+      "gValue": 6.66232,
+      "isotopes": []
+    },
+    {
+      "atomicNumber": null,
+      "symbol": "Og",
+      "name": "Oganesson",
+      "inertialMass": 294.21392,
+      "gravitationalMass": 296.38366346,
+      "gValue": 6.662203,
+      "isotopes": []
+    }
+  ]
+}

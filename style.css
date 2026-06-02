@@ -350,6 +350,348 @@ input:disabled {
   margin-top: 16px;
 }
 
+/* SECTION NOTES */
+
+.section-note,
+.lookup-methodology p {
+  color: #475569;
+  line-height: 1.8;
+  font-size: 15px;
+  margin-bottom: 18px;
+  max-width: 850px;
+}
+
+/* LOOKUP METHODOLOGY */
+
+.lookup-methodology {
+  margin-top: 32px;
+  padding-top: 28px;
+  border-top: 1px solid #dbe7f5;
+}
+
+.lookup-methodology h4 {
+  margin-top: 0;
+  margin-bottom: 18px;
+  font-size: 24px;
+  color: #1e3a5f;
+}
+
+/* LOOKUP RESULT CARD */
+
+#lookup-result {
+  margin-top: 22px;
+
+  background: linear-gradient(
+    to bottom,
+    #f7fbff,
+    #edf5ff
+  );
+
+  border: 1px solid #d7e6f7;
+
+  color: #1e3a5f;
+
+  padding: 22px 24px;
+
+  border-radius: 14px;
+}
+
+/* ELEMENT NAME */
+
+#lookup-result h4 {
+  margin-top: 0;
+  margin-bottom: 18px;
+
+  font-size: 17px;
+  font-weight: 700;
+
+  color: #1e3a5f;
+}
+
+/* VALUE ROWS */
+
+.lookup-row {
+  margin-bottom: 8px;
+
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.lookup-label {
+  font-size: 13px;
+  font-weight: 700;
+
+  color: #1e3a5f;
+}
+
+.lookup-value {
+  font-size: 13px;
+
+  font-family: monospace;
+
+  color: #334155;
+}
+
+/* ISOTOPE SECTION TITLE */
+
+.lookup-isotopes-title {
+  margin-top: 18px;
+  margin-bottom: 10px;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  color: #1e3a5f;
+}
+
+/* ISOTOPE BOX */
+
+.isotope-list {
+  padding: 12px 14px;
+
+  background: rgba(255,255,255,0.65);
+
+  border: 1px solid #dbe7f5;
+
+  border-radius: 10px;
+}
+
+/* ISOTOPE ROWS */
+
+.isotope-list div {
+  margin-bottom: 6px;
+
+  font-size: 12px;
+  line-height: 1.4;
+
+  color: #334155;
+}
+
+.isotope-list div:last-child {
+  margin-bottom: 0;
+}
+
+.isotope-list strong {
+  font-size: 12px;
+}
+
+/* ELEMENT NAME */
+
+#lookup-result h4 {
+  margin-top: 0;
+  margin-bottom: 18px;
+
+  font-size: 20px;
+  font-weight: 700;
+
+  color: #1e3a5f;
+}
+
+/* VALUE ROWS */
+
+.lookup-row {
+  margin-bottom: 10px;
+
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.lookup-label {
+  font-weight: 700;
+  color: #1e3a5f;
+}
+
+.lookup-value {
+  font-family: monospace;
+  color: #334155;
+}
+
+/* ISOTOPE SECTION */
+
+.lookup-isotopes-title {
+  margin-top: 24px;
+  margin-bottom: 14px;
+
+  font-size: 18px;
+  font-weight: 700;
+
+  color: #1e3a5f;
+}
+
+.isotope-list {
+  padding: 16px 18px;
+
+  background: rgba(255,255,255,0.6);
+
+  border: 1px solid #dbe7f5;
+
+  border-radius: 10px;
+}
+
+.isotope-list div {
+  margin-bottom: 8px;
+
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.isotope-list div:last-child {
+  margin-bottom: 0;
+}
+
+/* REFERENCE VALUES */
+
+.reference-values {
+  margin: 22px 0;
+  padding: 18px 22px;
+  background: linear-gradient(
+    to bottom,
+    #f8fbff,
+    #eef5ff
+  );
+
+  border: 1px solid #d7e6f7;
+  border-left: 5px solid var(--accent);
+
+  border-radius: 12px;
+}
+
+.reference-values div {
+  margin-bottom: 10px;
+  color: #334155;
+}
+
+.reference-values div:last-child {
+  margin-bottom: 0;
+}
+
+/* SMALL FORMULAS */
+
+.small-formula {
+  font-size: 16px;
+  line-height: 1.6;
+
+  margin-top: 18px;
+  margin-bottom: 18px;
+
+  font-size: 22px;
+  line-height: 1.7;
+
+  background: linear-gradient(
+    to bottom,
+    #f8fbff,
+    #eef5ff
+  );
+
+  border-left: 5px solid var(--accent);
+}
+
+/* LOOKUP RESULT */
+
+#lookup-result {
+  margin-top: 26px;
+
+  background: linear-gradient(
+    to bottom,
+    #f7fbff,
+    #edf5ff
+  );
+
+  border: 1px solid #d7e6f7;
+
+  color: #1e3a5f;
+
+  font-size: 17px;
+  line-height: 1.9;
+}
+
+/* LOOKUP RESULT HEADINGS */
+
+#lookup-result strong {
+  color: #1e3a5f;
+  font-size: 18px;
+}
+
+/* ISOTOPE LIST */
+
+.isotope-list {
+  margin-top: 12px;
+
+  padding: 16px 18px;
+
+  background: rgba(255,255,255,0.5);
+
+  border-radius: 10px;
+
+  border: 1px solid #dbe7f5;
+}
+
+.isotope-list div {
+  margin-bottom: 10px;
+}
+
+.isotope-list div:last-child {
+  margin-bottom: 0;
+}
+
+/* FORMULA EMPHASIS */
+
+.formula-box {
+  background: linear-gradient(
+    to bottom,
+    #f8fbff,
+    #eef5ff
+  );
+
+  border: 1px solid #d7e6f7;
+  border-left: 5px solid var(--accent);
+
+  border-radius: 12px;
+
+  padding: 18px 22px;
+
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  text-align: center;
+
+  font-size: 16px;
+  line-height: 1.8;
+
+  color: #1e3a5f;
+
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+/* LINK */
+.note-box a,
+.lookup-methodology a,
+.section-note a {
+  color: var(--accent);
+
+  text-decoration: none;
+
+  font-weight: 600;
+
+  border-bottom: 1px solid rgba(59, 130, 246, 0.35);
+
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.note-box a:hover,
+.lookup-methodology a:hover,
+.section-note a:hover {
+  color: #1d4ed8;
+
+  border-bottom-color: #1d4ed8;
+}
+
 /* MOBILE */
 
 @media (max-width: 800px) {
