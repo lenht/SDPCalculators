@@ -21,6 +21,7 @@ fetch("g-values-elements.json")
 
     populateAllDropdowns();
     initializeConstants();
+    initMoleculeRows();
   })
   .catch(error => {
     console.error("Could not load element JSON:", error);
@@ -49,8 +50,6 @@ function populateAllDropdowns() {
   [
     "element-select",
     "manual-element-select",
-    "molecule-element-1",
-    "molecule-element-2",
     "mixed-element-1",
     "mixed-element-2"
   ].forEach(populateSelect);
@@ -102,7 +101,7 @@ function formatIsotopes(element) {
   if (!element.isotopes || element.isotopes.length === 0) {
     return `
       <div>
-        The G-value is based on the half-life distribution.
+        No isotope abundance data available.
       </div>
     `;
   }
@@ -189,21 +188,45 @@ document.getElementById("element-select").addEventListener("change", event => {
 
   `;
 
-  document.getElementById("manual-element-select").addEventListener("change", event => {
-  const element = elements[event.target.value];
-
-  document.getElementById("protons").value =
-    element?.atomicNumber ?? "";
-
-  document.getElementById("neutrons").value = "";
-
-  document.getElementById("mass").value =
-    element?.inertialMass ?? "";
-  });
-
 });
 
 /* ISOTOPE / MANUAL ELEMENT CALCULATOR */
+
+document.getElementById("manual-element-select").addEventListener("change", event => {
+  const element = elements[event.target.value];
+
+  const protons =
+    document.getElementById("protons");
+
+  const neutrons =
+    document.getElementById("neutrons");
+
+  const mass =
+    document.getElementById("mass");
+
+  if (!element) {
+    if (protons) protons.value = "";
+    return;
+  }
+
+  if (protons) {
+    protons.value =
+      element.atomicNumber ?? "";
+  }
+
+  if (neutrons) {
+    neutrons.value = "";
+  }
+
+  if (mass) {
+    mass.value = "";
+    mass.placeholder =
+      element.inertialMass !== null && element.inertialMass !== undefined
+        ? `Natural average: ${formatNumber(element.inertialMass)}`
+        : "Enter isotope inertial mass";
+  }
+});
+
 
 document.getElementById("calculate-btn").addEventListener("click", () => {
   const protons =
@@ -247,71 +270,109 @@ document.getElementById("calculate-btn").addEventListener("click", () => {
     `G-value: ${displayG(gValue)}`;
 });
 
-/* MOLECULE CALCULATOR */
+/* MOLECULE CALCULATOR — dynamic rows */
+
+let moleculeRowCount = 0;
+
+function addMoleculeRow(defaultCount = 1) {
+  moleculeRowCount++;
+  const rowIndex = moleculeRowCount;
+
+  const container = document.getElementById("molecule-rows");
+  const row = document.createElement("div");
+  row.className = "molecule-row";
+  row.dataset.row = rowIndex;
+
+  row.innerHTML = `
+    <div class="molecule-row-inner">
+      <div class="molecule-row-fields">
+        <div>
+          <label>Element ${rowIndex}</label>
+          <select class="molecule-element-select">
+            <option value="">Choose an element...</option>
+          </select>
+        </div>
+        <div>
+          <label>Count</label>
+          <input class="molecule-count-input" type="number" min="0" step="any" value="${defaultCount}" />
+        </div>
+      </div>
+      <button class="remove-row-btn" title="Remove row">×</button>
+    </div>
+  `;
+
+  // Populate the select in this row
+  const select = row.querySelector(".molecule-element-select");
+  elements.forEach((element, index) => {
+    const option = document.createElement("option");
+    option.value = index;
+    option.textContent = `${element.name} (${element.symbol})`;
+    select.appendChild(option);
+  });
+
+  // Remove button
+  row.querySelector(".remove-row-btn").addEventListener("click", () => {
+    row.remove();
+    renumberMoleculeRows();
+  });
+
+  container.appendChild(row);
+}
+
+function renumberMoleculeRows() {
+  document.querySelectorAll(".molecule-row").forEach((row, i) => {
+    row.querySelector("label").textContent = `Element ${i + 1}`;
+  });
+}
+
+function initMoleculeRows() {
+  addMoleculeRow(2); // first row default count 2
+  addMoleculeRow(1); // second row default count 1
+}
+
+document.getElementById("molecule-add-btn").addEventListener("click", () => {
+  addMoleculeRow(1);
+});
 
 document.getElementById("molecule-btn").addEventListener("click", () => {
-  const e1 =
-    elements[
-      document.getElementById("molecule-element-1").value
-    ];
+  const rows = document.querySelectorAll(".molecule-row");
+  let inertialMass = 0;
+  let gravitationalMass = 0;
+  let valid = true;
 
-  const e2 =
-    elements[
-      document.getElementById("molecule-element-2").value
-    ];
-
-  const c1 =
-    parseFloat(
-      document.getElementById("molecule-count-1").value
-    );
-
-  const c2 =
-    parseFloat(
-      document.getElementById("molecule-count-2").value
-    );
-
-  if (
-    !e1 ||
-    !e2 ||
-    !Number.isFinite(c1) ||
-    !Number.isFinite(c2) ||
-    c1 < 0 ||
-    c2 < 0
-  ) {
+  if (rows.length === 0) {
     document.getElementById("molecule-result").innerHTML =
-      "Please enter valid molecule values.";
-
+      "Please add at least one element.";
     return;
   }
 
-  const inertialMass =
-    c1 * e1.inertialMass +
-    c2 * e2.inertialMass;
+  for (const row of rows) {
+    const elementIndex = row.querySelector(".molecule-element-select").value;
+    const count = parseFloat(row.querySelector(".molecule-count-input").value);
+    const element = elements[elementIndex];
 
-  const gravitationalMass =
-    c1 * e1.gravitationalMass +
-    c2 * e2.gravitationalMass;
+    if (!element || !Number.isFinite(count) || count < 0) {
+      valid = false;
+      break;
+    }
 
-  const gValue =
-    GH *
-    (
-      gravitationalMass /
-      inertialMass
-    );
+    inertialMass += count * element.inertialMass;
+    gravitationalMass += count * element.gravitationalMass;
+  }
+
+  if (!valid || inertialMass <= 0) {
+    document.getElementById("molecule-result").innerHTML =
+      "Please enter valid molecule values.";
+    return;
+  }
+
+  const gValue = GH * (gravitationalMass / inertialMass);
 
   document.getElementById("molecule-result").innerHTML = `
-
     <strong>Results</strong><br><br>
-
-    Inertial mass:
-    ${formatNumber(inertialMass)}<br>
-
-    Gravitational mass:
-    ${formatNumber(gravitationalMass)}<br>
-
-    G-value:
-    ${displayG(gValue)}
-
+    Inertial mass: ${formatNumber(inertialMass)}<br>
+    Gravitational mass: ${formatNumber(gravitationalMass)}<br>
+    G-value: ${displayG(gValue)}
   `;
 });
 

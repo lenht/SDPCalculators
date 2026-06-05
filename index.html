@@ -140,7 +140,7 @@
 
           <p>
             <strong>m<sub>X</sub></strong>
-            = inertial mass of element X
+            = inertial mass of isotope X
           </p>
         </div>
 
@@ -252,17 +252,21 @@
         <div class="box">
           <p class="section-note">
             Use this calculator when working with a specific isotope or
-            custom element composition. You may optionally select an
-            element to auto-fill the proton count and reference inertial
-            mass, then manually adjust the neutron count and inertial
-            mass of the isotope as needed.
+            custom element composition. Select the base element here,
+            independently from the lookup tool, then enter the isotope
+            neutron count and inertial mass manually.
           </p>
 
           <div class="form-grid">
-            <div class="manual-element-full">
-              <label for="manual-element-select">Select element</label>
+            <div>
+              <label for="manual-element-select">
+                Select element
+              </label>
+
               <select id="manual-element-select">
-                <option value="">Choose an element...</option>
+                <option value="">
+                  Choose an element...
+                </option>
               </select>
             </div>
 
@@ -307,7 +311,10 @@
             </div>
 
             <div>
-              <label for="mass">Inertial mass of isotope</label>
+              <label for="mass">
+                Inertial mass of isotope
+              </label>
+
               <input id="mass" type="number" step="any" />
             </div>
           </div>
@@ -373,47 +380,11 @@
 
         
 
-          <div class="form-grid">
-            <div>
-              <label for="molecule-element-1">
-                Element 1
-              </label>
+          <div id="molecule-rows"></div>
 
-              <select id="molecule-element-1"></select>
-            </div>
-
-            <div>
-              <label for="molecule-count-1">
-                Count
-              </label>
-
-              <input
-                id="molecule-count-1"
-                type="number"
-                value="2"
-              />
-            </div>
-
-            <div>
-              <label for="molecule-element-2">
-                Element 2
-              </label>
-
-              <select id="molecule-element-2"></select>
-            </div>
-
-            <div>
-              <label for="molecule-count-2">
-                Count
-              </label>
-
-              <input
-                id="molecule-count-2"
-                type="number"
-                value="1"
-              />
-            </div>
-          </div>
+          <button class="add-element-btn" id="molecule-add-btn">
+            + Add element
+          </button>
 
           <button class="primary" id="molecule-btn">
             Calculate Molecule
