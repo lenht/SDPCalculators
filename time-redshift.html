@@ -213,6 +213,174 @@
 
         </div>
 
+        <!-- BAO SIZE & FULL AGE SECTION -->
+        <h3>BAO size &amp; full age of the universe</h3>
+
+        <div class="box">
+
+          <p class="section-note">
+            Using the time-redshift equation, it is possible to calculate both
+            the full age of the universe and the size of Baryon Acoustic
+            Oscillations (BAO). The BAO size is the distance sound waves
+            could travel from the Big Bang until decoupling — the moment
+            photons and matter separated.
+          </p>
+
+          <p class="section-note">
+            The full age follows directly from expressing redshift through
+            the temperature ratio of the CMB at decoupling versus today:
+          </p>
+
+          <!-- Full age formula -->
+          <div class="formula-box small-formula">
+            t<sub>0</sub>
+            =
+            (
+            <span style="display:inline-block; text-align:center; vertical-align:middle;">
+              <span style="display:block; border-bottom:2px solid currentColor; padding-bottom:3px;">T<sub>i</sub></span>
+              <span style="display:block; padding-top:3px;">T<sub>0</sub></span>
+            </span>
+            &minus; 1
+            )
+            &times;
+            Δx<sub>z</sub>
+            <span style="font-family:Arial,sans-serif; font-size:15px; margin-left:6px;">(full age of the universe)</span>
+          </div>
+
+          <div class="legend-box" style="margin-top:0; margin-bottom:24px;">
+            <p><strong>t<sub>0</sub></strong> = full age of the universe (lightyears)</p>
+            <p><strong>T<sub>i</sub></strong> = initial CMB temperature at decoupling (K) — true value: 4,021 K</p>
+            <p><strong>T<sub>0</sub></strong> = current CMB temperature = 2.725 K</p>
+            <p><strong>Δx<sub>z</sub></strong> = 3c/H₀ — lightyear-per-unit-z coefficient from the time-redshift equation</p>
+          </div>
+
+          <p class="section-note">
+            The BAO size uses the same bracket, scaled by the sound speed
+            fraction at the time of decoupling, and subtracts the duration
+            of the decoupling epoch t<sub>d</sub>:
+          </p>
+
+          <!-- BAO formula -->
+          <div class="formula-box small-formula">
+            d<sub>BAO</sub>
+            =
+            <span style="display:inline-block; text-align:center; vertical-align:middle;">
+              <span style="display:block; border-bottom:2px solid currentColor; padding-bottom:3px;">
+                <span style="display:inline-flex; align-items:center; gap:3px;">
+                  √
+                  <span style="display:inline-block; border:1px solid currentColor; border-bottom:none; padding:1px 4px; font-size:0.9em;">
+                    <sup>5</sup>/<sub>3</sub>
+                    &nbsp;&sdot;&nbsp;
+                    <sup>1</sup>/<sub>m<sub>p</sub></sub>
+                    &nbsp;&sdot;&nbsp;
+                    k<sub>B</sub> T<sub>i</sub>
+                  </span>
+                </span>
+              </span>
+              <span style="display:block; padding-top:3px;">c</span>
+            </span>
+            &times;
+            <span style="font-size:1.1em;">&#91;</span>
+            (
+            <span style="display:inline-block; text-align:center; vertical-align:middle; margin: 0 2px;">
+              <span style="display:block; border-bottom:1.5px solid currentColor; padding-bottom:2px;">T<sub>i</sub></span>
+              <span style="display:block; padding-top:2px;">T<sub>0</sub></span>
+            </span>
+            &minus; 1
+            )
+            Δx<sub>z</sub>
+            &minus;
+            t<sub>d</sub>
+            <span style="font-size:1.1em;">&#93;</span>
+          </div>
+
+          <!-- Legend -->
+          <div class="legend-box" style="margin-top:0; margin-bottom:24px;">
+            <p><strong>T<sub>i</sub></strong> = initial CMB temperature at decoupling (K) — true value: 4,021 K</p>
+            <p><strong>T<sub>0</sub></strong> = current CMB temperature = 2.725 K</p>
+            <p><strong>Δx<sub>z</sub></strong> = 3c/H₀ — the lightyear-per-unit-z coefficient from the time-redshift equation</p>
+            <p><strong>t<sub>d</sub></strong> = duration of the decoupling epoch ≈ 4.2 × 10¹³ yr</p>
+            <p><strong>m<sub>p</sub></strong> = proton mass</p>
+            <p><strong>k<sub>B</sub></strong> = Boltzmann constant</p>
+            <p><strong>c</strong> = speed of light</p>
+          </div>
+
+          <!-- Reference constants -->
+          <h4 style="margin-top:0; margin-bottom:14px; color:var(--heading); font-size:17px;">Physical constants used</h4>
+
+          <div class="form-grid" style="margin-bottom:24px;">
+            <div>
+              <label for="bao-const-kb">Boltzmann constant k<sub>B</sub> (J/K)</label>
+              <input id="bao-const-kb" disabled />
+            </div>
+            <div>
+              <label for="bao-const-mp">Proton mass m<sub>p</sub> (kg)</label>
+              <input id="bao-const-mp" disabled />
+            </div>
+            <div>
+              <label for="bao-const-T0">Current CMB temperature T<sub>0</sub> (K)</label>
+              <input id="bao-const-T0" disabled />
+            </div>
+            <div>
+              <label for="bao-const-td">Decoupling epoch duration t<sub>d</sub> (yr)</label>
+              <input id="bao-const-td" disabled />
+            </div>
+          </div>
+
+          <!-- Calculator inputs -->
+          <h4 style="margin-top:0; margin-bottom:14px; color:var(--heading); font-size:17px;">Calculator</h4>
+
+          <p class="section-note">
+            Enter the initial CMB temperature T<sub>i</sub> at decoupling.
+            The true value according to Sky Darmos (2025) is <strong>4,021 K</strong>.
+            You may also adjust H<sub>0</sub> — use only values from supernova surveys.
+          </p>
+
+          <div class="form-grid">
+            <div>
+              <label for="bao-input-Ti">
+                Initial temperature T<sub>i</sub> (K)
+                <span style="font-weight:400; color:var(--muted); font-size:12px;">— true value: 4,021 K</span>
+              </label>
+              <input
+                id="bao-input-Ti"
+                type="number"
+                step="any"
+                placeholder="e.g. 4021"
+              />
+            </div>
+
+            <div>
+              <label for="bao-input-h0">
+                H<sub>0</sub> (km/s/Mpc)
+                <span style="font-weight:400; color:var(--muted); font-size:12px;">— supernova surveys only</span>
+              </label>
+              <input
+                id="bao-input-h0"
+                type="number"
+                step="any"
+                placeholder="e.g. 74.03"
+              />
+            </div>
+          </div>
+
+          <div class="molecule-btn-row">
+            <button class="add-element-btn" id="bao-reset-btn">↺ Reset</button>
+            <button class="primary" id="bao-calc-btn">Calculate BAO &amp; Age</button>
+          </div>
+
+          <div class="result-box" id="bao-result">—</div>
+
+          <p class="section-note" style="margin-top: 20px; margin-bottom: 0;">
+            <strong>Note:</strong> Δx<sub>z</sub> = 3c/H₀ is the same coefficient
+            used in the time-redshift equation above. The full age
+            t<sub>0</sub> = (T<sub>i</sub>/T<sub>0</sub> − 1) × Δx<sub>z</sub>
+            is simply the time-redshift equation with z expressed as the
+            temperature ratio (T<sub>i</sub>/T<sub>0</sub> − 1).
+          </p>
+
+        </div>
+
       </section>
     </main>
   </div>

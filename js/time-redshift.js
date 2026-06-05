@@ -142,6 +142,173 @@ document.getElementById("trz-reset-btn").addEventListener("click", () => {
   document.getElementById("trz-result").innerHTML = "—";
 });
 
+/* ══════════════════════════════════════════════
+   BAO SIZE & FULL AGE CALCULATORS
+   ══════════════════════════════════════════════
+
+  BAO size formula (Sky Darmos; 2019 & 2025):
+
+    d_BAO = ( √(5/3 · (1/m_p) · k_B · T_i) / c )
+            × [ (T_i/T₀ − 1) · Δx_z − t_d ]
+
+  where:
+    T_i  = initial (decoupling) temperature of the CMB photon gas (K)
+           True value: 4,021 K  (user-adjustable)
+    T₀   = current CMB temperature = 2.725 K
+    Δx_z = 3c/H₀  (the coefficient K from the time-redshift equation, in ly)
+    t_d  = duration of the decoupling epoch ≈ 4.2 × 10¹³ yr
+           (expressed in years for subtraction before converting)
+    m_p  = proton mass (kg)
+    k_B  = Boltzmann constant (J/K)
+    c    = speed of light (m/s)
+
+  Full age of universe:
+
+    t_universe = (T_i/T₀ − 1) · Δx_z
+
+  The BAO size and full age share the same bracket factor:
+    bracket = (T_i/T₀ − 1) · Δx_z  −  t_d
+
+  Note on units:
+    The sound-speed prefactor  √(5/3 · k_B · T_i / m_p) / c  is dimensionless.
+    Δx_z is in lightyears; t_d must be subtracted in lightyears (1 yr ≈ 1 lyr
+    for travel distance), giving d_BAO in lightyears.
+*/
+
+/* ── BAO / FULL AGE CONSTANTS ───────────────── */
+
+const K_B       = 1.380649e-23;       // J/K  (Boltzmann constant)
+const M_PROTON  = 1.67262192369e-27;  // kg
+const T0_CMB    = 2.725;              // K  (current CMB temperature)
+const T_I_TRUE  = 4021;              // K  (true initial temperature)
+const T_D_YR    = 4.2e13;            // yr (duration of decoupling epoch)
+
+// Sound speed prefactor: v_s / c = √(5/3 · k_B · T_i / m_p) / c
+function soundSpeedFraction(T_i) {
+  return Math.sqrt((5 / 3) * (K_B * T_i / M_PROTON)) / C_MS;
+}
+
+// Full age of universe in lightyears
+// t_universe = (T_i / T₀ − 1) × Δx_z
+function calcFullAge_lyr(T_i, h0_kms_mpc) {
+  const delta_xz = metresTo_lyr(calcT0_metres(1, h0_kms_mpc)); // lyr per unit z
+  return (T_i / T0_CMB - 1) * delta_xz;
+}
+
+// BAO size in lightyears
+// d_BAO = (v_s/c) × [ (T_i/T₀ − 1) × Δx_z − t_d ]
+// t_d in lyr ≈ t_d in yr  (light travel: 1 yr ≈ 1 ly)
+function calcBAO_lyr(T_i, h0_kms_mpc) {
+  const vs_frac  = soundSpeedFraction(T_i);
+  const fullAge  = calcFullAge_lyr(T_i, h0_kms_mpc);  // lyr
+  const bracket  = fullAge - T_D_YR;                   // lyr (t_d yr ≈ t_d lyr)
+  return vs_frac * bracket;
+}
+
+/* ── BAO INIT ───────────────────────────────── */
+
+function initBAOPage() {
+  // Pre-fill reference constants
+  const setVal = (id, v) => { const el = document.getElementById(id); if (el) el.value = v; };
+  setVal("bao-const-kb",   K_B.toExponential(6));
+  setVal("bao-const-mp",   M_PROTON.toExponential(9));
+  setVal("bao-const-T0",   T0_CMB);
+  setVal("bao-const-td",   (4.2e13).toExponential(1));
+
+  // Pre-fill calculator inputs
+  const tiInput = document.getElementById("bao-input-Ti");
+  const h0Input = document.getElementById("bao-input-h0");
+  if (tiInput) tiInput.value = T_I_TRUE;
+  if (h0Input) h0Input.value = H0_KMS_MPC_DEFAULT;
+}
+
+/* ── BAO CALCULATOR ─────────────────────────── */
+
+document.getElementById("bao-calc-btn").addEventListener("click", () => {
+  const result = document.getElementById("bao-result");
+
+  const T_i = parseFloat(document.getElementById("bao-input-Ti").value);
+  const h0  = parseFloat(document.getElementById("bao-input-h0").value);
+
+  if (!Number.isFinite(T_i) || T_i <= T0_CMB) {
+    result.innerHTML = `Please enter a valid T<sub>i</sub> greater than T₀ = ${T0_CMB} K.`;
+    return;
+  }
+  if (!Number.isFinite(h0) || h0 <= 0) {
+    result.innerHTML = "Please enter a valid positive H₀.";
+    return;
+  }
+
+  const delta_xz   = metresTo_lyr(calcT0_metres(1, h0));   // lyr per unit z
+  const fullAge    = calcFullAge_lyr(T_i, h0);              // lyr
+  const vs_frac    = soundSpeedFraction(T_i);
+  const bracket    = fullAge - T_D_YR;                      // lyr
+  const bao_lyr    = vs_frac * bracket;
+
+  // Full age in years (≈ lyr for this context)
+  const fullAge_yr = fullAge;   // lyr ≈ yr for this purpose
+
+  // Format large numbers in scientific notation neatly
+  const fmtYr = n => {
+    const exp = Math.floor(Math.log10(Math.abs(n)));
+    const man = n / Math.pow(10, exp);
+    return `${man.toFixed(3)} × 10<sup>${exp}</sup>`;
+  };
+
+  result.innerHTML = `
+    <strong>Results</strong><br><br>
+
+    <div class="lookup-row">
+      <span class="lookup-label">T<sub>i</sub> used:</span>
+      <span class="lookup-value">${T_i.toLocaleString("en-US")} K</span>
+    </div>
+    <div class="lookup-row">
+      <span class="lookup-label">T₀ (CMB today):</span>
+      <span class="lookup-value">${T0_CMB} K</span>
+    </div>
+    <div class="lookup-row">
+      <span class="lookup-label">H₀ used:</span>
+      <span class="lookup-value">${h0} km/s/Mpc</span>
+    </div>
+    <div class="lookup-row">
+      <span class="lookup-label">Δx<sub>z</sub> = 3c/H₀:</span>
+      <span class="lookup-value">${formatNumber(Math.round(delta_xz))} lyr per unit z</span>
+    </div>
+    <div class="lookup-row">
+      <span class="lookup-label">Sound speed fraction v<sub>s</sub>/c:</span>
+      <span class="lookup-value">${vs_frac.toFixed(8)}</span>
+    </div>
+
+    <div class="lookup-row" style="margin-top:12px; padding-top:12px; border-top:1px solid #dbe7f5;">
+      <span class="lookup-label"><strong>Full age of universe:</strong></span>
+      <span class="lookup-value" style="font-weight:700; color:#1e3a5f; font-size:15px;">
+        ${fmtYr(fullAge_yr)} yr
+      </span>
+    </div>
+
+    <div class="lookup-row" style="margin-top:8px;">
+      <span class="lookup-label">Bracket [(T<sub>i</sub>/T₀ − 1)·Δx<sub>z</sub> − t<sub>d</sub>]:</span>
+      <span class="lookup-value">${fmtYr(bracket)} lyr</span>
+    </div>
+
+    <div class="lookup-row" style="margin-top:8px;">
+      <span class="lookup-label"><strong>BAO size d<sub>BAO</sub>:</strong></span>
+      <span class="lookup-value" style="font-weight:700; color:#1e3a5f; font-size:15px;">
+        ${formatNumber(Math.round(bao_lyr))} lyr
+      </span>
+    </div>
+  `;
+});
+
+/* ── BAO RESET ──────────────────────────────── */
+
+document.getElementById("bao-reset-btn").addEventListener("click", () => {
+  document.getElementById("bao-input-Ti").value = T_I_TRUE;
+  document.getElementById("bao-input-h0").value = H0_KMS_MPC_DEFAULT;
+  document.getElementById("bao-result").innerHTML = "—";
+});
+
 /* ── BOOT ───────────────────────────────────── */
 
 initPage();
+initBAOPage();
