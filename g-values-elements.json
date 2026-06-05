@@ -5,8 +5,8 @@
       "atomicNumber": 1,
       "symbol": "H",
       "name": "Hydrogen",
-      "inertialMass": 55.845144405992,
-      "gravitationalMass": 56.35828776345,
+      "inertialMass": 1.00797094202616217,
+      "gravitationalMass": 1.007422726425,
       "gValue": 6.613511,
       "isotopes": [
         {

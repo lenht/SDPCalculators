@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elementary Space Radius — SPD Formulae</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── Comparison flags ── */
+    .comparison-flag {
+      margin-top: 16px;
+      padding: 14px 18px;
+      border-radius: 10px;
+      font-size: 14px;
+      line-height: 1.6;
+      border-left: 5px solid;
+    }
+    .flag-below {
+      background: #f0fdf4;
+      border-color: #22c55e;
+      color: #166534;
+    }
+    .flag-above {
+      background: #fff7ed;
+      border-color: #f97316;
+      color: #9a3412;
+    }
+    .flag-equal {
+      background: var(--accent-light);
+      border-color: var(--accent);
+      color: var(--heading);
+    }
+    /* mass note */
+    #mass-note {
+      margin-top: 6px;
+      font-size: 13px;
+      color: var(--muted);
+      min-height: 18px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <h1>SPD Formulae</h1>
+
+      <p class="subtitle">
+        Interactive calculators for SPD formulae and constants.
+      </p>
+
+      <div class="category open">
+        <button class="category-button">
+          Space particle dualism
+          <span>▾</span>
+        </button>
+
+        <div class="formula-list">
+          <a href="elementary-space-radius.html" class="formula-link active">Elementary space radius</a>
+          <button class="formula-link">Granular dimensionality</button>
+          <button class="formula-link">Critical photon energy</button>
+        </div>
+      </div>
+
+      <div class="category">
+        <button class="category-button">
+          Entropic expansion
+          <span>▾</span>
+        </button>
+
+        <div class="formula-list">
+          <button class="formula-link">Hubble parameter</button>
+          <button class="formula-link">Time-redshift equation</button>
+        </div>
+      </div>
+
+      <div class="category open">
+        <button class="category-button">
+          SPD-chromogravity and electrogravity
+          <span>▾</span>
+        </button>
+
+        <div class="formula-list">
+          <a href="g-value.html" class="formula-link">G-value calculator</a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+
+      <!-- PAGE HEADER -->
+      <div class="page-header">
+        <h2>Elementary Space Radius</h2>
+
+        <div class="description-box">
+          <p>
+            In the SPD framework, the elementary space radius
+            R<sub>E</sub> is the radius of the elementary space
+            associated with a given particle energy. It defines the
+            scale at which the granular structure of space becomes
+            relevant for that particle.
+          </p>
+
+          <p>
+            By comparing R<sub>E</sub> to the particle's wavelength,
+            one can identify the critical energy at which the wavelength
+            becomes smaller than the elementary space radius — the
+            regime where SPD predicts significant space-curvature
+            effects at the particle scale.
+          </p>
+        </div>
+
+        <p class="unit-note">
+          Lengths are in metres (m). Energies are in joules (J).
+          Masses are in kilograms (kg).
+        </p>
+      </div>
+
+      <!-- MAIN CARD -->
+      <section class="calculator-card">
+
+        <!-- MAIN FORMULA -->
+        <h3 class="formula-section-title">The main formula</h3>
+
+        <div class="formula-box">
+          R<sub>E</sub>
+          =
+          <span style="display:inline-block; text-align:center; vertical-align:middle;">
+            <span style="display:block; border-bottom:2px solid currentColor; padding-bottom:4px;">
+              2 G<sub>E</sub> E
+            </span>
+            <span style="display:block; padding-top:4px;">
+              c<sup>4</sup>
+            </span>
+          </span>
+        </div>
+
+        <!-- FORMULA LEGEND -->
+        <div class="legend-box">
+          <p><strong>R<sub>E</sub></strong> = elementary space radius</p>
+          <p><strong>G<sub>E</sub></strong> = elementary space constant = k<sub>e</sub> e² / m<sub>p</sub>² = 8.246441821 × 10²⁵ m³ s⁻² kg⁻¹</p>
+          <p><strong>E</strong> = energy of the particle (J)</p>
+          <p><strong>c</strong> = speed of light in vacuum</p>
+          <p><strong>k<sub>e</sub></strong> = Coulomb constant</p>
+          <p><strong>e</strong> = elementary charge</p>
+          <p><strong>m<sub>p</sub></strong> = proton mass</p>
+        </div>
+
+        <!-- WAVELENGTH FORMULAS -->
+        <h3>Wavelength for comparison</h3>
+
+        <div class="box">
+
+          <p class="section-note">
+            To identify the critical energy threshold, the elementary space radius
+            is compared to the particle's wavelength. Two cases apply:
+          </p>
+
+          <p class="section-note" style="margin-bottom:6px;">
+            <strong>Massless particles</strong> (photon, gluon):
+          </p>
+
+          <div class="formula-box small-formula">
+            λ
+            =
+            <span style="display:inline-block; text-align:center; vertical-align:middle;">
+              <span style="display:block; border-bottom:2px solid currentColor; padding-bottom:3px;">hc</span>
+              <span style="display:block; padding-top:3px;">E</span>
+            </span>
+          </div>
+
+          <div class="legend-box" style="margin-top:0; margin-bottom:24px;">
+            <p><strong>λ</strong> = wavelength</p>
+            <p><strong>h</strong> = Planck constant</p>
+            <p><strong>c</strong> = speed of light in vacuum</p>
+            <p><strong>E</strong> = energy of the particle</p>
+          </div>
+
+          <p class="section-note" style="margin-bottom:6px; margin-top:4px;">
+            <strong>Particles with mass</strong>:
+          </p>
+
+          <div class="formula-box small-formula">
+            λ
+            =
+            <span style="display:inline-block; text-align:center; vertical-align:middle;">
+              <span style="display:block; border-bottom:2px solid currentColor; padding-bottom:3px;">hc</span>
+              <span style="display:block; padding-top:3px;">√(E² − m²c⁴)</span>
+            </span>
+          </div>
+
+          <div class="legend-box" style="margin-top:0;">
+            <p><strong>λ</strong> = wavelength</p>
+            <p><strong>h</strong> = Planck constant</p>
+            <p><strong>c</strong> = speed of light in vacuum</p>
+            <p><strong>E</strong> = total energy of the particle</p>
+            <p><strong>m</strong> = rest mass of the particle</p>
+            <p><strong>mc²</strong> = rest energy of the particle</p>
+          </div>
+
+        </div>
+
+        <!-- CALCULATOR SECTION -->
+        <h3>Calculator</h3>
+
+        <div class="box">
+
+          <p class="section-note">
+            Select a fundamental particle to pre-fill its mass and
+            default to its rest energy, or enter a custom energy to
+            explore different regimes. For massless particles (photon,
+            gluon), enter the energy directly.
+          </p>
+
+          <label for="particle-select">Particle</label>
+
+          <select id="particle-select">
+            <option value="">Choose a particle…</option>
+          </select>
+
+          <div class="form-grid" style="margin-top: 20px;">
+
+            <div>
+              <label for="input-mass">Particle mass (kg)</label>
+              <input
+                id="input-mass"
+                type="number"
+                step="any"
+                placeholder="Enter mass in kg"
+              />
+              <div id="mass-note"></div>
+            </div>
+
+            <div>
+              <label for="input-energy">Energy E (joules)</label>
+              <input
+                id="input-energy"
+                type="number"
+                step="any"
+                placeholder="Enter energy in joules"
+              />
+            </div>
+
+          </div>
+
+          <div class="molecule-btn-row">
+            <button class="add-element-btn" id="esr-reset-btn">↺ Reset</button>
+            <button class="primary" id="esr-calc-btn">Calculate R<sub>E</sub></button>
+          </div>
+
+          <div class="result-box" id="esr-result">—</div>
+
+        </div>
+
+        <!-- CONSTANTS SECTION -->
+        <h3>Physical constants used</h3>
+
+        <div class="box">
+
+          <p class="section-note">
+            The elementary space constant G<sub>E</sub> is derived from
+            the Coulomb constant, elementary charge, and proton mass.
+          </p>
+
+          <div class="formula-box small-formula">
+            G<sub>E</sub>
+            =
+            <span style="display:inline-block; text-align:center; vertical-align:middle;">
+              <span style="display:block; border-bottom:2px solid currentColor; padding-bottom:3px;">k<sub>e</sub> e²</span>
+              <span style="display:block; padding-top:3px;">m<sub>p</sub>²</span>
+            </span>
+            = 8.246441821 × 10²⁵ m³ s⁻² kg⁻¹
+          </div>
+
+          <div class="form-grid" style="margin-top:20px;">
+            <div>
+              <label for="const-ke">Coulomb constant k<sub>e</sub> (N·m²/C²)</label>
+              <input id="const-ke" disabled />
+            </div>
+            <div>
+              <label for="const-e">Elementary charge e (C)</label>
+              <input id="const-e" disabled />
+            </div>
+            <div>
+              <label for="const-mp">Proton mass m<sub>p</sub> (kg)</label>
+              <input id="const-mp" disabled />
+            </div>
+            <div>
+              <label for="const-ge">G<sub>E</sub> = k<sub>e</sub>e² / m<sub>p</sub>² (m³ s⁻² kg⁻¹)</label>
+              <input id="const-ge" disabled />
+            </div>
+            <div>
+              <label for="const-c">Speed of light c (m/s)</label>
+              <input id="const-c" disabled />
+            </div>
+            <div>
+              <label for="const-h">Planck constant h (J·s)</label>
+              <input id="const-h" disabled />
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+    </main>
+  </div>
+
+  <script src="js/shared.js"></script>
+  <script src="js/elementary-space-radius.js"></script>
+</body>
+</html>
