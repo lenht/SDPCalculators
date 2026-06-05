@@ -322,6 +322,7 @@ h3:first-of-type {
 .form-grid > div input,
 .form-grid > div select {
   flex-shrink: 0;
+  margin-top: auto;
 }
 
 .mixed-grid {
@@ -360,6 +361,10 @@ input:disabled {
   background: #f1f5f9;
   color: #64748b;
   cursor: not-allowed;
+}
+
+.full-width-field {
+  grid-column: 1 / -1;
 }
 
 /* BUTTONS */

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Time-Redshift Equation — SPD Formulae</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="app">
+
+    <!-- SIDEBAR -->
+        <aside class="sidebar"></aside>
+
+    <!-- MAIN -->
+    <main class="main">
+
+      <!-- PAGE HEADER -->
+      <div class="page-header">
+        <h2>Time-Redshift Equation</h2>
+
+        <div class="description-box">
+          <p>
+            In the SPD entropic expansion framework, this equation gives
+            the light travel distance to any distant galaxy directly from
+            its observed redshift z and the Hubble constant H₀.
+          </p>
+
+          <p>
+            Because it is linear in z, the result is exact for all
+            practically observable distances — no numerical integration
+            or cosmological model parameters are required.
+          </p>
+        </div>
+
+        <p class="unit-note">
+          Distances are expressed in lightyears (lyr).
+          H₀ is entered in km/s/Mpc.
+        </p>
+      </div>
+
+      <!-- MAIN CARD -->
+      <section class="calculator-card">
+
+        <!-- MAIN FORMULA -->
+        <h3 class="formula-section-title">The main formula</h3>
+
+        <div class="formula-box">
+          t<sub>0</sub>
+          =
+          <span style="display:inline-block; text-align:center; vertical-align:middle;">
+            <span style="display:block; border-bottom:2px solid currentColor; padding-bottom:4px;">
+              3 c z
+            </span>
+            <span style="display:block; padding-top:4px;">
+              H<sub>0</sub>
+            </span>
+          </span>
+        </div>
+
+        <!-- LEGEND -->
+        <div class="legend-box">
+          <p><strong>t<sub>0</sub></strong> = light travel distance to the galaxy</p>
+          <p><strong>c</strong> = speed of light in vacuum</p>
+          <p><strong>z</strong> = observed redshift of the galaxy (dimensionless)</p>
+          <p><strong>H<sub>0</sub></strong> = Hubble constant</p>
+        </div>
+
+        <!-- HUBBLE CONSTANT SECTION -->
+        <h3>The Hubble constant</h3>
+
+        <div class="box">
+
+          <p class="section-note">
+            The value of H<sub>0</sub> used here is derived from supernova
+            distance surveys. CMB-derived values depend on Big Bang theory
+            assumptions and are not theory-independent, so they are not
+            appropriate for this framework.
+          </p>
+
+          <div class="formula-box small-formula">
+            H<sub>0</sub> = 74.03 ± 1.42
+            <span style="display:inline-block; text-align:center; vertical-align:middle; margin: 0 4px;">
+              <span style="display:block; border-bottom:1.5px solid currentColor; padding-bottom:2px; font-size:0.85em;">km</span>
+              <span style="display:block; padding-top:2px; font-size:0.85em;">s</span>
+            </span>
+            /mpc
+          </div>
+
+          <p class="section-note">
+            For the formula, this converts to metres per second per
+            lightsecond:
+          </p>
+
+          <div class="formula-box small-formula">
+            H<sub>0</sub> = (7.192 ± 0.142) ×
+            <span style="display:inline-block; text-align:center; vertical-align:middle; margin: 0 4px;">
+              <span style="display:block; border-bottom:1.5px solid currentColor; padding-bottom:2px;">10<sup>−10</sup> m/s</span>
+              <span style="display:block; padding-top:2px;">ls</span>
+            </span>
+          </div>
+
+          <p class="section-note">
+            With the default H<sub>0</sub>, the equation simplifies to:
+          </p>
+
+          <div class="formula-box small-formula">
+            t<sub>0</sub> = 39,625,004,647 lyr × z
+          </div>
+
+        </div>
+
+        <!-- REFERENCE CONSTANTS SECTION -->
+        <h3>Reference values</h3>
+
+        <div class="box">
+
+          <p class="section-note">
+            Physical constants and derived values used by this calculator.
+          </p>
+
+          <div class="form-grid">
+            <div>
+              <label for="const-c">Speed of light c (m/s)</label>
+              <input id="const-c" disabled />
+            </div>
+
+            <div>
+              <label for="const-h0-kms">H<sub>0</sub> default (km/s/Mpc)</label>
+              <input id="const-h0-kms" disabled />
+            </div>
+
+            <div>
+              <label for="const-h0-err">H<sub>0</sub> uncertainty ± (km/s/Mpc)</label>
+              <input id="const-h0-err" disabled />
+            </div>
+
+            <div>
+              <label for="const-h0-msl">H<sub>0</sub> in m/s/ls</label>
+              <input id="const-h0-msl" disabled />
+            </div>
+
+            <div>
+              <label for="const-k">Coefficient K = 3c/H<sub>0</sub> (lyr per unit z)</label>
+              <input id="const-k" disabled />
+            </div>
+          </div>
+
+        </div>
+
+        <!-- CALCULATOR SECTION -->
+        <h3>Calculator</h3>
+
+        <div class="box">
+
+          <p class="section-note">
+            Enter a galaxy's redshift z to calculate its light travel
+            distance. You may also adjust H<sub>0</sub> — use only values
+            derived from supernova surveys, not from CMB extrapolations.
+          </p>
+
+          <div class="form-grid">
+            <div>
+              <label for="input-z">Redshift z</label>
+              <input
+                id="input-z"
+                type="number"
+                step="any"
+                min="0"
+                placeholder="e.g. 0.5, 1, 8.8"
+              />
+            </div>
+
+            <div>
+              <label for="input-h0">
+                H<sub>0</sub> (km/s/Mpc)
+                <span style="font-weight:400; color: var(--muted); font-size:12px;">
+                  — supernova surveys only
+                </span>
+              </label>
+              <input
+                id="input-h0"
+                type="number"
+                step="any"
+              />
+            </div>
+
+            <div>
+              <label for="input-h0-err">H<sub>0</sub> uncertainty ± (km/s/Mpc)</label>
+              <input
+                id="input-h0-err"
+                type="number"
+                step="any"
+                placeholder="e.g. 1.42"
+                value="1.42"
+              />
+            </div>
+          </div>
+
+          <div class="molecule-btn-row">
+            <button class="add-element-btn" id="trz-reset-btn">↺ Reset</button>
+            <button class="primary" id="trz-calc-btn">Calculate t<sub>0</sub></button>
+          </div>
+
+          <div class="result-box" id="trz-result">—</div>
+
+          <p class="section-note" style="margin-top: 20px; margin-bottom: 0;">
+            <strong>Note:</strong> Only use H<sub>0</sub> values obtained from
+            supernova surveys. Values extrapolated from the CMB depend on Big
+            Bang theory and are not theory-independent.
+          </p>
+
+        </div>
+
+      </section>
+    </main>
+  </div>
+
+  <script src="js/sidebar.js"></script>
+  <script src="js/shared.js"></script>
+  <script src="js/time-redshift.js"></script>
+</body>
+</html>

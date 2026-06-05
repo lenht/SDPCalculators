@@ -37,6 +37,28 @@
       color: var(--muted);
       min-height: 18px;
     }
+
+    .particle-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    .particle-grid > div {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .particle-grid label {
+      margin-bottom: 8px;
+      min-height: 22px;
+    }
+
+    .particle-grid input {
+      width: 100%;
+    }
+
   </style>
 </head>
 
@@ -44,49 +66,7 @@
   <div class="app">
 
     <!-- SIDEBAR -->
-    <aside class="sidebar">
-      <h1>SPD Formulae</h1>
-
-      <p class="subtitle">
-        Interactive calculators for SPD formulae and constants.
-      </p>
-
-      <div class="category open">
-        <button class="category-button">
-          Space particle dualism
-          <span>▾</span>
-        </button>
-
-        <div class="formula-list">
-          <a href="elementary-space-radius.html" class="formula-link active">Elementary space radius</a>
-          <button class="formula-link">Granular dimensionality</button>
-          <button class="formula-link">Critical photon energy</button>
-        </div>
-      </div>
-
-      <div class="category">
-        <button class="category-button">
-          Entropic expansion
-          <span>▾</span>
-        </button>
-
-        <div class="formula-list">
-          <button class="formula-link">Hubble parameter</button>
-          <button class="formula-link">Time-redshift equation</button>
-        </div>
-      </div>
-
-      <div class="category open">
-        <button class="category-button">
-          SPD-chromogravity and electrogravity
-          <span>▾</span>
-        </button>
-
-        <div class="formula-list">
-          <a href="g-value.html" class="formula-link">G-value calculator</a>
-        </div>
-      </div>
-    </aside>
+        <aside class="sidebar"></aside>
 
     <!-- MAIN -->
     <main class="main">
@@ -221,7 +201,7 @@
             <option value="">Choose a particle…</option>
           </select>
 
-          <div class="form-grid" style="margin-top: 20px;">
+          <div class="particle-grid" style="margin-top: 20px;">
 
             <div>
               <label for="input-mass">Particle mass (kg)</label>
@@ -233,6 +213,7 @@
               />
               <div id="mass-note"></div>
             </div>
+            
 
             <div>
               <label for="input-energy">Energy E (joules)</label>
@@ -308,6 +289,7 @@
     </main>
   </div>
 
+  <script src="js/sidebar.js"></script>
   <script src="js/shared.js"></script>
   <script src="js/elementary-space-radius.js"></script>
 </body>

@@ -3,14 +3,6 @@
    Sidebar toggle, common utilities, formatting
    ───────────────────────────────────────────── */
 
-/* SIDEBAR TOGGLE */
-
-document.querySelectorAll(".category-button").forEach(button => {
-  button.addEventListener("click", () => {
-    button.parentElement.classList.toggle("open");
-  });
-});
-
 /* FORMAT HELPERS */
 
 function displayG(value) {
