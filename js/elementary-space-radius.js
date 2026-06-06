@@ -345,3 +345,306 @@ function showConstants() {
 
 populateParticleSelect();
 showConstants();
+
+/* ══════════════════════════════════════════════
+   RELATIVISTIC GROWTH VISUALISER
+   ══════════════════════════════════════════════ */
+
+(function () {
+
+  /* ── state ── */
+  let visMass = null;      // kg
+  let visName = "";
+  let animFrame = null;
+
+  /* ── DOM refs ── */
+  const visSel         = document.getElementById("vis-particle-select");
+  const visControls    = document.getElementById("vis-controls");
+  const visPlaceholder = document.getElementById("vis-placeholder");
+  const visSlider      = document.getElementById("vis-slider");
+  const visVelLabel    = document.getElementById("vis-vel-label");
+  const visGammaLabel  = document.getElementById("vis-gamma-label");
+  const visReadout     = document.getElementById("vis-readout");
+  const canvas         = document.getElementById("vis-canvas");
+  const ctx            = canvas.getContext("2d");
+
+  /* ── populate dropdown (massive only) ── */
+  PARTICLES.forEach((p, i) => {
+    if (p.mass === null) return;
+    const opt = document.createElement("option");
+    opt.value = i;
+    opt.textContent = `${p.name} (${p.symbol})`;
+    visSel.appendChild(opt);
+  });
+
+  /* ── particle selection ── */
+  visSel.addEventListener("change", e => {
+    const p = PARTICLES[e.target.value];
+    if (!p || p.mass === null) {
+      visControls.style.display = "none";
+      visPlaceholder.style.display = "";
+      visMass = null;
+      return;
+    }
+    visMass = p.mass;
+    visName = `${p.name} (${p.symbol})`;
+    visPlaceholder.style.display = "none";
+    visControls.style.display = "";
+    visSlider.value = "0";
+    renderFrame(0);
+  });
+
+  /* ── slider input ── */
+  visSlider.addEventListener("input", () => {
+    renderFrame(parseFloat(visSlider.value));
+  });
+
+  /* ── main render ── */
+  function renderFrame(velPct) {
+    if (visMass === null) return;
+
+    const beta   = Math.min(velPct / 100, 0.9999999);
+    const gamma  = 1 / Math.sqrt(1 - beta * beta);
+    const energy = visMass * C2 * gamma;
+    const RE     = (2 * G_E * energy) / C4;
+
+    // de Broglie wavelength
+    const mc2   = visMass * C2;
+    const disc  = energy * energy - mc2 * mc2;
+    const lamDB = disc > 0 ? (H_PLANCK * C) / Math.sqrt(disc) : null;
+
+    // rest values for normalisation
+    const E0    = visMass * C2;
+    const RE0   = (2 * G_E * E0) / C4;
+
+    // labels
+    visVelLabel.textContent  = velPct < 0.001 ? "0" : velPct.toPrecision(7).replace(/\.?0+$/, "");
+    visGammaLabel.textContent = `γ = ${gamma < 1e6 ? gamma.toFixed(6) : gamma.toExponential(4)}`;
+
+    drawCanvas(beta, gamma, RE, RE0, lamDB, velPct);
+    updateReadout(velPct, beta, gamma, energy, RE, lamDB);
+  }
+
+  /* ── canvas drawing ── */
+  function drawCanvas(beta, gamma, RE, RE0, lamDB, velPct) {
+    // Resize canvas to its CSS pixel width
+    canvas.width  = canvas.offsetWidth * window.devicePixelRatio || canvas.offsetWidth;
+    canvas.height = 220 * (window.devicePixelRatio || 1);
+    ctx.scale(window.devicePixelRatio || 1, window.devicePixelRatio || 1);
+
+    const W = canvas.offsetWidth;
+    const H = 220;
+    ctx.clearRect(0, 0, W, H);
+
+    const PAD_L = 64, PAD_R = 24, PAD_T = 28, PAD_B = 40;
+    const plotW = W - PAD_L - PAD_R;
+    const plotH = H - PAD_T - PAD_B;
+
+    /* ── axis ── */
+    ctx.strokeStyle = "#cddff5";
+    ctx.lineWidth   = 1;
+    ctx.beginPath();
+    ctx.moveTo(PAD_L, PAD_T);
+    ctx.lineTo(PAD_L, PAD_T + plotH);
+    ctx.lineTo(PAD_L + plotW, PAD_T + plotH);
+    ctx.stroke();
+
+    // x-axis ticks
+    ctx.fillStyle   = "#64748b";
+    ctx.font        = "11px Arial";
+    ctx.textAlign   = "center";
+    [0, 25, 50, 75, 90, 99].forEach(pct => {
+      const x = PAD_L + (pct / 99.99999) * plotW;
+      ctx.beginPath();
+      ctx.moveTo(x, PAD_T + plotH);
+      ctx.lineTo(x, PAD_T + plotH + 4);
+      ctx.strokeStyle = "#cddff5";
+      ctx.stroke();
+      ctx.fillText(pct + "%", x, PAD_T + plotH + 16);
+    });
+
+    // y-axis label
+    ctx.save();
+    ctx.translate(13, PAD_T + plotH / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#64748b";
+    ctx.font = "11px Arial";
+    ctx.fillText("log₁₀ scale (normalised)", 0, 0);
+    ctx.restore();
+
+    /* ── plot curves ── */
+    // We plot log10(value / RE0) over velPct 0 → 99.99999
+    // Both R_E and λ_dB, normalised to RE0 so at rest R_E/RE0 = 1
+
+    const STEPS = 300;
+
+    function xOfPct(p)   { return PAD_L + (p / 99.99999) * plotW; }
+    function yOfLog(logV) {
+      // map log range [-20, +20] to plot height
+      const LOG_MIN = -18, LOG_MAX = 22;
+      const norm = (logV - LOG_MIN) / (LOG_MAX - LOG_MIN);
+      return PAD_T + plotH - norm * plotH;
+    }
+
+    // Draw zero-log line (= RE0)
+    ctx.setLineDash([4, 4]);
+    ctx.strokeStyle = "#94a3b8";
+    ctx.lineWidth   = 1;
+    ctx.beginPath();
+    ctx.moveTo(PAD_L,            yOfLog(0));
+    ctx.lineTo(PAD_L + plotW,    yOfLog(0));
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.fillStyle = "#94a3b8";
+    ctx.font      = "10px Arial";
+    ctx.textAlign = "right";
+    ctx.fillText("R_E₀", PAD_L - 4, yOfLog(0) + 4);
+
+    // R_E curve  (blue)
+    ctx.beginPath();
+    ctx.strokeStyle = "#2f5f8f";
+    ctx.lineWidth   = 2.5;
+    for (let s = 0; s <= STEPS; s++) {
+      const p  = (s / STEPS) * 99.99999;
+      const b  = p / 100;
+      const g  = 1 / Math.sqrt(1 - b * b);
+      const re = (2 * G_E * visMass * C2 * g) / C4;
+      const lv = Math.log10(re / RE0);
+      const x  = xOfPct(p);
+      const y  = yOfLog(lv);
+      s === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+
+    // λ_dB curve  (orange)
+    ctx.beginPath();
+    ctx.strokeStyle = "#f97316";
+    ctx.lineWidth   = 2.5;
+    let started = false;
+    for (let s = 1; s <= STEPS; s++) {   // skip s=0 (v=0 → λ = ∞)
+      const p    = (s / STEPS) * 99.99999;
+      const b    = p / 100;
+      const g    = 1 / Math.sqrt(1 - b * b);
+      const E_s  = visMass * C2 * g;
+      const mc2s = visMass * C2;
+      const disc = E_s * E_s - mc2s * mc2s;
+      if (disc <= 0) continue;
+      const lam  = (H_PLANCK * C) / Math.sqrt(disc);
+      const lv   = Math.log10(lam / RE0);
+      const x    = xOfPct(p);
+      const y    = yOfLog(lv);
+      if (!started) { ctx.moveTo(x, y); started = true; }
+      else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+
+    /* ── current velocity marker ── */
+    const xNow = xOfPct(velPct);
+    ctx.strokeStyle = "#1e3a5f";
+    ctx.lineWidth   = 1.5;
+    ctx.setLineDash([3, 3]);
+    ctx.beginPath();
+    ctx.moveTo(xNow, PAD_T);
+    ctx.lineTo(xNow, PAD_T + plotH);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Dot on R_E curve at current v
+    const logRE_now = Math.log10(RE / RE0);
+    ctx.fillStyle = "#2f5f8f";
+    ctx.beginPath();
+    ctx.arc(xNow, yOfLog(logRE_now), 5, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Dot on λ_dB curve
+    if (lamDB !== null && beta > 0) {
+      const logLam = Math.log10(lamDB / RE0);
+      ctx.fillStyle = "#f97316";
+      ctx.beginPath();
+      ctx.arc(xNow, yOfLog(logLam), 5, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    /* ── legend ── */
+    const LEG_X = PAD_L + 14, LEG_Y = PAD_T + 14;
+    ctx.font = "12px Arial";
+    ctx.textAlign = "left";
+
+    ctx.fillStyle = "#2f5f8f";
+    ctx.fillRect(LEG_X, LEG_Y, 18, 3);
+    ctx.fillText("R_E  (elementary space radius)", LEG_X + 24, LEG_Y + 4);
+
+    ctx.fillStyle = "#f97316";
+    ctx.fillRect(LEG_X, LEG_Y + 18, 18, 3);
+    ctx.fillText("λ_dB  (de Broglie wavelength)", LEG_X + 24, LEG_Y + 22);
+
+    /* ── crossover annotation ── */
+    // Find crossover velocity numerically
+    let crossPct = null;
+    for (let s = 1; s < STEPS; s++) {
+      const p1   = (s / STEPS) * 99.99999;
+      const p2   = ((s + 1) / STEPS) * 99.99999;
+      const re1  = reAtPct(p1), re2  = reAtPct(p2);
+      const la1  = lamAtPct(p1), la2 = lamAtPct(p2);
+      if (la1 && la2 && re1 < la1 && re2 >= la2) { crossPct = (p1 + p2) / 2; break; }
+    }
+    if (crossPct !== null) {
+      const xC = xOfPct(crossPct);
+      ctx.strokeStyle = "#22c55e";
+      ctx.lineWidth   = 1.5;
+      ctx.setLineDash([4, 3]);
+      ctx.beginPath();
+      ctx.moveTo(xC, PAD_T);
+      ctx.lineTo(xC, PAD_T + plotH);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle   = "#166534";
+      ctx.font        = "11px Arial";
+      ctx.textAlign   = xC > W / 2 ? "right" : "left";
+      const offset    = xC > W / 2 ? -6 : 6;
+      ctx.fillText(`R_E = λ  at  ~${crossPct.toPrecision(4)}% c`, xC + offset, PAD_T + 12);
+    }
+  }
+
+  function reAtPct(p) {
+    const b = p / 100, g = 1 / Math.sqrt(1 - b * b);
+    return (2 * G_E * visMass * C2 * g) / C4;
+  }
+  function lamAtPct(p) {
+    const b = p / 100, g = 1 / Math.sqrt(1 - b * b);
+    const E = visMass * C2 * g, mc2 = visMass * C2;
+    const d = E * E - mc2 * mc2;
+    return d > 0 ? (H_PLANCK * C) / Math.sqrt(d) : null;
+  }
+
+  /* ── live readout grid ── */
+  function readoutRow(label, value) {
+    return `
+      <div>
+        <div style="font-size:12px; font-weight:700; color:#1e3a5f;">${label}</div>
+        <div style="font-family:monospace; font-size:13px; color:#334155;">${value}</div>
+      </div>`;
+  }
+
+  function updateReadout(velPct, beta, gamma, energy, RE, lamDB) {
+    const regimeHTML = RE > (lamDB ?? Infinity)
+      ? `<span style="color:#9a3412; font-weight:700;">R<sub>E</sub> &gt; λ — SPD regime</span>`
+      : `<span style="color:#166534; font-weight:700;">R<sub>E</sub> &lt; λ — classical regime</span>`;
+
+    visReadout.innerHTML =
+      readoutRow("Particle", visName) +
+      readoutRow("Velocity", `${velPct < 0.001 ? "0" : velPct.toPrecision(6).replace(/\.?0+$/, "")}% of c`) +
+      readoutRow("Lorentz factor γ", gamma < 1e6 ? gamma.toFixed(6) : gamma.toExponential(4)) +
+      readoutRow("Relativistic energy E", formatSci(energy) + " J") +
+      readoutRow("R<sub>E</sub>", formatSci(RE) + " m") +
+      (lamDB ? readoutRow("λ<sub>dB</sub>", formatSci(lamDB) + " m") : "") +
+      `<div style="grid-column:1/-1; margin-top:4px;">${regimeHTML}</div>`;
+  }
+
+  /* ── redraw on resize ── */
+  window.addEventListener("resize", () => {
+    if (visMass !== null) renderFrame(parseFloat(visSlider.value));
+  });
+
+})();

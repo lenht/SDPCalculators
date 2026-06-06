@@ -311,6 +311,72 @@
 
         </div>
 
+        <!-- VELOCITY VISUALISATION SECTION -->
+        <h3>Relativistic growth visualiser</h3>
+
+        <div class="box">
+
+          <p class="section-note">
+            As a massive particle accelerates toward the speed of light, the
+            Lorentz factor γ diverges and the relativistic energy — and therefore
+            R<sub>E</sub> — grows without bound. At the same time the de Broglie
+            wavelength shrinks. Drag the slider to explore the crossover where
+            R<sub>E</sub> overtakes λ.
+          </p>
+
+          <label for="vis-particle-select">Particle</label>
+          <select id="vis-particle-select">
+            <option value="">Choose a particle…</option>
+          </select>
+
+          <div id="vis-controls" style="display:none; margin-top:24px;">
+
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
+              <label for="vis-slider" style="margin-bottom:0;">
+                Velocity v = <strong><span id="vis-vel-label">0</span>% of c</strong>
+              </label>
+              <span id="vis-gamma-label" style="font-size:13px; color:var(--muted);">γ = 1.000000</span>
+            </div>
+
+            <input
+              id="vis-slider"
+              type="range"
+              min="0"
+              max="99.99999"
+              step="0.00001"
+              value="0"
+              style="width:100%; accent-color:var(--accent); height:6px; cursor:pointer;"
+            />
+
+            <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--muted); margin-top:4px;">
+              <span>0% (at rest)</span>
+              <span>50% of c</span>
+              <span>99.99999% of c</span>
+            </div>
+
+            <!-- Canvas -->
+            <canvas
+              id="vis-canvas"
+              height="220"
+              style="width:100%; margin-top:24px; border-radius:10px; background:#f4f8ff; border:1px solid #cddff5; display:block;"
+            ></canvas>
+
+            <!-- Live readout -->
+            <div id="vis-readout" style="
+              margin-top:16px;
+              display:grid;
+              grid-template-columns: repeat(2, 1fr);
+              gap:10px 24px;
+            "></div>
+
+          </div>
+
+          <p id="vis-placeholder" class="section-note" style="margin-top:16px; margin-bottom:0; color:var(--muted);">
+            ← Select a massive particle above to activate the visualiser.
+          </p>
+
+        </div>
+
         <!-- CONSTANTS SECTION -->
         <h3>Physical constants used</h3>
 
