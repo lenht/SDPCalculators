@@ -129,57 +129,80 @@
           <p><strong>m<sub>p</sub></strong> = proton mass</p>
         </div>
 
-        <!-- WAVELENGTH FORMULAS -->
-        <h3>Wavelength for comparison</h3>
+        <!-- VELOCITY-BASED FORMULA -->
+        <h3>Formula for massive particles</h3>
 
         <div class="box">
 
           <p class="section-note">
-            To identify the critical energy threshold, the elementary space radius
-            is compared to the particle's wavelength. Two cases apply:
-          </p>
-
-          <p class="section-note" style="margin-bottom:6px;">
-            <strong>Massless particles</strong> (photon, gluon):
+            For particles with mass, the energy in the main formula is the
+            relativistic total energy, which depends on the particle's
+            velocity v:
           </p>
 
           <div class="formula-box small-formula">
-            λ
+            R<sub>E</sub>
             =
             <span style="display:inline-block; text-align:center; vertical-align:middle;">
-              <span style="display:block; border-bottom:2px solid currentColor; padding-bottom:3px;">hc</span>
-              <span style="display:block; padding-top:3px;">E</span>
+              <span style="display:block; border-bottom:2px solid currentColor; padding-bottom:3px;">
+                2 G<sub>E</sub>
+                &nbsp;
+                <span style="display:inline-block; text-align:center; vertical-align:middle;">
+                  <span style="display:block; border-bottom:1.5px solid currentColor; padding-bottom:2px;">m<sub>0</sub> c²</span>
+                  <span style="display:block; padding-top:2px;">√(1 − v²/c²)</span>
+                </span>
+              </span>
+              <span style="display:block; padding-top:3px;">c<sup>4</sup></span>
+            </span>
+          </div>
+
+          <div class="legend-box" style="margin-top:0; margin-bottom:0;">
+            <p><strong>m<sub>0</sub></strong> = rest mass of the particle (kg)</p>
+            <p><strong>v</strong> = velocity of the particle</p>
+            <p><strong>c</strong> = speed of light in vacuum</p>
+            <p><strong>G<sub>E</sub></strong> = elementary space constant</p>
+          </div>
+
+        </div>
+
+        <!-- MASSLESS FORMULAS -->
+        <h3>Formula for massless particles</h3>
+
+        <div class="box">
+
+          <p class="section-note">
+            For massless particles (photon, gluon), the energy is expressed
+            through frequency <strong>f</strong> or wavelength <strong>λ</strong>:
+          </p>
+
+          <div class="formula-box small-formula">
+            R<sub>E</sub>
+            =
+            <span style="display:inline-block; text-align:center; vertical-align:middle;">
+              <span style="display:block; border-bottom:2px solid currentColor; padding-bottom:3px;">2 G<sub>E</sub> h f</span>
+              <span style="display:block; padding-top:3px;">c<sup>4</sup></span>
+            </span>
+            =
+            <span style="display:inline-block; text-align:center; vertical-align:middle;">
+              <span style="display:block; border-bottom:2px solid currentColor; padding-bottom:3px;">2 G<sub>E</sub> h</span>
+              <span style="display:block; padding-top:3px;">c<sup>3</sup> λ</span>
             </span>
           </div>
 
           <div class="legend-box" style="margin-top:0; margin-bottom:24px;">
-            <p><strong>λ</strong> = wavelength</p>
+            <p><strong>f</strong> = frequency of the photon / gluon (Hz)</p>
+            <p><strong>λ</strong> = wavelength (m)</p>
             <p><strong>h</strong> = Planck constant</p>
             <p><strong>c</strong> = speed of light in vacuum</p>
-            <p><strong>E</strong> = energy of the particle</p>
+            <p><strong>G<sub>E</sub></strong> = elementary space constant</p>
           </div>
 
-          <p class="section-note" style="margin-bottom:6px; margin-top:4px;">
-            <strong>Particles with mass</strong>:
+          <p class="section-note" style="margin-bottom:0;">
+            The wavelength for comparison (where R<sub>E</sub> = λ marks the
+            critical regime) is simply λ itself for massless particles.
+            For massive particles the de Broglie wavelength is
+            λ = hc / √(E² − m₀²c⁴).
           </p>
-
-          <div class="formula-box small-formula">
-            λ
-            =
-            <span style="display:inline-block; text-align:center; vertical-align:middle;">
-              <span style="display:block; border-bottom:2px solid currentColor; padding-bottom:3px;">hc</span>
-              <span style="display:block; padding-top:3px;">√(E² − m²c⁴)</span>
-            </span>
-          </div>
-
-          <div class="legend-box" style="margin-top:0;">
-            <p><strong>λ</strong> = wavelength</p>
-            <p><strong>h</strong> = Planck constant</p>
-            <p><strong>c</strong> = speed of light in vacuum</p>
-            <p><strong>E</strong> = total energy of the particle</p>
-            <p><strong>m</strong> = rest mass of the particle</p>
-            <p><strong>mc²</strong> = rest energy of the particle</p>
-          </div>
 
         </div>
 
@@ -189,43 +212,95 @@
         <div class="box">
 
           <p class="section-note">
-            Select a fundamental particle to pre-fill its mass and
-            default to its rest energy, or enter a custom energy to
-            explore different regimes. For massless particles (photon,
-            gluon), enter the energy directly.
+            Select a particle to pre-fill its rest mass.
+            For <strong>massive particles</strong>, enter the velocity as a
+            percentage of the speed of light — the relativistic energy is
+            computed automatically.
+            For <strong>massless particles</strong> (photon, gluon), enter
+            either the frequency or the wavelength.
           </p>
 
           <label for="particle-select">Particle</label>
-
           <select id="particle-select">
             <option value="">Choose a particle…</option>
           </select>
 
-          <div class="particle-grid" style="margin-top: 20px;">
+          <!-- ── MASSIVE PARTICLE INPUTS ── -->
+          <div id="inputs-massive" style="display:none; margin-top:20px;">
 
-            <div>
-              <label for="input-mass">Particle mass (kg)</label>
-              <input
-                id="input-mass"
-                type="number"
-                step="any"
-                placeholder="Enter mass in kg"
-              />
-              <div id="mass-note"></div>
+            <div class="particle-grid">
+              <div>
+                <label for="input-mass">Rest mass m₀ (kg)</label>
+                <input
+                  id="input-mass"
+                  type="number"
+                  step="any"
+                  placeholder="Pre-filled from particle selection"
+                />
+                <div id="mass-note" style="margin-top:6px; font-size:13px; color:var(--muted);"></div>
+              </div>
+
+              <div>
+                <label for="input-velocity-pct">
+                  Velocity v (% of c)
+                  <span style="font-weight:400; color:var(--muted); font-size:12px;">— max 100%</span>
+                </label>
+                <input
+                  id="input-velocity-pct"
+                  type="number"
+                  step="any"
+                  min="0"
+                  max="100"
+                  placeholder="e.g. 99.9999"
+                />
+              </div>
             </div>
-            
 
-            <div>
-              <label for="input-energy">Energy E (joules)</label>
-              <input
-                id="input-energy"
-                type="number"
-                step="any"
-                placeholder="Enter energy in joules"
-              />
+            <p class="section-note" style="margin-top:16px; margin-bottom:0;">
+              The relativistic energy used is
+              E = m₀c² / √(1 − v²/c²).
+              At v = 0 this equals the rest energy m₀c².
+            </p>
+
+          </div>
+
+          <!-- ── MASSLESS PARTICLE INPUTS ── -->
+          <div id="inputs-massless" style="display:none; margin-top:20px;">
+
+            <p class="section-note" style="margin-bottom:12px;">
+              Enter the frequency <strong>f</strong> (Hz) or the wavelength
+              <strong>λ</strong> (m) — or both. If both are given, the
+              frequency takes priority.
+            </p>
+
+            <div class="particle-grid">
+              <div>
+                <label for="input-freq">Frequency f (Hz)</label>
+                <input
+                  id="input-freq"
+                  type="number"
+                  step="any"
+                  placeholder="e.g. 3e17 for X-ray"
+                />
+              </div>
+
+              <div>
+                <label for="input-wavelength">Wavelength λ (m)</label>
+                <input
+                  id="input-wavelength"
+                  type="number"
+                  step="any"
+                  placeholder="e.g. 1e-9 for nm X-ray"
+                />
+              </div>
             </div>
 
           </div>
+
+          <!-- ── PROMPT BEFORE PARTICLE IS CHOSEN ── -->
+          <p id="inputs-placeholder" class="section-note" style="margin-top:20px; margin-bottom:0; color:var(--muted);">
+            ← Select a particle above to reveal the relevant inputs.
+          </p>
 
           <div class="molecule-btn-row">
             <button class="add-element-btn" id="esr-reset-btn">↺ Reset</button>
