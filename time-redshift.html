@@ -9,7 +9,7 @@
   <!-- MathJax -->
   <script>
     MathJax = {
-      output: { font: "Gyre-Schola" },
+      output: { font: "STIX-Web" },
       tex: {
         inlineMath:  [['\\(', '\\)']],
         displayMath: [['\\[', '\\]']],
@@ -21,7 +21,7 @@
       }
     };
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg-full.js" id="MathJax-script" async></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" id="MathJax-script" async></script>
   <style>
     /* override formula-box so MathJax display has room */
     .formula-box mjx-container,
@@ -77,7 +77,7 @@
         <h3 class="formula-section-title">The main formula</h3>
 
         <div class="formula-box mj">
-          \[t_0 = \dfrac{3\, c\, z}{H_0}\]
+          \[t_0 = \dfrac{3 \, c \, z}{H_0}\]
         </div>
 
         <!-- LEGEND -->
@@ -101,7 +101,7 @@
           </p>
 
         <div class="formula-box small-formula mj">
-          \[H_0 = 74.03 \pm 1.42\ \dfrac{\text{km}}{\text{s}}\ /\ \text{Mpc}\]
+          \[H_0 = 74.03 \pm 1.42 \ \dfrac{\text{km}}{\text{s} \cdot \text{Mpc}}\]
         </div>
 
           <p class="section-note">
@@ -110,7 +110,7 @@
           </p>
 
         <div class="formula-box small-formula mj">
-          \[H_0 = (7.192 \pm 0.142) \times \dfrac{10^{-10}\ \text{m/s}}{\text{ls}}\]
+          \[H_0 = (7.192 \pm 0.142) \times \dfrac{10^{-10} \ \text{m} \, \text{s}^{-1}}{\text{ls}}\]
         </div>
 
           <p class="section-note">
@@ -118,7 +118,7 @@
           </p>
 
         <div class="formula-box small-formula mj">
-          \[t_0 = 39{,}624{,}161{,}384\ \text{lyr} \times z\]
+          \[t_0 = 39{,}625{,}004{,}647 \ \text{lyr} \times z\]
         </div>
 
         </div>
@@ -263,7 +263,7 @@
 
           <!-- BAO formula -->
         <div class="formula-box small-formula mj">
-          \[d_\text{BAO} = \dfrac{\sqrt{\dfrac{5}{3}\,\dfrac{1}{m_p}\,k_B\,T_i}}{c} \times \left[\left(\dfrac{T_i}{T_0} - 1\right)\Delta x_z - t_d\right]\]
+          \[d_{\mathrm{BAO}} = \dfrac{\sqrt{\dfrac{5}{3} \, \dfrac{k_{\mathrm{B}} \, T_i}{m_p}}}{c} \times \left[\left(\dfrac{T_i}{T_0} - 1\right) \Delta x_z - t_d\right]\]
         </div>
 
           <!-- Legend -->
