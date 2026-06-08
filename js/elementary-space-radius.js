@@ -203,6 +203,10 @@ document.getElementById("esr-calc-btn").addEventListener("click", () => {
         <span class="lookup-label"><strong>Elementary space radius R<sub>E</sub>:</strong></span>
         <span class="lookup-value" style="font-weight:700; color:#1e3a5f; font-size:15px;">${formatSci(RE)} m</span>
       </div>
+      <div class="lookup-row">
+        <span class="lookup-label"><strong>Elementary space diameter 2R<sub>E</sub>:</strong></span>
+        <span class="lookup-value" style="font-weight:700; color:#1e3a5f; font-size:15px;">${formatSci(2 * RE)} m</span>
+      </div>
 
       ${lambda !== null ? `
       <div class="lookup-row">
@@ -266,7 +270,7 @@ document.getElementById("esr-calc-btn").addEventListener("click", () => {
       <span class="lookup-value">${formatSci(freq_Hz)} Hz</span>
     </div>
     <div class="lookup-row">
-      <span class="lookup-label">Wavelength λ:</span>
+      <span class="lookup-label">Wavelength λ = hc / E:</span>
       <span class="lookup-value">${formatSci(wl_m)} m</span>
     </div>
     <div class="lookup-row">
@@ -277,6 +281,10 @@ document.getElementById("esr-calc-btn").addEventListener("click", () => {
     <div class="lookup-row" style="margin-top:12px; padding-top:12px; border-top:1px solid #dbe7f5;">
       <span class="lookup-label"><strong>Elementary space radius R<sub>E</sub>:</strong></span>
       <span class="lookup-value" style="font-weight:700; color:#1e3a5f; font-size:15px;">${formatSci(RE)} m</span>
+    </div>
+    <div class="lookup-row">
+      <span class="lookup-label"><strong>Elementary space diameter 2R<sub>E</sub>:</strong></span>
+      <span class="lookup-value" style="font-weight:700; color:#1e3a5f; font-size:15px;">${formatSci(2 * RE)} m</span>
     </div>
     <div class="lookup-row">
       <span class="lookup-label">Wavelength λ (for comparison):</span>
@@ -291,25 +299,28 @@ document.getElementById("esr-calc-btn").addEventListener("click", () => {
 
 function comparisonFlag(RE, lambda) {
   if (lambda === null || !Number.isFinite(lambda)) return "";
-  if (RE < lambda) {
+  const diameter = 2 * RE;
+  if (diameter < lambda) {
     return `
       <div class="comparison-flag flag-below">
-        R<sub>E</sub> &lt; λ — the elementary space radius is
+        2R<sub>E</sub> &lt; λ — the elementary space diameter is
         <strong>smaller</strong> than the wavelength.
-        The particle wavelength exceeds the granular scale of space.
+        The particle wavelength exceeds the size of the elementary space.
+        Regular quantum mechanics is sufficient in this regime.
       </div>`;
-  } else if (RE > lambda) {
+  } else if (diameter > lambda) {
     return `
       <div class="comparison-flag flag-above">
-        R<sub>E</sub> &gt; λ — the elementary space radius is
+        2R<sub>E</sub> &gt; λ — the elementary space diameter is
         <strong>larger</strong> than the wavelength.
-        This is the regime where SPD predicts significant
-        space-curvature effects at the particle scale.
+        According to SPD, smaller wavelengths no longer probe smaller
+        distances. This explains the particle desert observed at the LHC.
       </div>`;
   } else {
     return `
       <div class="comparison-flag flag-equal">
-        R<sub>E</sub> = λ — critical point.
+        2R<sub>E</sub> = λ — critical point: the elementary space diameter
+        equals the wavelength.
       </div>`;
   }
 }
@@ -510,7 +521,7 @@ showConstants();
       const b  = p / 100;
       const g  = 1 / Math.sqrt(1 - b * b);
       const re = (2 * G_E * visMass * C2 * g) / C4;
-      const lv = Math.log10(re / RE0);
+      const lv = Math.log10(2 * re / RE0);
       const x  = xOfPct(p);
       const y  = yOfLog(lv);
       s === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
@@ -551,7 +562,7 @@ showConstants();
     ctx.setLineDash([]);
 
     // Dot on R_E curve at current v
-    const logRE_now = Math.log10(RE / RE0);
+    const logRE_now = Math.log10(2 * RE / RE0);
     ctx.fillStyle = "#2f5f8f";
     ctx.beginPath();
     ctx.arc(xNow, yOfLog(logRE_now), 5, 0, Math.PI * 2);
@@ -573,7 +584,7 @@ showConstants();
 
     ctx.fillStyle = "#2f5f8f";
     ctx.fillRect(LEG_X, LEG_Y, 18, 3);
-    ctx.fillText("R_E  (elementary space radius)", LEG_X + 24, LEG_Y + 4);
+    ctx.fillText("2R_E  (elementary space diameter)", LEG_X + 24, LEG_Y + 4);
 
     ctx.fillStyle = "#f97316";
     ctx.fillRect(LEG_X, LEG_Y + 18, 18, 3);
@@ -587,7 +598,7 @@ showConstants();
       const p2   = ((s + 1) / STEPS) * 99.99999;
       const re1  = reAtPct(p1), re2  = reAtPct(p2);
       const la1  = lamAtPct(p1), la2 = lamAtPct(p2);
-      if (la1 && la2 && re1 < la1 && re2 >= la2) { crossPct = (p1 + p2) / 2; break; }
+      if (la1 && la2 && 2*re1 < la1 && 2*re2 >= la2) { crossPct = (p1 + p2) / 2; break; }
     }
     if (crossPct !== null) {
       const xC = xOfPct(crossPct);
@@ -603,7 +614,7 @@ showConstants();
       ctx.font        = "11px Arial";
       ctx.textAlign   = xC > W / 2 ? "right" : "left";
       const offset    = xC > W / 2 ? -6 : 6;
-      ctx.fillText(`R_E = λ  at  ~${crossPct.toPrecision(4)}% c`, xC + offset, PAD_T + 12);
+      ctx.fillText(`2R_E = λ  at  ~${crossPct.toPrecision(4)}% c`, xC + offset, PAD_T + 12);
     }
   }
 
@@ -628,9 +639,9 @@ showConstants();
   }
 
   function updateReadout(velPct, beta, gamma, energy, RE, lamDB) {
-    const regimeHTML = RE > (lamDB ?? Infinity)
-      ? `<span style="color:#9a3412; font-weight:700;">R<sub>E</sub> &gt; λ — SPD regime</span>`
-      : `<span style="color:#166534; font-weight:700;">R<sub>E</sub> &lt; λ — classical regime</span>`;
+    const regimeHTML = 2 * RE > (lamDB ?? Infinity)
+      ? `<span style="color:#9a3412; font-weight:700;">2R<sub>E</sub> &gt; λ — SPD regime (particle desert)</span>`
+      : `<span style="color:#166534; font-weight:700;">2R<sub>E</sub> &lt; λ — quantum regime (regular QM sufficient)</span>`;
 
     visReadout.innerHTML =
       readoutRow("Particle", visName) +
@@ -638,6 +649,7 @@ showConstants();
       readoutRow("Lorentz factor γ", gamma < 1e6 ? gamma.toFixed(6) : gamma.toExponential(4)) +
       readoutRow("Relativistic energy E", formatSci(energy) + " J") +
       readoutRow("R<sub>E</sub>", formatSci(RE) + " m") +
+      readoutRow("2R<sub>E</sub> (diameter)", formatSci(2 * RE) + " m") +
       (lamDB ? readoutRow("λ<sub>dB</sub>", formatSci(lamDB) + " m") : "") +
       `<div style="grid-column:1/-1; margin-top:4px;">${regimeHTML}</div>`;
   }
