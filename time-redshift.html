@@ -54,7 +54,7 @@
           <p>
             In the SPD entropic expansion framework, this equation gives
             the light travel distance to any distant galaxy directly from
-            its observed redshift z and the Hubble constant H₀.
+            its observed redshift \(z\) and the Hubble constant \(H_{\mathrm{0}}\).
           </p>
 
           <p>
@@ -65,8 +65,8 @@
         </div>
 
         <p class="unit-note">
-          Distances are expressed in lightyears (lyr).
-          H₀ is entered in km/s/Mpc.
+          Distances are expressed in lightyears (\(\text{lyr}\)).
+          \(H_{\mathrm{0}}\) is entered in \(\text{km}\,\text{s}^{-1}\,\text{Mpc}^{-1}\).
         </p>
       </div>
 
@@ -77,15 +77,15 @@
         <h3 class="formula-section-title">The main formula</h3>
 
         <div class="formula-box mj">
-          \[t_0 = \dfrac{3 \, c \, z}{H_0}\]
+          \[t_{\mathrm{0}} = \dfrac{3 \, c \, z}{H_{\mathrm{0}}}\]
         </div>
 
         <!-- LEGEND -->
         <div class="legend-box">
-          <p><strong>t<sub>0</sub></strong> = light travel distance to the galaxy</p>
-          <p><strong>c</strong> = speed of light in vacuum</p>
-          <p><strong>z</strong> = observed redshift of the galaxy (dimensionless)</p>
-          <p><strong>H<sub>0</sub></strong> = Hubble constant</p>
+          <p>\(t_{\mathrm{0}}\) = light travel distance to the galaxy</p>
+          <p>\(c\) = speed of light in vacuum</p>
+          <p>\(z\) = observed redshift of the galaxy (dimensionless)</p>
+          <p>\(H_{\mathrm{0}}\) = Hubble constant</p>
         </div>
 
         <!-- HUBBLE CONSTANT SECTION -->
@@ -94,14 +94,14 @@
         <div class="box">
 
           <p class="section-note">
-            The value of H<sub>0</sub> used here is derived from supernova
+            The value of \(H_{\mathrm{0}}\) used here is derived from supernova
             distance surveys. CMB-derived values depend on Big Bang theory
             assumptions and are not theory-independent, so they are not
             appropriate for this framework.
           </p>
 
         <div class="formula-box small-formula mj">
-          \[H_0 = 74.03 \pm 1.42 \ \dfrac{\text{km}}{\text{s} \cdot \text{Mpc}}\]
+          \[H_{\mathrm{0}} = 74.03 \pm 1.42 \ \dfrac{\text{km}}{\text{s} \cdot \text{Mpc}}\]
         </div>
 
           <p class="section-note">
@@ -110,15 +110,15 @@
           </p>
 
         <div class="formula-box small-formula mj">
-          \[H_0 = (7.192 \pm 0.142) \times \dfrac{10^{-10} \ \text{m} \, \text{s}^{-1}}{\text{ls}}\]
+          \[H_{\mathrm{0}} = (7.192 \pm 0.142) \times \dfrac{10^{-10} \ \text{m} \, \text{s}^{-1}}{\text{ls}}\]
         </div>
 
           <p class="section-note">
-            With the default H<sub>0</sub>, the equation simplifies to:
+            With the default \(H_{\mathrm{0}}\), the equation simplifies to:
           </p>
 
         <div class="formula-box small-formula mj">
-          \[t_0 = 39{,}624{,}161{,}384\ \text{lyr} \times z\]
+          \[t_{\mathrm{0}} = 39{,}624{,}161{,}384 \ \text{lyr} \times z\]
         </div>
 
         </div>
@@ -167,8 +167,8 @@
         <div class="box">
 
           <p class="section-note">
-            Enter a galaxy's redshift z to calculate its light travel
-            distance. You may also adjust H<sub>0</sub> — use only values
+            Enter a galaxy's redshift \(z\) to calculate its light travel
+            distance. You may also adjust \(H_{\mathrm{0}}\) — use only values
             derived from supernova surveys, not from CMB extrapolations.
           </p>
 
@@ -212,13 +212,13 @@
 
           <div class="molecule-btn-row">
             <button class="add-element-btn" id="trz-reset-btn">↺ Reset</button>
-            <button class="primary" id="trz-calc-btn">Calculate t<sub>0</sub></button>
+            <button class="primary" id="trz-calc-btn">Calculate \(t_{\mathrm{0}}\)</button>
           </div>
 
           <div class="result-box" id="trz-result">—</div>
 
           <p class="section-note" style="margin-top: 20px; margin-bottom: 0;">
-            <strong>Note:</strong> Only use H<sub>0</sub> values obtained from
+            <strong>Note:</strong> Only use \(H_{\mathrm{0}}\) values obtained from
             supernova surveys. Values extrapolated from the CMB depend on Big
             Bang theory and are not theory-independent.
           </p>
@@ -245,36 +245,36 @@
 
           <!-- Full age formula -->
         <div class="formula-box small-formula mj">
-          \[t_0 = \left(\dfrac{T_i}{T_0} - 1\right) \times \Delta x_z \quad \text{(full age of the universe)}\]
+          \[t_{\mathrm{0}} = \left(\dfrac{T_{\mathrm{i}}}{T_{\mathrm{0}}} - 1\right) \times \Delta x_z \quad \text{(full age of the universe)}\]
         </div>
 
           <div class="legend-box" style="margin-top:0; margin-bottom:24px;">
-            <p><strong>t<sub>0</sub></strong> = full age of the universe (lightyears)</p>
-            <p><strong>T<sub>i</sub></strong> = initial CMB temperature at decoupling (K) — true value: 4,021 K</p>
-            <p><strong>T<sub>0</sub></strong> = current CMB temperature = 2.725 K</p>
-            <p><strong>Δx<sub>z</sub></strong> = 3c/H₀ — lightyear-per-unit-z coefficient from the time-redshift equation</p>
+            <p>\(t_{\mathrm{0}}\) = full age of the universe (lightyears)</p>
+            <p>\(T_{\mathrm{i}}\) = initial CMB temperature at decoupling (K) — true value: 4,021 K</p>
+            <p>\(T_{\mathrm{0}}\) = current CMB temperature = 2.725 K</p>
+            <p>\(\Delta x_z = 3 \, c \,/\, H_{\mathrm{0}}\) — lightyear-per-unit-z coefficient from the time-redshift equation</p>
           </div>
 
           <p class="section-note">
             The BAO size uses the same bracket, scaled by the sound speed
             fraction at the time of decoupling, and subtracts the duration
-            of the decoupling epoch t<sub>d</sub>:
+            of the decoupling epoch \(t_{\mathrm{d}}\):
           </p>
 
           <!-- BAO formula -->
         <div class="formula-box small-formula mj">
-          \[d_{\mathrm{BAO}} = \dfrac{\sqrt{\dfrac{5}{3} \, \dfrac{k_{\mathrm{B}} \, T_i}{m_p}}}{c} \times \left[\left(\dfrac{T_i}{T_0} - 1\right) \Delta x_z - t_d\right]\]
+          \[d_{\mathrm{BAO}} = \dfrac{\sqrt{\dfrac{5}{3} \, \dfrac{k_{\mathrm{B}} \, T_{\mathrm{i}}}{m_{\mathrm{p}}}}}{c} \times \left[\left(\dfrac{T_{\mathrm{i}}}{T_{\mathrm{0}}} - 1\right) \Delta x_z - t_{\mathrm{d}}\right]\]
         </div>
 
           <!-- Legend -->
           <div class="legend-box" style="margin-top:0; margin-bottom:24px;">
-            <p><strong>T<sub>i</sub></strong> = initial CMB temperature at decoupling (K) — true value: 4,021 K</p>
-            <p><strong>T<sub>0</sub></strong> = current CMB temperature = 2.725 K</p>
-            <p><strong>Δx<sub>z</sub></strong> = 3c/H₀ — the lightyear-per-unit-z coefficient from the time-redshift equation</p>
-            <p><strong>t<sub>d</sub></strong> = duration of the decoupling epoch ≈ 4.2 × 10¹³ yr</p>
-            <p><strong>m<sub>p</sub></strong> = proton mass</p>
-            <p><strong>k<sub>B</sub></strong> = Boltzmann constant</p>
-            <p><strong>c</strong> = speed of light</p>
+            <p>\(T_{\mathrm{i}}\) = initial CMB temperature at decoupling (K) — true value: 4,021 K</p>
+            <p>\(T_{\mathrm{0}}\) = current CMB temperature = 2.725 K</p>
+            <p>\(\Delta x_z = 3 \, c \,/\, H_{\mathrm{0}}\) — the lightyear-per-unit-z coefficient from the time-redshift equation</p>
+            <p>\(t_{\mathrm{d}}\) = duration of the decoupling epoch \(\approx 4.2 \times 10^{13}\ \text{yr}\)</p>
+            <p>\(m_{\mathrm{p}}\) = proton mass</p>
+            <p>\(k_\mathrm{B}\) = Boltzmann constant</p>
+            <p>\(c\) = speed of light</p>
           </div>
 
           <!-- Reference constants -->
@@ -303,9 +303,9 @@
           <h4 style="margin-top:0; margin-bottom:14px; color:var(--heading); font-size:17px;">Calculator</h4>
 
           <p class="section-note">
-            Enter the initial CMB temperature T<sub>i</sub> at decoupling.
+            Enter the initial CMB temperature \(T_{\mathrm{i}}\) at decoupling.
             The true value according to Sky Darmos (2025) is <strong>4,021 K</strong>.
-            You may also adjust H<sub>0</sub> — use only values from supernova surveys.
+            You may also adjust \(H_{\mathrm{0}}\) — use only values from supernova surveys.
           </p>
 
           <div class="form-grid">
@@ -344,11 +344,11 @@
           <div class="result-box" id="bao-result">—</div>
 
           <p class="section-note" style="margin-top: 20px; margin-bottom: 0;">
-            <strong>Note:</strong> Δx<sub>z</sub> = 3c/H₀ is the same coefficient
+            <strong>Note:</strong> \(\Delta x_z = 3 \, c \,/\, H_{\mathrm{0}}\) is the same coefficient
             used in the time-redshift equation above. The full age
-            t<sub>0</sub> = (T<sub>i</sub>/T<sub>0</sub> − 1) × Δx<sub>z</sub>
-            is simply the time-redshift equation with z expressed as the
-            temperature ratio (T<sub>i</sub>/T<sub>0</sub> − 1).
+            \(t_{\mathrm{0}} = (T_{\mathrm{i}} / T_{\mathrm{0}} - 1) \times \Delta x_z\)
+            is simply the time-redshift equation with \(z\) expressed as the
+            temperature ratio \((T_{\mathrm{i}} / T_{\mathrm{0}} - 1)\).
           </p>
 
         </div>
