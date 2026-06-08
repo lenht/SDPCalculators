@@ -60,6 +60,35 @@
     }
 
   </style>
+
+  <!-- MathJax -->
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath:  [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        tags: 'none'
+      },
+      options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] },
+      startup: {
+        typeset: false   // we call MathJax.typesetPromise() ourselves after DOM ready
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+  <style>
+    /* override formula-box so MathJax display has room */
+    .formula-box mjx-container,
+    .formula-box .MJX-TEX {
+      font-size: 1.05em;
+    }
+    /* remove old hand-crafted fraction padding when MathJax is used */
+    .formula-box.mj {
+      font-family: inherit;
+      font-size: inherit;
+      letter-spacing: normal;
+    }
+  </style>
 </head>
 
 <body>
@@ -105,17 +134,8 @@
         <!-- MAIN FORMULA -->
         <h3 class="formula-section-title">The main formula</h3>
 
-        <div class="formula-box">
-          R<sub>E</sub>
-          =
-          <span style="display:inline-block; text-align:center; vertical-align:middle;">
-            <span style="display:block; border-bottom:2px solid currentColor; padding-bottom:4px;">
-              2 G<sub>E</sub> E
-            </span>
-            <span style="display:block; padding-top:4px;">
-              c<sup>4</sup>
-            </span>
-          </span>
+        <div class="formula-box mj">
+          \[R_E = \dfrac{2\, G_E\, E}{c^4}\]
         </div>
 
         <!-- FORMULA LEGEND -->
@@ -140,21 +160,9 @@
             velocity v:
           </p>
 
-          <div class="formula-box small-formula">
-            R<sub>E</sub>
-            =
-            <span style="display:inline-block; text-align:center; vertical-align:middle;">
-              <span style="display:block; border-bottom:2px solid currentColor; padding-bottom:3px;">
-                2 G<sub>E</sub>
-                &nbsp;
-                <span style="display:inline-block; text-align:center; vertical-align:middle;">
-                  <span style="display:block; border-bottom:1.5px solid currentColor; padding-bottom:2px;">m<sub>0</sub> c²</span>
-                  <span style="display:block; padding-top:2px;">√(1 − v²/c²)</span>
-                </span>
-              </span>
-              <span style="display:block; padding-top:3px;">c<sup>4</sup></span>
-            </span>
-          </div>
+        <div class="formula-box small-formula mj">
+          \[R_E = \dfrac{2\, G_E \, \dfrac{m_0 c^2}{\sqrt{1 - v^2/c^2}}}{c^4}\]
+        </div>
 
           <div class="legend-box" style="margin-top:0; margin-bottom:0;">
             <p><strong>m<sub>0</sub></strong> = rest mass of the particle (kg)</p>
@@ -175,19 +183,9 @@
             through frequency <strong>f</strong> or wavelength <strong>λ</strong>:
           </p>
 
-          <div class="formula-box small-formula">
-            R<sub>E</sub>
-            =
-            <span style="display:inline-block; text-align:center; vertical-align:middle;">
-              <span style="display:block; border-bottom:2px solid currentColor; padding-bottom:3px;">2 G<sub>E</sub> h f</span>
-              <span style="display:block; padding-top:3px;">c<sup>4</sup></span>
-            </span>
-            =
-            <span style="display:inline-block; text-align:center; vertical-align:middle;">
-              <span style="display:block; border-bottom:2px solid currentColor; padding-bottom:3px;">2 G<sub>E</sub> h</span>
-              <span style="display:block; padding-top:3px;">c<sup>3</sup> λ</span>
-            </span>
-          </div>
+        <div class="formula-box small-formula mj">
+          \[R_E = \dfrac{2\, G_E\, h\, f}{c^4} = \dfrac{2\, G_E\, h}{c^3\, \lambda}\]
+        </div>
 
           <div class="legend-box" style="margin-top:0; margin-bottom:24px;">
             <p><strong>f</strong> = frequency of the photon / gluon (Hz)</p>
@@ -387,15 +385,9 @@
             the Coulomb constant, elementary charge, and proton mass.
           </p>
 
-          <div class="formula-box small-formula">
-            G<sub>E</sub>
-            =
-            <span style="display:inline-block; text-align:center; vertical-align:middle;">
-              <span style="display:block; border-bottom:2px solid currentColor; padding-bottom:3px;">k<sub>e</sub> e²</span>
-              <span style="display:block; padding-top:3px;">m<sub>p</sub>²</span>
-            </span>
-            = 8.246441821 × 10²⁵ m³ s⁻² kg⁻¹
-          </div>
+        <div class="formula-box small-formula mj">
+          \[G_E = \dfrac{k_e\, e^2}{m_p^2} = 8.246441821 \times 10^{25}\ \text{m}^3\,\text{s}^{-2}\,\text{kg}^{-1}\]
+        </div>
 
           <div class="form-grid" style="margin-top:20px;">
             <div>
@@ -433,5 +425,14 @@
   <script src="js/sidebar.js"></script>
   <script src="js/shared.js"></script>
   <script src="js/elementary-space-radius.js"></script>
+
+  <script>
+    // Trigger MathJax typesetting once the page is fully loaded
+    window.addEventListener("load", () => {
+      if (window.MathJax && MathJax.typesetPromise) {
+        MathJax.typesetPromise();
+      }
+    });
+  </script>
 </body>
 </html>
