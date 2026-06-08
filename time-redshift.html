@@ -5,6 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Time-Redshift Equation — SPD Formulae</title>
   <link rel="stylesheet" href="style.css" />
+
+  <!-- MathJax -->
+  <script>
+    MathJax = {
+      output: { font: "Gyre-Schola" },
+      tex: {
+        inlineMath:  [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        tags: 'none'
+      },
+      options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] },
+      startup: {
+        typeset: false   // we call MathJax.typesetPromise() ourselves after DOM ready
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg-full.js" id="MathJax-script" async></script>
+  <style>
+    /* override formula-box so MathJax display has room */
+    .formula-box mjx-container,
+    .formula-box .MJX-TEX {
+      font-size: 1.05em;
+    }
+    /* remove old hand-crafted fraction padding when MathJax is used */
+    .formula-box.mj {
+      font-family: inherit;
+      font-size: inherit;
+      letter-spacing: normal;
+    }
+  </style>
 </head>
 
 <body>
@@ -46,17 +76,8 @@
         <!-- MAIN FORMULA -->
         <h3 class="formula-section-title">The main formula</h3>
 
-        <div class="formula-box">
-          t<sub>0</sub>
-          =
-          <span style="display:inline-block; text-align:center; vertical-align:middle;">
-            <span style="display:block; border-bottom:2px solid currentColor; padding-bottom:4px;">
-              3 c z
-            </span>
-            <span style="display:block; padding-top:4px;">
-              H<sub>0</sub>
-            </span>
-          </span>
+        <div class="formula-box mj">
+          \[t_0 = \dfrac{3\, c\, z}{H_0}\]
         </div>
 
         <!-- LEGEND -->
@@ -79,35 +100,26 @@
             appropriate for this framework.
           </p>
 
-          <div class="formula-box small-formula">
-            H<sub>0</sub> = 74.03 ± 1.42
-            <span style="display:inline-block; text-align:center; vertical-align:middle; margin: 0 4px;">
-              <span style="display:block; border-bottom:1.5px solid currentColor; padding-bottom:2px; font-size:0.85em;">km</span>
-              <span style="display:block; padding-top:2px; font-size:0.85em;">s</span>
-            </span>
-            /mpc
-          </div>
+        <div class="formula-box small-formula mj">
+          \[H_0 = 74.03 \pm 1.42\ \dfrac{\text{km}}{\text{s}}\ /\ \text{Mpc}\]
+        </div>
 
           <p class="section-note">
             For the formula, this converts to metres per second per
             lightsecond:
           </p>
 
-          <div class="formula-box small-formula">
-            H<sub>0</sub> = (7.192 ± 0.142) ×
-            <span style="display:inline-block; text-align:center; vertical-align:middle; margin: 0 4px;">
-              <span style="display:block; border-bottom:1.5px solid currentColor; padding-bottom:2px;">10<sup>−10</sup> m/s</span>
-              <span style="display:block; padding-top:2px;">ls</span>
-            </span>
-          </div>
+        <div class="formula-box small-formula mj">
+          \[H_0 = (7.192 \pm 0.142) \times \dfrac{10^{-10}\ \text{m/s}}{\text{ls}}\]
+        </div>
 
           <p class="section-note">
             With the default H<sub>0</sub>, the equation simplifies to:
           </p>
 
-          <div class="formula-box small-formula">
-            t<sub>0</sub> = 39,624,161,384 lyr × z
-          </div>
+        <div class="formula-box small-formula mj">
+          \[t_0 = 39{,}624{,}161{,}384\ \text{lyr} \times z\]
+        </div>
 
         </div>
 
@@ -232,20 +244,9 @@
           </p>
 
           <!-- Full age formula -->
-          <div class="formula-box small-formula">
-            t<sub>0</sub>
-            =
-            (
-            <span style="display:inline-block; text-align:center; vertical-align:middle;">
-              <span style="display:block; border-bottom:2px solid currentColor; padding-bottom:3px;">T<sub>i</sub></span>
-              <span style="display:block; padding-top:3px;">T<sub>0</sub></span>
-            </span>
-            &minus; 1
-            )
-            &times;
-            Δx<sub>z</sub>
-            <span style="font-family:Arial,sans-serif; font-size:15px; margin-left:6px;">(full age of the universe)</span>
-          </div>
+        <div class="formula-box small-formula mj">
+          \[t_0 = \left(\dfrac{T_i}{T_0} - 1\right) \times \Delta x_z \quad \text{(full age of the universe)}\]
+        </div>
 
           <div class="legend-box" style="margin-top:0; margin-bottom:24px;">
             <p><strong>t<sub>0</sub></strong> = full age of the universe (lightyears)</p>
@@ -261,38 +262,9 @@
           </p>
 
           <!-- BAO formula -->
-          <div class="formula-box small-formula">
-            d<sub>BAO</sub>
-            =
-            <span style="display:inline-block; text-align:center; vertical-align:middle;">
-              <span style="display:block; border-bottom:2px solid currentColor; padding-bottom:3px;">
-                <span style="display:inline-flex; align-items:center; gap:3px;">
-                  √
-                  <span style="display:inline-block; border:1px solid currentColor; border-bottom:none; padding:1px 4px; font-size:0.9em;">
-                    <sup>5</sup>/<sub>3</sub>
-                    &nbsp;&sdot;&nbsp;
-                    <sup>1</sup>/<sub>m<sub>p</sub></sub>
-                    &nbsp;&sdot;&nbsp;
-                    k<sub>B</sub> T<sub>i</sub>
-                  </span>
-                </span>
-              </span>
-              <span style="display:block; padding-top:3px;">c</span>
-            </span>
-            &times;
-            <span style="font-size:1.1em;">&#91;</span>
-            (
-            <span style="display:inline-block; text-align:center; vertical-align:middle; margin: 0 2px;">
-              <span style="display:block; border-bottom:1.5px solid currentColor; padding-bottom:2px;">T<sub>i</sub></span>
-              <span style="display:block; padding-top:2px;">T<sub>0</sub></span>
-            </span>
-            &minus; 1
-            )
-            Δx<sub>z</sub>
-            &minus;
-            t<sub>d</sub>
-            <span style="font-size:1.1em;">&#93;</span>
-          </div>
+        <div class="formula-box small-formula mj">
+          \[d_\text{BAO} = \dfrac{\sqrt{\dfrac{5}{3}\,\dfrac{1}{m_p}\,k_B\,T_i}}{c} \times \left[\left(\dfrac{T_i}{T_0} - 1\right)\Delta x_z - t_d\right]\]
+        </div>
 
           <!-- Legend -->
           <div class="legend-box" style="margin-top:0; margin-bottom:24px;">
@@ -388,5 +360,14 @@
   <script src="js/sidebar.js"></script>
   <script src="js/shared.js"></script>
   <script src="js/time-redshift.js"></script>
+
+  <script>
+    // Trigger MathJax typesetting once the page is fully loaded
+    window.addEventListener("load", () => {
+      if (window.MathJax && MathJax.typesetPromise) {
+        MathJax.typesetPromise();
+      }
+    });
+  </script>
 </body>
 </html>

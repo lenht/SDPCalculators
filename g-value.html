@@ -5,6 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>G-value Calculator — SPD Formulae</title>
   <link rel="stylesheet" href="style.css" />
+
+  <!-- MathJax -->
+  <script>
+    MathJax = {
+      output: { font: "Gyre-Schola" },
+      tex: {
+        inlineMath:  [['\\(', '\\)']],
+        displayMath: [['\\[', '\\]']],
+        tags: 'none'
+      },
+      options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] },
+      startup: {
+        typeset: false   // we call MathJax.typesetPromise() ourselves after DOM ready
+      }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg-full.js" id="MathJax-script" async></script>
+  <style>
+    /* override formula-box so MathJax display has room */
+    .formula-box mjx-container,
+    .formula-box .MJX-TEX {
+      font-size: 1.05em;
+    }
+    /* remove old hand-crafted fraction padding when MathJax is used */
+    .formula-box.mj {
+      font-family: inherit;
+      font-size: inherit;
+      letter-spacing: normal;
+    }
+  </style>
 </head>
 
 <body>
@@ -46,18 +76,8 @@
         <!-- MAIN FORMULA -->
         <h3 class="formula-section-title">The main formula</h3>
 
-        <div class="formula-box">
-          G<sub>X</sub>
-          =
-          G<sub>H</sub>
-          ×
-          (
-          n<sub>pX</sub>m<sub>p</sub>
-          +
-          n<sub>nX</sub>m<sub>n</sub>
-          )
-          /
-          m<sub>X</sub>
+        <div class="formula-box mj">
+          \[G_X = G_H \times \dfrac{n_{pX}\,m_p + n_{nX}\,m_n}{m_X}\]
         </div>
 
         <!-- FORMULA LEGEND -->
@@ -105,17 +125,9 @@
               the result by the G-value of hydrogen:
             </p>
 
-            <div class="formula-box small-formula">
-              G<sub>X</sub>
-              =
-              G<sub>H</sub>
-              ×
-              (
-              gravitational mass
-              /
-              inertial mass
-              )
-            </div>
+            <div class="formula-box small-formula mj">
+          \[G_X = G_H \times \dfrac{\text{gravitational mass}}{\text{inertial mass}}\]
+        </div>
 
             <p>
               Hydrogen, iron, and steel are treated
@@ -214,17 +226,9 @@
             inertial mass and total gravitational mass.
           </p>
 
-          <div class="formula-box small-formula">
-            G<sub>molecule</sub>
-            =
-            G<sub>H</sub>
-            ×
-            (
-            Σ gravitational masses
-            /
-            Σ inertial masses
-            )
-          </div>
+        <div class="formula-box small-formula mj">
+          \[G_\text{molecule} = G_H \times \dfrac{\sum \text{gravitational masses}}{\sum \text{inertial masses}}\]
+        </div>
 
           <p class="section-note">
             The inertial mass is obtained by summing the inertial
@@ -308,15 +312,9 @@
             the G-value of the test mass.
           </p>
 
-          <div class="formula-box small-formula">
-            G<sub>effective</sub>
-            =
-            √(
-            G<sub>source</sub>
-            ×
-            G<sub>test</sub>
-            )
-          </div>
+        <div class="formula-box small-formula mj">
+          \[G_\text{effective} = \sqrt{G_\text{source} \times G_\text{test}}\]
+        </div>
 
           <div class="form-grid">
             <div>
@@ -342,5 +340,14 @@
   <script src="js/sidebar.js"></script>
   <script src="js/shared.js"></script>
   <script src="js/g-value.js"></script>
+
+  <script>
+    // Trigger MathJax typesetting once the page is fully loaded
+    window.addEventListener("load", () => {
+      if (window.MathJax && MathJax.typesetPromise) {
+        MathJax.typesetPromise();
+      }
+    });
+  </script>
 </body>
 </html>

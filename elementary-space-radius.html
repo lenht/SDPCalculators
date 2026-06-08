@@ -64,6 +64,7 @@
   <!-- MathJax -->
   <script>
     MathJax = {
+      output: { font: "Gyre-Termes" },
       tex: {
         inlineMath:  [['\\(', '\\)']],
         displayMath: [['\\[', '\\]']],
@@ -75,7 +76,7 @@
       }
     };
   </script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg-full.js" id="MathJax-script" async></script>
   <style>
     /* override formula-box so MathJax display has room */
     .formula-box mjx-container,
