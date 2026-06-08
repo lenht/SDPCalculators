@@ -498,19 +498,20 @@ showConstants();
       return PAD_T + plotH - norm * plotH;
     }
 
-    // Draw zero-log line (= RE0)
+    // Draw reference line at log10(2) = where 2RE starts at rest
+    const LOG2 = Math.log10(2);
     ctx.setLineDash([4, 4]);
     ctx.strokeStyle = "#94a3b8";
     ctx.lineWidth   = 1;
     ctx.beginPath();
-    ctx.moveTo(PAD_L,            yOfLog(0));
-    ctx.lineTo(PAD_L + plotW,    yOfLog(0));
+    ctx.moveTo(PAD_L,            yOfLog(LOG2));
+    ctx.lineTo(PAD_L + plotW,    yOfLog(LOG2));
     ctx.stroke();
     ctx.setLineDash([]);
     ctx.fillStyle = "#94a3b8";
     ctx.font      = "10px Arial";
     ctx.textAlign = "right";
-    ctx.fillText("R_E₀", PAD_L - 4, yOfLog(0) + 4);
+    ctx.fillText("2R_E₀", PAD_L - 4, yOfLog(LOG2) + 4);
 
     // R_E curve  (blue)
     ctx.beginPath();
@@ -614,7 +615,7 @@ showConstants();
       ctx.font        = "11px Arial";
       ctx.textAlign   = xC > W / 2 ? "right" : "left";
       const offset    = xC > W / 2 ? -6 : 6;
-      ctx.fillText(`2R_E = λ  at  ~${crossPct.toPrecision(4)}% c`, xC + offset, PAD_T + 12);
+      ctx.fillText(`2R_E = λ  at  ~${crossPct.toPrecision(4)}% c`, xC + offset, PAD_T + plotH - 8);
     }
   }
 
