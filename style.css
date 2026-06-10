@@ -848,3 +848,61 @@ a.formula-link {
   display: block;
   text-decoration: none;
 }
+/* ── SIDEBAR ATTRIBUTION ───────────────────────────────────────── */
+
+.sidebar-attribution {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.sidebar-attribution .attr-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.sidebar-attribution .attr-name {
+  font-weight: 700;
+  color: var(--heading);
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.sidebar-attribution a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(47, 95, 143, 0.25);
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.sidebar-attribution a:hover {
+  color: var(--accent-dark);
+  border-bottom-color: var(--accent-dark);
+}
+
+.attr-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.attr-icon {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  opacity: 0.55;
+}
+
+/* Make sidebar a flex column so attribution sticks to bottom */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+}
