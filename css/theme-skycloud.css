@@ -200,7 +200,8 @@ a.formula-link { display: block; text-decoration: none; }
   border: 1px solid rgba(197,191,204,0.24);
   border-left: 4px solid rgba(255,255,255,0.48);
   border-radius: 12px; line-height: 1.75; color: #eef3f8;
-  max-width: 860px;
+  max-width: none;
+  width: 100%;
   backdrop-filter: blur(9px); -webkit-backdrop-filter: blur(9px);
   box-shadow: 0 8px 28px rgba(35,48,69,0.12);
 }
@@ -221,7 +222,8 @@ a.formula-link { display: block; text-decoration: none; }
   font-weight: 650;
   font-size: 15px;
   line-height: 1.6;
-  max-width: 860px;
+  max-width: none;
+  width: 100%;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   box-shadow:
