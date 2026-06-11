@@ -1,0 +1,916 @@
+:root {
+  --sidebar-width: 300px;
+  --bg: #f5f6f8;
+  --border: #d8dce3;
+  --text: #1f2933;
+  --muted: #667085;
+  --accent: #2f5f8f;
+  --accent-light: #e8f0fa;
+}
+
+* { box-sizing: border-box; }
+:root {
+  --sidebar-width: 300px;
+
+  --bg: #f5f8fc;
+  --panel: #ffffff;
+
+  --border: #d7e6f7;
+  --border-strong: #cbdff3;
+
+  --text: #1f2933;
+  --muted: #64748b;
+
+  --accent: #2f5f8f;
+  --accent-dark: #244f78;
+  --accent-light: #eef5ff;
+
+  --heading: #1e3a5f;
+
+  --shadow-soft: 0 8px 22px rgba(30, 58, 95, 0.06);
+  --shadow-card: 0 12px 30px rgba(30, 58, 95, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background-color: #ffffff;
+
+  background-image:
+    linear-gradient(45deg, transparent 50%, #1e3a5f 50%),
+    linear-gradient(135deg, #1e3a5f 50%, transparent 50%);
+
+  background-position:
+    calc(100% - 22px) 50%,
+    calc(100% - 16px) 50%;
+
+  background-size:
+    6px 6px,
+    6px 6px;
+
+  background-repeat: no-repeat;
+
+  padding-right: 48px;
+}
+
+/* APP LAYOUT */
+
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: var(--sidebar-width);
+  background: var(--panel);
+  border-right: 1px solid var(--border);
+  padding: 24px 18px;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 100;
+}
+
+.sidebar h1 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  color: var(--heading);
+  font-size: 24px;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+/* SIDEBAR CATEGORIES */
+
+.category {
+  margin-bottom: 12px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.category-button {
+  width: 100%;
+  border: none;
+  background: #ffffff;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+  gap: 12px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--heading);
+}
+
+.category-button:hover {
+  background: var(--accent-light);
+}
+
+.category-button span {
+  flex-shrink: 0;
+}
+
+.formula-list {
+  display: none;
+  padding: 8px;
+  border-top: 1px solid var(--border);
+}
+
+.category.open .formula-list {
+  display: block;
+}
+
+.formula-link {
+  width: 100%;
+  border: none;
+  background: transparent;
+  text-align: left;
+  padding: 10px 12px;
+  margin-bottom: 4px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--text);
+  font-size: 14px;
+}
+
+.formula-link:hover,
+.formula-link.active {
+  background: var(--accent-light);
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* MAIN */
+
+.main {
+  flex: 1;
+  margin-left: var(--sidebar-width);
+  padding: 36px;
+}
+
+.page-header {
+  max-width: 1100px;
+  margin-bottom: 28px;
+}
+
+.page-header h2 {
+  margin: 0 0 12px;
+  font-size: 34px;
+  color: var(--heading);
+}
+
+/* DESCRIPTION */
+
+.description-box {
+  margin-top: 20px;
+  margin-bottom: 24px;
+  padding: 22px 24px;
+  background: linear-gradient(to bottom, #f8fbff, #eef5ff);
+  border: 1px solid var(--border);
+  border-left: 5px solid var(--accent);
+  border-radius: 12px;
+  line-height: 1.7;
+  color: #334155;
+}
+
+.description-box p {
+  margin-top: 0;
+  margin-bottom: 14px;
+  font-size: 15px;
+}
+
+.description-box p:last-child {
+  margin-bottom: 0;
+}
+
+/* UNIT NOTE */
+
+.unit-note {
+  margin-top: 14px;
+  padding: 14px 18px;
+  background: var(--accent-light);
+  border: 1px solid var(--border);
+  border-left: 5px solid var(--accent);
+  border-radius: 12px;
+  color: var(--heading);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* MAIN CARD */
+
+.calculator-card {
+  max-width: 1100px;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 32px;
+  box-shadow: var(--shadow-card);
+}
+
+/* FORMULA */
+
+.formula-box {
+  background: #f4f8ff;
+  border: 1px solid #cddff5;
+  border-radius: 10px;
+  padding: 20px 28px;
+  margin-top: 18px;
+  margin-bottom: 18px;
+  text-align: center;
+  font-size: 20px;
+  font-family: Georgia, "Times New Roman", serif;
+  color: var(--heading);
+  line-height: 1.9;
+  letter-spacing: 0.01em;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+/* LEGEND */
+
+.legend-box {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px 24px;
+  margin-bottom: 28px;
+  color: #475569;
+  font-size: 14px;
+  box-shadow: var(--shadow-soft);
+}
+
+.legend-box p {
+  margin: 6px 0;
+}
+
+/* SECTIONS */
+
+h3 {
+  margin-top: 38px;
+  margin-bottom: 14px;
+  color: var(--heading);
+  font-size: 21px;
+}
+
+h3:first-of-type {
+  margin-top: 24px;
+}
+
+/* CONTENT BOXES */
+
+.box,
+.note-box {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px 24px;
+  margin-bottom: 28px;
+  box-shadow: var(--shadow-soft);
+}
+
+.note-box p {
+  color: #475569;
+  line-height: 1.6;
+}
+
+/* FORM GRID */
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  align-items: stretch;
+}
+
+.form-grid > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-grid > div label {
+  min-height: 22px;
+  margin-bottom: 8px;
+}
+
+.form-grid > div input,
+.form-grid > div select {
+  flex-shrink: 0;
+  margin-top: auto;
+}
+
+.mixed-grid {
+  margin-top: 24px;
+}
+
+/* FORM FIELDS */
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 700;
+  color: #334155;
+  font-size: 14px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 12px 13px;
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  font-size: 15px;
+  background: #ffffff;
+  color: var(--text);
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(47, 95, 143, 0.12);
+}
+
+input:disabled {
+  background: #f1f5f9;
+  color: #64748b;
+  cursor: not-allowed;
+}
+
+.full-width-field {
+  grid-column: 1 / -1;
+}
+
+/* BUTTONS */
+
+.primary {
+  margin-top: 22px;
+  border: none;
+  background: var(--accent);
+  color: #ffffff;
+  padding: 12px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  box-shadow: 0 6px 14px rgba(47, 95, 143, 0.22);
+}
+
+.primary:hover {
+  background: var(--accent-dark);
+}
+
+/* RESULTS */
+
+.result-box {
+  margin-top: 20px;
+  padding: 18px 20px;
+  border-radius: 12px;
+  background: var(--accent-light);
+  border: 1px solid var(--border);
+  font-family: monospace;
+  line-height: 1.7;
+  color: var(--heading);
+}
+
+/* SMALL FORMULA */
+
+.small-formula {
+  font-size: 17px;
+  padding: 16px 24px;
+  margin-top: 14px;
+  margin-bottom: 14px;
+}
+
+/* SECTION NOTES */
+
+.section-note,
+.lookup-methodology p {
+  color: #475569;
+  line-height: 1.8;
+  font-size: 15px;
+  margin-bottom: 18px;
+  max-width: 850px;
+}
+
+/* LOOKUP METHODOLOGY */
+
+.lookup-methodology {
+  margin-top: 32px;
+  padding-top: 28px;
+  border-top: 1px solid #dbe7f5;
+}
+
+.lookup-methodology h4 {
+  margin-top: 0;
+  margin-bottom: 18px;
+  font-size: 24px;
+  color: #1e3a5f;
+}
+
+/* LOOKUP RESULT CARD */
+
+#lookup-result {
+  margin-top: 22px;
+
+  background: linear-gradient(
+    to bottom,
+    #f7fbff,
+    #edf5ff
+  );
+
+  border: 1px solid #d7e6f7;
+
+  color: #1e3a5f;
+
+  padding: 22px 24px;
+
+  border-radius: 14px;
+}
+
+/* ELEMENT NAME */
+
+#lookup-result h4 {
+  margin-top: 0;
+  margin-bottom: 18px;
+
+  font-size: 17px;
+  font-weight: 700;
+
+  color: #1e3a5f;
+}
+
+/* VALUE ROWS */
+
+.lookup-row {
+  margin-bottom: 8px;
+
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.lookup-label {
+  font-size: 13px;
+  font-weight: 700;
+
+  color: #1e3a5f;
+}
+
+.lookup-value {
+  font-size: 13px;
+
+  font-family: monospace;
+
+  color: #334155;
+}
+
+/* ISOTOPE SECTION TITLE */
+
+.lookup-isotopes-title {
+  margin-top: 18px;
+  margin-bottom: 10px;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  color: #1e3a5f;
+}
+
+/* ISOTOPE BOX */
+
+.isotope-list {
+  padding: 12px 14px;
+
+  background: rgba(255,255,255,0.65);
+
+  border: 1px solid #dbe7f5;
+
+  border-radius: 10px;
+}
+
+/* ISOTOPE ROWS */
+
+.isotope-list div {
+  margin-bottom: 6px;
+
+  font-size: 12px;
+  line-height: 1.4;
+
+  color: #334155;
+}
+
+.isotope-list div:last-child {
+  margin-bottom: 0;
+}
+
+.isotope-list strong {
+  font-size: 12px;
+}
+
+/* ELEMENT NAME */
+
+#lookup-result h4 {
+  margin-top: 0;
+  margin-bottom: 18px;
+
+  font-size: 20px;
+  font-weight: 700;
+
+  color: #1e3a5f;
+}
+
+/* VALUE ROWS */
+
+.lookup-row {
+  margin-bottom: 10px;
+
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.lookup-label {
+  font-weight: 700;
+  color: #1e3a5f;
+}
+
+.lookup-value {
+  font-family: monospace;
+  color: #334155;
+}
+
+/* ISOTOPE SECTION */
+
+.lookup-isotopes-title {
+  margin-top: 24px;
+  margin-bottom: 14px;
+
+  font-size: 18px;
+  font-weight: 700;
+
+  color: #1e3a5f;
+}
+
+.isotope-list {
+  padding: 16px 18px;
+
+  background: rgba(255,255,255,0.6);
+
+  border: 1px solid #dbe7f5;
+
+  border-radius: 10px;
+}
+
+.isotope-list div {
+  margin-bottom: 8px;
+
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.isotope-list div:last-child {
+  margin-bottom: 0;
+}
+
+/* REFERENCE VALUES */
+
+.reference-values {
+  margin: 22px 0;
+  padding: 18px 22px;
+  background: linear-gradient(
+    to bottom,
+    #f8fbff,
+    #eef5ff
+  );
+
+  border: 1px solid #d7e6f7;
+  border-left: 5px solid var(--accent);
+
+  border-radius: 12px;
+}
+
+.reference-values div {
+  margin-bottom: 10px;
+  color: #334155;
+}
+
+.reference-values div:last-child {
+  margin-bottom: 0;
+}
+
+/* small-formula consolidated above */
+
+/* LOOKUP RESULT */
+
+#lookup-result {
+  margin-top: 26px;
+
+  background: linear-gradient(
+    to bottom,
+    #f7fbff,
+    #edf5ff
+  );
+
+  border: 1px solid #d7e6f7;
+
+  color: #1e3a5f;
+
+  font-size: 17px;
+  line-height: 1.9;
+}
+
+/* LOOKUP RESULT HEADINGS */
+
+#lookup-result strong {
+  color: #1e3a5f;
+  font-size: 18px;
+}
+
+/* ISOTOPE LIST */
+
+.isotope-list {
+  margin-top: 12px;
+
+  padding: 16px 18px;
+
+  background: rgba(255,255,255,0.5);
+
+  border-radius: 10px;
+
+  border: 1px solid #dbe7f5;
+}
+
+.isotope-list div {
+  margin-bottom: 10px;
+}
+
+.isotope-list div:last-child {
+  margin-bottom: 0;
+}
+
+/* formula-box consolidated above */
+
+/* LINK */
+.note-box a,
+.lookup-methodology a,
+.section-note a {
+  color: var(--accent);
+
+  text-decoration: none;
+
+  font-weight: 600;
+
+  border-bottom: 1px solid rgba(59, 130, 246, 0.35);
+
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.note-box a:hover,
+.lookup-methodology a:hover,
+.section-note a:hover {
+  color: #1d4ed8;
+
+  border-bottom-color: #1d4ed8;
+}
+
+/* MOLECULE DYNAMIC ROWS */
+
+#molecule-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.molecule-row-inner {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.molecule-row-inner > .remove-row-btn {
+  /* Sit flush with the bottom of the input, accounting for label height (~22px) + gap (6px) */
+  margin-bottom: 1px;
+}
+
+.molecule-row-fields {
+  display: grid;
+  grid-template-columns: 1fr 160px;
+  gap: 14px;
+  flex: 1;
+}
+
+.remove-row-btn {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  background: #fff;
+  color: #64748b;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  margin-bottom: 0;
+}
+
+.remove-row-btn:hover {
+  background: #fee2e2;
+  color: #dc2626;
+  border-color: #fca5a5;
+}
+
+.molecule-btn-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 22px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.add-element-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1.5px dashed var(--accent);
+  background: transparent;
+  color: var(--accent);
+  padding: 12px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 14px;
+  transition: background 0.15s, color 0.15s;
+  box-shadow: 0 6px 14px rgba(47, 95, 143, 0.10);
+}
+
+.molecule-btn-row .primary {
+  margin-top: 0;
+  border: 1.5px solid transparent;
+}
+
+.add-element-btn:hover {
+  background: var(--accent-light);
+}
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+  .app {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    position: static;
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .main {
+    margin-left: 0;
+    padding: 24px 16px;
+  }
+
+  .calculator-card {
+    padding: 22px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .molecule-row-fields {
+    grid-template-columns: 1fr 100px;
+  }
+
+  .add-element-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .molecule-btn-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .molecule-btn-row .primary {
+    width: 100%;
+  }
+
+  .page-header h2 {
+    font-size: 28px;
+  }
+
+  .formula-box {
+    font-size: 16px;
+    padding: 16px 18px;
+  }
+}
+/* FORMULA LINK AS ANCHOR — sidebar nav links */
+
+a.formula-link {
+  display: block;
+  text-decoration: none;
+}
+/* ── SIDEBAR ATTRIBUTION ───────────────────────────────────────── */
+
+.sidebar-attribution {
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.sidebar-attribution .attr-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.sidebar-attribution .attr-name {
+  font-weight: 700;
+  color: var(--heading);
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.sidebar-attribution a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(47, 95, 143, 0.25);
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.sidebar-attribution a:hover {
+  color: var(--accent-dark);
+  border-bottom-color: var(--accent-dark);
+}
+
+.attr-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.attr-icon {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  opacity: 0.55;
+}
+
+/* Make sidebar a flex column so attribution sticks to bottom */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── SKIN SWITCHER ─────────────────────────────────────────────── */
+.skin-switcher { margin-bottom: 20px; }
+.skin-switcher-label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.07em; color:var(--muted); margin-bottom:8px; }
+.skin-swatches { display:flex; gap:7px; }
+.skin-swatch { width:22px; height:22px; border-radius:50%; cursor:pointer; border:2px solid transparent; transition:transform 0.15s, border-color 0.15s; }
+.skin-swatch:hover { transform:scale(1.18); }
+.skin-swatch.active { border-color:var(--accent); transform:scale(1.18); }
