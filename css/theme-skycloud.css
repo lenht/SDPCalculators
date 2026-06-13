@@ -3,7 +3,6 @@
    Built from the extracted palette:
    #B6CBDD  #646472  #6891B6  #C5BFCC  #A0B4CC
 
-   Direction:
    soft blue cloud + smoky slate + pale lavender mist.
    No warm/brown dominance; the mood is airy, cool, calm,
    and readable.
@@ -143,7 +142,7 @@ a.formula-link { display: block; text-decoration: none; }
   position: relative;
   max-width: 100%;
   margin-bottom: 0;
-  padding: 48px 36px 44px;
+  padding: 48px 36px 16px;
   background:
     radial-gradient(ellipse at 82% 24%, rgba(182,203,221,0.34) 0%, transparent 48%),
     radial-gradient(ellipse at 18% 72%, rgba(197,191,204,0.20) 0%, transparent 45%),
@@ -206,33 +205,6 @@ a.formula-link { display: block; text-decoration: none; }
 .page-header .description-box p { margin-top:0; margin-bottom:14px; font-size:15px; }
 .page-header .description-box p:last-child { margin-bottom:0; }
 
-.page-header .unit-note {
-  position: relative;
-  z-index: 1;
-  margin-top: 20px;
-  padding: 16px 24px;
-  background:
-    linear-gradient(135deg, rgba(182,203,221,0.28), rgba(160,180,204,0.20));
-  border: 1px solid rgba(255,255,255,0.22);
-  border-left: 4px solid rgba(255,255,255,0.55);
-  border-radius: 12px;
-  color: #ffffff;
-  font-weight: 650;
-  font-size: 15px;
-  line-height: 1.6;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  box-shadow:
-    0 8px 24px rgba(35,48,69,0.14),
-    inset 0 1px 0 rgba(255,255,255,0.14);
-}
-
-.page-header h2,
-.page-header .description-box,
-.page-header .unit-note {
-  max-width: 1100px;
-  width: 100%;
-}
 
 /* ══════════════════════════════════════════════
    CALCULATOR CARD & CONTENT
@@ -468,16 +440,57 @@ input:disabled { background:#f3f0f4; color:var(--muted); cursor:not-allowed; }
   .app { flex-direction:column; }
   .sidebar { position:static; width:100%; height:auto; border-right:none; border-bottom:1px solid rgba(182,203,221,0.22); }
   .main { margin-left:0; }
-  .page-header { padding:32px 16px 28px; }
-  .calculator-card { margin:24px 16px; padding:22px; }
+  .page-header { padding:32px 16px 12px; }
+  .calculator-card { margin:16px 10px; padding:16px 12px; }
   .form-grid { grid-template-columns:1fr; }
   .molecule-row-fields { grid-template-columns:1fr 100px; }
   .add-element-btn { width:100%; justify-content:center; }
   .molecule-btn-row { flex-direction:column; align-items:stretch; }
   .molecule-btn-row .primary { width:100%; }
   .page-header h2 { font-size:26px; }
-  .formula-box { font-size:16px; padding:16px 18px; }
+
+  /* formula boxes: smaller text, tighter padding, horizontal scroll */
+  .formula-box {
+    font-size: 15px;
+    padding: 14px 12px;
+    /* do NOT scroll the box itself — let the mjx-container inside scroll */
+    overflow-x: visible;
+    text-align: center;
+  }
+  /* the MathJax container scrolls horizontally while the box stays centered */
+  .formula-box mjx-container {
+    overflow-x: auto;
+    overflow-y: hidden;
+    max-width: 100%;
+    display: block;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .small-formula {
+    font-size: 14px;
+    padding: 12px 10px;
+  }
+}
+
+/* MathJax global scroll safety — applies at all widths */
+mjx-container {
+  max-width: 100%;
+}
+mjx-container svg {
+  max-width: 100%;
 }
 
 
+
+
+/* note paragraph inside description box */
+.description-box .description-note {
+  margin-top: 14px;
+  margin-bottom: 0;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  font-size: 14px;
+  line-height: 1.6;
+  opacity: 0.88;
+}
 
