@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>G-value Meta-Analysis — SPD Formulae</title>
   <!-- Theme stylesheet — swapped by skin-switcher.js -->
-  <link id="theme-stylesheet" rel="stylesheet" href="css/theme-default.css" />
+  <link id="theme-stylesheet" rel="stylesheet" href="css/theme-skycloud.css" />
 
   <!-- MathJax -->
   <script>
@@ -25,248 +25,189 @@
   <style>
     /* ── Meta-analysis page-specific styles ── */
 
+    /* Two-column dashboard: left scrolls, right stays sticky */
+    .meta-dashboard {
+      display: grid;
+      grid-template-columns: 2fr 300px;
+      gap: 28px;
+      align-items: start;
+      margin-top: 8px;
+    }
+    /* left = sticky chart+stats+filters */
+    .meta-left {
+      position: sticky;
+      top: 24px;
+      max-height: calc(100vh - 48px);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      scrollbar-width: thin;
+    }
+    /* right = scrollable measurement list */
+    .meta-right { min-width: 0; }
+    @media (max-width: 1100px) {
+      .meta-dashboard { grid-template-columns: 1fr; }
+      .meta-left { position: static; max-height: none; overflow-y: visible; }
+    }
+
+    /* Stats grid — 2 cols inside the narrower right panel */
     .meta-stats-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin-bottom: 24px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
     }
-
-    @media (max-width: 800px) {
-      .meta-stats-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-
     .meta-stat {
       background: var(--panel-raised, #f3f6fa);
       border: 1px solid var(--border, #a0b4cc);
-      border-radius: 12px;
-      padding: 14px 16px;
+      border-radius: 10px;
+      padding: 10px 12px;
     }
-
     .meta-stat-label {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.06em;
       color: var(--muted, #5c748a);
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
-
     .meta-stat-val {
-      font-size: 20px;
+      font-size: 16px;
       font-weight: 700;
       font-family: monospace;
       color: var(--heading, #2e2e38);
     }
 
-    /* chart container */
-    .chart-container {
-      background: var(--formula-bg, #1c2a3e);
-      border: 1px solid var(--formula-border, #2e3f58);
-      border-radius: 14px;
-      overflow: hidden;
-      margin-bottom: 24px;
-    }
-
-    .chart-header {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      padding: 10px 16px;
-      border-bottom: 1px solid var(--formula-border, #2e3f58);
-      font-size: 12px;
-      color: var(--muted, #5c748a);
-    }
-
-    .chart-legend {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      color: #a0b4cc;
-    }
-
-    .chart-legend-line {
-      width: 22px;
-      height: 3px;
-      border-radius: 2px;
-    }
-
-    #meta-canvas {
-      display: block;
-      width: 100%;
-      height: 240px;
-    }
-
-    /* filter bar */
-    .filter-bar {
-      margin-bottom: 20px;
-    }
-
-    .filter-bar-label {
+    /* Section label above each right-panel block */
+    .meta-panel-label {
       font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.06em;
       color: var(--muted, #5c748a);
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
 
-    .filter-btns {
+    /* Chart */
+    .chart-container {
+      background: var(--formula-bg, #1c2a3e);
+      border: 1px solid var(--formula-border, #2e3f58);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .chart-header {
       display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 13px;
+      border-bottom: 1px solid var(--formula-border, #2e3f58);
+      font-size: 11px;
+      color: var(--muted, #5c748a);
       flex-wrap: wrap;
-      gap: 8px;
     }
+    .chart-legend { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #a0b4cc; }
+    .chart-legend-line { width: 18px; height: 3px; border-radius: 2px; }
+    #meta-canvas { display: block; width: 100%; height: 200px; }
 
+    /* Filter buttons */
+    .filter-btns { display: flex; flex-wrap: wrap; gap: 6px; }
     .filter-btn {
-      padding: 6px 14px;
+      padding: 5px 12px;
       border-radius: 20px;
       border: 1px solid var(--border, #a0b4cc);
       background: transparent;
       color: var(--muted, #5c748a);
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.15s;
     }
-
     .filter-btn.active {
       background: var(--accent, #4c6f95);
       color: #ffffff;
       border-color: transparent;
     }
 
-    /* category heading */
+    /* Category group */
+    .meas-cat-group {
+      border: 1px solid var(--border, #a0b4cc);
+      border-radius: 10px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
     .meas-cat-hdr {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: 28px;
-      margin-bottom: 10px;
+      padding: 7px 10px;
+      background: var(--panel-raised, #f3f6fa);
+      border-bottom: 1px solid var(--border, #a0b4cc);
     }
-
     .meas-cat-title {
       display: flex;
       align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: none;
+      letter-spacing: 0;
       color: var(--muted, #5c748a);
     }
-
-    .meas-cat-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 3px;
-      flex-shrink: 0;
-    }
-
+    .meas-cat-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+    .meas-cat-body { padding: 4px 6px; }
     .meas-sel-all {
-      font-size: 11px;
-      padding: 3px 10px;
-      border-radius: 12px;
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 10px;
       border: 1px solid var(--border, #a0b4cc);
       background: transparent;
       color: var(--muted, #5c748a);
       cursor: pointer;
       transition: background 0.15s;
+      flex-shrink: 0;
     }
+    .meas-sel-all:hover { background: var(--accent-light, rgba(76,111,149,0.09)); }
 
-    .meas-sel-all:hover {
-      background: var(--accent-light, rgba(76,111,149,0.09));
-    }
-
-    /* measurement card */
+    /* Measurement card */
     .meas-card {
-      border: 1px solid var(--border, #a0b4cc);
-      border-radius: 12px;
-      margin-bottom: 8px;
+      border: none;
+      border-radius: 0;
+      margin-bottom: 1px;
       overflow: hidden;
-      transition: border-color 0.15s;
     }
-
-    .meas-card.active {
-      border-color: var(--accent, #4c6f95);
-    }
-
-    .meas-card.filtered {
-      opacity: 0.45;
-    }
-
+    .meas-card.filtered { opacity: 0.35; }
     .meas-row {
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 9px 13px;
+      gap: 8px;
+      padding: 7px 10px;
       cursor: pointer;
       user-select: none;
     }
-
     .meas-chk {
-      width: 18px;
-      height: 18px;
-      border-radius: 4px;
+      width: 16px; height: 16px;
+      border-radius: 3px;
       border: 2px solid var(--border-strong, #778ca1);
       flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 11px;
-      font-weight: 900;
-      color: #ffffff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-weight: 900; color: #ffffff;
       transition: all 0.15s;
     }
-
-    .meas-chk.on {
-      background: var(--accent, #4c6f95);
-      border-color: transparent;
-    }
-
+    .meas-chk.on { background: var(--accent, #4c6f95); border-color: transparent; }
     .meas-info { flex: 1; min-width: 0; }
-
     .meas-name {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--muted, #5c748a);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      font-size: 11px; font-weight: 700; color: var(--muted, #5c748a);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
-
-    .meas-card.active .meas-name {
-      color: var(--accent, #4c6f95);
-    }
-
-    .meas-meta {
-      font-size: 11px;
-      color: var(--muted, #5c748a);
-      margin-top: 2px;
-    }
-
-    .meas-toggle {
-      font-size: 12px;
-      color: var(--muted, #5c748a);
-      padding-left: 8px;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-
+    .meas-card.active .meas-name { color: var(--accent, #4c6f95); }
+    .meas-meta { font-size: 10px; color: var(--muted, #5c748a); margin-top: 1px; }
+    .meas-toggle { font-size: 11px; color: var(--muted, #5c748a); padding-left: 6px; cursor: pointer; flex-shrink: 0; }
     .meas-detail {
-      padding: 0 13px 12px 41px;
-      font-size: 13px;
-      color: var(--muted, #5c748a);
-      line-height: 1.9;
-      display: none;
+      padding: 0 10px 8px 34px;
+      font-size: 11px; color: var(--muted, #5c748a); line-height: 1.8; display: none;
     }
-
     .meas-detail.open { display: block; }
-
-    .meas-detail strong {
-      color: var(--accent, #4c6f95);
-    }
-
+    .meas-detail strong { color: var(--accent, #4c6f95); }
     .meas-within-yes { color: #1a8c5c; font-weight: 700; }
     .meas-within-no  { color: #b84040; font-weight: 700; }
   </style>
@@ -315,97 +256,114 @@
       <!-- MAIN CARD -->
       <section class="calculator-card">
 
-        <!-- STATISTICS -->
-        <h3>Live statistics</h3>
+        <!-- FORMULA — full width, above the two-column split -->
+        <h3 class="formula-section-title">The method</h3>
 
-        <div class="meta-stats-grid">
-          <div class="meta-stat">
-            <div class="meta-stat-label">Measurements (n)</div>
-            <div class="meta-stat-val" id="s-n">27</div>
-          </div>
-          <div class="meta-stat">
-            <div class="meta-stat-label">Kendall's τ-b</div>
-            <div class="meta-stat-val" id="s-tau">—</div>
-          </div>
-          <div class="meta-stat">
-            <div class="meta-stat-label">z-score</div>
-            <div class="meta-stat-val" id="s-z">—</div>
-          </div>
-          <div class="meta-stat">
-            <div class="meta-stat-label">p-value (one-tailed)</div>
-            <div class="meta-stat-val" id="s-p">—</div>
-          </div>
-          <div class="meta-stat">
-            <div class="meta-stat-label">Odds against chance</div>
-            <div class="meta-stat-val" id="s-odds">—</div>
-          </div>
-          <div class="meta-stat">
-            <div class="meta-stat-label">Concordant – Discordant</div>
-            <div class="meta-stat-val" id="s-cd">—</div>
-          </div>
-        </div>
+        <p class="section-note">
+          To test whether the measured G-values correlate with the predicted
+          values, we use Kendall's \(\tau_b\) — a rank-correlation coefficient
+          that counts concordant pairs (both predicted and observed agree on
+          ordering) minus discordant pairs, normalised by the total pairs
+          corrected for ties.
+        </p>
 
-        <!-- FORMULA -->
-        <div class="formula-box small-formula mj">
+        <div class="formula-box mj">
           \[
             \tau_b = \frac{C - D}{\sqrt{(P - T_1)(P - T_2)}}
-            \qquad
+          \]
+        </div>
+
+        <p class="section-note">
+          The z-score is obtained from \(\tau_b\) using its asymptotic standard
+          deviation, valid for the larger sample sizes used here:
+        </p>
+
+        <div class="formula-box small-formula mj">
+          \[
             z = \frac{\tau_b}{\sqrt{\dfrac{2(2n+5)}{9n(n-1)}}}
           \]
         </div>
 
-        <div class="legend-box" style="margin-top:0;">
-          <p>\(C\) = number of concordant pairs</p>
-          <p>\(D\) = number of discordant pairs</p>
+        <div class="legend-box">
+          <p>\(C\) = number of concordant pairs — pairs where predicted and observed ordering agree</p>
+          <p>\(D\) = number of discordant pairs — pairs where the ordering disagrees</p>
           <p>\(P\) = total number of pairs = \(n(n-1)/2\)</p>
-          <p>\(T_1\) = ties on predicted values · \(T_2\) = ties on observed values</p>
+          <p>\(T_1\) = ties on predicted values &nbsp;·&nbsp; \(T_2\) = ties on observed values</p>
           <p>\(n\) = number of selected measurements</p>
+          <p>The p-value is one-tailed, computed from the normal CDF of \(z\).
+             Ties arise from measurement uncertainty, not from fundamental degeneracy.</p>
         </div>
 
-        <!-- CHART -->
-        <h3>Composition dependence of big-G</h3>
+        <!-- TWO-COLUMN DASHBOARD -->
+        <div class="meta-dashboard">
 
-        <div class="chart-container">
-          <div class="chart-header">
-            Predicted vs observed G-values, sorted by predicted value
-            <div class="chart-legend">
-              <div class="chart-legend-line" style="background:#6891b6;"></div>
-              Predicted
+          <!-- LEFT — sticky: chart, stats, filters -->
+          <div class="meta-left">
+
+            <div>
+              <div class="meta-panel-label">Composition dependence of big-G</div>
+              <div class="chart-container">
+                <div class="chart-header">
+                  Predicted vs observed, sorted by predicted value
+                  <div class="chart-legend">
+                    <div class="chart-legend-line" style="background:#6891b6;"></div>Predicted
+                  </div>
+                  <div class="chart-legend">
+                    <div class="chart-legend-line" style="background:#c87a40;"></div>Observed
+                  </div>
+                </div>
+                <canvas id="meta-canvas"></canvas>
+              </div>
             </div>
-            <div class="chart-legend">
-              <div class="chart-legend-line" style="background:#c87a40;"></div>
-              Observed
+
+            <div>
+              <div class="meta-panel-label">Live statistics</div>
+              <div class="meta-stats-grid">
+                <div class="meta-stat">
+                  <div class="meta-stat-label">Measurements (n)</div>
+                  <div class="meta-stat-val" id="s-n">27</div>
+                </div>
+                <div class="meta-stat">
+                  <div class="meta-stat-label">Kendall's τ-b</div>
+                  <div class="meta-stat-val" id="s-tau">—</div>
+                </div>
+                <div class="meta-stat">
+                  <div class="meta-stat-label">z-score</div>
+                  <div class="meta-stat-val" id="s-z">—</div>
+                </div>
+                <div class="meta-stat">
+                  <div class="meta-stat-label">p-value (one-tailed)</div>
+                  <div class="meta-stat-val" id="s-p">—</div>
+                </div>
+                <div class="meta-stat">
+                  <div class="meta-stat-label">Odds against chance</div>
+                  <div class="meta-stat-val" id="s-odds">—</div>
+                </div>
+                <div class="meta-stat">
+                  <div class="meta-stat-label">Concordant – Discordant</div>
+                  <div class="meta-stat-val" id="s-cd">—</div>
+                </div>
+              </div>
             </div>
-          </div>
-          <canvas id="meta-canvas"></canvas>
-        </div>
 
-        <!-- FILTERS -->
-        <h3>Quick filters</h3>
+            <div>
+              <div class="meta-panel-label">Quick filters — click to exclude</div>
+              <div class="filter-btns" id="filter-btns"></div>
+            </div>
 
-        <div class="box">
-          <p class="section-note">
-            Toggle filters to exclude categories of measurements. Filtered-out
-            entries are greyed in the list below but remain individually toggleable.
-            Filters and individual selections are independent — you can exclude a
-            whole category and then re-include specific entries within it.
-          </p>
-          <div class="filter-bar">
-            <div class="filter-bar-label">Exclude from analysis</div>
-            <div class="filter-btns" id="filter-btns"></div>
-          </div>
-        </div>
+          </div><!-- /.meta-left -->
 
-        <!-- MEASUREMENT LIST -->
-        <h3>Individual measurements</h3>
+          <!-- RIGHT — scrollable measurement list -->
+          <div class="meta-right">
+            <h3 style="margin-top:0; font-size:16px;">Individual measurements</h3>
+            <p class="section-note" style="font-size:12px;">
+              Click a card to toggle it. Click ▼ for details.
+              Use "Select all / Deselect all" to toggle a category.
+            </p>
+            <div id="meas-lists"></div>
+          </div><!-- /.meta-right -->
 
-        <div class="box">
-          <p class="section-note">
-            Click a card to toggle it. Click ▼ to expand details. Use the
-            category-level "Select all / Deselect all" buttons to toggle whole groups.
-          </p>
-          <div id="meas-lists"></div>
-        </div>
+        </div><!-- /.meta-dashboard -->
 
       </section>
     </main>

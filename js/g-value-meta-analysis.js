@@ -345,14 +345,17 @@ function renderCards() {
 
     const allOn = items.every(m => activeIds.has(m.id));
 
-    // Category header
+    // Category group wrapper with border
+    const group = document.createElement("div");
+    group.className = "meas-cat-group";
+
     const hdr = document.createElement("div");
     hdr.className = "meas-cat-hdr";
     hdr.innerHTML = `
       <div class="meas-cat-title">
         <div class="meas-cat-dot" style="background:${cat.color};"></div>
         ${cat.title}
-        <span style="font-weight:400; color:var(--muted);">(${items.length})</span>
+        <span style="font-weight:400;">(${items.length})</span>
       </div>
       <button class="meas-sel-all" data-cat="${cat.key}">
         ${allOn ? "Deselect all" : "Select all"}
@@ -365,7 +368,13 @@ function renderCards() {
       renderCards();
     });
 
-    wrap.appendChild(hdr);
+    group.appendChild(hdr);
+
+    const body = document.createElement("div");
+    body.className = "meas-cat-body";
+    group.appendChild(body);
+
+    wrap.appendChild(group);
 
     // Cards
     items.forEach(m => {
@@ -410,7 +419,7 @@ function renderCards() {
         renderCards();
       });
 
-      wrap.appendChild(card);
+      body.appendChild(card);
     });
   });
 }
