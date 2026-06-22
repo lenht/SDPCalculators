@@ -213,18 +213,28 @@ function drawChart(data) {
   const canvas = document.getElementById("meta-canvas");
   if (!canvas) return;
   const ctx = canvas.getContext("2d");
-  const dpr = window.devicePixelRatio || 1;
-  const W   = canvas.offsetWidth;
-  const H   = canvas.offsetHeight;
+
+  // ── Chart always renders on a fixed dark background (#1a2535)
+  // so ink colors are always the light-on-dark variants.
+  const C_TICK_TEXT = "#9ab8d0";
+  const C_GRID      = "rgba(160,190,220,0.14)";
+  const C_AXIS      = "#4a6a88";
+  const C_LABEL     = "#9ab8d0";
+
+  // ── Canvas sizing — always use actual CSS pixel size × dpr for crispness
+  const dpr = Math.round(window.devicePixelRatio || 1);
+  const rect = canvas.getBoundingClientRect();
+  const W    = Math.round(rect.width);
+  const H    = Math.round(rect.height);
   canvas.width  = W * dpr;
   canvas.height = H * dpr;
-  ctx.scale(dpr, dpr);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   ctx.clearRect(0, 0, W, H);
 
   if (data.length === 0) {
-    ctx.fillStyle   = "#7a9eba";
-    ctx.font        = "13px Arial";
-    ctx.textAlign   = "center";
+    ctx.fillStyle    = C_TICK_TEXT;
+    ctx.font         = "13px Arial";
+    ctx.textAlign    = "center";
     ctx.textBaseline = "middle";
     ctx.fillText("No measurements selected", W / 2, H / 2);
     return;
@@ -239,33 +249,33 @@ function drawChart(data) {
   const pw = W - PL - PR;
   const ph = H - PT - PB;
 
-  const xOf = i  => PL + (sorted.length < 2 ? pw / 2 : (i / (sorted.length - 1)) * pw);
-  const yOf = v  => PT + ph - ((v - minV) / (maxV - minV)) * ph;
+  const xOf = i => PL + (sorted.length < 2 ? pw / 2 : (i / (sorted.length - 1)) * pw);
+  const yOf = v => PT + ph - ((v - minV) / (maxV - minV)) * ph;
 
-  // y-axis ticks
+  // y-axis grid lines and tick labels
   const range = maxV - minV;
   const step  = range < 0.003 ? 0.0005 : range < 0.008 ? 0.001 : 0.002;
   const first = Math.ceil(minV / step) * step;
   for (let t = first; t <= maxV + 1e-9; t += step) {
-    const y = yOf(t);
-    ctx.strokeStyle = "rgba(160,180,204,0.15)";
-    ctx.lineWidth   = 0.5;
+    const y = Math.round(yOf(t)) + 0.5;   // half-pixel for crisp lines
+    ctx.strokeStyle = C_GRID;
+    ctx.lineWidth   = 1;
     ctx.beginPath(); ctx.moveTo(PL, y); ctx.lineTo(PL + pw, y); ctx.stroke();
-    ctx.fillStyle   = "#7a9eba";
-    ctx.font        = "9px monospace";
-    ctx.textAlign   = "right";
+    ctx.fillStyle    = C_TICK_TEXT;
+    ctx.font         = "9px monospace";
+    ctx.textAlign    = "right";
     ctx.textBaseline = "middle";
     ctx.fillText(t.toFixed(4), PL - 5, y);
   }
 
   // axes
-  ctx.strokeStyle = "#3d516f";
+  ctx.strokeStyle = C_AXIS;
   ctx.lineWidth   = 1.5;
-  ctx.beginPath(); ctx.moveTo(PL, PT); ctx.lineTo(PL, PT + ph); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(PL, PT + ph); ctx.lineTo(PL + pw, PT + ph); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(PL + 0.5, PT); ctx.lineTo(PL + 0.5, PT + ph); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(PL, PT + ph + 0.5); ctx.lineTo(PL + pw, PT + ph + 0.5); ctx.stroke();
 
   // x-axis labels (rotated)
-  ctx.fillStyle    = "#7a9eba";
+  ctx.fillStyle    = C_LABEL;
   ctx.font         = "8px Arial";
   ctx.textBaseline = "top";
   sorted.forEach((d, i) => {
@@ -280,7 +290,7 @@ function drawChart(data) {
   // draw a line + dots
   function drawLine(color, key) {
     ctx.strokeStyle = color;
-    ctx.lineWidth   = 2;
+    ctx.lineWidth   = 2.5;
     ctx.lineJoin    = "round";
     ctx.beginPath();
     sorted.forEach((d, i) => {
@@ -291,13 +301,13 @@ function drawChart(data) {
     sorted.forEach((d, i) => {
       ctx.fillStyle = color;
       ctx.beginPath();
-      ctx.arc(xOf(i), yOf(d[key]), 3.5, 0, 2 * Math.PI);
+      ctx.arc(xOf(i), yOf(d[key]), 4, 0, 2 * Math.PI);
       ctx.fill();
     });
   }
 
-  drawLine("#6891b6", "pr");   // predicted — steel blue
-  drawLine("#c87a40", "ob");   // observed  — amber
+  drawLine("#4e8ec8", "pr");   // predicted — vivid steel blue, visible on both light & dark
+  drawLine("#d4752a", "ob");   // observed  — vivid amber, visible on both light & dark
 }
 
 /* ══════════════════════════════════════════════
