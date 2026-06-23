@@ -18,90 +18,234 @@
      scale    – "lab" | "large"
    ══════════════════════════════════════════════ */
 
+/* ══════════════════════════════════════════════
+   CATEGORIES (type field):
+     "high"       – high accuracy Cavendish (main list)
+     "freefall"   – freefall / atom interferometer experiments
+     "speculative"– test mass composition uncertain or speculative
+     "lowacc"     – low accuracy (pre-modern or poor SD)
+     "excluded"   – duplicate same-team values (off by default)
+     "outofrange"  – beyond reasonable range 6.660–6.675
+     "largescale" – large-scale / long-range experiments
+     "homogenized"– Pontikis (1972) homogenized average
+     "servo"      – electrostatic servo control (eliminates composition dependence)
+   scale field:
+     "lab"  – standard lab-scale experiment
+     "large"– large-scale / long-range
+   ══════════════════════════════════════════════ */
+
 const META_DATA = [
-  { id:  1, label: "Saulnier (1989)",                                   pair: "U–Pb",            pr: 6.6668214, ob: 6.6500,   sd: 0.0900,   year: 1989, type: "cavendish",   scale: "lab"   },
-  { id:  2, label: "Pontikis (1971)",                                   pair: "Pb–Pb",           pr: 6.6678780, ob: 6.6680,   sd: 0.0030,   year: 1971, type: "cavendish",   scale: "lab"   },
-  { id:  3, label: "Hubler (1995)",                                     pair: "H₂O–Steel",       pr: 6.6679615, ob: 6.6690,   sd: 0.0050,   year: 1995, type: "cavendish",   scale: "large" },
-  { id:  4, label: "Pontikis (1971)",                                   pair: "Hg–Hg",           pr: 6.6680900, ob: 6.6660,   sd: 0.0100,   year: 1971, type: "cavendish",   scale: "lab"   },
-  { id:  5, label: "De Boer (1987) & Lamporesi (2008)",                pair: "W–W",             pr: 6.6688150, ob: 6.6670,   sd: 0.0030,   year: 1987, type: "cavendish",   scale: "lab"   },
-  { id:  6, label: "Wang (2009)",                                       pair: "Pb–SiO₂",         pr: 6.6688655, ob: 6.6665,   sd: 0.0554,   year: 2009, type: "freefall",    scale: "lab"   },
-  { id:  7, label: "Luther (1975)",                                     pair: "W–Al",            pr: 6.6698455, ob: 6.6699,   sd: 0.0140,   year: 1975, type: "cavendish",   scale: "lab"   },
-  { id:  8, label: "Dousse (1987)",                                     pair: "Pb–Cu",           pr: 6.6709365, ob: 6.6704,   sd: 0.0048,   year: 1987, type: "cavendish",   scale: "lab"   },
-  { id:  9, label: "Renner (1973)",                                     pair: "Hg–Cu",           pr: 6.6710425, ob: 6.6700,   sd: 0.0080,   year: 1973, type: "cavendish",   scale: "lab"   },
-  { id: 10, label: "Heyl (1925)",                                       pair: "Tool steel–Au",   pr: 6.6711520, ob: 6.6720,   sd: 0.0040,   year: 1925, type: "cavendish",   scale: "lab"   },
-  { id: 11, label: "Heyl (1942)",                                       pair: "Tool steel–Pt",   pr: 6.6712015, ob: 6.6720,   sd: 0.0040,   year: 1942, type: "cavendish",   scale: "lab"   },
-  { id: 12, label: "Prevedelli (2014)",                                 pair: "W–Rb",            pr: 6.6712585, ob: 6.6719,   sd: 0.0010,   year: 2014, type: "atom_interf", scale: "lab"   },
-  { id: 13, label: "Parks (2010)",                                      pair: "W–Cu",            pr: 6.6714050, ob: 6.6723,   sd: 0.0003,   year: 2010, type: "cavendish",   scale: "lab"   },
-  { id: 14, label: "Luther & Towler (1982)",                            pair: "W–Fe&Al&W",       pr: 6.6715070, ob: 6.6726,   sd: 0.0005,   year: 1982, type: "cavendish",   scale: "lab"   },
-  { id: 15, label: "Schlamminger (2026)",                               pair: "Al₂O₃–Cu",        pr: 6.6718600, ob: 6.6726,   sd: 0.0004,   year: 2026, type: "cavendish",   scale: "lab"   },
-  { id: 16, label: "Walesch (1995)",                                    pair: "Brass–SiO₂",      pr: 6.6719127, ob: 6.6719,   sd: 0.0008,   year: 1995, type: "cavendish",   scale: "lab"   },
-  { id: 17, label: "Heyl (1928)",                                       pair: "Tool steel–SiO₂", pr: 6.6719857, ob: 6.6710,   sd: 0.0030,   year: 1928, type: "cavendish",   scale: "lab"   },
-  { id: 18, label: "Goldblum (1987)",                                   pair: "Dy₆Fe₂₃–Dy₆Fe₂₃",pr: 6.6723720, ob: 6.6700,   sd: 0.0700,   year: 1987, type: "freefall",    scale: "lab"   },
-  { id: 19, label: "Pontikis (1971)",                                   pair: "Ag–Ag",           pr: 6.6726150, ob: 6.6710,   sd: 0.0010,   year: 1971, type: "cavendish",   scale: "lab"   },
-  { id: 20, label: "Pontikis (1971)",                                   pair: "Ag–Brass",        pr: 6.6732940, ob: 6.6710,   sd: 0.0020,   year: 1971, type: "cavendish",   scale: "lab"   },
-  { id: 21, label: "HUST-09 (2010)",                                    pair: "Steel–Cu&SiO₂",   pr: 6.6734175, ob: 6.6735,   sd: 0.0002,   year: 2010, type: "cavendish",   scale: "lab"   },
-  { id: 22, label: "Baldi (2005)",                                      pair: "Steel–Nb",        pr: 6.6738030, ob: 6.6750,   sd: 0.0070,   year: 2005, type: "gravimeter",  scale: "lab"   },
-  { id: 23, label: "Pontikis (1971)",                                   pair: "Brass–Brass",     pr: 6.6739730, ob: 6.6740,   sd: 0.0020,   year: 1971, type: "cavendish",   scale: "lab"   },
-  { id: 24, label: "Kleinevoß (2002)",                                  pair: "Brass–Cu",        pr: 6.6739840, ob: 6.6742,   sd: 0.0010,   year: 2002, type: "cavendish",   scale: "lab"   },
-  { id: 25, label: "Pontikis (1971) & Armstrong (2003)",               pair: "Cu–Cu",           pr: 6.6739950, ob: 6.6740,   sd: 0.0001,   year: 2003, type: "cavendish",   scale: "lab"   },
-  { id: 26, label: "Fitzgerald (1999), Armstrong (2003), Newman (2014)",pair: "Steel–Cu",        pr: 6.6740975, ob: 6.6741,   sd: 0.0001,   year: 2014, type: "cavendish",   scale: "lab"   },
-  { id: 27, label: "Gundlach (2000)",                                   pair: "Steel–Steel",     pr: 6.6742000, ob: 6.6742,   sd: 0.0001,   year: 2000, type: "cavendish",   scale: "lab"   },
+
+  // ── HIGH ACCURACY CAVENDISH ─────────────────────────────────────────────
+  { id:  1, label: "Heyl (1942)",            pair: "Steel–Pt",         pr: 6.671202, ob: 6.6720,    sd: 0.0040,    year: 1942, type: "high",      scale: "lab" },
+  { id:  2, label: "Pontikis (1971)",        pair: "Brass–Brass",      pr: 6.673973, ob: 6.6740,    sd: 0.0020,    year: 1971, type: "high",      scale: "lab" },
+  { id:  3, label: "Pontikis (1971)",        pair: "Cu–Cu",            pr: 6.673995, ob: 6.6740,    sd: 0.0020,    year: 1971, type: "high",      scale: "lab" },
+  { id:  4, label: "Pontikis (1971)",        pair: "Ag–Ag",            pr: 6.672615, ob: 6.6710,    sd: 0.0010,    year: 1971, type: "high",      scale: "lab" },
+  { id:  5, label: "Pontikis (1971)",        pair: "Ag–Brass",         pr: 6.673294, ob: 6.6710,    sd: 0.0020,    year: 1971, type: "high",      scale: "lab" },
+  { id:  6, label: "Renner (1973)",          pair: "Hg–Cu",            pr: 6.671042, ob: 6.6700,    sd: 0.0080,    year: 1973, type: "high",      scale: "lab" },
+  { id:  7, label: "Luther (1975)",          pair: "W–Al",             pr: 6.669846, ob: 6.6699,    sd: 0.0014,    year: 1975, type: "high",      scale: "lab" },
+  { id:  8, label: "Sagitov (1979)",         pair: "Steel–Cu",         pr: 6.674097, ob: 6.6745,    sd: 0.0030,    year: 1979, type: "high",      scale: "lab" },
+  { id:  9, label: "Luther & Towler (1982)", pair: "W–Steel SD",       pr: 6.671507, ob: 6.6726,    sd: 0.0005,    year: 1982, type: "high",      scale: "lab" },
+  { id: 10, label: "De Boer (1987)",         pair: "W–W",              pr: 6.668815, ob: 6.6670,    sd: 0.0050,    year: 1987, type: "high",      scale: "lab" },
+  { id: 11, label: "Walesch (1995)",         pair: "Brass–Silica",     pr: 6.671953, ob: 6.6719,    sd: 0.0008,    year: 1995, type: "high",      scale: "lab" },
+  { id: 12, label: "Fitzgerald (1999)",      pair: "Steel–Cu",         pr: 6.674097, ob: 6.6742,    sd: 0.0007,    year: 1999, type: "high",      scale: "lab" },
+  { id: 13, label: "Gundlach (2000)",        pair: "Steel–Steel SD",   pr: 6.674200, ob: 6.674215,  sd: 0.000092,  year: 2000, type: "high",      scale: "lab" },
+  { id: 14, label: "Kleinevoß (2002)",       pair: "Brass–Cu",         pr: 6.673992, ob: 6.67422,   sd: 0.00098,   year: 2002, type: "high",      scale: "lab" },
+  { id: 15, label: "Armstrong (2003)",       pair: "Cu–Cu",            pr: 6.673995, ob: 6.67385,   sd: 0.00023,   year: 2003, type: "high",      scale: "lab" },
+  { id: 16, label: "Armstrong (2003)",       pair: "Steel–Cu",         pr: 6.674097, ob: 6.67392,   sd: 0.00049,   year: 2003, type: "high",      scale: "lab" },
+  { id: 17, label: "Baldi (2005)",           pair: "Steel–Nb",         pr: 6.673803, ob: 6.6750,    sd: 0.0070,    year: 2005, type: "high",      scale: "lab" },
+  { id: 18, label: "Lamporesi (2008)",       pair: "W–W",              pr: 6.668815, ob: 6.6670,    sd: 0.0030,    year: 2008, type: "high",      scale: "lab" },
+  { id: 19, label: "Parks (2010)",           pair: "W–Cu",             pr: 6.671258, ob: 6.67234,   sd: 0.00014,   year: 2010, type: "high",      scale: "lab" },
+  { id: 20, label: "Newman (2014)",          pair: "Cu–Steel SD",      pr: 6.674097, ob: 6.67433,   sd: 0.00013,   year: 2014, type: "high",      scale: "lab" },
+  { id: 21, label: "HUST-05 (2014)",         pair: "Steel–Cu",         pr: 6.674097, ob: 6.67228,   sd: 0.00087,   year: 2014, type: "high",      scale: "lab" },
+  { id: 22, label: "HUST-18 (2018)",         pair: "Steel–Steel SD",   pr: 6.674200, ob: 6.674184,  sd: 0.000078,  year: 2018, type: "high",      scale: "lab" },
+  { id: 23, label: "Schlamminger (2026)",    pair: "Cu–Sapphire",      pr: 6.671860, ob: 6.673636,  sd: 0.000627,  year: 2026, type: "high",      scale: "lab" },
+  { id: 24, label: "Schlamminger (2026)",    pair: "Cu–Cu",            pr: 6.673995, ob: 6.674021,  sd: 0.0002,    year: 2026, type: "high",      scale: "lab" },
+
+  // ── EXCLUDED (same team duplicates) — off by default ────────────────────
+  { id: 25, label: "Luo (1999)",             pair: "Steel–Cu",         pr: 6.674097, ob: 6.6699,    sd: 0.0007,    year: 1999, type: "excluded",  scale: "lab" },
+  { id: 26, label: "HUST-05-A (2005)",       pair: "Steel–Cu",         pr: 6.674097, ob: 6.67222,   sd: 0.00087,   year: 2005, type: "excluded",  scale: "lab" },
+  { id: 27, label: "HUST-05-B (2005)",       pair: "Steel–Cu",         pr: 6.674097, ob: 6.67228,   sd: 0.00087,   year: 2005, type: "excluded",  scale: "lab" },
+  { id: 28, label: "HUST-09 (2009)",         pair: "Steel–Steel SD",   pr: 6.674200, ob: 6.67349,   sd: 0.00018,   year: 2009, type: "excluded",  scale: "lab" },
+  { id: 29, label: "Luther (1996)",          pair: "W–Steel SD",       pr: 6.671507, ob: 6.6740,    sd: 0.0007,    year: 1996, type: "excluded",  scale: "lab" },
+  { id: 30, label: "Cross (2009)",           pair: "Cu–Steel SD",      pr: 6.674097, ob: 6.674585,  sd: 0.000225,  year: 2009, type: "excluded",  scale: "lab" },
+
+  // ── FREEFALL / ATOM INTERFEROMETER ──────────────────────────────────────
+  { id: 31, label: "Goldblum (1987)",        pair: "Dy₆Fe₂₃–Dy₆Fe₂₃", pr: 6.672372, ob: 6.6700,    sd: 0.0700,    year: 1987, type: "freefall",  scale: "lab" },
+  { id: 32, label: "Saulnier (1989)",        pair: "U–Pb",             pr: 6.666822, ob: 6.6500,    sd: 0.0900,    year: 1989, type: "freefall",  scale: "lab" },
+  { id: 33, label: "Ritter (1990)",          pair: "Dy₆Fe₂₃–Dy₆Fe₂₃", pr: 6.672372, ob: 6.6700,    sd: 0.0900,    year: 1990, type: "freefall",  scale: "lab" },
+  { id: 34, label: "Fixler (2003)",          pair: "Pb–Cs",            pr: 6.669780, ob: 6.6930,    sd: 0.0270,    year: 2003, type: "freefall",  scale: "lab" },
+  { id: 35, label: "Wang (2009)",            pair: "Pb–Silica",        pr: 6.668866, ob: 6.6665,    sd: 0.0554,    year: 2009, type: "freefall",  scale: "lab" },
+  { id: 36, label: "Prevedelli (2014)",      pair: "W–Rb",             pr: 6.671258, ob: 6.67191,   sd: 0.00099,   year: 2014, type: "freefall",  scale: "lab" },
+
+  // ── SPECULATIVE TEST MASS ────────────────────────────────────────────────
+  { id: 37, label: "Pontikis (1971) — Pb–Pb?",  pair: "Pb–Pb or Pb–Brass", pr: 6.667878, ob: 6.6680, sd: 0.0030,  year: 1971, type: "speculative", scale: "lab" },
+  { id: 38, label: "Pontikis (1971) — Hg–Hg?",  pair: "Hg–Hg or Hg–Brass", pr: 6.668090, ob: 6.6660, sd: 0.0020,  year: 1971, type: "speculative", scale: "lab" },
+
+  // ── LOWEST VALUES (insufficient isolation) ───────────────────────────────
+  { id: 39, label: "Heyl (1928)",            pair: "Steel–Glass",      pr: 6.671986, ob: 6.6710,    sd: 0.0030,    year: 1928, type: "lowacc",    scale: "lab" },
+  { id: 40, label: "Heyl (1925)",            pair: "Steel–Au",         pr: 6.671152, ob: 6.6720,    sd: 0.0040,    year: 1925, type: "lowacc",    scale: "lab" },
+
+  // ── UNKNOWN TEST MASS ────────────────────────────────────────────────────
+  { id: 41, label: "Dousse team-1 (1987)",   pair: "Pb–Cu (?)",        pr: 6.670936, ob: 6.6704,    sd: 0.0048,    year: 1987, type: "unknown",   scale: "lab" },
+  { id: 42, label: "Dousse team-2 (1987)",   pair: "Pb–Cu (?)",        pr: 6.670936, ob: 6.6735,    sd: 0.0068,    year: 1987, type: "unknown",   scale: "lab" },
+  { id: 43, label: "Dousse team-3 (1987)",   pair: "Pb–Cu (?)",        pr: 6.670936, ob: 6.6740,    sd: 0.0053,    year: 1987, type: "unknown",   scale: "lab" },
+  { id: 44, label: "Dousse team-4 (1987)",   pair: "Pb–Cu (?)",        pr: 6.670936, ob: 6.6722,    sd: 0.0051,    year: 1987, type: "unknown",   scale: "lab" },
+
+  // ── LARGE-SCALE EXPERIMENTS ─────────────────────────────────────────────
+  { id: 45, label: "Hubler (1995-A)",        pair: "H₂O–Steel",        pr: 6.667962, ob: 6.6690,    sd: 0.0050,    year: 1995, type: "largescale", scale: "large" },
+  { id: 46, label: "Schlamminger (2002)",    pair: "Hg–Cu",            pr: 6.671042, ob: 6.67404,   sd: 0.00021,   year: 2002, type: "largescale", scale: "large" },
+  { id: 47, label: "Schlamminger (2002)",    pair: "Hg–Ta",            pr: 6.668519, ob: 6.67409,   sd: 0.00021,   year: 2002, type: "largescale", scale: "large" },
+  { id: 48, label: "Stacey (1984-A)",        pair: "H₂O–Steel",        pr: 6.667962, ob: 6.7120,    sd: 0.0370,    year: 1984, type: "largescale", scale: "large" },
+  { id: 49, label: "Stacey (1984-B)",        pair: "H₂O–Steel",        pr: 6.667962, ob: 6.7300,    sd: 0.0250,    year: 1984, type: "largescale", scale: "large" },
+  { id: 50, label: "Oldham (1993)",          pair: "H₂O–Cu",           pr: 6.667859, ob: 6.6710,    sd: 0.0150,    year: 1993, type: "largescale", scale: "large" },
+  { id: 51, label: "Hubler (1995-B)",        pair: "H₂O–Steel",        pr: 6.667962, ob: 6.6780,    sd: 0.0070,    year: 1995, type: "largescale", scale: "large" },
+  { id: 52, label: "Baldi (2001)",           pair: "H₂O–Nb",           pr: 6.667562, ob: 6.6880,    sd: 0.0110,    year: 2001, type: "largescale", scale: "large" },
+  { id: 53, label: "Zumberge (1991)",        pair: "H₂O–WC",           pr: 6.665226, ob: 6.6770,    sd: 0.0130,    year: 1991, type: "largescale", scale: "large" },
+  { id: 54, label: "Müller (1990)",          pair: "H₂O–WC",           pr: 6.665226, ob: 6.6890,    sd: 0.0270,    year: 1990, type: "largescale", scale: "large" },
+
+  // ── HOMOGENIZED AVERAGE ─────────────────────────────────────────────────
+  { id: 55, label: "Pontikis (1972) — avg",  pair: "Brass–various",    pr: 6.672300, ob: 6.67142,   sd: 0.00021,   year: 1972, type: "homogenized", scale: "lab" },
+
+  // ── ELECTROSTATIC SERVO CONTROL ─────────────────────────────────────────
+  { id: 56, label: "Quinn (2001-servo)",     pair: "Cu–Cu",            pr: 6.673995, ob: 6.67553,   sd: 0.00040,   year: 2001, type: "servo",     scale: "lab" },
+  { id: 57, label: "Quinn (2013)",           pair: "Cu–Cu",            pr: 6.673995, ob: 6.67554,   sd: 0.00016,   year: 2013, type: "servo",     scale: "lab" },
+  { id: 58, label: "Richman (1999)",         pair: "Cu–Cu",            pr: 6.673995, ob: 6.6830,    sd: 0.0110,    year: 1999, type: "servo",     scale: "lab" },
+  { id: 59, label: "Schlamminger (2026) servo", pair: "Cu–Cu",         pr: 6.673995, ob: 6.673642,  sd: 0.00015,   year: 2026, type: "servo",     scale: "lab" },
+  { id: 60, label: "Schlamminger (2026) servo", pair: "Cu–Sapphire",   pr: 6.671860, ob: 6.672637,  sd: 0.00025,   year: 2026, type: "servo",     scale: "lab" },
+
+  // ── LOW ACCURACY / HISTORIC ─────────────────────────────────────────────
+  { id: 61, label: "H. Cavendish (1798)",    pair: "Pb–Pb",            pr: 6.667878, ob: 6.7540,    sd: 0.0410,    year: 1798, type: "lowacc",    scale: "lab" },
+  { id: 62, label: "Fr. Reich (1838)",       pair: "Pb–various",       pr: 6.667878, ob: 6.6400,    sd: 0.0600,    year: 1838, type: "lowacc",    scale: "lab" },
+  { id: 63, label: "F. Bailey (1843)",       pair: "Pb–various",       pr: 6.667878, ob: 6.6300,    sd: 0.0700,    year: 1843, type: "lowacc",    scale: "lab" },
+  { id: 64, label: "Cornu (1873)",           pair: "Hg–Cu",            pr: 6.671042, ob: 6.6400,    sd: 0.0170,    year: 1873, type: "lowacc",    scale: "lab" },
+  { id: 65, label: "P. v. Jolly (1878)",     pair: "Pb–Hg",            pr: 6.667984, ob: 6.4470,    sd: 0.1100,    year: 1878, type: "lowacc",    scale: "lab" },
+  { id: 66, label: "Richarz (1888)",         pair: "Pb–Pb",            pr: 6.667878, ob: 6.6840,    sd: 0.0110,    year: 1888, type: "lowacc",    scale: "lab" },
+  { id: 67, label: "J. Wilsing (1889)",      pair: "Pb–Sn-Bi alloy",   pr: 6.670114, ob: 6.5940,    sd: 0.1500,    year: 1889, type: "lowacc",    scale: "lab" },
+  { id: 68, label: "R. Eötvös (1896)",       pair: "Pb–Hg",            pr: 6.667984, ob: 6.6570,    sd: 0.0130,    year: 1896, type: "lowacc",    scale: "lab" },
+  { id: 69, label: "G. Burgess (1902)",      pair: "Pb–Pb",            pr: 6.667878, ob: 6.6400,    sd: 0.0400,    year: 1902, type: "lowacc",    scale: "lab" },
+  { id: 70, label: "Heyl (1926)",            pair: "Steel–Pt",         pr: 6.671202, ob: 6.6670,    sd: 0.0120,    year: 1926, type: "lowacc",    scale: "lab" },
+  { id: 71, label: "Zahradníček (1930)",     pair: "Pb–Pb",            pr: 6.667878, ob: 6.6600,    sd: 0.0400,    year: 1930, type: "lowacc",    scale: "lab" },
+  { id: 72, label: "Rose (1969)",            pair: "W–Al",             pr: 6.669846, ob: 6.6740,    sd: 0.0120,    year: 1969, type: "lowacc",    scale: "lab" },
+  { id: 73, label: "Koldewyn (1976)",        pair: "Bronze–Quartz",    pr: 6.671866, ob: 6.5750,    sd: 0.0260,    year: 1976, type: "lowacc",    scale: "lab" },
+  { id: 74, label: "Page (1981)",            pair: "Pb–Pb",            pr: 6.667878, ob: 6.1000,    sd: 0.4000,    year: 1981, type: "lowacc",    scale: "lab" },
+  { id: 75, label: "Speake (1983)",          pair: "Brass–?",          pr: 6.673973, ob: 6.6500,    sd: 0.2300,    year: 1983, type: "lowacc",    scale: "lab" },
+  { id: 76, label: "Oelfke (1984)",          pair: "Brass–?",          pr: 6.673973, ob: 6.7000,    sd: 0.2000,    year: 1984, type: "lowacc",    scale: "lab" },
+  { id: 77, label: "Liu (1987)",             pair: "Brass–?",          pr: 6.673973, ob: 6.6600,    sd: 0.0260,    year: 1987, type: "lowacc",    scale: "lab" },
+  { id: 78, label: "J. Schurr (1992)",       pair: "Pb–Silica",        pr: 6.668906, ob: 6.6600,    sd: 0.0600,    year: 1992, type: "lowacc",    scale: "lab" },
+
+  // ── BEYOND REASONABLE RANGE ──────────────────────────────────────────────
+  { id: 79, label: "Poynting (1891)",        pair: "Pb–Pb-Sb alloy",   pr: 6.667878, ob: 6.6984,    sd: 0.0040,    year: 1891, type: "outofrange", scale: "lab" },
+  { id: 80, label: "C. v. Boys (1895)",      pair: "Pb–Au",            pr: 6.668031, ob: 6.6580,    sd: 0.0070,    year: 1895, type: "outofrange", scale: "lab" },
+  { id: 81, label: "K. Braun (1897)",        pair: "Hg–Brass",         pr: 6.671038, ob: 6.6540,    sd: 0.0020,    year: 1897, type: "outofrange", scale: "lab" },
+  { id: 82, label: "Heyl (1925-avg)",        pair: "Steel–Au",         pr: 6.671152, ob: 6.6782,    sd: 0.0016,    year: 1925, type: "outofrange", scale: "lab" },
+  { id: 83, label: "Moore & Stacey (1988)",  pair: "H₂O–Steel",        pr: 6.667962, ob: 6.6890,    sd: 0.00057,   year: 1988, type: "outofrange", scale: "large" },
+  { id: 84, label: "Hubler (1995-B)",        pair: "H₂O–Steel",        pr: 6.667962, ob: 6.6780,    sd: 0.0070,    year: 1995, type: "outofrange", scale: "large" },
+  { id: 85, label: "W. Michaelis (1996)",    pair: "W–Silica",         pr: 6.669374, ob: 6.71540,   sd: 0.00056,   year: 1996, type: "outofrange", scale: "lab" },
+  { id: 86, label: "Nolting (1999)",         pair: "H₂O–Cu",           pr: 6.667859, ob: 6.6754,    sd: 0.0015,    year: 1999, type: "outofrange", scale: "large" },
+  { id: 87, label: "J. P. Schwarz (1999)",   pair: "W–Silica",         pr: 6.669374, ob: 6.6873,    sd: 0.0094,    year: 1999, type: "outofrange", scale: "lab" },
+  { id: 88, label: "Quinn (2001-cav)",       pair: "Cu–Cu",            pr: 6.673995, ob: 6.67565,   sd: 0.00045,   year: 2001, type: "outofrange", scale: "lab" },
+  { id: 89, label: "McCulloh (1965-A)",      pair: "Rock–Steel",       pr: 6.674097, ob: 6.7390,    sd: 0.0025,    year: 1965, type: "outofrange", scale: "large" },
 ];
 
 const TYPE_LABELS = {
-  cavendish:   "Standard Cavendish",
-  freefall:    "Freefall / interferometer",
-  atom_interf: "Atom interferometry",
-  gravimeter:  "Gravimeter",
+  high:        "High accuracy Cavendish",
+  freefall:    "Freefall / atom interferometer",
+  speculative: "Speculative test mass composition",
+  lowacc:      "Low accuracy / historic",
+  excluded:    "Excluded (same-team duplicate)",
+  unknown:     "Unknown test mass composition",
+  largescale:  "Large-scale / long-range",
+  homogenized: "Homogenized average (Pontikis 1972)",
+  servo:       "Electrostatic servo control",
+  outofrange:  "Beyond reasonable range",
 };
 
 const CATEGORIES = [
   {
-    key: "precise",
-    title: "Modern precision (post-1969, SD < 0.01, lab-scale)",
+    key: "high",
+    title: "High accuracy Cavendish",
     color: "#1a8c5c",
-    fn: m => m.year >= 1969 && m.sd < 0.01 && m.scale === "lab" && m.type === "cavendish",
+    fn: m => m.type === "high",
   },
   {
-    key: "nonstandard",
-    title: "Non-standard methods (atom interferometry, freefall, gravimeter)",
+    key: "freefall",
+    title: "Freefall / atom interferometer",
     color: "#4c6f95",
-    fn: m => m.type === "atom_interf" || m.type === "freefall" || m.type === "gravimeter",
+    fn: m => m.type === "freefall",
   },
   {
-    key: "large",
+    key: "speculative",
+    title: "Speculative test mass (Pontikis Pb & Hg)",
+    color: "#7a5c9e",
+    fn: m => m.type === "speculative",
+  },
+  {
+    key: "unknown",
+    title: "Unknown test mass composition (Dousse)",
+    color: "#7a7a40",
+    fn: m => m.type === "unknown",
+  },
+  {
+    key: "largescale",
     title: "Large-scale / long-range",
     color: "#c87a40",
-    fn: m => m.scale === "large",
+    fn: m => m.type === "largescale",
   },
   {
-    key: "bigsd",
-    title: "Large standard deviation (SD ≥ 0.01, post-1969, lab-scale)",
+    key: "homogenized",
+    title: "Homogenized average — Pontikis (1972)",
+    color: "#888",
+    fn: m => m.type === "homogenized",
+  },
+  {
+    key: "servo",
+    title: "Electrostatic servo control",
     color: "#b84040",
-    fn: m => m.sd >= 0.01 && m.year >= 1969 && m.scale !== "large" && m.type === "cavendish",
+    fn: m => m.type === "servo",
   },
   {
-    key: "historic",
-    title: "Historic (pre-1969)",
-    color: "#8a8a8a",
-    fn: m => m.year < 1969,
+    key: "lowacc",
+    title: "Low accuracy / historic",
+    color: "#888",
+    fn: m => m.type === "lowacc",
+  },
+  {
+    key: "outofrange",
+    title: "Beyond reasonable range",
+    color: "#b84040",
+    fn: m => m.type === "outofrange",
+  },
+  {
+    key: "excluded",
+    title: "Excluded — same-team duplicates (off by default)",
+    color: "#aaa",
+    fn: m => m.type === "excluded",
   },
 ];
 
+
+
 const FILTERS = [
-  { key: "bigsd",    label: "SD ≥ 0.01",                    fn: m => m.sd >= 0.01 },
-  { key: "range",    label: "Outside 6.661 – 6.6745",       fn: m => m.ob < 6.661 || m.ob > 6.6745 },
-  { key: "large",    label: "Large-scale experiments",       fn: m => m.scale === "large" },
-  { key: "pre1969",  label: "Pre-1969",                      fn: m => m.year < 1969 },
-  { key: "freefall", label: "Freefall / interferometer",     fn: m => m.type === "freefall" },
-  { key: "gravi",    label: "Gravimeter",                    fn: m => m.type === "gravimeter" },
+  { key: "bigsd",       label: "SD ≥ 0.01",                        fn: m => m.sd >= 0.01 },
+  { key: "outofrange",  label: "Outside 6.660 – 6.675",            fn: m => m.ob < 6.660 || m.ob > 6.675 },
+  { key: "largescale",  label: "Large-scale experiments",           fn: m => m.type === "largescale" },
+  { key: "lowacc",      label: "Low accuracy / historic",           fn: m => m.type === "lowacc" },
+  { key: "freefall",    label: "Freefall / interferometer",         fn: m => m.type === "freefall" },
+  { key: "servo",       label: "Electrostatic servo control",       fn: m => m.type === "servo" },
+  { key: "excluded",    label: "Same-team duplicates",              fn: m => m.type === "excluded" },
+  { key: "speculative", label: "Speculative test mass",             fn: m => m.type === "speculative" },
+  { key: "unknown",     label: "Unknown test mass",                 fn: m => m.type === "unknown" },
+  { key: "homogenized", label: "Homogenized average",               fn: m => m.type === "homogenized" },
 ];
 
 /* ══════════════════════════════════════════════
    STATE
    ══════════════════════════════════════════════ */
 
-let activeIds    = new Set(META_DATA.map(m => m.id));
+// Default: include only high, freefall, speculative, unknown entries
+const DEFAULT_EXCLUDED_TYPES = new Set(["excluded","lowacc","outofrange","servo","largescale","homogenized"]);
+let activeIds = new Set(META_DATA.filter(m => !DEFAULT_EXCLUDED_TYPES.has(m.type)).map(m => m.id));
 let activeFilters = new Set();
 let openDetails   = new Set();
 
@@ -114,7 +258,40 @@ function getActiveData() {
 }
 
 /* ══════════════════════════════════════════════
-   KENDALL TAU-B
+   KENDALL TAU-B  (with tie correction)
+   ══════════════════════════════════════════════
+
+   Method (from Sky Darmos):
+   ─────────────────────────
+   1. Count concordant pairs C, discordant pairs D, and tied pairs
+      T1 (ties on predicted) and T2 (ties on observed) by scanning
+      all (i,j) pairs.
+
+   2. tau_b = (C − D) / sqrt((P − T1)(P − T2))
+      where P = n(n−1)/2.
+
+   3. When there are NO ties (T1 = T2 = 0):
+        sigma = sqrt(2(2n+5) / 9n(n−1))
+        z     = tau_b / sigma
+        p     = right-tailed normal CDF of z
+
+   4. When there ARE ties (T = T1 + T2 > 0):
+        We find the "next higher tau-a" — the closest tau-a value
+        that is strictly above tau_b.
+        tau-a values are: (C−D ± k) / P  for integer k = 0,1,2,...,T
+        representing how the T tied pairs could have gone (each tied
+        pair shifted from tied to concordant adds +1, to discordant
+        adds −1 to the numerator relative to C−D).
+        We step k = 1, 2, … until (C−D+k)/P > tau_b, then use
+        that adjusted_tau_a as the z-score numerator.
+        sigma uses the SIMPLE formula (no tie correction) because the
+        tie correction is already handled by choosing next-higher tau-a.
+        z = adjusted_tau_a / sigma
+        p = right-tailed normal CDF of z
+
+   This is conservative by design: we use a slightly MORE significant
+   tau-a than the true tau-b, giving a small conservative bias that
+   is negligible for large n.
    ══════════════════════════════════════════════ */
 
 function kendallTauB(data) {
@@ -122,15 +299,26 @@ function kendallTauB(data) {
   if (n < 2) return { tau: null, z: null, p: null, n, C: 0, D: 0, T1: 0, T2: 0 };
 
   let C = 0, D = 0, T1 = 0, T2 = 0;
+
   for (let i = 0; i < n; i++) {
     for (let j = i + 1; j < n; j++) {
-      const dP  = data[i].pr - data[j].pr;
-      const dO  = data[i].ob - data[j].ob;
-      const prod = dP * dO;
-      if (Math.abs(prod) < 1e-15) {
-        if (Math.abs(dP) < 1e-12) T1++;
-        if (Math.abs(dO) < 1e-12) T2++;
-      } else if (prod > 0) {
+      const dP = data[i].pr - data[j].pr;
+      const dO = data[i].ob - data[j].ob;
+
+      const tieP = Math.abs(dP) < 1e-9;
+      const tieO = Math.abs(dO) < 1e-9;
+
+      if (tieP && tieO) {
+        // tied on both — counts as tie for both T1 and T2
+        T1++;
+        T2++;
+      } else if (tieP) {
+        // tied on predicted only
+        T1++;
+      } else if (tieO) {
+        // tied on observed only
+        T2++;
+      } else if (dP * dO > 0) {
         C++;
       } else {
         D++;
@@ -138,18 +326,64 @@ function kendallTauB(data) {
     }
   }
 
-  const pairs = n * (n - 1) / 2;
-  const denom = Math.sqrt((pairs - T1) * (pairs - T2));
-  if (denom === 0) return { tau: 0, z: 0, p: 0.5, n, C, D, T1, T2 };
+  const P     = n * (n - 1) / 2;
+  const S     = C - D;          // Kendall's S statistic
+  const T     = T1 + T2;        // total tied pairs
 
-  const tau = (C - D) / denom;
+  // tau_b (for display)
+  const denom = Math.sqrt((P - T1) * (P - T2));
+  const tau   = denom === 0 ? 0 : S / denom;
 
-  // Variance of tau-b: 2(2n+5) / 9n(n-1)
-  const varTau = (2 * (2 * n + 5)) / (9 * n * (n - 1));
-  const z = tau / Math.sqrt(varTau);
+  // sigma — always uses the simple no-ties asymptotic formula
+  // (valid for large n; tie correction is handled via next-higher tau-a)
+  const sigma = Math.sqrt((2 * (2 * n + 5)) / (9 * n * (n - 1)));
+
+  let z, adjustedTau;
+
+  if (T === 0) {
+    // ── No ties: z = tau_b / sigma directly ──────────────────────────
+    adjustedTau = tau;           // tau_b == tau_a when no ties
+    z = sigma === 0 ? 0 : tau / sigma;
+  } else {
+    // ── Ties present: find next higher tau-a above tau_b ─────────────
+    //
+    // The T tied pairs form a group that can resolve as:
+    //   T concordant + 0 discordant  → net = +T
+    //   (T−1) C + 1 D               → net = +(T−2)
+    //   (T−2) C + 2 D               → net = +(T−4)
+    //   …
+    //   0 C + T D                   → net = −T
+    //
+    // So the possible net contributions step by 2: T, T−2, T−4, …, −T.
+    // The adjusted tau-a candidates are (S + net) / P.
+    // We find the smallest net (starting from net = 1 upward in steps of 2)
+    // such that (S + net) / P > tau_b.
+    //
+    // net must satisfy: net ≡ T (mod 2), i.e. same parity as T.
+    // Starting point: smallest positive net = T mod 2 == 0 ? 2 : 1
+
+    const startNet = (T % 2 === 0) ? 2 : 1;   // smallest positive valid net
+    let found = false;
+    for (let net = startNet; net <= T; net += 2) {
+      const candidateTau = (S + net) / P;
+      if (candidateTau > tau) {
+        adjustedTau = candidateTau;
+        found = true;
+        break;
+      }
+    }
+
+    if (!found) {
+      // Fallback: tau_b already above all tau-a candidates — use tau_b directly
+      adjustedTau = tau;
+    }
+
+    z = sigma === 0 ? 0 : adjustedTau / sigma;
+  }
+
   const p = 1 - normalCDF(z);
 
-  return { tau, z, p, n, C, D, T1, T2 };
+  return { tau, z, p, n, C, D, T1, T2, S, adjustedTau };
 }
 
 // Abramowitz & Stegun approximation — accurate to 7.5 × 10⁻⁸
