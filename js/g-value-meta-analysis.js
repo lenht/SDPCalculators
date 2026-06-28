@@ -255,32 +255,12 @@ function isFilteredOut(m) {
 }
 
 function getActiveData() {
-  // 1. Get the raw active set (used by UI cards — unchanged)
-  const raw = META_DATA.filter(m => activeIds.has(m.id) && !isFilteredOut(m));
-
-  // 2. Average entries that share the same predicted value before passing to
-  //    kendallTauB.  Ties in the PREDICTION are physically meaningless —
-  //    they just mean different experiments used the same material composition.
-  //    Treating them as separate rows creates artificial prediction-ties that
-  //    almost never tie in observation, massively inflating tau artificially.
-  //    The correct treatment is to average their observed values into one
-  //    representative data point per unique predicted value.
-  const groups = new Map();
-  raw.forEach(m => {
-    // Round to 7 decimal places to avoid floating-point key collisions
-    const key = m.pr.toFixed(7);
-    if (!groups.has(key)) groups.set(key, []);
-    groups.get(key).push(m);
-  });
-
-  return Array.from(groups.values()).map(group => {
-    if (group.length === 1) return { pr: group[0].pr, ob: group[0].ob, pair: group[0].pair };
-    // Simple average of observed values within the group
-    const avgOb = group.reduce((sum, m) => sum + m.ob, 0) / group.length;
-    // Combined label for chart (unique pairs only)
-    const pairs = [...new Set(group.map(m => m.pair))].join(" / ");
-    return { pr: group[0].pr, ob: avgOb, pair: pairs };
-  });
+  // Return the active filtered set directly — no averaging.
+  // Entries that share the same predicted value are handled correctly
+  // by tau-b via the T1 (prediction-tie) count; their relationships
+  // with all other entries are still fully counted as concordant or
+  // discordant pairs.
+  return META_DATA.filter(m => activeIds.has(m.id) && !isFilteredOut(m));
 }
 
 /* ══════════════════════════════════════════════
