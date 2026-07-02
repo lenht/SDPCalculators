@@ -315,14 +315,21 @@ function kendallTauB(data) {
       const tieO = Math.abs(dO) < 1e-9;
 
       if (tieP && tieO) {
-        // tied on both — counts as tie for both T1 and T2
+        // Tied on both predicted AND observed.
+        // Counts as T1 (prediction tie) only — NOT T2.
+        // Reason: tau-b uses the Knight (1966) formula
+        //   tau_b = S / sqrt((C+D+T1) * (C+D+T2))
+        // where T1 = all pairs tied on predicted (including ties-on-both),
+        //       T2 = pairs tied on observed ONLY (excluding ties-on-both).
+        // A pair tied on both is already excluded from C and D, and its
+        // obs-tie status is subsumed by the pred-tie — counting it in T2
+        // as well would double-penalise the denominator incorrectly.
         T1++;
-        T2++;
       } else if (tieP) {
-        // tied on predicted only
+        // Tied on predicted only
         T1++;
       } else if (tieO) {
-        // tied on observed only
+        // Tied on observed only
         T2++;
       } else if (dP * dO > 0) {
         C++;
@@ -333,42 +340,44 @@ function kendallTauB(data) {
   }
 
   const P     = n * (n - 1) / 2;
-  const S     = C - D;          // Kendall's S statistic
-  const T     = T1 + T2;        // total tied pairs
+  const S     = C - D;
 
-  // tau_b (for display)
-  const denom = Math.sqrt((P - T1) * (P - T2));
+  // tau_b using Knight (1966) formula:
+  //   denominator = sqrt((C+D+T1) * (C+D+T2))
+  // which equals sqrt((P-T2_only) * (P-T1_only)) where T1_only and T2_only
+  // are exclusive, but here T1 already includes both-tied pairs and T2 excludes them.
+  // Equivalently: (C+D+T1) = P - T2, (C+D+T2) = P - T1.
+  // Wait — with our counting: C+D+T1+T2 = P, so:
+  //   C+D+T1 = P - T2
+  //   C+D+T2 = P - T1
+  // denom = sqrt((P - T2) * (P - T1))  [same formula, just verify with example]
+  // Verify: n=5, C=7, D=2, T1=1(both-tied), T2=0 → P=10
+  //   denom = sqrt((10-0)*(10-1)) = sqrt(10*9) = sqrt(90) ✓
+  const denom = Math.sqrt((P - T2) * (P - T1));
   const tau   = denom === 0 ? 0 : S / denom;
 
-  // sigma — always uses the simple no-ties asymptotic formula
-  // (valid for large n; tie correction is handled via next-higher tau-a)
+  // sigma — asymptotic formula (no tie correction), valid for large n.
+  // Tie correction is handled by using the next-higher tau-a for z.
   const sigma = Math.sqrt((2 * (2 * n + 5)) / (9 * n * (n - 1)));
 
   let z, adjustedTau;
+  const T = T1 + T2;   // total tied pairs
 
   if (T === 0) {
-    // ── No ties: z = tau_b / sigma directly ──────────────────────────
-    adjustedTau = tau;           // tau_b == tau_a when no ties
+    // No ties: z = tau_b / sigma directly (tau_b = tau_a)
+    adjustedTau = tau;
     z = sigma === 0 ? 0 : tau / sigma;
   } else {
-    // ── Ties present: find next higher tau-a above tau_b ─────────────
+    // Ties present: find next higher tau-a above tau_b.
     //
-    // The T tied pairs form a group that can resolve as:
-    //   T concordant + 0 discordant  → net = +T
-    //   (T−1) C + 1 D               → net = +(T−2)
-    //   (T−2) C + 2 D               → net = +(T−4)
-    //   …
-    //   0 C + T D                   → net = −T
-    //
-    // So the possible net contributions step by 2: T, T−2, T−4, …, −T.
-    // The adjusted tau-a candidates are (S + net) / P.
-    // We find the smallest net (starting from net = 1 upward in steps of 2)
-    // such that (S + net) / P > tau_b.
-    //
-    // net must satisfy: net ≡ T (mod 2), i.e. same parity as T.
-    // Starting point: smallest positive net = T mod 2 == 0 ? 2 : 1
+    // The T tied pairs can resolve into concordant or discordant pairs.
+    // Each tied pair turned concordant adds +1 to S; discordant adds -1.
+    // Net contributions of the whole group step by 2: T, T-2, ..., -T.
+    // tau-a candidate = (S + net) / P.
+    // We find the smallest net ≥ 1 (same parity as T) such that
+    // (S + net) / P > tau_b.
 
-    const startNet = (T % 2 === 0) ? 2 : 1;   // smallest positive valid net
+    const startNet = (T % 2 === 0) ? 2 : 1;
     let found = false;
     for (let net = startNet; net <= T; net += 2) {
       const candidateTau = (S + net) / P;
@@ -378,11 +387,7 @@ function kendallTauB(data) {
         break;
       }
     }
-
-    if (!found) {
-      // Fallback: tau_b already above all tau-a candidates — use tau_b directly
-      adjustedTau = tau;
-    }
+    if (!found) adjustedTau = tau;
 
     z = sigma === 0 ? 0 : adjustedTau / sigma;
   }
@@ -436,11 +441,65 @@ function updateStats() {
   const s    = kendallTauB(data);
 
   document.getElementById("s-n").textContent    = s.n;
-  document.getElementById("s-tau").textContent  = s.tau  !== null ? s.tau.toFixed(5) : "—";
+
+  // Show tau_b and adjusted tau_a separately
+  if (s.tau !== null) {
+    const hasTies = (s.T1 + s.T2) > 0;
+    if (hasTies && s.adjustedTau !== s.tau) {
+      document.getElementById("s-tau").textContent =
+        `τ-b: ${s.tau.toFixed(5)} / τ-a: ${s.adjustedTau.toFixed(5)}`;
+    } else {
+      document.getElementById("s-tau").textContent = s.tau.toFixed(5);
+    }
+  } else {
+    document.getElementById("s-tau").textContent = "—";
+  }
+
   document.getElementById("s-z").textContent    = s.z    !== null ? s.z.toFixed(4)   : "—";
   document.getElementById("s-p").textContent    = formatP(s.p);
   document.getElementById("s-odds").textContent = formatOdds(s.p);
   document.getElementById("s-cd").textContent   = (s.C !== undefined) ? `${s.C} – ${s.D}` : "—";
+
+  // Letter sequence: assign a letter to each unique predicted rank,
+  // then show observed order as a sequence of those letters.
+  const elSeq = document.getElementById("s-seq");
+  if (elSeq) {
+    if (data.length >= 2 && data.length <= 26) {
+      // Sort data by predicted value to assign letters A, B, C, …
+      const sorted = [...data].sort((a, b) => a.pr - b.pr);
+      // Assign letters (handle prediction ties: same letter for tied pr)
+      const letters = [];
+      let letter = 0;
+      sorted.forEach((m, i) => {
+        if (i > 0 && Math.abs(m.pr - sorted[i-1].pr) < 1e-9) {
+          // same predicted rank as previous — same letter
+          letters.push(letters[i-1]);
+        } else {
+          letters.push(String.fromCharCode(65 + letter++));
+        }
+        m._letter = letters[i];
+      });
+      // Now sort by observed value to get the observed sequence
+      const byObs = [...sorted].sort((a, b) => a.ob - b.ob);
+      // Build sequence string, using parentheses for ties in observation
+      let seq = "";
+      byObs.forEach((m, i) => {
+        const prevOb = i > 0 ? byObs[i-1].ob : null;
+        const nextOb = i < byObs.length - 1 ? byObs[i+1].ob : null;
+        const tiedWithPrev = prevOb !== null && Math.abs(m.ob - prevOb) < 1e-9;
+        const tiedWithNext = nextOb !== null && Math.abs(m.ob - nextOb) < 1e-9;
+        if (!tiedWithPrev && tiedWithNext) seq += "(";
+        seq += m._letter;
+        if (tiedWithPrev && !tiedWithNext) seq += ")";
+        else if (!tiedWithPrev && !tiedWithNext) seq += " ";
+      });
+      elSeq.textContent = seq.trim();
+    } else if (data.length > 26) {
+      elSeq.textContent = "(too many elements for letter display)";
+    } else {
+      elSeq.textContent = "—";
+    }
+  }
 
   drawChart(data);
 }
