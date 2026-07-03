@@ -460,28 +460,21 @@ function updateStats() {
   document.getElementById("s-odds").textContent = formatOdds(s.p);
   document.getElementById("s-cd").textContent   = (s.C !== undefined) ? `${s.C} – ${s.D}` : "—";
 
-  // Letter sequence: assign a letter to each unique predicted rank,
-  // then show observed order as a sequence of those letters.
+  // Letter sequence: each experiment gets a unique letter A, B, C, …
+  // assigned in order of predicted value (ties in prediction get consecutive
+  // letters since they are different experiments).
+  // The observed hierarchy is then displayed as those letters in observed order,
+  // with parentheses around groups of observation-tied entries.
   const elSeq = document.getElementById("s-seq");
   if (elSeq) {
     if (data.length >= 2 && data.length <= 26) {
-      // Sort data by predicted value to assign letters A, B, C, …
-      const sorted = [...data].sort((a, b) => a.pr - b.pr);
-      // Assign letters (handle prediction ties: same letter for tied pr)
-      const letters = [];
-      let letter = 0;
-      sorted.forEach((m, i) => {
-        if (i > 0 && Math.abs(m.pr - sorted[i-1].pr) < 1e-9) {
-          // same predicted rank as previous — same letter
-          letters.push(letters[i-1]);
-        } else {
-          letters.push(String.fromCharCode(65 + letter++));
-        }
-        m._letter = letters[i];
-      });
-      // Now sort by observed value to get the observed sequence
+      // Sort by pr first, then by ob as tiebreaker, to get a stable ordering
+      const sorted = [...data].sort((a, b) => a.pr - b.pr || a.ob - b.ob);
+      // Assign a unique letter to every experiment
+      sorted.forEach((m, i) => { m._letter = String.fromCharCode(65 + i); });
+      // Sort by observed value to build the hierarchy string
       const byObs = [...sorted].sort((a, b) => a.ob - b.ob);
-      // Build sequence string, using parentheses for ties in observation
+      // Build sequence: obs-tied groups in parentheses, others space-separated
       let seq = "";
       byObs.forEach((m, i) => {
         const prevOb = i > 0 ? byObs[i-1].ob : null;
@@ -490,7 +483,7 @@ function updateStats() {
         const tiedWithNext = nextOb !== null && Math.abs(m.ob - nextOb) < 1e-9;
         if (!tiedWithPrev && tiedWithNext) seq += "(";
         seq += m._letter;
-        if (tiedWithPrev && !tiedWithNext) seq += ")";
+        if (tiedWithPrev && !tiedWithNext) seq += ") ";
         else if (!tiedWithPrev && !tiedWithNext) seq += " ";
       });
       elSeq.textContent = seq.trim();
