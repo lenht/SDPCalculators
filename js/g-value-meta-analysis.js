@@ -34,7 +34,7 @@
      ECD = eddy current damper (steel/iron)
    ══════════════════════════════════════════════ */
 
-const META_DATA = [[
+const META_DATA = [
 
   // ── HIGH ACCURACY CAVENDISH ─────────────────────────────────────────────
   { id:  1, label: "Heyl (1942)",              pair: "Steel–Pt",                      pr: 6.671202, ob: 6.6720,    sd: 0.0040,    year: 1942, type: "high",      scale: "lab"   },
@@ -606,6 +606,11 @@ function buildFilters() {
     btn.className    = "filter-btn";
     btn.textContent  = f.label;
     btn.dataset.key  = f.key;
+
+    // Show filters that are enabled by default as active
+    if (activeFilters.has(f.key)) {
+      btn.classList.add("active");
+    }
 
     btn.addEventListener("click", () => {
       if (activeFilters.has(f.key)) {
