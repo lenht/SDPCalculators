@@ -34,7 +34,7 @@
      ECD = eddy current damper (steel/iron)
    ══════════════════════════════════════════════ */
 
-const META_DATA = [
+const META_DATA = [[
 
   // ── HIGH ACCURACY CAVENDISH ─────────────────────────────────────────────
   { id:  1, label: "Heyl (1942)",              pair: "Steel–Pt",                      pr: 6.671202, ob: 6.6720,    sd: 0.0040,    year: 1942, type: "high",      scale: "lab"   },
@@ -50,19 +50,20 @@ const META_DATA = [
   { id: 11, label: "Walesch (1995)",           pair: "Brass–Silica",                  pr: 6.671953, ob: 6.6719,    sd: 0.0008,    year: 1995, type: "high",      scale: "lab"   },
   { id: 12, label: "Fitzgerald (1999)",        pair: "Steel–Cu",                      pr: 6.674097, ob: 6.6742,    sd: 0.0007,    year: 1999, type: "high",      scale: "lab"   },
   { id: 13, label: "Gundlach (2000)",          pair: "Fe–[SO₂ ≪ Fe ECD]",            pr: 6.674200, ob: 6.674215,  sd: 0.000092,  year: 2000, type: "high",      scale: "lab"   },
-  { id: 14, label: "Quinn (2001-swing)",       pair: "Cu–Cu",                         pr: 6.673995, ob: 6.67565,   sd: 0.00045,   year: 2001, type: "high",      scale: "lab"   },
-  { id: 15, label: "Quinn (2001-servo)",       pair: "Cu–Cu",                         pr: 6.673995, ob: 6.67553,   sd: 0.00040,   year: 2001, type: "high",      scale: "lab"   },
-  { id: 16, label: "Quinn (2001)",             pair: "Cu–Cu",                         pr: 6.673995, ob: 6.67559,   sd: 0.00027,   year: 2001, type: "excluded",   scale: "lab"   },
-  { id: 17, label: "Kleinevoß (2002)",         pair: "Brass–Cu",                      pr: 6.673992, ob: 6.67422,   sd: 0.00098,   year: 2002, type: "high",      scale: "lab"   },
+  { id: 14, label: "Quinn (2001-swing)",       pair: "Cu–Cu",                         pr: 6.673995, ob: 6.67565,   sd: 0.00045,   year: 2001, type: "sameteam",      scale: "lab"   },
+  { id: 15, label: "Quinn (2001-servo)",       pair: "Cu–Cu",                         pr: 6.673995, ob: 6.67553,   sd: 0.00040,   year: 2001, type: "sameteam",      scale: "lab"   },
+    { id: 17, label: "Kleinevoß (2002)",         pair: "Brass–Cu",                      pr: 6.673992, ob: 6.67422,   sd: 0.00098,   year: 2002, type: "high",      scale: "lab"   },
   { id: 18, label: "Armstrong (2003)",         pair: "Cu–Cu",                         pr: 6.673995, ob: 6.67385,   sd: 0.00023,   year: 2003, type: "high",      scale: "lab"   },
   { id: 19, label: "Armstrong (2003)",         pair: "Steel–Cu",                      pr: 6.674097, ob: 6.67392,   sd: 0.00049,   year: 2003, type: "high",      scale: "lab"   },
-  { id: 20, label: "HUST-05 (2005 & 2014)",   pair: "Steel–Cu",                      pr: 6.674097, ob: 6.67222,   sd: 0.00087,   year: 2014, type: "high",      scale: "lab"   },
+  { id: 20, label: "HUST-05 (2005 & 2014)",   pair: "Steel–Cu",                      pr: 6.674097, ob: 6.67222,   sd: 0.00087,   year: 2014, type: "sameteam",      scale: "lab"   ,
+    note: "Corrected version of Luo (1999), HUST-05-A (2005) and HUST-05-B (2005)"},
   { id: 21, label: "Baldi (2005)",             pair: "Steel–Nb",                      pr: 6.673803, ob: 6.6750,    sd: 0.0070,    year: 2005, type: "high",      scale: "lab"   },
   { id: 22, label: "Lamporesi (2008)",         pair: "W–W",                           pr: 6.668815, ob: 6.6670,    sd: 0.0030,    year: 2008, type: "high",      scale: "lab"   },
   { id: 23, label: "Parks (2010)",             pair: "W–Cu",                          pr: 6.671404, ob: 6.67234,   sd: 0.00014,   year: 2010, type: "high",      scale: "lab"   },
   { id: 24, label: "Quinn (2013-swing)",       pair: "Cu–Cu",                         pr: 6.673995, ob: 6.67566,   sd: 0.00037,   year: 2013, type: "high",      scale: "lab"   },
   { id: 25, label: "Quinn (2013-servo)",       pair: "Cu–Cu",                         pr: 6.673995, ob: 6.67520,   sd: 0.00041,   year: 2013, type: "high",      scale: "lab"   },
-  { id: 26, label: "Newman (2014)",            pair: "Cu–[SO₂ ≪ Fe ECD]",            pr: 6.674097, ob: 6.67433,   sd: 0.00013,   year: 2014, type: "high",      scale: "lab"   },
+  { id: 26, label: "Newman (2014)",            pair: "Cu–[SO₂ ≪ Fe ECD]",            pr: 6.674097, ob: 6.67433,   sd: 0.00013,   year: 2014, type: "high",      scale: "lab"   ,
+    note: "Corrected version of Cross (2009)"},
   { id: 27, label: "HUST-18 (2018-swing)",     pair: "Fe–[SO₂ ≪ Fe ECD]",            pr: 6.674200, ob: 6.674184,  sd: 0.000078,  year: 2018, type: "high",      scale: "lab"   },
   { id: 28, label: "HUST-18 (2018-servo)",     pair: "Fe–[SO₂ ≪ Fe ECD]",            pr: 6.674200, ob: 6.674484,  sd: 0.000078,  year: 2018, type: "high",      scale: "lab"   },
   { id: 29, label: "Schlamminger (2026-swing)","pair": "Cu–Sapphire",                 pr: 6.671860, ob: 6.673636,  sd: 0.000627,  year: 2026, type: "high",      scale: "lab"   },
@@ -71,18 +72,8 @@ const META_DATA = [
   { id: 32, label: "Schlamminger (2026-servo)","pair": "Cu–Sapphire",                 pr: 6.671860, ob: 6.672637,  sd: 0.00025,   year: 2026, type: "high",      scale: "lab"   },
 
   // ── EXCLUDED (same-team duplicates / combined averages) — off by default ──
-  { id: 33, label: "Quinn (2001) — combined",  pair: "Cu–Cu",                         pr: 6.673995, ob: 6.67559,   sd: 0.00027,   year: 2001, type: "excluded",  scale: "lab"   },
-  { id: 34, label: "Luo (1999)",               pair: "Steel–Cu",                      pr: 6.674097, ob: 6.6699,    sd: 0.0007,    year: 1999, type: "excluded",  scale: "lab"   },
-  { id: 35, label: "HUST-05-A (2005)",         pair: "Steel–Cu",                      pr: 6.674097, ob: 6.67222,   sd: 0.00087,   year: 2005, type: "excluded",  scale: "lab"   },
-  { id: 36, label: "HUST-05-B (2005)",         pair: "Steel–Cu",                      pr: 6.674097, ob: 6.67228,   sd: 0.00087,   year: 2005, type: "excluded",  scale: "lab"   },
-  { id: 37, label: "HUST-09 (2009)",           pair: "Fe–[SO₂ ≪ Fe ECD]",            pr: 6.674200, ob: 6.67349,   sd: 0.00018,   year: 2009, type: "excluded",  scale: "lab"   },
-  { id: 38, label: "Luther (1997)",            pair: "W–[W ≪ Al DD]",                pr: 6.669845, ob: 6.6740,    sd: 0.0007,    year: 1997, type: "excluded",  scale: "lab"   },
-  { id: 39, label: "Cross (2009)",             pair: "Cu–[SO₂ ≪ Fe ECD]",            pr: 6.674097, ob: 6.674585,  sd: 0.000225,  year: 2009, type: "excluded",  scale: "lab"   },
-  { id: 40, label: "Dousse team-2 (1987)",     pair: "Pb–Cu DD (unknown TM)",         pr: 6.670936, ob: 6.6735,    sd: 0.0068,    year: 1987, type: "excluded",  scale: "lab"   },
-  { id: 41, label: "Dousse team-3 (1987)",     pair: "Pb–Cu DD (unknown TM)",         pr: 6.670936, ob: 6.6740,    sd: 0.0053,    year: 1987, type: "excluded",  scale: "lab"   },
-  { id: 42, label: "Dousse team-4 (1987)",     pair: "Pb–Cu DD (unknown TM)",         pr: 6.670936, ob: 6.6722,    sd: 0.0051,    year: 1987, type: "excluded",  scale: "lab"   },
-  { id: 43, label: "Schlamminger (2002) Hg–Ta","pair": "Hg–Ta",                       pr: 6.668519, ob: 6.67409,   sd: 0.00021,   year: 2002, type: "excluded",  scale: "large" },
-
+          { id: 37, label: "HUST-09 (2009)",           pair: "Fe–[SO₂ ≪ Fe ECD]",            pr: 6.674200, ob: 6.67349,   sd: 0.00018,   year: 2009, type: "sameteam",  scale: "lab"   },
+            
   // ── FREEFALL / ATOM INTERFEROMETER ──────────────────────────────────────
   { id: 50, label: "Goldblum (1987)",          pair: "Dy₆Fe₂₃–Dy₆Fe₂₃",             pr: 6.672372, ob: 6.6700,    sd: 0.0700,    year: 1987, type: "freefall",  scale: "lab"   },
   { id: 51, label: "Saulnier (1989)",          pair: "U–Pb",                          pr: 6.666822, ob: 6.6500,    sd: 0.0900,    year: 1989, type: "freefall",  scale: "lab"   },
@@ -113,7 +104,7 @@ const META_DATA = [
   { id: 88, label: "Stacey (1987-B)",          pair: "H₂O–Steel",                    pr: 6.667962, ob: 6.7300,    sd: 0.0250,    year: 1987, type: "largescale", scale: "large" },
 
   // ── HOMOGENIZED AVERAGE ─────────────────────────────────────────────────
-  { id: 90, label: "Pontikis (1972) — avg",    pair: "Brass–various",                 pr: 6.672300, ob: 6.67142,   sd: 0.00021,   year: 1972, type: "homogenized", scale: "lab" },
+  { id: 90, label: "Pontikis (1972) — avg",    pair: "Brass–various",                 pr: 6.672300, ob: 6.67142,   sd: 0.00021,   year: 1972, type: "sameteam", scale: "lab" },
 
   // ── LOW ACCURACY / HISTORIC ─────────────────────────────────────────────
   { id: 100, label: "H. Cavendish (1798)",     pair: "Pb–Pb",                         pr: 6.667878, ob: 6.7540,    sd: 0.0410,    year: 1798, type: "lowacc",    scale: "lab"   },
@@ -164,9 +155,8 @@ const TYPE_LABELS = {
   speculative: "Speculative test mass composition",
   lowestval:   "Lowest value selected (insufficient isolation)",
   lowacc:      "Low accuracy / historic",
-  excluded:    "Excluded (same-team duplicate / combined average)",
+  sameteam:    "Same-team / earlier version (off by default)",
   largescale:  "Large-scale / intermediate-range",
-  homogenized: "Homogenized average (Pontikis 1972)",
   outofrange:  "Beyond reasonable range",
 };
 
@@ -202,12 +192,6 @@ const CATEGORIES = [
     fn: m => m.type === "largescale",
   },
   {
-    key: "homogenized",
-    title: "Homogenized average — Pontikis (1972)",
-    color: "#888",
-    fn: m => m.type === "homogenized",
-  },
-  {
     key: "lowacc",
     title: "Low accuracy / historic",
     color: "#888",
@@ -220,10 +204,10 @@ const CATEGORIES = [
     fn: m => m.type === "outofrange",
   },
   {
-    key: "excluded",
-    title: "Excluded — same-team duplicates / combined averages (off by default)",
+    key: "sameteam",
+    title: "Same-team / earlier version (off by default)",
     color: "#aaa",
-    fn: m => m.type === "excluded",
+    fn: m => m.type === "sameteam",
   },
 ];
 
@@ -235,19 +219,18 @@ const FILTERS = [
   { key: "largescale",  label: "Large-scale / intermediate-range",  fn: m => m.type === "largescale" },
   { key: "lowacc",      label: "Low accuracy / historic",           fn: m => m.type === "lowacc" },
   { key: "freefall",    label: "Freefall / interferometer",         fn: m => m.type === "freefall" },
-  { key: "excluded",    label: "Same-team duplicates",              fn: m => m.type === "excluded" },
+  { key: "sameteam",    label: "Same-team / earlier versions",       fn: m => m.type === "sameteam" },
   { key: "speculative", label: "Speculative test mass",             fn: m => m.type === "speculative" },
   { key: "lowestval",   label: "Lowest value selected",             fn: m => m.type === "lowestval" },
-  { key: "homogenized", label: "Homogenized average",               fn: m => m.type === "homogenized" },
 ];
 /* ══════════════════════════════════════════════
    STATE
    ══════════════════════════════════════════════ */
 
 // Default: include only high, freefall, speculative, lowestval entries
-const DEFAULT_EXCLUDED_TYPES = new Set(["excluded","lowacc","outofrange","largescale","homogenized"]);
+const DEFAULT_EXCLUDED_TYPES = new Set(["sameteam","lowacc","outofrange","largescale"]);
 let activeIds = new Set(META_DATA.filter(m => !DEFAULT_EXCLUDED_TYPES.has(m.type)).map(m => m.id));
-let activeFilters = new Set();
+let activeFilters = new Set(["outofrange"]);
 let openDetails   = new Set();
 
 function isFilteredOut(m) {
@@ -459,6 +442,14 @@ function updateStats() {
   document.getElementById("s-p").textContent    = formatP(s.p);
   document.getElementById("s-odds").textContent = formatOdds(s.p);
   document.getElementById("s-cd").textContent   = (s.C !== undefined) ? `${s.C} – ${s.D}` : "—";
+  const elTies = document.getElementById("s-ties");
+  if (elTies) {
+    if (s.T1 !== undefined) {
+      elTies.textContent = `${s.T1} pred / ${s.T2} obs`;
+    } else {
+      elTies.textContent = "—";
+    }
+  }
 
   // Letter sequence: each experiment gets a unique letter A, B, C, …
   // assigned in order of predicted value (ties in prediction get consecutive
