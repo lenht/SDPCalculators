@@ -5,7 +5,7 @@
 
 let elements = [];
 
-const GH = 6.613511;
+const GH = 6.613421;  // G-value of hydrogen (anchor: Armstrong 2003 Cu avg = 6.673985)
 const MP = 1.00727647;
 const MN = 1.008665;
 
