@@ -5,9 +5,9 @@
       "atomicNumber": 1,
       "symbol": "H",
       "name": "Hydrogen",
-      "inertialMass": 1.00797094202616217,
+      "inertialMass": 1.0079709420261622,
       "gravitationalMass": 1.007422726425,
-      "gValue": 6.613511,
+      "gValue": 6.613421,
       "isotopes": [
         {
           "massNumber": 1,
@@ -25,7 +25,7 @@
       "name": "Helium",
       "inertialMass": 4.002601280982136,
       "gravitationalMass": 4.03188092267,
-      "gValue": 6.66189,
+      "gValue": 6.661799,
       "isotopes": [
         {
           "massNumber": 3,
@@ -43,7 +43,7 @@
       "name": "Lithium",
       "inertialMass": 6.9674607274899,
       "gravitationalMass": 7.0075691575,
-      "gValue": 6.651582,
+      "gValue": 6.651491,
       "isotopes": [
         {
           "massNumber": 6,
@@ -61,7 +61,7 @@
       "name": "Beryllium",
       "inertialMass": 9.01218306,
       "gravitationalMass": 9.07243088,
-      "gValue": 6.657723,
+      "gValue": 6.657633,
       "isotopes": [
         {
           "massNumber": 9,
@@ -75,7 +75,7 @@
       "name": "Boron",
       "inertialMass": 10.8135187950675,
       "gravitationalMass": 10.8901696775,
-      "gValue": 6.66039,
+      "gValue": 6.6603,
       "isotopes": [
         {
           "massNumber": 10,
@@ -93,7 +93,7 @@
       "name": "Carbon",
       "inertialMass": 12.011638916089897,
       "gravitationalMass": 12.107349334,
-      "gValue": 6.666128,
+      "gValue": 6.666118,
       "isotopes": [
         {
           "massNumber": 12,
@@ -111,7 +111,7 @@
       "name": "Nitrogen",
       "inertialMass": 14.00706214382706,
       "gravitationalMass": 14.11562495,
-      "gValue": 6.664689,
+      "gValue": 6.664679,
       "isotopes": [
         {
           "massNumber": 14,
@@ -129,7 +129,7 @@
       "name": "Oxygen",
       "inertialMass": 15.99940092389292,
       "gravitationalMass": 16.13204654454,
-      "gValue": 6.668261,
+      "gValue": 6.668251,
       "isotopes": [
         {
           "massNumber": 16,
@@ -151,7 +151,7 @@
       "name": "Fluorine",
       "inertialMass": 18.998403162067,
       "gravitationalMass": 19.15213823,
-      "gValue": 6.666947,
+      "gValue": 6.666937,
       "isotopes": [
         {
           "massNumber": 19,
@@ -165,7 +165,7 @@
       "name": "Neon",
       "inertialMass": 20.1840448677545,
       "gravitationalMass": 20.3487411205,
-      "gValue": 6.667395,
+      "gValue": 6.667385,
       "isotopes": [
         {
           "massNumber": 20,
@@ -187,7 +187,7 @@
       "name": "Sodium",
       "inertialMass": 22.989769282,
       "gravitationalMass": 23.18402117,
-      "gValue": 6.669311,
+      "gValue": 6.669301,
       "isotopes": [
         {
           "massNumber": 23,
@@ -201,7 +201,7 @@
       "name": "Magnesium",
       "inertialMass": 24.30485185801,
       "gravitationalMass": 24.51407044,
-      "gValue": 6.67036,
+      "gValue": 6.67035,
       "isotopes": [
         {
           "massNumber": 24,
@@ -218,12 +218,12 @@
       ]
     },
     {
-      "atomicNumber": null,
+      "atomicNumber": 13,
       "symbol": "Al",
       "name": "Aluminum",
       "inertialMass": 26.98153841,
       "gravitationalMass": 27.21590411,
-      "gValue": 6.670876,
+      "gValue": 6.670866,
       "isotopes": []
     },
     {
@@ -232,7 +232,7 @@
       "name": "Silicon",
       "inertialMass": 28.0858083887861,
       "gravitationalMass": 28.333125065,
-      "gValue": 6.671667,
+      "gValue": 6.671657,
       "isotopes": [
         {
           "massNumber": 28,
@@ -254,7 +254,7 @@
       "name": "Phosphorus",
       "inertialMass": 30.9737619986,
       "gravitationalMass": 31.24778705,
-      "gValue": 6.67194,
+      "gValue": 6.67193,
       "isotopes": [
         {
           "massNumber": 31,
@@ -268,7 +268,7 @@
       "name": "Sulfur",
       "inertialMass": 32.06438858900013,
       "gravitationalMass": 32.3483650325,
-      "gValue": 6.672002,
+      "gValue": 6.671992,
       "isotopes": [
         {
           "massNumber": 32,
@@ -294,7 +294,7 @@
       "name": "Chlorine",
       "inertialMass": 35.4481446636,
       "gravitationalMass": 35.76382919,
-      "gValue": 6.672327,
+      "gValue": 6.672317,
       "isotopes": [
         {
           "massNumber": 35,
@@ -312,7 +312,7 @@
       "name": "Argon",
       "inertialMass": 39.947660735667,
       "gravitationalMass": 40.3067387379,
-      "gValue": 6.672877,
+      "gValue": 6.672867,
       "isotopes": [
         {
           "massNumber": 36,
@@ -334,7 +334,7 @@
       "name": "Potassium",
       "inertialMass": 39.09829991529026,
       "gravitationalMass": 39.4474402788,
-      "gValue": 6.672488,
+      "gValue": 6.672478,
       "isotopes": [
         {
           "massNumber": 39,
@@ -356,7 +356,7 @@
       "name": "Calcium",
       "inertialMass": 40.07802251288266,
       "gravitationalMass": 40.43546133395,
-      "gValue": 6.672413,
+      "gValue": 6.672403,
       "isotopes": [
         {
           "massNumber": 40,
@@ -390,7 +390,7 @@
       "name": "Scandium",
       "inertialMass": 44.9559119,
       "gravitationalMass": 45.36076587,
-      "gValue": 6.672989,
+      "gValue": 6.672979,
       "isotopes": [
         {
           "massNumber": 45,
@@ -404,7 +404,7 @@
       "name": "Titanium",
       "inertialMass": 47.86674924516,
       "gravitationalMass": 48.3029644095,
-      "gValue": 6.6737,
+      "gValue": 6.67369,
       "isotopes": [
         {
           "massNumber": 46,
@@ -434,7 +434,7 @@
       "name": "Vanadium",
       "inertialMass": 50.9414674975,
       "gravitationalMass": 51.4074571475,
-      "gValue": 6.673928,
+      "gValue": 6.673918,
       "isotopes": [
         {
           "massNumber": 50,
@@ -452,7 +452,7 @@
       "name": "Chromium",
       "inertialMass": 51.996133070619,
       "gravitationalMass": 52.47314540765,
-      "gValue": 6.674103,
+      "gValue": 6.674093,
       "isotopes": [
         {
           "massNumber": 50,
@@ -478,7 +478,7 @@
       "name": "Manganese",
       "inertialMass": 54.9380451,
       "gravitationalMass": 55.44186175,
-      "gValue": 6.67408,
+      "gValue": 6.67407,
       "isotopes": [
         {
           "massNumber": 55,
@@ -492,7 +492,7 @@
       "name": "Iron",
       "inertialMass": 55.845144405992,
       "gravitationalMass": 56.35828776345,
-      "gValue": 6.67428,
+      "gValue": 6.67419,
       "isotopes": [
         {
           "massNumber": 54,
@@ -518,7 +518,7 @@
       "name": "Cobalt",
       "inertialMass": 58.933194,
       "gravitationalMass": 59.47374469,
-      "gValue": 6.674091,
+      "gValue": 6.674081,
       "isotopes": [
         {
           "massNumber": 59,
@@ -532,7 +532,7 @@
       "name": "Nickel",
       "inertialMass": 58.693351562448,
       "gravitationalMass": 59.229847877375,
-      "gValue": 6.673882,
+      "gValue": 6.673872,
       "isotopes": [
         {
           "massNumber": 58,
@@ -562,7 +562,7 @@
       "name": "Copper",
       "inertialMass": 63.546039732,
       "gravitationalMass": 64.127973935,
-      "gValue": 6.673995,
+      "gValue": 6.673985,
       "isotopes": [
         {
           "massNumber": 63,
@@ -580,7 +580,7 @@
       "name": "Zinc",
       "inertialMass": 65.37778242711,
       "gravitationalMass": 65.975871816,
-      "gValue": 6.673932,
+      "gValue": 6.673922,
       "isotopes": [
         {
           "massNumber": 64,
@@ -610,7 +610,7 @@
       "name": "Gallium",
       "inertialMass": 69.723065622084,
       "gravitationalMass": 70.3595938536,
-      "gValue": 6.673808,
+      "gValue": 6.673797,
       "isotopes": [
         {
           "massNumber": 69,
@@ -628,7 +628,7 @@
       "name": "Germanium",
       "inertialMass": 72.62984861828,
       "gravitationalMass": 73.293178394,
-      "gValue": 6.673832,
+      "gValue": 6.673821,
       "isotopes": [
         {
           "massNumber": 70,
@@ -658,7 +658,7 @@
       "name": "Arsenic",
       "inertialMass": 74.9215965,
       "gravitationalMass": 75.60405351,
-      "gValue": 6.673672,
+      "gValue": 6.673662,
       "isotopes": [
         {
           "massNumber": 75,
@@ -672,7 +672,7 @@
       "name": "Selenium",
       "inertialMass": 78.97108119659,
       "gravitationalMass": 79.691591157,
-      "gValue": 6.67377,
+      "gValue": 6.67376,
       "isotopes": [
         {
           "massNumber": 74,
@@ -706,7 +706,7 @@
       "name": "Bromine",
       "inertialMass": 79.8973335,
       "gravitationalMass": 80.62442815,
-      "gValue": 6.673616,
+      "gValue": 6.673606,
       "isotopes": [
         {
           "massNumber": 79,
@@ -724,7 +724,7 @@
       "name": "Krypton",
       "inertialMass": 83.83977608209,
       "gravitationalMass": 84.60502231346,
-      "gValue": 6.673795,
+      "gValue": 6.673785,
       "isotopes": [
         {
           "massNumber": 78,
@@ -758,7 +758,7 @@
       "name": "Rubidium",
       "inertialMass": 85.4676635945787,
       "gravitationalMass": 86.246572329,
-      "gValue": 6.673702,
+      "gValue": 6.673692,
       "isotopes": [
         {
           "massNumber": 85,
@@ -776,7 +776,7 @@
       "name": "Strontium",
       "inertialMass": 87.61664431476991,
       "gravitationalMass": 88.417646476,
-      "gValue": 6.673892,
+      "gValue": 6.673882,
       "isotopes": [
         {
           "massNumber": 84,
@@ -802,7 +802,7 @@
       "name": "Yttrium",
       "inertialMass": 88.9058483,
       "gravitationalMass": 89.71703233,
-      "gValue": 6.673772,
+      "gValue": 6.673762,
       "isotopes": [
         {
           "massNumber": 89,
@@ -816,7 +816,7 @@
       "name": "Zirconium",
       "inertialMass": 91.22364577039,
       "gravitationalMass": 92.054132736,
-      "gValue": 6.673639,
+      "gValue": 6.673629,
       "isotopes": [
         {
           "massNumber": 90,
@@ -846,7 +846,7 @@
       "name": "Niobium",
       "inertialMass": 92.9063781,
       "gravitationalMass": 93.74891527,
-      "gValue": 6.673406,
+      "gValue": 6.673396,
       "isotopes": [
         {
           "massNumber": 93,
@@ -860,7 +860,7 @@
       "name": "Molybdenum",
       "inertialMass": 95.9487812129634,
       "gravitationalMass": 96.81688424835,
-      "gValue": 6.673266,
+      "gValue": 6.673256,
       "isotopes": [
         {
           "massNumber": 92,
@@ -898,7 +898,7 @@
       "name": "Technetium",
       "inertialMass": 98.9062547,
       "gravitationalMass": 99.79812821,
-      "gValue": 6.673067,
+      "gValue": 6.673057,
       "isotopes": [
         {
           "massNumber": 97,
@@ -912,7 +912,7 @@
       "name": "Ruthenium",
       "inertialMass": 101.06494544279,
       "gravitationalMass": 101.975254347,
-      "gValue": 6.672999,
+      "gValue": 6.672989,
       "isotopes": [
         {
           "massNumber": 96,
@@ -950,7 +950,7 @@
       "name": "Rhodium",
       "inertialMass": 102.90549,
       "gravitationalMass": 103.83001115,
-      "gValue": 6.672847,
+      "gValue": 6.672837,
       "isotopes": [
         {
           "massNumber": 103,
@@ -964,7 +964,7 @@
       "name": "Palladium",
       "inertialMass": 106.4153287813,
       "gravitationalMass": 107.3701463015,
-      "gValue": 6.67277,
+      "gValue": 6.67276,
       "isotopes": [
         {
           "massNumber": 102,
@@ -998,7 +998,7 @@
       "name": "Silver",
       "inertialMass": 107.868149823523,
       "gravitationalMass": 108.8334603913,
-      "gValue": 6.672615,
+      "gValue": 6.672604,
       "isotopes": [
         {
           "massNumber": 107,
@@ -1016,7 +1016,7 @@
       "name": "Cadmium",
       "inertialMass": 112.413812565906,
       "gravitationalMass": 113.4185119629,
-      "gValue": 6.672539,
+      "gValue": 6.672529,
       "isotopes": [
         {
           "massNumber": 106,
@@ -1058,7 +1058,7 @@
       "name": "Indium",
       "inertialMass": 114.8182657058,
       "gravitationalMass": 115.8420751327,
-      "gValue": 6.672402,
+      "gValue": 6.672391,
       "isotopes": [
         {
           "massNumber": 113,
@@ -1076,7 +1076,7 @@
       "name": "Tin",
       "inertialMass": 118.71010831537,
       "gravitationalMass": 119.7677422205,
-      "gValue": 6.672353,
+      "gValue": 6.672343,
       "isotopes": [
         {
           "massNumber": 112,
@@ -1126,7 +1126,7 @@
       "name": "Antimony",
       "inertialMass": 121.75978613257,
       "gravitationalMass": 122.840865477,
-      "gValue": 6.67215,
+      "gValue": 6.67214,
       "isotopes": [
         {
           "massNumber": 121,
@@ -1144,7 +1144,7 @@
       "name": "Tellurium",
       "inertialMass": 127.60312784714,
       "gravitationalMass": 128.732703076,
-      "gValue": 6.671975,
+      "gValue": 6.671965,
       "isotopes": [
         {
           "massNumber": 120,
@@ -1186,7 +1186,7 @@
       "name": "Iodine",
       "inertialMass": 126.904473,
       "gravitationalMass": 128.02686291,
-      "gValue": 6.671923,
+      "gValue": 6.671913,
       "isotopes": [
         {
           "massNumber": 127,
@@ -1200,7 +1200,7 @@
       "name": "Xenon",
       "inertialMass": 131.2927712714044,
       "gravitationalMass": 132.45138544685,
-      "gValue": 6.671792,
+      "gValue": 6.671782,
       "isotopes": [
         {
           "massNumber": 124,
@@ -1246,7 +1246,7 @@
       "name": "Caesium",
       "inertialMass": 132.905451933,
       "gravitationalMass": 134.07607585,
-      "gValue": 6.671682,
+      "gValue": 6.671672,
       "isotopes": [
         {
           "massNumber": 133,
@@ -1260,7 +1260,7 @@
       "name": "Barium",
       "inertialMass": 137.32667186377,
       "gravitationalMass": 138.534398751,
-      "gValue": 6.671593,
+      "gValue": 6.671583,
       "isotopes": [
         {
           "massNumber": 130,
@@ -1298,7 +1298,7 @@
       "name": "Lanthanum",
       "inertialMass": 138.9054658738015,
       "gravitationalMass": 140.1243929946135,
-      "gValue": 6.671465,
+      "gValue": 6.671455,
       "isotopes": [
         {
           "massNumber": 138,
@@ -1316,7 +1316,7 @@
       "name": "Cerium",
       "inertialMass": 140.11572621392,
       "gravitationalMass": 141.3442436969,
-      "gValue": 6.671417,
+      "gValue": 6.671407,
       "isotopes": [
         {
           "massNumber": 136,
@@ -1342,7 +1342,7 @@
       "name": "Praseodymium",
       "inertialMass": 140.9076528,
       "gravitationalMass": 142.13984173,
-      "gValue": 6.671263,
+      "gValue": 6.671253,
       "isotopes": [
         {
           "massNumber": 141,
@@ -1356,7 +1356,7 @@
       "name": "Neodymium",
       "inertialMass": 144.241589987201,
       "gravitationalMass": 145.49776154925,
-      "gValue": 6.671026,
+      "gValue": 6.671016,
       "isotopes": [
         {
           "massNumber": 142,
@@ -1394,7 +1394,7 @@
       "name": "Promethium",
       "inertialMass": 145.33025058680485,
       "gravitationalMass": 146.5921792706328,
-      "gValue": 6.670857,
+      "gValue": 6.670847,
       "isotopes": [
         {
           "massNumber": 145,
@@ -1408,7 +1408,7 @@
       "name": "Samarium",
       "inertialMass": 150.36464677642,
       "gravitationalMass": 151.663929196,
-      "gValue": 6.670577,
+      "gValue": 6.670567,
       "isotopes": [
         {
           "massNumber": 144,
@@ -1446,7 +1446,7 @@
       "name": "Europium",
       "inertialMass": 151.96437047419,
       "gravitationalMass": 153.273782137,
-      "gValue": 6.670416,
+      "gValue": 6.670406,
       "isotopes": [
         {
           "massNumber": 151,
@@ -1464,7 +1464,7 @@
       "name": "Gadolinium",
       "inertialMass": 157.25212221544,
       "gravitationalMass": 158.6024820665,
-      "gValue": 6.670222,
+      "gValue": 6.670212,
       "isotopes": [
         {
           "massNumber": 152,
@@ -1502,7 +1502,7 @@
       "name": "Terbium",
       "inertialMass": 158.9253468,
       "gravitationalMass": 160.28748055,
-      "gValue": 6.670114,
+      "gValue": 6.670104,
       "isotopes": [
         {
           "massNumber": 159,
@@ -1516,7 +1516,7 @@
       "name": "Dysprosium",
       "inertialMass": 162.499465697163,
       "gravitationalMass": 163.88856932745,
-      "gValue": 6.669965,
+      "gValue": 6.669955,
       "isotopes": [
         {
           "massNumber": 156,
@@ -1554,7 +1554,7 @@
       "name": "Holmium",
       "inertialMass": 164.9303221,
       "gravitationalMass": 166.33669349,
-      "gValue": 6.669824,
+      "gValue": 6.669814,
       "isotopes": [
         {
           "massNumber": 165,
@@ -1568,7 +1568,7 @@
       "name": "Erbium",
       "inertialMass": 167.2590842122034,
       "gravitationalMass": 168.68253902155,
-      "gValue": 6.669714,
+      "gValue": 6.669704,
       "isotopes": [
         {
           "massNumber": 162,
@@ -1602,7 +1602,7 @@
       "name": "Thulium",
       "inertialMass": 168.9342133,
       "gravitationalMass": 170.36857643,
-      "gValue": 6.669583,
+      "gValue": 6.669573,
       "isotopes": [
         {
           "massNumber": 169,
@@ -1616,7 +1616,7 @@
       "name": "Ytterbium",
       "inertialMass": 173.0449299994397,
       "gravitationalMass": 174.5094926288,
-      "gValue": 6.669404,
+      "gValue": 6.669394,
       "isotopes": [
         {
           "massNumber": 168,
@@ -1654,7 +1654,7 @@
       "name": "Lutetium",
       "inertialMass": 174.966811557855,
       "gravitationalMass": 176.44400457335,
-      "gValue": 6.669266,
+      "gValue": 6.669256,
       "isotopes": [
         {
           "massNumber": 175,
@@ -1672,7 +1672,7 @@
       "name": "Hafnium",
       "inertialMass": 178.50600781783,
       "gravitationalMass": 180.0084879874424,
-      "gValue": 6.669096,
+      "gValue": 6.669086,
       "isotopes": [
         {
           "massNumber": 174,
@@ -1706,7 +1706,7 @@
       "name": "Tantalum",
       "inertialMass": 180.9478781375544,
       "gravitationalMass": 182.466883690996,
-      "gValue": 6.668949,
+      "gValue": 6.668939,
       "isotopes": [
         {
           "massNumber": 180,
@@ -1724,7 +1724,7 @@
       "name": "Tungsten",
       "inertialMass": 183.84177810241,
       "gravitationalMass": 185.3813616955,
-      "gValue": 6.668815,
+      "gValue": 6.668805,
       "isotopes": [
         {
           "massNumber": 180,
@@ -1754,7 +1754,7 @@
       "name": "Rhenium",
       "inertialMass": 186.2067066106,
       "gravitationalMass": 187.76173383,
-      "gValue": 6.66866,
+      "gValue": 6.66865,
       "isotopes": [
         {
           "massNumber": 185,
@@ -1772,7 +1772,7 @@
       "name": "Osmium",
       "inertialMass": 190.22486304559,
       "gravitationalMass": 191.8088240105,
-      "gValue": 6.6685,
+      "gValue": 6.66849,
       "isotopes": [
         {
           "massNumber": 184,
@@ -1810,7 +1810,7 @@
       "name": "Iridium",
       "inertialMass": 192.21745804748,
       "gravitationalMass": 193.814376231,
-      "gValue": 6.668375,
+      "gValue": 6.668364,
       "isotopes": [
         {
           "massNumber": 191,
@@ -1828,7 +1828,7 @@
       "name": "Platinum",
       "inertialMass": 195.084426088562,
       "gravitationalMass": 196.70250023985,
-      "gValue": 6.668284,
+      "gValue": 6.668274,
       "isotopes": [
         {
           "massNumber": 190,
@@ -1862,7 +1862,7 @@
       "name": "Gold",
       "inertialMass": 196.9665687,
       "gravitationalMass": 198.59731113,
-      "gValue": 6.668185,
+      "gValue": 6.668175,
       "isotopes": [
         {
           "massNumber": 197,
@@ -1876,7 +1876,7 @@
       "name": "Mercury",
       "inertialMass": 200.59255993365,
       "gravitationalMass": 202.2504167615,
-      "gValue": 6.66809,
+      "gValue": 6.66808,
       "isotopes": [
         {
           "massNumber": 196,
@@ -1914,7 +1914,7 @@
       "name": "Thallium",
       "inertialMass": 204.3838129265,
       "gravitationalMass": 206.06874172,
-      "gValue": 6.667952,
+      "gValue": 6.667942,
       "isotopes": [
         {
           "massNumber": 203,
@@ -1932,7 +1932,7 @@
       "name": "Lead",
       "inertialMass": 207.216907663,
       "gravitationalMass": 208.922883805,
-      "gValue": 6.667878,
+      "gValue": 6.667868,
       "isotopes": [
         {
           "massNumber": 204,
@@ -1958,7 +1958,7 @@
       "name": "Bismuth",
       "inertialMass": 208.9803987,
       "gravitationalMass": 210.69573701,
-      "gValue": 6.667715,
+      "gValue": 6.667705,
       "isotopes": [
         {
           "massNumber": 209,
@@ -1972,7 +1972,7 @@
       "name": "Polonium",
       "inertialMass": 209.9828737,
       "gravitationalMass": 211.70301348,
-      "gValue": 6.667607,
+      "gValue": 6.667597,
       "isotopes": [
         {
           "massNumber": 209,
@@ -1986,7 +1986,7 @@
       "name": "Astatine",
       "inertialMass": 210.07388721298264,
       "gravitationalMass": 211.78925028783783,
-      "gValue": 6.667433,
+      "gValue": 6.667423,
       "isotopes": [
         {
           "massNumber": 210,
@@ -2000,7 +2000,7 @@
       "name": "Radon",
       "inertialMass": 222.0175777,
       "gravitationalMass": 223.80421642,
-      "gValue": 6.666651,
+      "gValue": 6.666641,
       "isotopes": [
         {
           "massNumber": 222,
@@ -2014,7 +2014,7 @@
       "name": "Francium",
       "inertialMass": 219.01435888852453,
       "gravitationalMass": 220.78013998836065,
-      "gValue": 6.666751,
+      "gValue": 6.666741,
       "isotopes": [
         {
           "massNumber": 223,
@@ -2028,7 +2028,7 @@
       "name": "Radium",
       "inertialMass": 226.0324994170956,
       "gravitationalMass": 227.84323016616304,
-      "gValue": 6.666411,
+      "gValue": 6.666401,
       "isotopes": [
         {
           "massNumber": 226,
@@ -2042,7 +2042,7 @@
       "name": "Actinium",
       "inertialMass": 227.02510138300704,
       "gravitationalMass": 228.84070808237533,
-      "gValue": 6.666321,
+      "gValue": 6.666311,
       "isotopes": [
         {
           "massNumber": 227,
@@ -2056,7 +2056,7 @@
       "name": "Thorium",
       "inertialMass": 232.0376543157,
       "gravitationalMass": 233.884908834,
-      "gValue": 6.666081,
+      "gValue": 6.666071,
       "isotopes": [
         {
           "massNumber": 230,
@@ -2074,7 +2074,7 @@
       "name": "Protactinium",
       "inertialMass": 231.035884,
       "gravitationalMass": 232.87525877,
-      "gValue": 6.666083,
+      "gValue": 6.666073,
       "isotopes": [
         {
           "massNumber": 231,
@@ -2088,7 +2088,7 @@
       "name": "Uranium",
       "inertialMass": 238.0289102616574,
       "gravitationalMass": 239.91250810038,
-      "gValue": 6.665765,
+      "gValue": 6.665755,
       "isotopes": [
         {
           "massNumber": 234,
@@ -2105,237 +2105,237 @@
       ]
     },
     {
-      "atomicNumber": null,
+      "atomicNumber": 93,
       "symbol": "Np",
       "name": "Neptunium",
       "inertialMass": 236.9810502447234,
       "gravitationalMass": 238.8568753170649,
-      "gValue": 6.66578,
+      "gValue": 6.66577,
       "isotopes": []
     },
     {
-      "atomicNumber": null,
+      "atomicNumber": 94,
       "symbol": "Pu",
       "name": "Plutonium",
       "inertialMass": 244.0531916683223,
       "gravitationalMass": 245.97266015202888,
-      "gValue": 6.665445,
+      "gValue": 6.665435,
       "isotopes": []
     },
     {
-      "atomicNumber": null,
+      "atomicNumber": 95,
       "symbol": "Am",
       "name": "Americium",
       "inertialMass": 242.93420794827747,
       "gravitationalMass": 244.8456919461682,
-      "gValue": 6.665468,
+      "gValue": 6.665458,
       "isotopes": []
     },
     {
-      "atomicNumber": null,
+      "atomicNumber": 96,
       "symbol": "Cm",
       "name": "Curium",
       "inertialMass": 247.09240700375128,
       "gravitationalMass": 249.0291556668413,
-      "gValue": 6.665268,
+      "gValue": 6.665258,
       "isotopes": []
     },
     {
-      "atomicNumber": null,
+      "atomicNumber": 97,
       "symbol": "Bk",
       "name": "Berkelium",
       "inertialMass": 247.2503356272436,
       "gravitationalMass": 249.1866526694924,
-      "gValue": 6.665223,
+      "gValue": 6.665213,
       "isotopes": []
     },
     {
-      "atomicNumber": null,
+      "atomicNumber": 98,
       "symbol": "Cf",
       "name": "Californium",
       "inertialMass": 250.5137369737619,
       "gravitationalMass": 252.469442842086,
-      "gValue": 6.665061,
+      "gValue": 6.665051,
       "isotopes": []
     },
     {
-      "atomicNumber": null,
+      "atomicNumber": 99,
       "symbol": "Es",
       "name": "Einsteinium",
       "inertialMass": 252.94098896629689,
       "gravitationalMass": 254.9094134791005,
-      "gValue": 6.664898,
+      "gValue": 6.664888,
       "isotopes": []
     },
     {
-      "atomicNumber": null,
+      "atomicNumber": 100,
       "symbol": "Fm",
       "name": "Fermium",
       "inertialMass": 256.9147400657097,
       "gravitationalMass": 258.9065771576028,
-      "gValue": 6.664704,
+      "gValue": 6.664694,
       "isotopes": []
     },
     {
-      "atomicNumber": null,
+      "atomicNumber": 101,
       "symbol": "Md",
       "name": "Mendelevium",
       "inertialMass": 258.8576403655052,
       "gravitationalMass": 260.85912406205773,
-      "gValue": 6.664566,
+      "gValue": 6.664556,
       "isotopes": []
     },
     {
-      "atomicNumber": null,
+      "atomicNumber": 102,
       "symbol": "No",
       "name": "Nobelium",
       "inertialMass": 258.6545597125841,
       "gravitationalMass": 260.65311957878816,
-      "gValue": 6.664531,
+      "gValue": 6.664521,
       "isotopes": []
     },
     {
-      "atomicNumber": null,
+      "atomicNumber": 103,
       "symbol": "Lr",
       "name": "Lawrencium",
       "inertialMass": 264.6908725139277,
       "gravitationalMass": 266.72432919851894,
-      "gValue": 6.664238,
+      "gValue": 6.664228,
       "isotopes": []
     },
     {
-      "atomicNumber": null,
+      "atomicNumber": 104,
       "symbol": "Rf",
       "name": "Rutherfordium",
       "inertialMass": 266.1464188812661,
       "gravitationalMass": 268.1876123276495,
-      "gValue": 6.664152,
+      "gValue": 6.664142,
       "isotopes": []
     },
     {
-      "atomicNumber": null,
+      "atomicNumber": 105,
       "symbol": "Db",
       "name": "Dubnium",
       "inertialMass": 268.1331610894401,
       "gravitationalMass": 270.18397114836023,
-      "gValue": 6.664014,
+      "gValue": 6.664004,
       "isotopes": []
     },
     {
-      "atomicNumber": null,
+      "atomicNumber": 106,
       "symbol": "Sg",
       "name": "Seaborgium",
       "inertialMass": 265.5014208926943,
       "gravitationalMass": 267.528935147024,
-      "gValue": 6.663935,
+      "gValue": 6.663925,
       "isotopes": []
     },
     {
-      "atomicNumber": null,
+      "atomicNumber": 107,
       "symbol": "Bh",
       "name": "Bohrium",
       "inertialMass": 270.74387532675127,
       "gravitationalMass": 272.8050916176916,
-      "gValue": 6.66378,
+      "gValue": 6.66377,
       "isotopes": []
     },
     {
-      "atomicNumber": null,
+      "atomicNumber": 108,
       "symbol": "Hs",
       "name": "Hassium",
       "inertialMass": 270.94132240148906,
       "gravitationalMass": 273.00101481198016,
-      "gValue": 6.663706,
+      "gValue": 6.663696,
       "isotopes": []
     },
     {
-      "atomicNumber": null,
+      "atomicNumber": 109,
       "symbol": "Mt",
       "name": "Meitnerium",
       "inertialMass": 277.4322178326996,
       "gravitationalMass": 279.5288268839924,
-      "gValue": 6.66341,
+      "gValue": 6.6634,
       "isotopes": []
     },
     {
-      "atomicNumber": null,
+      "atomicNumber": 110,
       "symbol": "Ds",
       "name": "Darmstadtium",
       "inertialMass": 281.13627887323946,
       "gravitationalMass": 283.25371360140844,
-      "gValue": 6.663241,
+      "gValue": 6.663231,
       "isotopes": []
     },
     {
-      "atomicNumber": null,
+      "atomicNumber": 111,
       "symbol": "Rg",
       "name": "Roentgenium",
       "inertialMass": 282.82064965373365,
       "gravitationalMass": 284.9456907240262,
-      "gValue": 6.663123,
+      "gValue": 6.663113,
       "isotopes": []
     },
     {
-      "atomicNumber": null,
+      "atomicNumber": 112,
       "symbol": "Cn",
       "name": "Copernicium",
       "inertialMass": 284.95130904170367,
       "gravitationalMass": 287.08667964,
-      "gValue": 6.662991,
+      "gValue": 6.662981,
       "isotopes": []
     },
     {
-      "atomicNumber": null,
+      "atomicNumber": 113,
       "symbol": "Nh",
       "name": "Nihonium",
       "inertialMass": 286.2354396315848,
       "gravitationalMass": 288.37514147759043,
-      "gValue": 6.662869,
+      "gValue": 6.662858,
       "isotopes": []
     },
     {
-      "atomicNumber": null,
+      "atomicNumber": 114,
       "symbol": "Fl",
       "name": "Flerovium",
       "inertialMass": 288.55976950271247,
       "gravitationalMass": 290.7111449850633,
-      "gValue": 6.662738,
+      "gValue": 6.662728,
       "isotopes": []
     },
     {
-      "atomicNumber": null,
+      "atomicNumber": 115,
       "symbol": "Mc",
       "name": "Moscovium",
       "inertialMass": 289.5316002829354,
       "gravitationalMass": 291.68429305530503,
-      "gValue": 6.662602,
+      "gValue": 6.662592,
       "isotopes": []
     },
     {
-      "atomicNumber": null,
+      "atomicNumber": 116,
       "symbol": "Lv",
       "name": "Livermorium",
       "inertialMass": 292.4178345454545,
       "gravitationalMass": 294.5858484538843,
-      "gValue": 6.662464,
+      "gValue": 6.662454,
       "isotopes": []
     },
     {
-      "atomicNumber": null,
+      "atomicNumber": 117,
       "symbol": "Ts",
       "name": "Tennessine",
       "inertialMass": 293.880782368421,
       "gravitationalMass": 296.0532542926316,
-      "gValue": 6.66232,
+      "gValue": 6.66231,
       "isotopes": []
     },
     {
-      "atomicNumber": null,
+      "atomicNumber": 118,
       "symbol": "Og",
       "name": "Oganesson",
       "inertialMass": 294.21392,
       "gravitationalMass": 296.38366346,
-      "gValue": 6.662203,
+      "gValue": 6.662193,
       "isotopes": []
     }
   ]
