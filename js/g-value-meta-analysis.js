@@ -273,8 +273,26 @@ function getActiveData() {
 }
 
 /* ══════════════════════════════════════════════
-   KENDALL TAU-B  (with tie correction)
+   KENDALL TAU-B+  (with tie correction)
    ══════════════════════════════════════════════
+
+   NOTE: this is a deliberate, named departure from standard tau-b,
+   not standard tau-b itself. Standard tau-b (the common convention,
+   e.g. SciPy's kendalltau) drops pairs tied on BOTH predicted and
+   observed value entirely: they contribute to neither C, D, T1, nor
+   T2, on the reasoning that no ordering information is present when
+   neither dimension varies between the pair.
+
+   Sky Darmos's call for this dataset: a "joint tie" -- two different
+   experiments, different masses/years, independently landing on the
+   same predicted AND observed value -- is not uninformative here. It
+   is itself a striking piece of concordant evidence (motivated by
+   prior Eotvos-experiment analysis, where identical composition
+   producing identical measured gravity was counted as support, not
+   noise). So here, joint ties are counted as CONCORDANT (added to C)
+   in addition to being added to both tie counts T1 and T2. Only two
+   pairs in the default dataset are affected: De Boer (1987) /
+   Lamporesi (2008), and Goldblum (1987) / Ritter (1990).
 
    Method (from Sky Darmos):
    ─────────────────────────
@@ -324,16 +342,15 @@ function kendallTauB(data) {
       const tieO = Math.abs(dO) < 1e-9;
 
       if (tieP && tieO) {
-        // Tied on both predicted AND observed.
-        // Counts as T1 (prediction tie) only — NOT T2.
-        // Reason: tau-b uses the Knight (1966) formula
-        //   tau_b = S / sqrt((C+D+T1) * (C+D+T2))
-        // where T1 = all pairs tied on predicted (including ties-on-both),
-        //       T2 = pairs tied on observed ONLY (excluding ties-on-both).
-        // A pair tied on both is already excluded from C and D, and its
-        // obs-tie status is subsumed by the pred-tie — counting it in T2
-        // as well would double-penalise the denominator incorrectly.
+        // Joint tie (tau-b+, not standard tau-b): counted as concordant
+        // AND added to both tie counts T1 and T2. Deliberate departure
+        // from standard tau-b (which drops joint ties entirely) — see
+        // header note above. Applies to exactly two pairs in this
+        // dataset: De Boer (1987)/Lamporesi (2008) and Goldblum
+        // (1987)/Ritter (1990).
+        C++;
         T1++;
+        T2++;
       } else if (tieP) {
         // Tied on predicted only
         T1++;
@@ -351,17 +368,11 @@ function kendallTauB(data) {
   const P     = n * (n - 1) / 2;
   const S     = C - D;
 
-  // tau_b using Knight (1966) formula:
-  //   denominator = sqrt((C+D+T1) * (C+D+T2))
-  // which equals sqrt((P-T2_only) * (P-T1_only)) where T1_only and T2_only
-  // are exclusive, but here T1 already includes both-tied pairs and T2 excludes them.
-  // Equivalently: (C+D+T1) = P - T2, (C+D+T2) = P - T1.
-  // Wait — with our counting: C+D+T1+T2 = P, so:
-  //   C+D+T1 = P - T2
-  //   C+D+T2 = P - T1
-  // denom = sqrt((P - T2) * (P - T1))  [same formula, just verify with example]
-  // Verify: n=5, C=7, D=2, T1=1(both-tied), T2=0 → P=10
-  //   denom = sqrt((10-0)*(10-1)) = sqrt(10*9) = sqrt(90) ✓
+  // tau_b+ denominator: standard tau-b shape, denom = sqrt((P-T2)*(P-T1)).
+  // Joint ties are folded into BOTH T1 and T2 above (tau-b+ convention;
+  // see header NOTE), so no separate correction is needed here.
+  // Verify with example: n=5, C=8, D=2, T1=1(joint), T2=1(joint) -> P=10
+  //   denom = sqrt((10-1)*(10-1)) = sqrt(9*9) = 9
   const denom = Math.sqrt((P - T2) * (P - T1));
   const tau   = denom === 0 ? 0 : S / denom;
 
@@ -456,7 +467,7 @@ function updateStats() {
     const hasTies = (s.T1 + s.T2) > 0;
     if (hasTies && s.adjustedTau !== s.tau) {
       document.getElementById("s-tau").textContent =
-        `τ-b: ${s.tau.toFixed(5)} / τ-a: ${s.adjustedTau.toFixed(5)}`;
+        `τ-b+: ${s.tau.toFixed(5)} / τ-a: ${s.adjustedTau.toFixed(5)}`;
     } else {
       document.getElementById("s-tau").textContent = s.tau.toFixed(5);
     }

@@ -238,7 +238,7 @@
           <p>
             This tool lets you select which measurements to include in the
             meta-analysis, apply quality filters, and observe how Kendall's
-            \(\tau_b\) and the p-value change in real time. The chart updates
+            \(\tau_b^+\) and the p-value change in real time. The chart updates
             live as you toggle measurements on or off.
           </p>
 
@@ -261,37 +261,53 @@
 
         <p class="section-note">
           To test whether the measured G-values correlate with the predicted
-          values, we use Kendall's \(\tau_b\) — a rank-correlation coefficient
-          that counts concordant pairs (both predicted and observed agree on
-          ordering) minus discordant pairs, normalised by the total pairs
-          corrected for ties.
+          values, we use a modified Kendall's \(\tau_b\) — a rank-correlation
+          coefficient that counts concordant pairs (both predicted and
+          observed agree on ordering) minus discordant pairs, normalised by
+          the total pairs corrected for ties. We call our variant
+          \(\tau_b^+\) to flag one deliberate departure from the standard
+          convention, explained below.
         </p>
 
         <div class="formula-box mj">
           \[
-            \tau_b = \frac{C - D}{\sqrt{(P - T_1)(P - T_2)}}
+            \tau_b^+ = \frac{C - D + T_{XY}}{\sqrt{(C + D + T_X + T_{XY}) \times (C + D + T_Y + T_{XY})}}
           \]
         </div>
 
         <p class="section-note">
-          The z-score is obtained from \(\tau_b\) using its asymptotic standard
-          deviation, valid for the larger sample sizes used here:
+          The z-score is obtained from \(\tau_b^+\) using its asymptotic
+          standard deviation, valid for the larger sample sizes used here:
         </p>
 
         <div class="formula-box small-formula mj">
           \[
-            z = \frac{\tau_b}{\sqrt{\dfrac{2(2n+5)}{9n(n-1)}}}
+            z = \frac{\tau_b^+}{\sqrt{\dfrac{2(2n+5)}{9n(n-1)}}}
           \]
         </div>
 
         <div class="legend-box">
-          <p>\(C\) = number of concordant pairs — pairs where predicted and observed ordering agree</p>
+          <p>\(C\) = number of concordant pairs, including joint ties (see below)</p>
           <p>\(D\) = number of discordant pairs — pairs where the ordering disagrees</p>
-          <p>\(P\) = total number of pairs = \(n(n-1)/2\)</p>
-          <p>\(T_1\) = ties on predicted values &nbsp;·&nbsp; \(T_2\) = ties on observed values</p>
-          <p>\(n\) = number of selected measurements</p>
+          <p>\(T_X\) = pairs tied on predicted value only &nbsp;·&nbsp; \(T_Y\) = pairs tied on observed value only</p>
+          <p>\(T_{XY}\) = "joint ties" — pairs tied on <em>both</em> predicted and observed value</p>
+          <p>\(n\) = number of selected measurements &nbsp;·&nbsp; total pairs \(= C+D+T_X+T_Y+T_{XY} = n(n-1)/2\)</p>
           <p>The p-value is right-tailed, computed from the normal CDF of \(z\).
              Ties arise from measurement uncertainty, not from fundamental degeneracy.</p>
+          <p><strong>On \(\tau_b^+\) vs. standard \(\tau_b\):</strong> standard
+             tau-b drops a pair tied on <em>both</em> predicted and observed
+             value entirely — it contributes to neither \(C\), \(D\), \(T_X\),
+             nor \(T_Y\). Here, such a "joint tie" is instead counted as
+             concordant, added to \(C\) and to \(T_{XY}\) — \(T_X\) and \(T_Y\)
+             stay pure exclusive tie-counts, unaffected. Two different
+             experiments independently landing on the same predicted
+             <em>and</em> observed value is treated as supporting evidence,
+             not as an uninformative pair. Keeping \(T_{XY}\) out of \(T_X\)
+             and \(T_Y\) (rather than also inflating them) keeps the
+             denominator large enough that perfect agreement can never push
+             \(\tau_b^+\) above 1. This affects exactly two pairs in the
+             default dataset — De Boer (1987)/Lamporesi (2008) and
+             Goldblum (1987)/Ritter (1990).</p>
         </div>
 
         <!-- TWO-COLUMN DASHBOARD -->
@@ -324,7 +340,7 @@
                   <div class="meta-stat-val" id="s-n">27</div>
                 </div>
                 <div class="meta-stat">
-                  <div class="meta-stat-label">Kendall's τ-b</div>
+                  <div class="meta-stat-label">Kendall's τ-b+</div>
                   <div class="meta-stat-val" id="s-tau">—</div>
                 </div>
                 <div class="meta-stat">
