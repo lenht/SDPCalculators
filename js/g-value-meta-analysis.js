@@ -290,41 +290,35 @@ function getActiveData() {
    prior Eotvos-experiment analysis, where identical composition
    producing identical measured gravity was counted as support, not
    noise). So here, joint ties are counted as CONCORDANT (added to C)
-   in addition to being added to both tie counts T1 and T2. Only two
-   pairs in the default dataset are affected: De Boer (1987) /
-   Lamporesi (2008), and Goldblum (1987) / Ritter (1990).
+   ONLY -- T1 and T2 remain pure exclusive tie-counts (predicted-only,
+   observed-only), unaffected by joint ties. Formula:
+     tau_b+ = (C - D + Txy) / sqrt((C+D+T1+Txy) * (C+D+T2+Txy))
+   which is exactly what the code below computes, since C already
+   includes Txy and C+D+T1+Txy = P-T2 algebraically. This keeps the
+   denominator large enough that perfect agreement can never push
+   tau_b+ above 1. Only two pairs in the default dataset are
+   affected: De Boer (1987)/Lamporesi (2008), and Goldblum (1987)/
+   Ritter (1990).
 
    Method (from Sky Darmos):
    ─────────────────────────
    1. Count concordant pairs C, discordant pairs D, and tied pairs
-      T1 (ties on predicted) and T2 (ties on observed) by scanning
-      all (i,j) pairs.
+      T_X (ties on predicted only) and T_Y (ties on observed only) by
+      scanning all (i,j) pairs. Joint ties add to C only (see NOTE).
 
-   2. tau_b = (C − D) / sqrt((P − T1)(P − T2))
-      where P = n(n−1)/2.
+   2. tau_b+ = (C − D + T_XY) / sqrt((C+D+T_X+T_XY)(C+D+T_Y+T_XY))
+      — computed here as sqrt((P−T2)(P−T1)) with T1=T_X, T2=T_Y,
+      which is algebraically identical (see NOTE above).
 
-   3. When there are NO ties (T1 = T2 = 0):
-        sigma = sqrt(2(2n+5) / 9n(n−1))
-        z     = tau_b / sigma
-        p     = right-tailed normal CDF of z
+   3. sigma = sqrt(2(2n+5) / 9n(n−1))
+      z     = tau_b+ / sigma
+      p     = right-tailed normal CDF of z
 
-   4. When there ARE ties (T = T1 + T2 > 0):
-        We find the "next higher tau-a" — the closest tau-a value
-        that is strictly above tau_b.
-        tau-a values are: (C−D ± k) / P  for integer k = 0,1,2,...,T
-        representing how the T tied pairs could have gone (each tied
-        pair shifted from tied to concordant adds +1, to discordant
-        adds −1 to the numerator relative to C−D).
-        We step k = 1, 2, … until (C−D+k)/P > tau_b, then use
-        that adjusted_tau_a as the z-score numerator.
-        sigma uses the SIMPLE formula (no tie correction) because the
-        tie correction is already handled by choosing next-higher tau-a.
-        z = adjusted_tau_a / sigma
-        p = right-tailed normal CDF of z
-
-   This is conservative by design: we use a slightly MORE significant
-   tau-a than the true tau-b, giving a small conservative bias that
-   is negligible for large n.
+   This applies the same simple asymptotic z-formula regardless of
+   whether ties are present. This is a simplification relative to the
+   more careful large-sample tie-corrected variance formula used in
+   some references — acceptable here given the sample sizes involved
+   and because it's the formula shown on the page itself.
    ══════════════════════════════════════════════ */
 
 function kendallTauB(data) {
@@ -348,9 +342,16 @@ function kendallTauB(data) {
         // header note above. Applies to exactly two pairs in this
         // dataset: De Boer (1987)/Lamporesi (2008) and Goldblum
         // (1987)/Ritter (1990).
+        //
+        // NOTE: added to C only — NOT to T1 or T2. Per the exact
+        // formula tau = (C-D+Txy) / sqrt((C+D+Tx+Txy)*(C+D+Ty+Txy)),
+        // Txy only inflates the numerator; T1/T2 stay pure exclusive
+        // tie-counts (predicted-only / observed-only). Adding Txy to
+        // T1/T2 as well (an earlier bug here) double-benefits joint
+        // ties and can push tau above what a perfect-agreement case
+        // should give — with the correct formula, all-joint-tie data
+        // gives tau = 1 exactly, never more.
         C++;
-        T1++;
-        T2++;
       } else if (tieP) {
         // Tied on predicted only
         T1++;
@@ -368,53 +369,23 @@ function kendallTauB(data) {
   const P     = n * (n - 1) / 2;
   const S     = C - D;
 
-  // tau_b+ denominator: standard tau-b shape, denom = sqrt((P-T2)*(P-T1)).
-  // Joint ties are folded into BOTH T1 and T2 above (tau-b+ convention;
-  // see header NOTE), so no separate correction is needed here.
-  // Verify with example: n=5, C=8, D=2, T1=1(joint), T2=1(joint) -> P=10
-  //   denom = sqrt((10-1)*(10-1)) = sqrt(9*9) = 9
+  // tau_b+ denominator: sqrt((P-T2)*(P-T1)), with T1/T2 as pure
+  // exclusive tie-counts (joint ties already folded into C above,
+  // not into T1/T2 — see NOTE above). This is algebraically identical
+  // to Sky Darmos's C+D+Tx+Txy / C+D+Ty+Txy form: e.g.
+  // C+D+T1+Txy = P-T2 exactly when T1,T2 exclude Txy.
   const denom = Math.sqrt((P - T2) * (P - T1));
   const tau   = denom === 0 ? 0 : S / denom;
 
-  // sigma — asymptotic formula (no tie correction), valid for large n.
-  // Tie correction is handled by using the next-higher tau-a for z.
+  // sigma — asymptotic formula, matching the formula shown on the page.
   const sigma = Math.sqrt((2 * (2 * n + 5)) / (9 * n * (n - 1)));
 
-  let z, adjustedTau;
-  const T = T1 + T2;   // total tied pairs
-
-  if (T === 0) {
-    // No ties: z = tau_b / sigma directly (tau_b = tau_a)
-    adjustedTau = tau;
-    z = sigma === 0 ? 0 : tau / sigma;
-  } else {
-    // Ties present: find next higher tau-a above tau_b.
-    //
-    // The T tied pairs can resolve into concordant or discordant pairs.
-    // Each tied pair turned concordant adds +1 to S; discordant adds -1.
-    // Net contributions of the whole group step by 2: T, T-2, ..., -T.
-    // tau-a candidate = (S + net) / P.
-    // We find the smallest net ≥ 1 (same parity as T) such that
-    // (S + net) / P > tau_b.
-
-    const startNet = (T % 2 === 0) ? 2 : 1;
-    let found = false;
-    for (let net = startNet; net <= T; net += 2) {
-      const candidateTau = (S + net) / P;
-      if (candidateTau > tau) {
-        adjustedTau = candidateTau;
-        found = true;
-        break;
-      }
-    }
-    if (!found) adjustedTau = tau;
-
-    z = sigma === 0 ? 0 : adjustedTau / sigma;
-  }
-
+  // z = tau_b+ / sigma, directly, always — matches the HTML formula
+  // exactly (no ties-based branching or conservative adjustment).
+  const z = sigma === 0 ? 0 : tau / sigma;
   const p = 1 - normalCDF(z);
 
-  return { tau, z, p, n, C, D, T1, T2, S, adjustedTau };
+  return { tau, z, p, n, C, D, T1, T2, S };
 }
 
 // Abramowitz & Stegun approximation — accurate to 7.5 × 10⁻⁸
@@ -462,15 +433,9 @@ function updateStats() {
 
   document.getElementById("s-n").textContent    = s.n;
 
-  // Show tau_b and adjusted tau_a separately
+  // Show tau_b+
   if (s.tau !== null) {
-    const hasTies = (s.T1 + s.T2) > 0;
-    if (hasTies && s.adjustedTau !== s.tau) {
-      document.getElementById("s-tau").textContent =
-        `τ-b+: ${s.tau.toFixed(5)} / τ-a: ${s.adjustedTau.toFixed(5)}`;
-    } else {
-      document.getElementById("s-tau").textContent = s.tau.toFixed(5);
-    }
+    document.getElementById("s-tau").textContent = `τ-b+: ${s.tau.toFixed(5)}`;
   } else {
     document.getElementById("s-tau").textContent = "—";
   }
