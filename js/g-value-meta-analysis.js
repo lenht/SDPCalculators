@@ -36,131 +36,12 @@
      ECD = eddy current damper (steel/iron)
    ══════════════════════════════════════════════ */
 
-const META_DATA = [
+/* Measurement data now lives in g-value-meta-analysis-data.json
+   (see that file for the full list, grouped in the same order/
+   categories as before, with the same id/label/pair/pr/ob/sd/year/
+   type/scale/note fields). Loaded asynchronously below in BOOT. */
 
-  // ── HIGH ACCURACY CAVENDISH ──────────────────────────────────────────────
-  { id:  1, label: "Heyl (1942)",              pair: "Steel–Pt",         pr: 6.671185, ob: 6.6720,   sd: 0.0040,   year: 1942, type: "high",        scale: "lab"   },
-  { id:  2, label: "Pontikis (1971)",          pair: "Brass–Brass",      pr: 6.673963, ob: 6.6740,   sd: 0.0020,   year: 1971, type: "high",        scale: "lab"   },
-  { id:  3, label: "Pontikis (1971)",          pair: "Cu–Cu",            pr: 6.673985, ob: 6.6740,   sd: 0.0020,   year: 1971, type: "high",        scale: "lab"   },
-  { id:  4, label: "Pontikis (1971)",          pair: "Ag–Ag",            pr: 6.672604, ob: 6.6710,   sd: 0.0010,   year: 1971, type: "high",        scale: "lab"   },
-  { id:  5, label: "Pontikis (1971)",          pair: "Ag–Brass",         pr: 6.673283, ob: 6.6710,   sd: 0.0020,   year: 1971, type: "high",        scale: "lab"   },
-  { id:  6, label: "Renner (1973)",            pair: "Hg–Cu",            pr: 6.671032, ob: 6.6700,   sd: 0.0080,   year: 1973, type: "high",        scale: "lab"   },
-  { id:  7, label: "Luther (1975)",            pair: "W–Pt",             pr: 6.668539, ob: 6.6699,   sd: 0.0014,   year: 1975, type: "high",        scale: "lab"   },
-  { id:  8, label: "Sagitov (1979)",           pair: "Steel–Cu",         pr: 6.674041, ob: 6.6745,   sd: 0.0030,   year: 1979, type: "high",        scale: "lab"   },
-  { id:  9, label: "Luther (1982)",            pair: "W–W",              pr: 6.668805, ob: 6.6726,   sd: 0.0005,   year: 1982, type: "high",        scale: "lab"   },
-  { id: 10, label: "De Boer (1987)",           pair: "W–W",              pr: 6.668805, ob: 6.6670,   sd: 0.0050,   year: 1987, type: "high",        scale: "lab"   },
-  { id: 11, label: "Walesch (1995)",           pair: "Brass–SO₂",        pr: 6.671903, ob: 6.6719,   sd: 0.0008,   year: 1995, type: "high",        scale: "lab"   },
-  { id: 12, label: "Fitzgerald (1999)",        pair: "Steel–Cu",         pr: 6.674041, ob: 6.6742,   sd: 0.0007,   year: 1999, type: "high",        scale: "lab"   },
-  { id: 14, label: "Quinn (2001-swing)",       pair: "Cu–Cu",            pr: 6.673985, ob: 6.67565,  sd: 0.00045,  year: 2001, type: "high",        scale: "lab"   },
-  { id: 15, label: "Quinn (2001-servo)",       pair: "Cu–Cu",            pr: 6.673985, ob: 6.67553,  sd: 0.00040,  year: 2001, type: "high",        scale: "lab"   },
-  { id: 17, label: "Kleinevoß (2002)",         pair: "Brass–Cu",         pr: 6.673974, ob: 6.67422,  sd: 0.00098,  year: 2002, type: "high",        scale: "lab"   },
-  { id: 18, label: "Armstrong (2003)",         pair: "Cu–Cu",            pr: 6.673985, ob: 6.67385,  sd: 0.00023,  year: 2003, type: "high",        scale: "lab"   },
-  { id: 19, label: "Armstrong (2003)",         pair: "Steel–Cu",         pr: 6.674041, ob: 6.67392,  sd: 0.00049,  year: 2003, type: "high",        scale: "lab"   },
-  { id: 22, label: "Lamporesi (2008)",         pair: "W–W",              pr: 6.668805, ob: 6.6670,   sd: 0.0030,   year: 2008, type: "high",        scale: "lab"   },
-  { id: 23, label: "Parks (2010)",             pair: "W–Cu",             pr: 6.671394, ob: 6.67234,  sd: 0.00014,  year: 2010, type: "high",        scale: "lab"   },
-  { id: 24, label: "Quinn (2013-swing)",       pair: "Cu–Cu",            pr: 6.673985, ob: 6.67566,  sd: 0.00037,  year: 2013, type: "high",        scale: "lab"   },
-  { id: 25, label: "Quinn (2013-servo)",       pair: "Cu–Cu",            pr: 6.673985, ob: 6.67520,  sd: 0.00041,  year: 2013, type: "high",        scale: "lab"   },
-  { id: 29, label: "Schlamminger (2026-swing)","pair": "Cu–Sapphire",    pr: 6.671810, ob: 6.673636, sd: 0.000627, year: 2026, type: "high",        scale: "lab"   },
-  { id: 30, label: "Schlamminger (2026-swing)","pair": "Cu–Cu",          pr: 6.673985, ob: 6.674021, sd: 0.0002,   year: 2026, type: "high",        scale: "lab"   },
-  { id: 31, label: "Schlamminger (2026-servo)","pair": "Cu–Cu",          pr: 6.673985, ob: 6.673642, sd: 0.00015,  year: 2026, type: "high",        scale: "lab"   },
-  { id: 32, label: "Schlamminger (2026-servo)","pair": "Cu–Sapphire",    pr: 6.671810, ob: 6.672637, sd: 0.00025,  year: 2026, type: "high",        scale: "lab"   },
-  { id: 37, label: "HUST-09 (2009)",           pair: "Steel–SO₂",        pr: 6.671970, ob: 6.67349,  sd: 0.00018,  year: 2009, type: "high",        scale: "lab"   },
-
-  // ── CONFLICTING VALUES (unselectable — only averages shown below) ─────────
-  // Values literally from the same experiment / same apparatus that conflict.
-  // HUST (1999–2005): Luo (1999), HUST-05-A (2005), HUST-05-B (2016) — same device lineage
-  { id: 20, label: "HUST (1999 & 2005)",      pair: "Steel–Cu",         pr: 6.674041, ob: 6.6711,   sd: 0.0017,   year: 2005, type: "conflicting", scale: "lab",
-    note: "Average of conflicting values from Luo (1999): 6.6699 ± 0.0007, HUST-05-A (2005): 6.67228 ± 0.00087, and HUST-05-B (2016): 6.67222 ± 0.00087 — the same apparatus lineage re-run and adjusted over time." },
-  // Gundlach (2000): conflicts between two published values, same apparatus
-  { id: 201, label: "Gundlach (2000)",        pair: "Steel–SO₂",        pr: 6.671970, ob: 6.67406,  sd: 0.00022,  year: 2000, type: "conflicting", scale: "lab",
-    note: "Average of conflicting values Gundlach (2000-A) and (2000-B)" },
-  // Newman/Cross: Cross (2009) and Newman (2014) conflict, same apparatus lineage
-  { id: 202, label: "Newman (2009 & 2014)",   pair: "Cu–SO₂",           pr: 6.671914, ob: 6.67446,  sd: 0.00018,  year: 2014, type: "conflicting", scale: "lab",
-    note: "Average of Cross (2009) and Newman (2014)" },
-  // HUST-18: swing and servo readings from the same 2018 apparatus conflict.
-  // (HUST-09 (2009) is a different device/protocol and is listed standalone above.)
-  { id: 203, label: "HUST-18 (2018)",         pair: "Steel–SO₂",        pr: 6.671970, ob: 6.674334, sd: 0.000212, year: 2018, type: "conflicting", scale: "lab",
-    note: "Average of conflicting swing (6.674184 ± 0.000078) and servo (6.674484 ± 0.000078) readings from the same 2018 apparatus." },
-
-  // ── FREEFALL / ATOM INTERFEROMETER ───────────────────────────────────────
-  { id: 50, label: "Goldblum (1987)",          pair: "Dy₆Fe₂₃–Dy₆Fe₂₃", pr: 6.672362, ob: 6.6700,  sd: 0.0700,   year: 1987, type: "freefall",    scale: "lab"   },
-  { id: 51, label: "Saulnier (1989)",          pair: "U–Pb",             pr: 6.666811, ob: 6.6500,   sd: 0.0900,   year: 1989, type: "freefall",    scale: "lab"   },
-  { id: 52, label: "Ritter (1990)",            pair: "Dy₆Fe₂₃–Dy₆Fe₂₃", pr: 6.672362, ob: 6.6700,  sd: 0.0900,   year: 1990, type: "freefall",    scale: "lab"   },
-  { id: 53, label: "Fixler (2003)",            pair: "Pb–Cs",            pr: 6.669770, ob: 6.6930,   sd: 0.0270,   year: 2003, type: "freefall",    scale: "lab"   },
-  { id: 54, label: "Wang (2009)",              pair: "Pb–Silica",        pr: 6.668855, ob: 6.6665,   sd: 0.0554,   year: 2009, type: "freefall",    scale: "lab"   },
-  { id: 55, label: "Prevedelli (2014)",        pair: "W–Rb",             pr: 6.671248, ob: 6.67191,  sd: 0.00099,  year: 2014, type: "freefall",    scale: "lab"   },
-
-  // ── SPECULATIVE TEST MASS ─────────────────────────────────────────────────
-  // Pb–Pb and Hg–Hg: speculative same-material (reported sd)
-  { id: 60, label: "Pontikis (1971) — Pb–Pb?",  pair: "Pb–Pb",          pr: 6.667868, ob: 6.6680,   sd: 0.0030,   year: 1971, type: "speculative", scale: "lab"   },
-  { id: 61, label: "Pontikis (1971) — Hg–Hg?",  pair: "Hg–Hg",         pr: 6.668080, ob: 6.6660,   sd: 0.0100,   year: 1971, type: "speculative", scale: "lab"   },
-  // Pb–Brass and Hg–Brass: reported composition, sd=0.01 (will be filtered by SD filter)
-  { id: 62, label: "Pontikis (1971) — Pb–Brass", pair: "Pb–Brass",      pr: 6.670915, ob: 6.6680,   sd: 0.0100,   year: 1971, type: "speculative", scale: "lab"   },
-  { id: 63, label: "Pontikis (1971) — Hg–Brass", pair: "Hg–Brass",      pr: 6.671021, ob: 6.6660,   sd: 0.0100,   year: 1971, type: "speculative", scale: "lab"   },
-
-  // ── LOWEST VALUE SELECTED ─────────────────────────────────────────────────
-  { id: 70, label: "Heyl (1928)",              pair: "Steel–Glass",      pr: 6.671562, ob: 6.6710,   sd: 0.0030,   year: 1928, type: "lowestval",   scale: "lab"   },
-  { id: 71, label: "Heyl (1925)",              pair: "Steel–Au",         pr: 6.671136, ob: 6.6720,   sd: 0.0040,   year: 1925, type: "lowestval",   scale: "lab"   },
-  { id: 72, label: "Dousse (1987)",            pair: "Pb–Cu",            pr: 6.670926, ob: 6.6704,   sd: 0.0048,   year: 1987, type: "lowestval",   scale: "lab"   },
-  { id: 73, label: "Hubler (1995-A)",          pair: "H₂O–Steel",        pr: 6.667903, ob: 6.6690,   sd: 0.0050,   year: 1995, type: "lowestval",   scale: "large" },
-
-  // ── LARGE-SCALE / INTERMEDIATE-RANGE (Poynting method) ───────────────────
-  { id: 80, label: "Oldham (1993)",            pair: "H₂O–Cu",           pr: 6.667846, ob: 6.6710,   sd: 0.0150,   year: 1993, type: "largescale",  scale: "large" },
-  { id: 81, label: "Hubler (1995-A)",          pair: "H₂O–Steel",        pr: 6.667903, ob: 6.6690,   sd: 0.0050,   year: 1995, type: "largescale",  scale: "large" },
-  { id: 82, label: "Nolting (1999)",           pair: "H₂O–Cu",           pr: 6.667846, ob: 6.6754,   sd: 0.0015,   year: 1999, type: "largescale",  scale: "large" },
-  { id: 83, label: "Schlamminger (2002)",      pair: "Hg–Cu",            pr: 6.671032, ob: 6.67404,  sd: 0.00021,  year: 2002, type: "largescale",  scale: "large" },
-  { id: 21, label: "Baldi (2005)",             pair: "Steel–Nb",         pr: 6.673747, ob: 6.6750,   sd: 0.0070,   year: 2005, type: "largescale",  scale: "large" },
-
-  // ── LOW ACCURACY / HISTORIC ───────────────────────────────────────────────
-  { id: 100, label: "H. Cavendish (1798)",    pair: "Pb–Pb",            pr: 6.667868, ob: 6.7540,   sd: 0.0410,   year: 1798, type: "lowacc",      scale: "lab"   },
-  { id: 103, label: "Cornu (1873)",           pair: "Hg–Cu",            pr: 6.671032, ob: 6.6400,   sd: 0.0170,   year: 1873, type: "lowacc",      scale: "lab"   },
-  { id: 104, label: "P. v. Jolly (1878)",     pair: "Pb–Hg",            pr: 6.667974, ob: 6.4470,   sd: 0.1100,   year: 1878, type: "lowacc",      scale: "lab"   },
-  { id: 105, label: "Richarz (1888)",         pair: "Pb–Pb",            pr: 6.667868, ob: 6.6840,   sd: 0.0110,   year: 1888, type: "lowacc",      scale: "lab"   },
-  { id: 106, label: "J. Wilsing (1889)",      pair: "Pb–Sn-Bi alloy",  pr: 6.668760, ob: 6.5940,   sd: 0.1500,   year: 1889, type: "lowacc",      scale: "lab"   },
-  { id: 107, label: "R. Eötvös (1896)",       pair: "Pb–Hg",            pr: 6.667974, ob: 6.6570,   sd: 0.0130,   year: 1896, type: "lowacc",      scale: "lab"   },
-  { id: 108, label: "G. Burgess (1902)",      pair: "Pb–Pb",            pr: 6.667868, ob: 6.6400,   sd: 0.0400,   year: 1902, type: "lowacc",      scale: "lab"   },
-  { id: 109, label: "Heyl (1926)",            pair: "Steel–Pt",         pr: 6.671185, ob: 6.6670,   sd: 0.0120,   year: 1926, type: "lowacc",      scale: "lab"   },
-  { id: 110, label: "Zahradníček (1930)",     pair: "Pb–Pb",            pr: 6.667868, ob: 6.6600,   sd: 0.0400,   year: 1930, type: "lowacc",      scale: "lab"   },
-  { id: 111, label: "Rose (1969)",            pair: "W–Al",             pr: 6.669835, ob: 6.6740,   sd: 0.0120,   year: 1969, type: "lowacc",      scale: "lab"   },
-  { id: 112, label: "Whetton (1957)",         pair: "Rock–Steel",       pr: 6.671970, ob: 6.7950,   sd: 0.0210,   year: 1957, type: "lowacc",      scale: "large" },
-  { id: 113, label: "McCulloh (1965-B)",      pair: "Rock–Steel",       pr: 6.671970, ob: 6.7240,   sd: 0.0140,   year: 1965, type: "lowacc",      scale: "large" },
-  { id: 114, label: "McCulloh (1965-C)",      pair: "Rock–Steel",       pr: 6.671970, ob: 6.7260,   sd: 0.0120,   year: 1965, type: "lowacc",      scale: "large" },
-  { id: 115, label: "McCulloh (1965-D)",      pair: "Rock–Steel",       pr: 6.671970, ob: 6.7470,   sd: 0.0130,   year: 1965, type: "lowacc",      scale: "large" },
-  { id: 116, label: "Koldewyn (1976)",        pair: "Bronze–Quartz",    pr: 6.671815, ob: 6.5750,   sd: 0.0260,   year: 1976, type: "lowacc",      scale: "lab"   },
-  { id: 117, label: "Hinze (1978)",           pair: "Rock–Steel",       pr: 6.671970, ob: 6.8100,   sd: 0.0700,   year: 1978, type: "lowacc",      scale: "large" },
-  { id: 118, label: "Hussain (1981)",         pair: "Rock–Steel",       pr: 6.671970, ob: 6.7050,   sd: 0.0600,   year: 1981, type: "lowacc",      scale: "large" },
-  { id: 119, label: "Page (1981)",            pair: "Pb–Pb",            pr: 6.667868, ob: 6.1000,   sd: 0.4000,   year: 1981, type: "lowacc",      scale: "lab"   },
-  { id: 120, label: "Speake (1983)",          pair: "Brass–Cu",         pr: 6.673974, ob: 6.6500,   sd: 0.2300,   year: 1983, type: "lowacc",      scale: "lab"   },
-  { id: 121, label: "Oelfke (1984)",          pair: "Brass–Brass",      pr: 6.673963, ob: 6.7000,   sd: 0.2000,   year: 1984, type: "lowacc",      scale: "lab"   },
-  { id: 122, label: "Stacey (1987-A)",        pair: "H₂O–Steel",        pr: 6.667903, ob: 6.7120,   sd: 0.0370,   year: 1987, type: "lowacc",      scale: "large" },
-  { id: 123, label: "Stacey (1987-B)",        pair: "H₂O–Steel",        pr: 6.667903, ob: 6.7300,   sd: 0.0250,   year: 1987, type: "lowacc",      scale: "large" },
-  { id: 124, label: "Liu (1987)",             pair: "Brass–Brass",      pr: 6.673963, ob: 6.6600,   sd: 0.0260,   year: 1987, type: "lowacc",      scale: "lab"   },
-  { id: 125, label: "Müller (1990)",          pair: "H₂O–WC",           pr: 6.665176, ob: 6.6890,   sd: 0.0270,   year: 1990, type: "lowacc",      scale: "large" },
-  { id: 126, label: "Zumberge (1991)",        pair: "H₂O–WC",           pr: 6.665176, ob: 6.6770,   sd: 0.0130,   year: 1991, type: "lowacc",      scale: "large" },
-  { id: 127, label: "J. Schurr (1992)",       pair: "Pb–Silica",        pr: 6.668855, ob: 6.6600,   sd: 0.0600,   year: 1992, type: "lowacc",      scale: "lab"   },
-  { id: 128, label: "Richman (1999)",         pair: "Cu–Cu",            pr: 6.673985, ob: 6.6830,   sd: 0.0110,   year: 1999, type: "lowacc",      scale: "lab"   },
-  { id: 129, label: "Baldi (2001)",           pair: "H₂O–Nb",           pr: 6.667552, ob: 6.6880,   sd: 0.0110,   year: 2001, type: "lowacc",      scale: "large" },
-
-  // ── BEYOND REASONABLE RANGE (6.660 – 6.676) ──────────────────────────────
-  { id: 140, label: "Poynting (1891)",        pair: "Pb–Pb-Sb alloy",   pr: 6.667868, ob: 6.6984,   sd: 0.0040,   year: 1891, type: "outofrange",  scale: "lab"   },
-  { id: 141, label: "C. v. Boys (1895)",      pair: "Pb–Au",            pr: 6.668021, ob: 6.6580,   sd: 0.0070,   year: 1895, type: "outofrange",  scale: "lab"   },
-  { id: 142, label: "K. Braun (1897)",        pair: "Hg–Brass",         pr: 6.671020, ob: 6.6540,   sd: 0.0020,   year: 1897, type: "outofrange",  scale: "lab"   },
-  { id: 143, label: "Heyl (1925-avg)",        pair: "Steel–Au",         pr: 6.671136, ob: 6.6782,   sd: 0.0016,   year: 1925, type: "outofrange",  scale: "lab"   },
-  { id: 144, label: "McCulloh (1965-A)",      pair: "Rock–Steel",       pr: 6.671970, ob: 6.7390,   sd: 0.0025,   year: 1965, type: "outofrange",  scale: "large" },
-  { id: 145, label: "Moore & Stacey (1988)",  pair: "H₂O–Steel",        pr: 6.667903, ob: 6.6890,   sd: 0.00057,  year: 1988, type: "outofrange",  scale: "large" },
-  { id: 146, label: "Hubler (1995-B)",        pair: "H₂O–Steel",        pr: 6.667903, ob: 6.6780,   sd: 0.0070,   year: 1995, type: "outofrange",  scale: "large" },
-  { id: 147, label: "W. Michaelis (1996)",    pair: "W–Silica",         pr: 6.669324, ob: 6.71540,  sd: 0.00056,  year: 1996, type: "outofrange",  scale: "lab"   },
-  { id: 148, label: "J. P. Schwarz (1999)",   pair: "W–Silica",         pr: 6.669324, ob: 6.6873,   sd: 0.0094,   year: 1999, type: "outofrange",  scale: "lab"   },
-  { id: 149, label: "Luther (1997-coated)",   pair: "W–W",              pr: 6.668805, ob: 6.67616,  sd: 0.0011,   year: 1997, type: "outofrange",  scale: "lab"   },
-  { id: 150, label: "Luther (1997-uncoated)", pair: "W–W",              pr: 6.668805, ob: 6.67846,  sd: 0.0008,   year: 1997, type: "outofrange",  scale: "lab"   },
-
-  // ── HOMOGENIZED / MIXED-COMPOSITION AVERAGES ──────────────────────────────
-  // Averages spanning multiple, different test-mass compositions —
-  // the only entries of this kind in the whole list. Off by default.
-  { id: 90,  label: "Pontikis (1972) — avg",  pair: "Brass–various",    pr: 6.672274, ob: 6.67142,  sd: 0.00021,  year: 1972, type: "homogenized", scale: "lab"   },
-  { id: 101, label: "Fr. Reich (1838)",       pair: "Pb–various",       pr: 6.669394, ob: 6.6400,   sd: 0.0600,   year: 1838, type: "homogenized", scale: "lab"   },
-  { id: 102, label: "F. Bailey (1843)",       pair: "Pb–various",       pr: 6.669227, ob: 6.6300,   sd: 0.0700,   year: 1843, type: "homogenized", scale: "lab"   },
-];
+   let META_DATA = [];
 
 const TYPE_LABELS = {
   high:         "High accuracy Cavendish",
@@ -255,7 +136,7 @@ const FILTERS = [
 
 // Default: include only high, freefall, speculative, lowestval entries
 const DEFAULT_EXCLUDED_TYPES = new Set(["lowacc","outofrange","largescale","conflicting","homogenized"]);
-let activeIds = new Set(META_DATA.filter(m => !DEFAULT_EXCLUDED_TYPES.has(m.type)).map(m => m.id));
+let activeIds;   // initialized once META_DATA loads — see BOOT at bottom
 let activeFilters = new Set(["outofrange"]);
 let openDetails   = new Set();
 
@@ -297,7 +178,7 @@ function getActiveData() {
    includes Txy and C+D+T1+Txy = P-T2 algebraically. This keeps the
    denominator large enough that perfect agreement can never push
    tau_b+ above 1. Only two pairs in the default dataset are
-   affected: De Boer (1987)/Lamporesi (2008), and Goldblum (1987)/
+   affected: De Boer (1987) & Lamporesi (2008), and Goldblum (1987) &
    Ritter (1990).
 
    Method (from Sky Darmos):
@@ -348,7 +229,7 @@ function kendallTauB(data) {
         // AND added to both tie counts T1 and T2. Deliberate departure
         // from standard tau-b (which drops joint ties entirely) — see
         // header note above. Applies to exactly two pairs in this
-        // dataset: De Boer (1987)/Lamporesi (2008) and Goldblum
+        // dataset: De Boer (1987) & Lamporesi (2008) and Goldblum
         // (1987)/Ritter (1990).
         //
         // NOTE: added to C only — NOT to T1 or T2. Per the exact
@@ -789,6 +670,20 @@ function renderCards() {
 
 window.addEventListener("resize", () => drawChart(getActiveData()));
 
-buildFilters();
-renderCards();
-updateStats();
+fetch("g-value-meta-analysis-data.json")
+  .then(response => response.json())
+  .then(data => {
+    META_DATA = data.measurements;
+    activeIds = new Set(META_DATA.filter(m => !DEFAULT_EXCLUDED_TYPES.has(m.type)).map(m => m.id));
+    buildFilters();
+    renderCards();
+    updateStats();
+  })
+  .catch(error => {
+    console.error("Could not load meta-analysis data:", error);
+    const list = document.getElementById("meas-lists");
+    if (list) {
+      list.innerHTML =
+        "Could not load measurement data. Make sure g-value-meta-analysis-data.json is in the same folder as the HTML files.";
+    }
+  });
