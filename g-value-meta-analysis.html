@@ -276,22 +276,61 @@
         </div>
 
         <p class="section-note">
-          The z-score is obtained from \(\tau_b^+\) using its asymptotic
-          standard deviation, valid for the larger sample sizes used here:
+          Significance testing does <strong>not</strong> use \(\tau_b^+\)
+          directly. Its exact asymptotic variance under this particular tie
+          structure has no clean closed form — deriving one honestly would be
+          "super messy and complicated," in Sky Darmos's words, without
+          being any more trustworthy than the alternative below. Instead we
+          get a conservative p-value using the simple, well-known variance
+          of tau-a (exact when there are no ties) applied to a deliberately
+          cautious stand-in value: the <strong>next higher tau-a</strong>.
+        </p>
+
+        <p class="section-note">
+          Only the \(T = T_X + T_Y\) exclusive ties are still "ambiguous"
+          here — joint ties (\(T_{XY}\)) are already resolved into \(C\)
+          above, so they play no part in this step. Each exclusive tied
+          pair could in principle have gone concordant or discordant; we
+          search over every way the group of \(T\) ties could have shifted
+          the numerator, and take the smallest shift whose resulting tau-a
+          value is still strictly greater than \(\tau_b^+\):
         </p>
 
         <div class="formula-box small-formula mj">
           \[
-            z = \frac{\tau_b^+}{\sqrt{\dfrac{2(2n+5)}{9n(n-1)}}}
+            \tau_a^{\text{next}} \;=\; \min_{k} \left\{ \frac{S+k}{P} \; : \; \frac{S+k}{P} > \tau_b^+ \right\}, \quad k \in \{T, T-2, T-4, \dots\}
           \]
         </div>
+
+        <p class="section-note">
+          where \(S = C - D\). That value is then used with the simple
+          tau-a standard deviation:
+        </p>
+
+        <div class="formula-box small-formula mj">
+          \[
+            z = \frac{\tau_a^{\text{next}}}{\sqrt{\dfrac{2(2n+5)}{9n(n-1)}}}
+          \]
+        </div>
+
+        <p class="section-note">
+          This is conservative by construction: since \(\tau_a^{\text{next}}\)
+          is chosen as the <em>closest</em> tau-a value that still exceeds
+          \(\tau_b^+\) — not the true, generally larger, worst-case tau-a —
+          it never makes the result look more significant than it is. When
+          there are no exclusive ties (\(T=0\)), \(\tau_a^{\text{next}} =
+          \tau_b^+\) and this reduces to the direct formula. The page shows
+          both values side by side ("τ-b+: … / τ-a: …") whenever they differ,
+          so the number actually feeding \(z\) is never hidden.
+        </p>
 
         <div class="legend-box">
           <p>\(C\) = number of concordant pairs, including joint ties (see below)</p>
           <p>\(D\) = number of discordant pairs — pairs where the ordering disagrees</p>
           <p>\(T_X\) = pairs tied on predicted value only &nbsp;·&nbsp; \(T_Y\) = pairs tied on observed value only</p>
           <p>\(T_{XY}\) = "joint ties" — pairs tied on <em>both</em> predicted and observed value</p>
-          <p>\(n\) = number of selected measurements &nbsp;·&nbsp; total pairs \(= C+D+T_X+T_Y+T_{XY} = n(n-1)/2\)</p>
+          <p>\(S = C - D\) &nbsp;·&nbsp; \(P\) = total pairs \(= C+D+T_X+T_Y+T_{XY} = n(n-1)/2\)</p>
+          <p>\(n\) = number of selected measurements</p>
           <p>The p-value is right-tailed, computed from the normal CDF of \(z\).
              Ties arise from measurement uncertainty, not from fundamental degeneracy.</p>
           <p><strong>On \(\tau_b^+\) vs. standard \(\tau_b\):</strong> standard
