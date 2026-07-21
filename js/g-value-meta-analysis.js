@@ -150,7 +150,22 @@ function getActiveData() {
   // by tau-b via the T1 (prediction-tie) count; their relationships
   // with all other entries are still fully counted as concordant or
   // discordant pairs.
-  return META_DATA.filter(m => activeIds.has(m.id) && !isFilteredOut(m));
+  const active = META_DATA.filter(m => activeIds.has(m.id) && !isFilteredOut(m));
+
+  // A few measurements (currently just Hubler 1995-A) are stored under
+  // two different ids so the same card can be toggled from either of
+  // the categories it legitimately belongs to. If both of those
+  // categories are active at once, both ids end up in activeIds — this
+  // dedupes by the underlying measurement so it is never counted twice.
+  const seen = new Set();
+  const deduped = [];
+  for (const m of active) {
+    const key = `${m.label}|${m.pair}|${m.pr}|${m.ob}|${m.sd}|${m.year}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    deduped.push(m);
+  }
+  return deduped;
 }
 
 /* ══════════════════════════════════════════════
@@ -164,7 +179,7 @@ function getActiveData() {
    T2, on the reasoning that no ordering information is present when
    neither dimension varies between the pair.
 
-   Sky Darmos's call for this dataset: a "joint tie" -- two different
+   Sky Darmos' call for this dataset: a "joint tie" -- two different
    experiments, different masses/years, independently landing on the
    same predicted AND observed value -- is not uninformative here. It
    is itself a striking piece of concordant evidence (motivated by
@@ -261,7 +276,7 @@ function kendallTauB(data) {
   // tau_b+ denominator: sqrt((P-T2)*(P-T1)), with T1/T2 as pure
   // exclusive tie-counts (joint ties already folded into C above,
   // not into T1/T2 — see NOTE above). This is algebraically identical
-  // to Sky Darmos's C+D+Tx+Txy / C+D+Ty+Txy form: e.g.
+  // to Sky Darmos' C+D+Tx+Txy / C+D+Ty+Txy form: e.g.
   // C+D+T1+Txy = P-T2 exactly when T1,T2 exclude Txy.
   const denom = Math.sqrt((P - T2) * (P - T1));
   const tau   = denom === 0 ? 0 : S / denom;
@@ -637,7 +652,7 @@ function renderCards() {
         </div>
         <div class="meas-detail${detOpen ? " open" : ""}">
           <strong>Material pair:</strong> ${m.pair}<br>
-          <strong>SPD predicted:</strong> ${m.pr.toFixed(7)}<br>
+          <strong>SPD predicted:</strong> ${m.pr.toFixed(6)}<br>
           <strong>Observed:</strong> ${m.ob.toFixed(4)} ± ${m.sd}<br>
           <strong>SPD accuracy:</strong> ${acc}%<br>
           <strong>Setup:</strong> ${SCALE_LABELS[m.scale] || m.scale}<br>

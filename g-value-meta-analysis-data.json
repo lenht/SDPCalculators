@@ -296,7 +296,7 @@
       "year": 2005,
       "type": "conflicting",
       "scale": "lab",
-      "note": "Average of conflicting values from Luo (1999): 6.6699 ± 0.0007, HUST-05-A (2005): 6.67228 ± 0.00087, and HUST-05-B (2016): 6.67222 ± 0.00087 — the same apparatus lineage re-run and adjusted over time."
+      "note": "Average of conflicting values from Luo (1999): 6.6699 ± 0.0007, HUST-05-A (2005): 6.67228 ± 0.00087, and HUST-05-B (2016): 6.67222 ± 0.00087 — different theoretical values derived from the same 1999-experimental data."
     },
     {
       "id": 201,
