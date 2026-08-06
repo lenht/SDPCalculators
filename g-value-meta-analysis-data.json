@@ -9,7 +9,8 @@
       "sd": 0.004,
       "year": 1942,
       "type": "high",
-      "scale": "lab"
+      "scale": "lab",
+      "pAgr": 0.2727272727272727
     },
     {
       "id": 2,
@@ -20,7 +21,8 @@
       "sd": 0.002,
       "year": 1971,
       "type": "high",
-      "scale": "lab"
+      "scale": "lab",
+      "pAgr": 0.09090909090909091
     },
     {
       "id": 3,
@@ -31,7 +33,8 @@
       "sd": 0.002,
       "year": 1971,
       "type": "high",
-      "scale": "lab"
+      "scale": "lab",
+      "pAgr": 0.09090909090909091
     },
     {
       "id": 4,
@@ -42,7 +45,8 @@
       "sd": 0.001,
       "year": 1971,
       "type": "high",
-      "scale": "lab"
+      "scale": "lab",
+      "pAgr": 0.45454545454545453
     },
     {
       "id": 5,
@@ -53,7 +57,8 @@
       "sd": 0.002,
       "year": 1971,
       "type": "high",
-      "scale": "lab"
+      "scale": "lab",
+      "pAgr": 0.45454545454545453
     },
     {
       "id": 6,
@@ -64,7 +69,8 @@
       "sd": 0.008,
       "year": 1973,
       "type": "high",
-      "scale": "lab"
+      "scale": "lab",
+      "pAgr": 0.2727272727272727
     },
     {
       "id": 7,
@@ -75,7 +81,8 @@
       "sd": 0.0014,
       "year": 1975,
       "type": "high",
-      "scale": "lab"
+      "scale": "lab",
+      "pAgr": 0.2871287128712871
     },
     {
       "id": 8,
@@ -86,7 +93,8 @@
       "sd": 0.003,
       "year": 1979,
       "type": "high",
-      "scale": "lab"
+      "scale": "lab",
+      "pAgr": 0.10891089108910891
     },
     {
       "id": 9,
@@ -97,7 +105,8 @@
       "sd": 0.0005,
       "year": 1982,
       "type": "high",
-      "scale": "lab"
+      "scale": "lab",
+      "pAgr": 0.7623762376237624
     },
     {
       "id": 10,
@@ -108,7 +117,8 @@
       "sd": 0.005,
       "year": 1987,
       "type": "high",
-      "scale": "lab"
+      "scale": "lab",
+      "pAgr": 0.36363636363636365
     },
     {
       "id": 11,
@@ -119,7 +129,8 @@
       "sd": 0.0008,
       "year": 1995,
       "type": "high",
-      "scale": "lab"
+      "scale": "lab",
+      "pAgr": 0.009900990099009901
     },
     {
       "id": 12,
@@ -130,7 +141,8 @@
       "sd": 0.0007,
       "year": 1999,
       "type": "high",
-      "scale": "lab"
+      "scale": "lab",
+      "pAgr": 0.04950495049504951
     },
     {
       "id": 14,
@@ -141,7 +153,8 @@
       "sd": 0.00045,
       "year": 2001,
       "type": "high",
-      "scale": "lab"
+      "scale": "lab",
+      "pAgr": 0.33266733266733267
     },
     {
       "id": 15,
@@ -152,7 +165,8 @@
       "sd": 0.0004,
       "year": 2001,
       "type": "high",
-      "scale": "lab"
+      "scale": "lab",
+      "pAgr": 0.3086913086913087
     },
     {
       "id": 17,
@@ -163,7 +177,8 @@
       "sd": 0.00098,
       "year": 2002,
       "type": "high",
-      "scale": "lab"
+      "scale": "lab",
+      "pAgr": 0.05094905094905095
     },
     {
       "id": 18,
@@ -174,7 +189,8 @@
       "sd": 0.00023,
       "year": 2003,
       "type": "high",
-      "scale": "lab"
+      "scale": "lab",
+      "pAgr": 0.028971028971028972
     },
     {
       "id": 19,
@@ -185,7 +201,8 @@
       "sd": 0.00049,
       "year": 2003,
       "type": "high",
-      "scale": "lab"
+      "scale": "lab",
+      "pAgr": 0.024975024975024976
     },
     {
       "id": 22,
@@ -196,7 +213,8 @@
       "sd": 0.003,
       "year": 2008,
       "type": "high",
-      "scale": "lab"
+      "scale": "lab",
+      "pAgr": 0.36363636363636365
     },
     {
       "id": 23,
@@ -207,7 +225,8 @@
       "sd": 0.00014,
       "year": 2010,
       "type": "high",
-      "scale": "lab"
+      "scale": "lab",
+      "pAgr": 0.19080919080919082
     },
     {
       "id": 24,
@@ -218,7 +237,8 @@
       "sd": 0.00037,
       "year": 2013,
       "type": "high",
-      "scale": "lab"
+      "scale": "lab",
+      "pAgr": 0.33466533466533466
     },
     {
       "id": 25,
@@ -229,7 +249,8 @@
       "sd": 0.00041,
       "year": 2013,
       "type": "high",
-      "scale": "lab"
+      "scale": "lab",
+      "pAgr": 0.24275724275724275
     },
     {
       "id": 29,
@@ -240,7 +261,8 @@
       "sd": 0.000627,
       "year": 2026,
       "type": "high",
-      "scale": "lab"
+      "scale": "lab",
+      "pAgr": 0.36526347365263473
     },
     {
       "id": 30,
@@ -251,7 +273,8 @@
       "sd": 0.0002,
       "year": 2026,
       "type": "high",
-      "scale": "lab"
+      "scale": "lab",
+      "pAgr": 0.0072992700729927005
     },
     {
       "id": 31,
@@ -262,7 +285,8 @@
       "sd": 0.00015,
       "year": 2026,
       "type": "high",
-      "scale": "lab"
+      "scale": "lab",
+      "pAgr": 0.06869313068693131
     },
     {
       "id": 32,
@@ -273,7 +297,8 @@
       "sd": 0.00025,
       "year": 2026,
       "type": "high",
-      "scale": "lab"
+      "scale": "lab",
+      "pAgr": 0.16548345165483452
     },
     {
       "id": 37,
@@ -284,7 +309,8 @@
       "sd": 0.00018,
       "year": 2009,
       "type": "high",
-      "scale": "lab"
+      "scale": "lab",
+      "pAgr": 0.3046953046953047
     },
     {
       "id": 20,
@@ -296,7 +322,8 @@
       "year": 2005,
       "type": "conflicting",
       "scale": "lab",
-      "note": "Average of conflicting values from Luo (1999): 6.6699 ± 0.0007, HUST-05-A (2005): 6.67228 ± 0.00087, and HUST-05-B (2016): 6.67222 ± 0.00087 — different theoretical values derived from the same 1999-experimental data."
+      "note": "Average of conflicting values from Luo (1999): 6.6699 ± 0.0007, HUST-05-A (2005): 6.67228 ± 0.00087, and HUST-05-B (2016): 6.67222 ± 0.00087 — different theoretical values derived from the same 1999-experimental data.",
+      "pAgr": 0.5841584158415841
     },
     {
       "id": 201,
@@ -308,7 +335,8 @@
       "year": 2000,
       "type": "conflicting",
       "scale": "lab",
-      "note": "Average of conflicting values Gundlach (2000-A) and (2000-B)"
+      "note": "Average of conflicting values Gundlach (2000-A) and (2000-B)",
+      "pAgr": 0.41858141858141856
     },
     {
       "id": 202,
@@ -320,7 +348,8 @@
       "year": 2014,
       "type": "conflicting",
       "scale": "lab",
-      "note": "Average of Cross (2009) and Newman (2014)"
+      "note": "Average of Cross (2009) and Newman (2014)",
+      "pAgr": 0.5104895104895105
     },
     {
       "id": 203,
@@ -332,7 +361,8 @@
       "year": 2018,
       "type": "conflicting",
       "scale": "lab",
-      "note": "Average of conflicting swing (6.674184 ± 0.000078) and servo (6.674484 ± 0.000078) readings from the same 2018 apparatus."
+      "note": "Average of conflicting swing (6.674184 ± 0.000078) and servo (6.674484 ± 0.000078) readings from the same 2018 apparatus.",
+      "pAgr": 0.47285271472852713
     },
     {
       "id": 50,
@@ -343,7 +373,8 @@
       "sd": 0.07,
       "year": 1987,
       "type": "freefall",
-      "scale": "lab"
+      "scale": "lab",
+      "pAgr": 1.0
     },
     {
       "id": 51,
@@ -365,7 +396,8 @@
       "sd": 0.09,
       "year": 1990,
       "type": "freefall",
-      "scale": "lab"
+      "scale": "lab",
+      "pAgr": 1.0
     },
     {
       "id": 53,
@@ -387,7 +419,8 @@
       "sd": 0.0554,
       "year": 2009,
       "type": "freefall",
-      "scale": "lab"
+      "scale": "lab",
+      "pAgr": 0.297029702970297
     },
     {
       "id": 55,
@@ -398,7 +431,8 @@
       "sd": 0.00099,
       "year": 2014,
       "type": "freefall",
-      "scale": "lab"
+      "scale": "lab",
+      "pAgr": 0.13286713286713286
     },
     {
       "id": 60,
@@ -410,7 +444,8 @@
       "year": 1971,
       "type": "speculative",
       "scale": "lab",
-      "note": "Speculative same-material pairing (Pontikis 1971); reported SD."
+      "note": "Speculative same-material pairing (Pontikis 1971); reported SD.",
+      "pAgr": 0.09090909090909091
     },
     {
       "id": 61,
@@ -422,7 +457,8 @@
       "year": 1971,
       "type": "speculative",
       "scale": "lab",
-      "note": "Speculative same-material pairing (Pontikis 1971); reported SD."
+      "note": "Speculative same-material pairing (Pontikis 1971); reported SD.",
+      "pAgr": 0.2727272727272727
     },
     {
       "id": 62,
@@ -434,7 +470,8 @@
       "year": 1971,
       "type": "speculative",
       "scale": "lab",
-      "note": "Speculative composition (Pontikis 1971); SD=0.01, filtered out by the SD-based quick filter by default."
+      "note": "Speculative composition (Pontikis 1971); SD=0.01, filtered out by the SD-based quick filter by default.",
+      "pAgr": 0.6363636363636364
     },
     {
       "id": 63,
@@ -446,7 +483,8 @@
       "year": 1971,
       "type": "speculative",
       "scale": "lab",
-      "note": "Speculative composition (Pontikis 1971); SD=0.01, filtered out by the SD-based quick filter by default."
+      "note": "Speculative composition (Pontikis 1971); SD=0.01, filtered out by the SD-based quick filter by default.",
+      "pAgr": 1.0
     },
     {
       "id": 70,
@@ -457,7 +495,8 @@
       "sd": 0.003,
       "year": 1928,
       "type": "lowestval",
-      "scale": "lab"
+      "scale": "lab",
+      "pAgr": 0.2727272727272727
     },
     {
       "id": 71,
@@ -468,7 +507,8 @@
       "sd": 0.004,
       "year": 1925,
       "type": "lowestval",
-      "scale": "lab"
+      "scale": "lab",
+      "pAgr": 0.2727272727272727
     },
     {
       "id": 72,
@@ -479,7 +519,8 @@
       "sd": 0.0048,
       "year": 1987,
       "type": "lowestval",
-      "scale": "lab"
+      "scale": "lab",
+      "pAgr": 0.10891089108910891
     },
     {
       "id": 73,
@@ -490,7 +531,8 @@
       "sd": 0.005,
       "year": 1995,
       "type": "lowestval",
-      "scale": "large"
+      "scale": "large",
+      "pAgr": 0.2727272727272727
     },
     {
       "id": 80,
@@ -501,7 +543,8 @@
       "sd": 0.015,
       "year": 1993,
       "type": "largescale",
-      "scale": "large"
+      "scale": "large",
+      "pAgr": 0.6363636363636364
     },
     {
       "id": 81,
@@ -512,7 +555,8 @@
       "sd": 0.005,
       "year": 1995,
       "type": "largescale",
-      "scale": "large"
+      "scale": "large",
+      "pAgr": 0.2727272727272727
     },
     {
       "id": 82,
@@ -523,7 +567,8 @@
       "sd": 0.0015,
       "year": 1999,
       "type": "largescale",
-      "scale": "large"
+      "scale": "large",
+      "pAgr": 0.8217821782178217
     },
     {
       "id": 83,
@@ -534,7 +579,8 @@
       "sd": 0.00021,
       "year": 2002,
       "type": "largescale",
-      "scale": "large"
+      "scale": "large",
+      "pAgr": 0.6023976023976024
     },
     {
       "id": 21,
@@ -545,7 +591,8 @@
       "sd": 0.007,
       "year": 2005,
       "type": "largescale",
-      "scale": "large"
+      "scale": "large",
+      "pAgr": 0.2727272727272727
     },
     {
       "id": 100,
@@ -633,7 +680,8 @@
       "sd": 0.012,
       "year": 1926,
       "type": "lowacc",
-      "scale": "lab"
+      "scale": "lab",
+      "pAgr": 0.8181818181818182
     },
     {
       "id": 110,
@@ -644,7 +692,8 @@
       "sd": 0.04,
       "year": 1930,
       "type": "lowacc",
-      "scale": "lab"
+      "scale": "lab",
+      "pAgr": 0.2727272727272727
     },
     {
       "id": 111,
@@ -985,7 +1034,8 @@
       "sd": 0.00021,
       "year": 1972,
       "type": "homogenized",
-      "scale": "lab"
+      "scale": "lab",
+      "pAgr": 0.17082917082917082
     },
     {
       "id": 101,

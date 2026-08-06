@@ -349,6 +349,53 @@
              Goldblum (1987) & Ritter (1990).</p>
         </div>
 
+        <!-- SECOND, INDEPENDENT CHECK: AGREEMENT IN VALUE -->
+        <h3>A second, independent check: agreement in value</h3>
+
+        <p class="section-note">
+          Separately from the rank-correlation test above, each measurement
+          also carries its own p-value from a different method: for a given
+          predicted value, count how many possible observed values — at the
+          same decimal precision as the actual observation, across the
+          6.666–6.676 null range used throughout this dataset — agree with
+          the prediction at least as well as the actual observation does,
+          then divide by the total count of possible values in that range.
+          This is not defined for observations falling outside the
+          6.666–6.676 range, so not every measurement has one.
+        </p>
+
+        <p class="section-note">
+          These per-measurement p-values are combined with Fisher's method
+          across whichever selected measurements carry one:
+        </p>
+
+        <div class="formula-box small-formula mj">
+          \[
+            \chi^2 = -2 \sum_{i=1}^{k} \ln(p_i)
+          \]
+        </div>
+
+        <p class="section-note">
+          where \(k\) is the number of measurements combined (not
+          necessarily the full selected count \(n\), since some
+          measurements fall outside the range the method is defined over).
+          \(\chi^2\) is tested against a chi-square distribution with
+          \(2k\) degrees of freedom. Because those degrees of freedom are
+          always even, the combined p-value has an exact closed form
+          rather than needing a numerical approximation:
+        </p>
+
+        <div class="formula-box small-formula mj">
+          \[
+            p = e^{-\chi^2/2} \sum_{i=0}^{k-1} \frac{(\chi^2/2)^i}{i!}
+          \]
+        </div>
+
+        <p class="section-note">
+          The result is shown below as a second, independent p-value
+          alongside the rank-correlation statistics.
+        </p>
+
         <!-- TWO-COLUMN DASHBOARD -->
         <div class="meta-dashboard">
 
@@ -405,6 +452,10 @@
                 <div class="meta-stat" style="grid-column: 1 / -1;">
                   <div class="meta-stat-label">Observed hierarchy (A = lowest predicted)</div>
                   <div class="meta-stat-val" id="s-seq" style="font-size:13px; letter-spacing:0.08em;">—</div>
+                </div>
+                <div class="meta-stat" style="grid-column: 1 / -1;">
+                  <div class="meta-stat-label">Fisher-combined p (agreement in value)</div>
+                  <div class="meta-stat-val" id="s-p-fisher" style="font-size:14px;">—</div>
                 </div>
               </div>
             </div>

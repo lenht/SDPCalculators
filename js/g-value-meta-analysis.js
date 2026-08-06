@@ -343,6 +343,58 @@ function normalCDF(z) {
 }
 
 /* ══════════════════════════════════════════════
+   FISHER-COMBINED P-VALUE (agreement in value)
+   ══════════════════════════════════════════════
+
+   Each measurement carries an independent p-value (field `pAgr`) from
+   Sky Darmos' "agreement in value" method (see all_measured_values_of_
+   big_G.md): count how many values in the 6.666–6.676 null range agree
+   with prediction at least as well as the observed value does, divide
+   by the size of that range at matching decimal precision. Not every
+   measurement has one — some fall outside the 6.666–6.676 null range
+   the method is defined over, and some entries in the source list
+   simply don't have a computed value yet.
+
+   These per-measurement p-values are combined with Fisher's method:
+     χ² = −2 Σ ln(pᵢ),  distributed as chi-square with 2k degrees of
+     freedom, k = number of p-values combined.
+   Because the degrees of freedom are always even, the survival
+   function (the combined p-value) has an exact closed form — no
+   incomplete-gamma approximation needed:
+     p = e^(−χ²/2) × Σ_{i=0}^{k−1} (χ²/2)^i / i!
+   Only measurements currently selected (post-filter, post-dedup — the
+   same active set kendallTauB uses) and carrying a pAgr value
+   contribute; k is reported alongside the result since it's often
+   smaller than n.
+   ══════════════════════════════════════════════ */
+
+function fisherCombinedP(data) {
+  const ps = data
+    .map(m => m.pAgr)
+    .filter(p => typeof p === "number" && Number.isFinite(p) && p > 0 && p <= 1);
+
+  const k = ps.length;
+  if (k === 0) return { p: null, k: 0, chiSq: null };
+
+  const chiSq  = -2 * ps.reduce((sum, p) => sum + Math.log(p), 0);
+  const halfX  = chiSq / 2;
+
+  // Exact survival function of chi-square with 2k degrees of freedom:
+  // sum the Poisson-type series term by term (term_i = halfX^i / i!)
+  // rather than computing halfX^i and i! separately, to stay numerically
+  // stable for larger k.
+  let term = 1;   // i = 0 term
+  let sum  = term;
+  for (let i = 1; i <= k - 1; i++) {
+    term *= halfX / i;
+    sum  += term;
+  }
+  const p = Math.exp(-halfX) * sum;
+
+  return { p, k, chiSq };
+}
+
+/* ══════════════════════════════════════════════
    FORMATTING
    ══════════════════════════════════════════════ */
 
@@ -437,6 +489,22 @@ function updateStats() {
       elSeq.textContent = "(too many elements for letter display)";
     } else {
       elSeq.textContent = "—";
+    }
+  }
+
+  // Fisher-combined p-value from each selected measurement's own
+  // "agreement in value" p (field pAgr) — independent of, and shown
+  // alongside, the rank-correlation p above. Not every measurement
+  // carries a pAgr, so k (measurements actually combined) is reported
+  // next to n (measurements selected) whenever they differ.
+  const fisher = fisherCombinedP(data);
+  const elPFisher = document.getElementById("s-p-fisher");
+  if (elPFisher) {
+    if (fisher.p !== null) {
+      const countNote = fisher.k !== data.length ? `n=${fisher.k} of ${data.length} selected` : `n=${fisher.k}`;
+      elPFisher.textContent = `${formatP(fisher.p)}  ·  odds ${formatOdds(fisher.p)}  ·  ${countNote}`;
+    } else {
+      elPFisher.textContent = "— (no selected measurement has an agreement p-value)";
     }
   }
 
@@ -657,7 +725,8 @@ function renderCards() {
           <strong>SPD accuracy:</strong> ${acc}%<br>
           <strong>Setup:</strong> ${SCALE_LABELS[m.scale] || m.scale}<br>
           <strong>Within SD:</strong>
-            <span class="${within ? "meas-within-yes" : "meas-within-no"}">${within ? "Yes" : "No"}</span>${m.note ? `<br><strong>Note:</strong> ${m.note}` : ""}
+            <span class="${within ? "meas-within-yes" : "meas-within-no"}">${within ? "Yes" : "No"}</span><br>
+          <strong>Agreement p-value:</strong> ${m.pAgr !== undefined ? formatP(m.pAgr) : "not available (outside null range, or not yet computed)"}${m.note ? `<br><strong>Note:</strong> ${m.note}` : ""}
         </div>`;
 
       // Toggle active on row click
