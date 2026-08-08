@@ -343,19 +343,34 @@ function normalCDF(z) {
 }
 
 /* ══════════════════════════════════════════════
-   FISHER-COMBINED P-VALUE (agreement in value)
+   FISHER-COMBINED P-VALUES
+   (agreement in value  +  comparative vs. GR/Newtonian gravity)
    ══════════════════════════════════════════════
 
-   Each measurement carries an independent p-value (field `pAgr`) from
-   Sky Darmos' "agreement in value" method (see all_measured_values_of_
-   big_G.md): count how many values in the 6.666–6.676 null range agree
-   with prediction at least as well as the observed value does, divide
-   by the size of that range at matching decimal precision. Not every
-   measurement has one — some fall outside the 6.666–6.676 null range
-   the method is defined over, and some entries in the source list
-   simply don't have a computed value yet.
+   Each measurement can carry up to two independent, per-measurement
+   p-values (see big_g_measured_values.md for the full derivation of
+   both):
 
-   These per-measurement p-values are combined with Fisher's method:
+   • `pAgr`  — "range-based" / agreement-in-value p-value. Null
+     hypothesis: big-G could be any value ("no-pattern" null). Count
+     how many values in the 6.666–6.676 null range agree with the
+     SPD prediction at least as well as the observed value does,
+     divide by the size of that range at matching decimal precision.
+     Not every measurement has one — some fall outside the
+     6.666–6.676 null range the method is defined over.
+
+   • `pComp` — comparative p-value. Null hypothesis: the predecessor
+     theory (Newtonian/GR gravity, i.e. the CODATA-recommended
+     G = 6.6743 ± 0.00015) rather than "no pattern at all". Computed
+     from the chi-square each theory gets for the same observation,
+     χ² = (G_obs − G_pred)² / (σ_obs² + σ_pred²), the likelihood-ratio
+     improvement I = exp((χ²_GR − χ²_SPD)/2), and p = 1/(1+I). This is
+     available for more measurements than `pAgr`, since it doesn't
+     require the observation to fall inside the 6.666–6.676 range —
+     only that a GR-predicted chi-square can be computed at all.
+
+   Both use the same Fisher combination once you have a set of
+   independent per-measurement p-values:
      χ² = −2 Σ ln(pᵢ),  distributed as chi-square with 2k degrees of
      freedom, k = number of p-values combined.
    Because the degrees of freedom are always even, the survival
@@ -363,14 +378,14 @@ function normalCDF(z) {
    incomplete-gamma approximation needed:
      p = e^(−χ²/2) × Σ_{i=0}^{k−1} (χ²/2)^i / i!
    Only measurements currently selected (post-filter, post-dedup — the
-   same active set kendallTauB uses) and carrying a pAgr value
-   contribute; k is reported alongside the result since it's often
-   smaller than n.
+   same active set kendallTauB uses) and carrying a value for the
+   requested field contribute; k is reported alongside the result
+   since it's often smaller than n.
    ══════════════════════════════════════════════ */
 
-function fisherCombinedP(data) {
+function fisherCombinedP(data, field = "pAgr") {
   const ps = data
-    .map(m => m.pAgr)
+    .map(m => m[field])
     .filter(p => typeof p === "number" && Number.isFinite(p) && p > 0 && p <= 1);
 
   const k = ps.length;
@@ -497,7 +512,7 @@ function updateStats() {
   // alongside, the rank-correlation p above. Not every measurement
   // carries a pAgr, so k (measurements actually combined) is reported
   // next to n (measurements selected) whenever they differ.
-  const fisher = fisherCombinedP(data);
+  const fisher = fisherCombinedP(data, "pAgr");
   const elPFisher = document.getElementById("s-p-fisher");
   if (elPFisher) {
     if (fisher.p !== null) {
@@ -505,6 +520,20 @@ function updateStats() {
       elPFisher.textContent = `${formatP(fisher.p)}  ·  odds ${formatOdds(fisher.p)}  ·  ${countNote}`;
     } else {
       elPFisher.textContent = "— (no selected measurement has an agreement p-value)";
+    }
+  }
+
+  // Fisher-combined COMPARATIVE p-value — same combination method,
+  // but using each measurement's `pComp` (GR/Newtonian-gravity null
+  // hypothesis) instead of `pAgr` (no-pattern null hypothesis).
+  const fisherComp = fisherCombinedP(data, "pComp");
+  const elPFisherComp = document.getElementById("s-p-fisher-comp");
+  if (elPFisherComp) {
+    if (fisherComp.p !== null) {
+      const countNote = fisherComp.k !== data.length ? `n=${fisherComp.k} of ${data.length} selected` : `n=${fisherComp.k}`;
+      elPFisherComp.textContent = `${formatP(fisherComp.p)}  ·  odds ${formatOdds(fisherComp.p)}  ·  ${countNote}`;
+    } else {
+      elPFisherComp.textContent = "— (no selected measurement has a comparative p-value)";
     }
   }
 
@@ -726,7 +755,8 @@ function renderCards() {
           <strong>Setup:</strong> ${SCALE_LABELS[m.scale] || m.scale}<br>
           <strong>Within SD:</strong>
             <span class="${within ? "meas-within-yes" : "meas-within-no"}">${within ? "Yes" : "No"}</span><br>
-          <strong>Agreement p-value:</strong> ${m.pAgr !== undefined ? formatP(m.pAgr) : "not available (outside null range, or not yet computed)"}${m.note ? `<br><strong>Note:</strong> ${m.note}` : ""}
+          <strong>Range-based p-value:</strong> ${m.pAgr !== undefined ? formatP(m.pAgr) : "not available (outside 6.666–6.676 null range, or not yet computed)"}<br>
+          <strong>Comparative p-value (vs. GR):</strong> ${m.pComp !== undefined ? formatP(m.pComp) : "not available (not yet computed)"}${m.note ? `<br><strong>Note:</strong> ${m.note}` : ""}
         </div>`;
 
       // Toggle active on row click
