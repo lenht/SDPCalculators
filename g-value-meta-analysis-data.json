@@ -453,7 +453,7 @@
       "pair": "Hg–Hg",
       "pr": 6.66808,
       "ob": 6.666,
-      "sd": 0.01,
+      "sd": 0.002,
       "year": 1971,
       "type": "speculative",
       "scale": "lab",
@@ -938,17 +938,6 @@
       "scale": "lab"
     },
     {
-      "id": 143,
-      "label": "Heyl (1925-avg)",
-      "pair": "Steel–Au",
-      "pr": 6.671136,
-      "ob": 6.6782,
-      "sd": 0.0016,
-      "year": 1925,
-      "type": "outofrange",
-      "scale": "lab"
-    },
-    {
       "id": 144,
       "label": "McCulloh (1965-A)",
       "pair": "Rock–Steel",
@@ -1052,7 +1041,7 @@
       "id": 102,
       "label": "F. Bailey (1843)",
       "pair": "Pb–various",
-      "pr": 6.669227,
+      "pr": 6.669042,
       "ob": 6.63,
       "sd": 0.07,
       "year": 1843,
