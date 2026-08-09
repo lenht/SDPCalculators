@@ -452,7 +452,7 @@ showConstants();
     const plotH = H - PAD_T - PAD_B;
 
     /* ── axis ── */
-    ctx.strokeStyle = "#cddff5";
+    ctx.strokeStyle = "#c9bda0";
     ctx.lineWidth   = 1;
     ctx.beginPath();
     ctx.moveTo(PAD_L, PAD_T);
@@ -461,7 +461,7 @@ showConstants();
     ctx.stroke();
 
     // x-axis ticks
-    ctx.fillStyle   = "#64748b";
+    ctx.fillStyle   = "#8c8479";
     ctx.font        = "11px Arial";
     ctx.textAlign   = "center";
     [0, 25, 50, 75, 90, 99].forEach(pct => {
@@ -469,7 +469,7 @@ showConstants();
       ctx.beginPath();
       ctx.moveTo(x, PAD_T + plotH);
       ctx.lineTo(x, PAD_T + plotH + 4);
-      ctx.strokeStyle = "#cddff5";
+      ctx.strokeStyle = "#ddd4bf";
       ctx.stroke();
       ctx.fillText(pct + "%", x, PAD_T + plotH + 16);
     });
@@ -479,7 +479,7 @@ showConstants();
     ctx.translate(13, PAD_T + plotH / 2);
     ctx.rotate(-Math.PI / 2);
     ctx.textAlign = "center";
-    ctx.fillStyle = "#64748b";
+    ctx.fillStyle = "#8c8479";
     ctx.font = "11px Arial";
     ctx.fillText("log₁₀ scale (normalised)", 0, 0);
     ctx.restore();
@@ -501,21 +501,21 @@ showConstants();
     // Draw reference line at log10(2) = where 2RE starts at rest
     const LOG2 = Math.log10(2);
     ctx.setLineDash([4, 4]);
-    ctx.strokeStyle = "#94a3b8";
+    ctx.strokeStyle = "#a99f8c";
     ctx.lineWidth   = 1;
     ctx.beginPath();
     ctx.moveTo(PAD_L,            yOfLog(LOG2));
     ctx.lineTo(PAD_L + plotW,    yOfLog(LOG2));
     ctx.stroke();
     ctx.setLineDash([]);
-    ctx.fillStyle = "#94a3b8";
+    ctx.fillStyle = "#a99f8c";
     ctx.font      = "10px Arial";
     ctx.textAlign = "right";
     ctx.fillText("2R_E₀", PAD_L - 4, yOfLog(LOG2) + 4);
 
     // R_E curve  (blue)
     ctx.beginPath();
-    ctx.strokeStyle = "#2f5f8f";
+    ctx.strokeStyle = "#557c8c";
     ctx.lineWidth   = 2.5;
     for (let s = 0; s <= STEPS; s++) {
       const p  = (s / STEPS) * 99.99999;
@@ -531,7 +531,7 @@ showConstants();
 
     // λ_dB curve  (orange)
     ctx.beginPath();
-    ctx.strokeStyle = "#f97316";
+    ctx.strokeStyle = "#c08a52";
     ctx.lineWidth   = 2.5;
     let started = false;
     for (let s = 1; s <= STEPS; s++) {   // skip s=0 (v=0 → λ = ∞)
@@ -553,7 +553,7 @@ showConstants();
 
     /* ── current velocity marker ── */
     const xNow = xOfPct(velPct);
-    ctx.strokeStyle = "#1e3a5f";
+    ctx.strokeStyle = "#443f37";
     ctx.lineWidth   = 1.5;
     ctx.setLineDash([3, 3]);
     ctx.beginPath();
@@ -564,7 +564,7 @@ showConstants();
 
     // Dot on R_E curve at current v
     const logRE_now = Math.log10(2 * RE / RE0);
-    ctx.fillStyle = "#2f5f8f";
+    ctx.fillStyle = "#557c8c";
     ctx.beginPath();
     ctx.arc(xNow, yOfLog(logRE_now), 5, 0, Math.PI * 2);
     ctx.fill();
@@ -572,7 +572,7 @@ showConstants();
     // Dot on λ_dB curve
     if (lamDB !== null && beta > 0) {
       const logLam = Math.log10(lamDB / RE0);
-      ctx.fillStyle = "#f97316";
+      ctx.fillStyle = "#c08a52";
       ctx.beginPath();
       ctx.arc(xNow, yOfLog(logLam), 5, 0, Math.PI * 2);
       ctx.fill();
@@ -583,11 +583,11 @@ showConstants();
     ctx.font = "12px Arial";
     ctx.textAlign = "left";
 
-    ctx.fillStyle = "#2f5f8f";
+    ctx.fillStyle = "#557c8c";
     ctx.fillRect(LEG_X, LEG_Y, 18, 3);
     ctx.fillText("2R_E  (elementary space diameter)", LEG_X + 24, LEG_Y + 4);
 
-    ctx.fillStyle = "#f97316";
+    ctx.fillStyle = "#c08a52";
     ctx.fillRect(LEG_X, LEG_Y + 18, 18, 3);
     ctx.fillText("λ_dB  (de Broglie wavelength)", LEG_X + 24, LEG_Y + 22);
 
@@ -603,7 +603,7 @@ showConstants();
     }
     if (crossPct !== null) {
       const xC = xOfPct(crossPct);
-      ctx.strokeStyle = "#22c55e";
+      ctx.strokeStyle = "#7c9473";
       ctx.lineWidth   = 1.5;
       ctx.setLineDash([4, 3]);
       ctx.beginPath();
@@ -611,7 +611,7 @@ showConstants();
       ctx.lineTo(xC, PAD_T + plotH);
       ctx.stroke();
       ctx.setLineDash([]);
-      ctx.fillStyle   = "#166534";
+      ctx.fillStyle   = "#3f4f3a";
       ctx.font        = "11px Arial";
       ctx.textAlign   = xC > W / 2 ? "right" : "left";
       const offset    = xC > W / 2 ? -6 : 6;

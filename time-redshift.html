@@ -49,6 +49,10 @@
 
       <!-- PAGE HEADER -->
       <div class="page-header">
+        <div class="page-kicker">
+          <svg class="kicker-mark" viewBox="0 0 22 12" aria-hidden="true"><line x1="3" y1="6" x2="19" y2="6"/><circle class="k-pred" cx="7" cy="6" r="3"/><circle class="k-obs" cx="17" cy="6" r="3"/></svg>
+          Entropic Expansion Cosmology
+        </div>
         <h2>Time-Redshift Equation</h2>
 
         <div class="description-box">
@@ -69,103 +73,109 @@
             \(H_{\mathrm{0}}\) is entered in \(\text{km}\,\text{s}^{-1}\,\text{Mpc}^{-1}\).</em>
           </p>
         </div>
+
+        <div class="page-nav">
+          <a href="#calculator">↓ Calculator</a>
+          <a href="#bao">BAO size &amp; age of the universe</a>
+          <a href="#method">Formula &amp; the Hubble constant</a>
+        </div>
       </div>
 
       <!-- MAIN CARD -->
       <section class="calculator-card">
 
-        <!-- MAIN FORMULA -->
-        <h3 class="formula-section-title">The main formula</h3>
+        <!-- FORMULA & HUBBLE CONSTANT — collapsed by default -->
+        <details class="method-accordion" id="method">
+          <summary>
+            <span>The main formula &amp; the Hubble constant</span>
+            <span class="chev">▾</span>
+          </summary>
+          <div class="method-accordion-body">
 
-        <div class="formula-box mj">
-          \[t_{\mathrm{0}} = \dfrac{3 \, c \, z}{H_{\mathrm{0}}}\]
-        </div>
+            <div class="formula-box mj">
+              \[t_{\mathrm{0}} = \dfrac{3 \, c \, z}{H_{\mathrm{0}}}\]
+            </div>
 
-        <!-- LEGEND -->
-        <div class="legend-box">
-          <p>\(t_{\mathrm{0}}\) = light travel distance to the galaxy</p>
-          <p>\(c\) = speed of light in vacuum</p>
-          <p>\(z\) = observed redshift of the galaxy (dimensionless)</p>
-          <p>\(H_{\mathrm{0}}\) = Hubble constant</p>
-        </div>
+            <div class="legend-box">
+              <p>\(t_{\mathrm{0}}\) = light travel distance to the galaxy</p>
+              <p>\(c\) = speed of light in vacuum</p>
+              <p>\(z\) = observed redshift of the galaxy (dimensionless)</p>
+              <p>\(H_{\mathrm{0}}\) = Hubble constant</p>
+            </div>
 
-        <!-- HUBBLE CONSTANT SECTION -->
-        <h3>The Hubble constant</h3>
+            <h4>The Hubble constant</h4>
 
-        <div class="box">
+            <p class="section-note">
+              The value of \(H_{\mathrm{0}}\) used here is derived from supernova
+              distance surveys. CMB-derived values depend on Big Bang theory
+              assumptions and are not theory-independent, so they are not
+              appropriate for this framework.
+            </p>
 
-          <p class="section-note">
-            The value of \(H_{\mathrm{0}}\) used here is derived from supernova
-            distance surveys. CMB-derived values depend on Big Bang theory
-            assumptions and are not theory-independent, so they are not
-            appropriate for this framework.
-          </p>
+            <div class="formula-box small-formula mj">
+              \[H_{\mathrm{0}} = 74.03 \pm 1.42 \ \dfrac{\text{km}}{\text{s} \cdot \text{Mpc}}\]
+            </div>
 
-        <div class="formula-box small-formula mj">
-          \[H_{\mathrm{0}} = 74.03 \pm 1.42 \ \dfrac{\text{km}}{\text{s} \cdot \text{Mpc}}\]
-        </div>
+            <p class="section-note">
+              For the formula, this converts to metres per second per
+              lightsecond:
+            </p>
 
-          <p class="section-note">
-            For the formula, this converts to metres per second per
-            lightsecond:
-          </p>
+            <div class="formula-box small-formula mj">
+              \[H_{\mathrm{0}} = (7.192 \pm 0.142) \times \dfrac{10^{-10} \ \text{m} \, \text{s}^{-1}}{\text{ls}}\]
+            </div>
 
-        <div class="formula-box small-formula mj">
-          \[H_{\mathrm{0}} = (7.192 \pm 0.142) \times \dfrac{10^{-10} \ \text{m} \, \text{s}^{-1}}{\text{ls}}\]
-        </div>
+            <p class="section-note">
+              With the default \(H_{\mathrm{0}}\), the equation simplifies to:
+            </p>
 
-          <p class="section-note">
-            With the default \(H_{\mathrm{0}}\), the equation simplifies to:
-          </p>
+            <div class="formula-box small-formula mj">
+              \[t_{\mathrm{0}} = 39{,}624{,}161{,}384 \ \text{lyr} \times z\]
+            </div>
 
-        <div class="formula-box small-formula mj">
-          \[t_{\mathrm{0}} = 39{,}624{,}161{,}384 \ \text{lyr} \times z\]
-        </div>
-
-        </div>
+          </div>
+        </details>
 
         <!-- REFERENCE CONSTANTS SECTION -->
-        <h3>Reference values</h3>
+        <details class="mini-accordion" style="margin-top:0; margin-bottom:28px;">
+          <summary>
+            <span>Reference values used by this calculator</span>
+            <span class="chev">▾</span>
+          </summary>
+          <div class="mini-accordion-body">
+            <div class="form-grid" style="margin-top:14px;">
+              <div>
+                <label for="const-c">Speed of light c (m/s)</label>
+                <input id="const-c" disabled />
+              </div>
 
-        <div class="box">
+              <div>
+                <label for="const-h0-kms">H<sub>0</sub> default (km/s/Mpc)</label>
+                <input id="const-h0-kms" disabled />
+              </div>
 
-          <p class="section-note">
-            Physical constants and derived values used by this calculator.
-          </p>
+              <div>
+                <label for="const-h0-err">H<sub>0</sub> uncertainty ± (km/s/Mpc)</label>
+                <input id="const-h0-err" disabled />
+              </div>
 
-          <div class="form-grid">
-            <div>
-              <label for="const-c">Speed of light c (m/s)</label>
-              <input id="const-c" disabled />
-            </div>
+              <div>
+                <label for="const-h0-msl">H<sub>0</sub> in m/s/ls</label>
+                <input id="const-h0-msl" disabled />
+              </div>
 
-            <div>
-              <label for="const-h0-kms">H<sub>0</sub> default (km/s/Mpc)</label>
-              <input id="const-h0-kms" disabled />
-            </div>
-
-            <div>
-              <label for="const-h0-err">H<sub>0</sub> uncertainty ± (km/s/Mpc)</label>
-              <input id="const-h0-err" disabled />
-            </div>
-
-            <div>
-              <label for="const-h0-msl">H<sub>0</sub> in m/s/ls</label>
-              <input id="const-h0-msl" disabled />
-            </div>
-
-            <div>
-              <label for="const-k">Coefficient K = 3c/H<sub>0</sub> (lyr per unit z)</label>
-              <input id="const-k" disabled />
+              <div>
+                <label for="const-k">Coefficient K = 3c/H<sub>0</sub> (lyr per unit z)</label>
+                <input id="const-k" disabled />
+              </div>
             </div>
           </div>
-
-        </div>
+        </details>
 
         <!-- CALCULATOR SECTION -->
-        <h3>Calculator</h3>
+        <h3 id="calculator" style="margin-top:4px;">Calculator</h3>
 
-        <div class="box">
+        <div class="box primary-card">
 
           <p class="section-note">
             Enter a galaxy's redshift \(z\) to calculate its light travel
@@ -227,81 +237,87 @@
         </div>
 
         <!-- BAO SIZE & FULL AGE SECTION -->
-        <h3>BAO size &amp; full age of the universe</h3>
+        <h3 id="bao">BAO size &amp; full age of the universe</h3>
 
-        <div class="box">
+        <div class="box primary-card">
 
           <p class="section-note">
             Using the time-redshift equation, it is possible to calculate both
             the full age of the universe and the size of Baryon Acoustic
-            Oscillations (BAO). The BAO size is the distance sound waves
-            could travel from the Big Bang until decoupling — the moment
-            photons and matter separated.
+            Oscillations (BAO) — the distance sound waves could travel from
+            the Big Bang until decoupling, the moment photons and matter
+            separated.
           </p>
 
-          <p class="section-note">
-            The full age follows directly from expressing redshift through
-            the temperature ratio of the CMB at decoupling versus today:
-          </p>
+          <details class="mini-accordion">
+            <summary>
+              <span>Full derivation — formulas &amp; physical constants</span>
+              <span class="chev">▾</span>
+            </summary>
+            <div class="mini-accordion-body">
 
-          <!-- Full age formula -->
-        <div class="formula-box small-formula mj">
-          \[t_{\mathrm{0}} = \left(\dfrac{T_{\mathrm{i}}}{T_{\mathrm{0}}} - 1\right) \times \Delta x_z \quad \text{(full age of the universe)}\]
-        </div>
+              <p class="section-note">
+                The full age follows directly from expressing redshift through
+                the temperature ratio of the CMB at decoupling versus today:
+              </p>
 
-          <div class="legend-box" style="margin-top:0; margin-bottom:24px;">
-            <p>\(t_{\mathrm{0}}\) = full age of the universe (lightyears)</p>
-            <p>\(T_{\mathrm{i}}\) = initial CMB temperature at decoupling (K) — true value: 4,021 K</p>
-            <p>\(T_{\mathrm{0}}\) = current CMB temperature = 2.725 K</p>
-            <p>\(\Delta x_z = 3 \, c \,/\, H_{\mathrm{0}}\) — lightyear-per-unit-z coefficient from the time-redshift equation</p>
-          </div>
+              <div class="formula-box small-formula mj">
+                \[t_{\mathrm{0}} = \left(\dfrac{T_{\mathrm{i}}}{T_{\mathrm{0}}} - 1\right) \times \Delta x_z \quad \text{(full age of the universe)}\]
+              </div>
 
-          <p class="section-note">
-            The BAO size uses the same bracket, scaled by the sound speed
-            fraction at the time of decoupling, and subtracts the duration
-            of the decoupling epoch \(t_{\mathrm{d}}\):
-          </p>
+              <div class="legend-box" style="margin-top:0; margin-bottom:24px;">
+                <p>\(t_{\mathrm{0}}\) = full age of the universe (lightyears)</p>
+                <p>\(T_{\mathrm{i}}\) = initial CMB temperature at decoupling (K) — true value: 4,021 K</p>
+                <p>\(T_{\mathrm{0}}\) = current CMB temperature = 2.725 K</p>
+                <p>\(\Delta x_z = 3 \, c \,/\, H_{\mathrm{0}}\) — lightyear-per-unit-z coefficient from the time-redshift equation</p>
+              </div>
 
-          <!-- BAO formula -->
-        <div class="formula-box small-formula mj">
-          \[d_{\mathrm{BAO}} = \dfrac{\sqrt{\dfrac{5}{3} \, \dfrac{k_{\mathrm{B}} \, T_{\mathrm{i}}}{m_{\mathrm{p}}}}}{c} \times \left[\left(\dfrac{T_{\mathrm{i}}}{T_{\mathrm{0}}} - 1\right) \Delta x_z - t_{\mathrm{d}}\right]\]
-        </div>
+              <p class="section-note">
+                The BAO size uses the same bracket, scaled by the sound speed
+                fraction at the time of decoupling, and subtracts the duration
+                of the decoupling epoch \(t_{\mathrm{d}}\):
+              </p>
 
-          <!-- Legend -->
-          <div class="legend-box" style="margin-top:0; margin-bottom:24px;">
-            <p>\(T_{\mathrm{i}}\) = initial CMB temperature at decoupling (K) — true value: 4,021 K</p>
-            <p>\(T_{\mathrm{0}}\) = current CMB temperature = 2.725 K</p>
-            <p>\(\Delta x_z = 3 \, c \,/\, H_{\mathrm{0}}\) — the lightyear-per-unit-z coefficient from the time-redshift equation</p>
-            <p>\(t_{\mathrm{d}}\) = duration of the decoupling epoch \(\approx 4.2 \times 10^{13}\ \text{yr}\)</p>
-            <p>\(m_{\mathrm{p}}\) = proton mass</p>
-            <p>\(k_\mathrm{B}\) = Boltzmann constant</p>
-            <p>\(c\) = speed of light</p>
-          </div>
+              <div class="formula-box small-formula mj">
+                \[d_{\mathrm{BAO}} = \dfrac{\sqrt{\dfrac{5}{3} \, \dfrac{k_{\mathrm{B}} \, T_{\mathrm{i}}}{m_{\mathrm{p}}}}}{c} \times \left[\left(\dfrac{T_{\mathrm{i}}}{T_{\mathrm{0}}} - 1\right) \Delta x_z - t_{\mathrm{d}}\right]\]
+              </div>
 
-          <!-- Reference constants -->
-          <h4 style="margin-top:0; margin-bottom:14px; color:var(--heading); font-size:17px;">Physical constants used</h4>
+              <div class="legend-box" style="margin-top:0; margin-bottom:24px;">
+                <p>\(T_{\mathrm{i}}\) = initial CMB temperature at decoupling (K) — true value: 4,021 K</p>
+                <p>\(T_{\mathrm{0}}\) = current CMB temperature = 2.725 K</p>
+                <p>\(\Delta x_z = 3 \, c \,/\, H_{\mathrm{0}}\) — the lightyear-per-unit-z coefficient from the time-redshift equation</p>
+                <p>\(t_{\mathrm{d}}\) = duration of the decoupling epoch \(\approx 4.2 \times 10^{13}\ \text{yr}\)</p>
+                <p>\(m_{\mathrm{p}}\) = proton mass</p>
+                <p>\(k_\mathrm{B}\) = Boltzmann constant</p>
+                <p>\(c\) = speed of light</p>
+              </div>
 
-          <div class="form-grid" style="margin-bottom:24px;">
-            <div>
-              <label for="bao-const-kb">Boltzmann constant k<sub>B</sub> (J/K)</label>
-              <input id="bao-const-kb" disabled />
+              <h4 style="margin-top:0;">Physical constants used</h4>
+
+              <div class="form-grid" style="margin-bottom:8px;">
+                <div>
+                  <label for="bao-const-kb">Boltzmann constant k<sub>B</sub> (J/K)</label>
+                  <input id="bao-const-kb" disabled />
+                </div>
+                <div>
+                  <label for="bao-const-mp">Proton mass m<sub>p</sub> (kg)</label>
+                  <input id="bao-const-mp" disabled />
+                </div>
+                <div>
+                  <label for="bao-const-T0">Current CMB temperature T<sub>0</sub> (K)</label>
+                  <input id="bao-const-T0" disabled />
+                </div>
+                <div>
+                  <label for="bao-const-td">Decoupling epoch duration t<sub>d</sub> (yr)</label>
+                  <input id="bao-const-td" disabled />
+                </div>
+              </div>
+
             </div>
-            <div>
-              <label for="bao-const-mp">Proton mass m<sub>p</sub> (kg)</label>
-              <input id="bao-const-mp" disabled />
-            </div>
-            <div>
-              <label for="bao-const-T0">Current CMB temperature T<sub>0</sub> (K)</label>
-              <input id="bao-const-T0" disabled />
-            </div>
-            <div>
-              <label for="bao-const-td">Decoupling epoch duration t<sub>d</sub> (yr)</label>
-              <input id="bao-const-td" disabled />
-            </div>
-          </div>
+          </details>
 
           <!-- Calculator inputs -->
-          <h4 style="margin-top:0; margin-bottom:14px; color:var(--heading); font-size:17px;">Calculator</h4>
+          <h4 style="margin-top:26px; margin-bottom:14px; color:var(--heading); font-size:17px;">Calculator</h4>
 
           <p class="section-note">
             Enter the initial CMB temperature \(T_{\mathrm{i}}\) at decoupling.

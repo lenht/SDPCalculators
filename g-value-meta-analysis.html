@@ -90,8 +90,8 @@
 
     /* Chart — fixed neutral dark bg, independent of theme formula-box colors */
     .chart-container {
-      background: #1a2535;
-      border: 1px solid #2e3f58;
+      background: #322f2a;
+      border: 1px solid #4a453d;
       border-radius: 12px;
       overflow: hidden;
     }
@@ -100,12 +100,12 @@
       align-items: center;
       gap: 12px;
       padding: 8px 13px;
-      border-bottom: 1px solid #2e3f58;
+      border-bottom: 1px solid #4a453d;
       font-size: 11px;
-      color: #7a9eba;
+      color: #b7a893;
       flex-wrap: wrap;
     }
-    .chart-legend { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #a0b4cc; }
+    .chart-legend { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #cfc9bb; }
     .chart-legend-line { width: 18px; height: 3px; border-radius: 2px; }
     #meta-canvas { display: block; width: 100%; height: 200px; }
 
@@ -208,8 +208,22 @@
     }
     .meas-detail.open { display: block; }
     .meas-detail strong { color: var(--accent, #4c6f95); }
-    .meas-within-yes { color: #1a8c5c; font-weight: 700; }
-    .meas-within-no  { color: #b84040; font-weight: 700; }
+    .meas-within-yes { color: #4a7c52; font-weight: 700; }
+    .meas-within-no  { color: #a85a3f; font-weight: 700; }
+
+    /* The two Fisher-combined p-values are the actual headline result of
+       this whole dashboard — promote them out of the flat 8-stat grid
+       instead of giving every number equal weight. */
+    .meta-stat-headline {
+      background: var(--accent-light, rgba(76,111,149,0.09));
+      border-color: var(--accent, #4c6f95);
+    }
+    .meta-stat-headline .meta-stat-label { color: var(--accent-dark, #345); }
+    .meta-stat-headline .meta-stat-val { color: var(--accent-dark, #345); font-size: 15px !important; }
+
+    /* thin accent edge so the always-dark chart still nods to the
+       page's palette instead of ignoring it outright */
+    .chart-container { border-top: 2px solid var(--accent, #7096a6); }
   </style>
 </head>
 
@@ -224,6 +238,10 @@
 
       <!-- PAGE HEADER -->
       <div class="page-header">
+        <div class="page-kicker">
+          <svg class="kicker-mark" viewBox="0 0 22 12" aria-hidden="true"><line x1="3" y1="6" x2="19" y2="6"/><circle class="k-pred" cx="7" cy="6" r="3"/><circle class="k-obs" cx="17" cy="6" r="3"/></svg>
+          SPD-Chromogravity &amp; Electrogravity
+        </div>
         <h2>G-value Meta-Analysis</h2>
 
         <div class="description-box">
@@ -251,209 +269,19 @@
             \(10^{-11}\ \text{m}^3\,\text{kg}^{-1}\,\text{s}^{-2}\).</em>
           </p>
         </div>
+
+        <div class="page-nav">
+          <a href="#dashboard">↓ Dashboard</a>
+          <a href="#measurements">Measurement list</a>
+          <a href="#method">Methodology &amp; derivation</a>
+        </div>
       </div>
 
       <!-- MAIN CARD -->
       <section class="calculator-card">
 
-        <!-- FORMULA — full width, above the two-column split -->
-        <h3 class="formula-section-title">The method</h3>
-
-        <p class="section-note">
-          To test whether the measured G-values correlate with the predicted
-          values, we use a modified Kendall's \(\tau_b\) — a rank-correlation
-          coefficient that counts concordant pairs (both predicted and
-          observed agree on ordering) minus discordant pairs, normalised by
-          the total pairs corrected for ties. We call our variant
-          \(\tau_b^+\) to flag one deliberate departure from the standard
-          convention, explained below.
-        </p>
-
-        <div class="formula-box mj">
-          \[
-            \tau_b^+ = \frac{C - D + T_{XY}}{\sqrt{(C + D + T_X + T_{XY}) \times (C + D + T_Y + T_{XY})}}
-          \]
-        </div>
-
-        <p class="section-note">
-          Significance testing does <strong>not</strong> use \(\tau_b^+\)
-          directly. Its exact asymptotic variance under this particular tie
-          structure has no clean closed form, and deriving one honestly
-          would be genuinely messy and complicated, without
-          being any more trustworthy than the alternative below. Instead we
-          get a conservative p-value using the simple, well-known variance
-          of tau-a (exact when there are no ties) applied to a deliberately
-          cautious stand-in value: the <strong>next higher tau-a</strong>.
-        </p>
-
-        <p class="section-note">
-          Only the \(T = T_X + T_Y\) exclusive ties are still "ambiguous"
-          here — joint ties (\(T_{XY}\)) are already resolved into \(C\)
-          above, so they play no part in this step. Each exclusive tied
-          pair could in principle have gone concordant or discordant; we
-          search over every way the group of \(T\) ties could have shifted
-          the numerator, and take the smallest shift whose resulting tau-a
-          value is still strictly greater than \(\tau_b^+\):
-        </p>
-
-        <div class="formula-box small-formula mj">
-          \[
-            \tau_a^{\text{next}} \;=\; \min_{k} \left\{ \frac{S+k}{P} \; : \; \frac{S+k}{P} > \tau_b^+ \right\}, \quad k \in \{T, T-2, T-4, \dots\}
-          \]
-        </div>
-
-        <p class="section-note">
-          where \(S = C - D\). That value is then used with the simple
-          tau-a standard deviation:
-        </p>
-
-        <div class="formula-box small-formula mj">
-          \[
-            z = \frac{\tau_a^{\text{next}}}{\sqrt{\dfrac{2(2n+5)}{9n(n-1)}}}
-          \]
-        </div>
-
-        <p class="section-note">
-          This is conservative by construction: since \(\tau_a^{\text{next}}\)
-          is chosen as the <em>closest</em> tau-a value that still exceeds
-          \(\tau_b^+\) — not the true, generally larger, worst-case tau-a —
-          it never makes the result look more significant than it is. When
-          there are no exclusive ties (\(T=0\)), \(\tau_a^{\text{next}} =
-          \tau_b^+\) and this reduces to the direct formula. The page shows
-          both values side by side ("τ-b+: … / τ-a: …") whenever they differ,
-          so the number actually feeding \(z\) is never hidden.
-        </p>
-
-        <div class="legend-box">
-          <p>\(C\) = number of concordant pairs, including joint ties (see below)</p>
-          <p>\(D\) = number of discordant pairs — pairs where the ordering disagrees</p>
-          <p>\(T_X\) = pairs tied on predicted value only &nbsp;·&nbsp; \(T_Y\) = pairs tied on observed value only</p>
-          <p>\(T_{XY}\) = "joint ties" — pairs tied on <em>both</em> predicted and observed value</p>
-          <p>\(S = C - D\) &nbsp;·&nbsp; \(P\) = total pairs \(= C+D+T_X+T_Y+T_{XY} = n(n-1)/2\)</p>
-          <p>\(n\) = number of selected measurements</p>
-          <p>The p-value is right-tailed, computed from the normal CDF of \(z\).
-             Ties arise from measurement uncertainty, not from fundamental degeneracy.</p>
-          <p><strong>On \(\tau_b^+\) vs. standard \(\tau_b\):</strong> standard
-             tau-b drops a pair tied on <em>both</em> predicted and observed
-             value entirely — it contributes to neither \(C\), \(D\), \(T_X\),
-             nor \(T_Y\). Here, such a "joint tie" is instead counted as
-             concordant, added to \(C\) and to \(T_{XY}\) — \(T_X\) and \(T_Y\)
-             stay pure exclusive tie-counts, unaffected. Two different
-             experiments independently landing on the same predicted
-             <em>and</em> observed value is treated as supporting evidence,
-             not as an uninformative pair. Keeping \(T_{XY}\) out of \(T_X\)
-             and \(T_Y\) (rather than also inflating them) keeps the
-             denominator large enough that perfect agreement can never push
-             \(\tau_b^+\) above 1. This affects exactly two pairs in the
-             default dataset — De Boer (1987) & Lamporesi (2008) and
-             Goldblum (1987) & Ritter (1990).</p>
-        </div>
-
-        <!-- SECOND, INDEPENDENT CHECK: AGREEMENT IN VALUE -->
-        <h3>A second, independent check: agreement in value</h3>
-
-        <p class="section-note">
-          Separately from the rank-correlation test above, each measurement
-          also carries its own p-value from a different method: for a given
-          predicted value, count how many possible observed values — at the
-          same decimal precision as the actual observation, across the
-          6.666–6.676 null range used throughout this dataset — agree with
-          the prediction at least as well as the actual observation does,
-          then divide by the total count of possible values in that range.
-          This is not defined for observations falling outside the
-          6.666–6.676 range, so not every measurement has one.
-        </p>
-
-        <p class="section-note">
-          There are actually two different, independent p-values computed
-          per measurement, and it matters which null hypothesis each one
-          tests against:
-        </p>
-
-        <div class="legend-box">
-          <p><strong>Range-based p-value</strong> (above) — null hypothesis: big-G could be
-             <em>any</em> value at all ("no-pattern" null). It only asks how
-             unusual the observed value is among all possible values in the
-             6.666–6.676 range, independent of any specific rival theory.</p>
-          <p><strong>Comparative p-value</strong> — null hypothesis: the <em>predecessor
-             theory</em>, i.e. Newtonian/GR gravity, using the CODATA-recommended
-             value \(G_{\mathrm{GR}} = 6.6743 \pm 0.00015\). This directly asks how much
-             more likely the observation is under SPD than under GR, rather than how
-             unusual it is in the abstract.</p>
-        </div>
-
-        <p class="section-note">
-          The comparative p-value is obtained by computing a chi-square value for
-          each theory's prediction against the same observation:
-        </p>
-
-        <div class="formula-box small-formula mj">
-          \[
-            \chi^2_{\mathrm{theory}} = \frac{(G_{\mathrm{obs}} - G_{\mathrm{pred,\,theory}})^2}{\sigma_{\mathrm{obs}}^2 + \sigma_{\mathrm{pred,\,theory}}^2}
-          \]
-        </div>
-
-        <p class="section-note">
-          then converting the difference between the two chi-square values into a
-          likelihood-ratio "improvement" \(I\), and from that into a p-value:
-        </p>
-
-        <div class="formula-box small-formula mj">
-          \[
-            I = \exp\!\left(\frac{\chi^2_{\mathrm{GR}} - \chi^2_{\mathrm{SPD}}}{2}\right), \qquad p_{\mathrm{comp}} = \frac{1}{1+I}
-          \]
-        </div>
-
-        <p class="section-note">
-          Because the comparative method only needs a GR-side chi-square rather
-          than the observation falling inside the 6.666–6.676 range, it is
-          available for a somewhat wider set of measurements than the
-          range-based p-value — for instance freefall/interferometer
-          measurements with observed values far outside that range still get
-          a comparative p-value. Range-based p-values tend to sit closer to
-          the middle of the 0–1 interval, since they don't depend on standard
-          deviations at all; comparative p-values can swing to much more
-          extreme values (very close to 0 or to 1) when one theory's
-          predicted uncertainty is far tighter than the other's. Full
-          derivation and the underlying table of measurement-by-measurement
-          values are in <cite>big_g_measured_values.md</cite>.
-        </p>
-
-        <p class="section-note">
-          Both kinds of per-measurement p-values are combined the same way, with
-          Fisher's method, across whichever selected measurements carry one:
-        </p>
-
-        <div class="formula-box small-formula mj">
-          \[
-            \chi^2 = -2 \sum_{i=1}^{k} \ln(p_i)
-          \]
-        </div>
-
-        <p class="section-note">
-          where \(k\) is the number of measurements combined (not
-          necessarily the full selected count \(n\), since some
-          measurements fall outside the range/method each is defined over).
-          \(\chi^2\) is tested against a chi-square distribution with
-          \(2k\) degrees of freedom. Because those degrees of freedom are
-          always even, the combined p-value has an exact closed form
-          rather than needing a numerical approximation:
-        </p>
-
-        <div class="formula-box small-formula mj">
-          \[
-            p = e^{-\chi^2/2} \sum_{i=0}^{k-1} \frac{(\chi^2/2)^i}{i!}
-          \]
-        </div>
-
-        <p class="section-note">
-          The results are shown below as two second, independent p-values
-          alongside the rank-correlation statistics — one range-based, one
-          comparative against GR.
-        </p>
-
-        <!-- TWO-COLUMN DASHBOARD -->
-        <div class="meta-dashboard">
+        <!-- TWO-COLUMN DASHBOARD — the interactive tool, front and centre -->
+        <div class="meta-dashboard" id="dashboard">
 
           <!-- LEFT — sticky: chart, stats, filters -->
           <div class="meta-left">
@@ -464,10 +292,10 @@
                 <div class="chart-header">
                   Predicted vs observed, sorted by predicted value
                   <div class="chart-legend">
-                    <div class="chart-legend-line" style="background:#6891b6;"></div>Predicted
+                    <div class="chart-legend-line" style="background:#8fb4c2;"></div>Predicted
                   </div>
                   <div class="chart-legend">
-                    <div class="chart-legend-line" style="background:#c87a40;"></div>Observed
+                    <div class="chart-legend-line" style="background:#e0a758;"></div>Observed
                   </div>
                 </div>
                 <canvas id="meta-canvas"></canvas>
@@ -509,11 +337,11 @@
                   <div class="meta-stat-label">Observed hierarchy (A = lowest predicted)</div>
                   <div class="meta-stat-val" id="s-seq" style="font-size:13px; letter-spacing:0.08em;">—</div>
                 </div>
-                <div class="meta-stat" style="grid-column: 1 / -1;">
+                <div class="meta-stat meta-stat-headline" style="grid-column: 1 / -1;">
                   <div class="meta-stat-label">Fisher-combined p (range-based, agreement in value)</div>
                   <div class="meta-stat-val" id="s-p-fisher" style="font-size:14px;">—</div>
                 </div>
-                <div class="meta-stat" style="grid-column: 1 / -1;">
+                <div class="meta-stat meta-stat-headline" style="grid-column: 1 / -1;">
                   <div class="meta-stat-label">Fisher-combined p (comparative, vs. GR/Newtonian gravity)</div>
                   <div class="meta-stat-val" id="s-p-fisher-comp" style="font-size:14px;">—</div>
                 </div>
@@ -529,7 +357,7 @@
 
           <!-- RIGHT — scrollable measurement list -->
           <div class="meta-right">
-            <h3 style="margin-top:0; font-size:16px;">Individual measurements</h3>
+            <h3 id="measurements" style="margin-top:0; font-size:16px;">Individual measurements</h3>
             <p class="section-note" style="font-size:12px;">
               Click a card to toggle it. Click ▼ for details.
               Use "Select all / Deselect all" to toggle a category.
@@ -538,6 +366,213 @@
           </div><!-- /.meta-right -->
 
         </div><!-- /.meta-dashboard -->
+
+        <!-- THE METHOD — full derivation, collapsed by default -->
+        <details class="method-accordion" id="method" style="margin-top:32px;">
+          <summary>
+            <span>The method — rank correlation, agreement-in-value p-values &amp; Fisher combination</span>
+            <span class="chev">▾</span>
+          </summary>
+          <div class="method-accordion-body">
+
+            <h4 style="margin-top:20px;">Kendall's τ<sub>b</sub><sup>+</sup> rank correlation</h4>
+
+            <p class="section-note">
+              To test whether the measured G-values correlate with the predicted
+              values, we use a modified Kendall's \(\tau_b\) — a rank-correlation
+              coefficient that counts concordant pairs (both predicted and
+              observed agree on ordering) minus discordant pairs, normalised by
+              the total pairs corrected for ties. We call our variant
+              \(\tau_b^+\) to flag one deliberate departure from the standard
+              convention, explained below.
+            </p>
+
+            <div class="formula-box mj">
+              \[
+                \tau_b^+ = \frac{C - D + T_{XY}}{\sqrt{(C + D + T_X + T_{XY}) \times (C + D + T_Y + T_{XY})}}
+              \]
+            </div>
+
+            <p class="section-note">
+              Significance testing does <strong>not</strong> use \(\tau_b^+\)
+              directly. Its exact asymptotic variance under this particular tie
+              structure has no clean closed form, and deriving one honestly
+              would be genuinely messy and complicated, without
+              being any more trustworthy than the alternative below. Instead we
+              get a conservative p-value using the simple, well-known variance
+              of tau-a (exact when there are no ties) applied to a deliberately
+              cautious stand-in value: the <strong>next higher tau-a</strong>.
+            </p>
+
+            <p class="section-note">
+              Only the \(T = T_X + T_Y\) exclusive ties are still "ambiguous"
+              here — joint ties (\(T_{XY}\)) are already resolved into \(C\)
+              above, so they play no part in this step. Each exclusive tied
+              pair could in principle have gone concordant or discordant; we
+              search over every way the group of \(T\) ties could have shifted
+              the numerator, and take the smallest shift whose resulting tau-a
+              value is still strictly greater than \(\tau_b^+\):
+            </p>
+
+            <div class="formula-box small-formula mj">
+              \[
+                \tau_a^{\text{next}} \;=\; \min_{k} \left\{ \frac{S+k}{P} \; : \; \frac{S+k}{P} > \tau_b^+ \right\}, \quad k \in \{T, T-2, T-4, \dots\}
+              \]
+            </div>
+
+            <p class="section-note">
+              where \(S = C - D\). That value is then used with the simple
+              tau-a standard deviation:
+            </p>
+
+            <div class="formula-box small-formula mj">
+              \[
+                z = \frac{\tau_a^{\text{next}}}{\sqrt{\dfrac{2(2n+5)}{9n(n-1)}}}
+              \]
+            </div>
+
+            <p class="section-note">
+              This is conservative by construction: since \(\tau_a^{\text{next}}\)
+              is chosen as the <em>closest</em> tau-a value that still exceeds
+              \(\tau_b^+\) — not the true, generally larger, worst-case tau-a —
+              it never makes the result look more significant than it is. When
+              there are no exclusive ties (\(T=0\)), \(\tau_a^{\text{next}} =
+              \tau_b^+\) and this reduces to the direct formula. The page shows
+              both values side by side ("τ-b+: … / τ-a: …") whenever they differ,
+              so the number actually feeding \(z\) is never hidden.
+            </p>
+
+            <div class="legend-box">
+              <p>\(C\) = number of concordant pairs, including joint ties (see below)</p>
+              <p>\(D\) = number of discordant pairs — pairs where the ordering disagrees</p>
+              <p>\(T_X\) = pairs tied on predicted value only &nbsp;·&nbsp; \(T_Y\) = pairs tied on observed value only</p>
+              <p>\(T_{XY}\) = "joint ties" — pairs tied on <em>both</em> predicted and observed value</p>
+              <p>\(S = C - D\) &nbsp;·&nbsp; \(P\) = total pairs \(= C+D+T_X+T_Y+T_{XY} = n(n-1)/2\)</p>
+              <p>\(n\) = number of selected measurements</p>
+              <p>The p-value is right-tailed, computed from the normal CDF of \(z\).
+                 Ties arise from measurement uncertainty, not from fundamental degeneracy.</p>
+              <p><strong>On \(\tau_b^+\) vs. standard \(\tau_b\):</strong> standard
+                 tau-b drops a pair tied on <em>both</em> predicted and observed
+                 value entirely — it contributes to neither \(C\), \(D\), \(T_X\),
+                 nor \(T_Y\). Here, such a "joint tie" is instead counted as
+                 concordant, added to \(C\) and to \(T_{XY}\) — \(T_X\) and \(T_Y\)
+                 stay pure exclusive tie-counts, unaffected. Two different
+                 experiments independently landing on the same predicted
+                 <em>and</em> observed value is treated as supporting evidence,
+                 not as an uninformative pair. Keeping \(T_{XY}\) out of \(T_X\)
+                 and \(T_Y\) (rather than also inflating them) keeps the
+                 denominator large enough that perfect agreement can never push
+                 \(\tau_b^+\) above 1. This affects exactly two pairs in the
+                 default dataset — De Boer (1987) & Lamporesi (2008) and
+                 Goldblum (1987) & Ritter (1990).</p>
+            </div>
+
+            <h4>A second, independent check: agreement in value</h4>
+
+            <p class="section-note">
+              Separately from the rank-correlation test above, each measurement
+              also carries its own p-value from a different method: for a given
+              predicted value, count how many possible observed values — at the
+              same decimal precision as the actual observation, across the
+              6.666–6.676 null range used throughout this dataset — agree with
+              the prediction at least as well as the actual observation does,
+              then divide by the total count of possible values in that range.
+              This is not defined for observations falling outside the
+              6.666–6.676 range, so not every measurement has one.
+            </p>
+
+            <p class="section-note">
+              There are actually two different, independent p-values computed
+              per measurement, and it matters which null hypothesis each one
+              tests against:
+            </p>
+
+            <div class="legend-box">
+              <p><strong>Range-based p-value</strong> (above) — null hypothesis: big-G could be
+                 <em>any</em> value at all ("no-pattern" null). It only asks how
+                 unusual the observed value is among all possible values in the
+                 6.666–6.676 range, independent of any specific rival theory.</p>
+              <p><strong>Comparative p-value</strong> — null hypothesis: the <em>predecessor
+                 theory</em>, i.e. Newtonian/GR gravity, using the CODATA-recommended
+                 value \(G_{\mathrm{GR}} = 6.6743 \pm 0.00015\). This directly asks how much
+                 more likely the observation is under SPD than under GR, rather than how
+                 unusual it is in the abstract.</p>
+            </div>
+
+            <p class="section-note">
+              The comparative p-value is obtained by computing a chi-square value for
+              each theory's prediction against the same observation:
+            </p>
+
+            <div class="formula-box small-formula mj">
+              \[
+                \chi^2_{\mathrm{theory}} = \frac{(G_{\mathrm{obs}} - G_{\mathrm{pred,\,theory}})^2}{\sigma_{\mathrm{obs}}^2 + \sigma_{\mathrm{pred,\,theory}}^2}
+              \]
+            </div>
+
+            <p class="section-note">
+              then converting the difference between the two chi-square values into a
+              likelihood-ratio "improvement" \(I\), and from that into a p-value:
+            </p>
+
+            <div class="formula-box small-formula mj">
+              \[
+                I = \exp\!\left(\frac{\chi^2_{\mathrm{GR}} - \chi^2_{\mathrm{SPD}}}{2}\right), \qquad p_{\mathrm{comp}} = \frac{1}{1+I}
+              \]
+            </div>
+
+            <p class="section-note">
+              Because the comparative method only needs a GR-side chi-square rather
+              than the observation falling inside the 6.666–6.676 range, it is
+              available for a somewhat wider set of measurements than the
+              range-based p-value — for instance freefall/interferometer
+              measurements with observed values far outside that range still get
+              a comparative p-value. Range-based p-values tend to sit closer to
+              the middle of the 0–1 interval, since they don't depend on standard
+              deviations at all; comparative p-values can swing to much more
+              extreme values (very close to 0 or to 1) when one theory's
+              predicted uncertainty is far tighter than the other's. Full
+              derivation and the underlying table of measurement-by-measurement
+              values are in <cite>big_g_measured_values.md</cite>.
+            </p>
+
+            <h4>Combining p-values with Fisher's method</h4>
+
+            <p class="section-note">
+              Both kinds of per-measurement p-values are combined the same way, with
+              Fisher's method, across whichever selected measurements carry one:
+            </p>
+
+            <div class="formula-box small-formula mj">
+              \[
+                \chi^2 = -2 \sum_{i=1}^{k} \ln(p_i)
+              \]
+            </div>
+
+            <p class="section-note">
+              where \(k\) is the number of measurements combined (not
+              necessarily the full selected count \(n\), since some
+              measurements fall outside the range/method each is defined over).
+              \(\chi^2\) is tested against a chi-square distribution with
+              \(2k\) degrees of freedom. Because those degrees of freedom are
+              always even, the combined p-value has an exact closed form
+              rather than needing a numerical approximation:
+            </p>
+
+            <div class="formula-box small-formula mj">
+              \[
+                p = e^{-\chi^2/2} \sum_{i=0}^{k-1} \frac{(\chi^2/2)^i}{i!}
+              \]
+            </div>
+
+            <p class="section-note" style="margin-bottom:0;">
+              The results are shown as two second, independent p-values
+              alongside the rank-correlation statistics in the dashboard above
+              — one range-based, one comparative against GR.
+            </p>
+
+          </div>
+        </details>
 
       </section>
     </main>

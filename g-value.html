@@ -49,6 +49,10 @@
 
       <!-- PAGE HEADER -->
       <div class="page-header">
+        <div class="page-kicker">
+          <svg class="kicker-mark" viewBox="0 0 22 12" aria-hidden="true"><line x1="3" y1="6" x2="19" y2="6"/><circle class="k-pred" cx="7" cy="6" r="3"/><circle class="k-obs" cx="17" cy="6" r="3"/></svg>
+          SPD-Chromogravity &amp; Electrogravity
+        </div>
         <h2>G-value Calculator</h2>
 
         <div class="description-box">
@@ -69,33 +73,47 @@
             \(10^{-11}\ \text{m}^3\,\text{kg}^{-1}\,\text{s}^{-2}\).</em>
           </p>
         </div>
+
+        <div class="page-nav">
+          <a href="#calculator">↓ Element lookup</a>
+          <a href="#isotope">Isotope calculator</a>
+          <a href="#molecule">Molecule calculator</a>
+          <a href="#mixed">Mixed materials</a>
+          <a href="#effective">Effective G-value</a>
+          <a href="#method">Formula &amp; methodology</a>
+        </div>
       </div>
 
       <!-- MAIN CARD -->
       <section class="calculator-card">
 
-        <!-- MAIN FORMULA -->
-        <h3 class="formula-section-title">The main formula</h3>
+        <!-- FORMULA & METHODOLOGY — collapsed by default so the calculator is immediate -->
+        <details class="method-accordion" id="method">
+          <summary>
+            <span>The main formula &amp; methodology</span>
+            <span class="chev">▾</span>
+          </summary>
+          <div class="method-accordion-body">
+            <div class="formula-box mj">
+              \[G_{\mathrm{X}} = G_{\mathrm{H}} \times \dfrac{n_{p_{\mathrm{X}}} \, m_{\mathrm{p}} + n_{n_{\mathrm{X}}} \, m_{\mathrm{n}}}{m_{\mathrm{X}}}\]
+            </div>
 
-        <div class="formula-box mj">
-          \[G_{\mathrm{X}} = G_{\mathrm{H}} \times \dfrac{n_{p_{\mathrm{X}}} \, m_{\mathrm{p}} + n_{n_{\mathrm{X}}} \, m_{\mathrm{n}}}{m_{\mathrm{X}}}\]
-        </div>
+            <div class="legend-box">
+              <p>\(G_\mathrm{X}\) = G-value of element X</p>
+              <p>\(G_\mathrm{H}\) = G-value of hydrogen</p>
+              <p>\(n_{p_{\mathrm{X}}}\) = number of protons in element X</p>
+              <p>\(n_{n_{\mathrm{X}}}\) = number of neutrons in element X</p>
+              <p>\(m_{\mathrm{p}}\) = proton mass</p>
+              <p>\(m_{\mathrm{n}}\) = neutron mass</p>
+              <p>\(m_\mathrm{X}\) = inertial mass of isotope X</p>
+            </div>
+          </div>
+        </details>
 
-        <!-- FORMULA LEGEND -->
-        <div class="legend-box">
-          <p>\(G_\mathrm{X}\) = G-value of element X</p>
-          <p>\(G_\mathrm{H}\) = G-value of hydrogen</p>
-          <p>\(n_{p_{\mathrm{X}}}\) = number of protons in element X</p>
-          <p>\(n_{n_{\mathrm{X}}}\) = number of neutrons in element X</p>
-          <p>\(m_{\mathrm{p}}\) = proton mass</p>
-          <p>\(m_{\mathrm{n}}\) = neutron mass</p>
-          <p>\(m_\mathrm{X}\) = inertial mass of isotope X</p>
-        </div>
+        <!-- LOOKUP SECTION — the flagship calculator, first thing you reach -->
+        <h3 id="calculator" style="margin-top:4px;">Individual element lookup</h3>
 
-        <!-- LOOKUP SECTION -->
-        <h3>Individual element lookup</h3>
-
-        <div class="box">
+        <div class="box primary-card">
 
           <label for="element-select">Select element</label>
 
@@ -107,63 +125,67 @@
             <div class="lookup-placeholder">Select an element</div>
           </div>
 
-          <div class="lookup-methodology">
+          <details class="mini-accordion">
+            <summary>
+              <span>How these values are calculated</span>
+              <span class="chev">▾</span>
+            </summary>
+            <div class="mini-accordion-body">
 
-            <h4>How these values are calculated</h4>
+              <p class="section-note">
+                The values in the lookup tool are based on
+                isotope-weighted inertial masses,
+                isotope-weighted gravitational masses,
+                and the corresponding G-value for each
+                naturally occurring element.
+              </p>
 
-            <p>
-              The values in the lookup tool are based on
-              isotope-weighted inertial masses,
-              isotope-weighted gravitational masses,
-              and the corresponding G-value for each
-              naturally occurring element.
-            </p>
+              <p class="section-note">
+                For most elements, the G-value is
+                calculated by dividing the gravitational
+                mass by the inertial mass and multiplying
+                the result by the G-value of hydrogen:
+              </p>
 
-            <p>
-              For most elements, the G-value is
-              calculated by dividing the gravitational
-              mass by the inertial mass and multiplying
-              the result by the G-value of hydrogen:
-            </p>
-
-            <div class="formula-box small-formula mj">
-          \[G_{\mathrm{X}} = G_{\mathrm{H}} \times \dfrac{\text{gravitational mass}}{\text{inertial mass}}\]
-        </div>
-
-            <p>
-              Copper is treated as the reference case.
-              The G-value of copper is taken directly
-              from Armstrong (2003) copper-copper
-              measurements and serves as the anchor.
-              The G-value of hydrogen is then inferred
-              from copper's inertial-to-gravitational
-              mass ratio, and every other element's
-              G-value is derived from hydrogen's.
-            </p>
-
-            <div class="reference-values">
-              <div><strong>Copper (anchor):</strong> 6.673985 ± 0.000228</div>
-              <div><strong>Iron:</strong> 6.674190 ± 0.000228</div>
-              <div><strong>Hydrogen:</strong> 6.613421 ± 0.000228</div>
-            </div>
-
-            <p>
-              Natural isotope abundance data are based on the
-              <a
-                href="https://ciaaw.org/isotopic-abundances.htm"
-                target="_blank"
-                rel="noopener noreferrer"
-              >CIAAW isotopic abundance reference tables</a>.
-              Representative values are used when isotope
-              abundances are expressed as ranges.
-            </p>
-
+              <div class="formula-box small-formula mj">
+            \[G_{\mathrm{X}} = G_{\mathrm{H}} \times \dfrac{\text{gravitational mass}}{\text{inertial mass}}\]
           </div>
+
+              <p class="section-note">
+                Copper is treated as the reference case.
+                The G-value of copper is taken directly
+                from Armstrong (2003) copper-copper
+                measurements and serves as the anchor.
+                The G-value of hydrogen is then inferred
+                from copper's inertial-to-gravitational
+                mass ratio, and every other element's
+                G-value is derived from hydrogen's.
+              </p>
+
+              <div class="reference-values">
+                <div><strong>Copper (anchor):</strong> 6.673985 ± 0.000228</div>
+                <div><strong>Iron:</strong> 6.674190 ± 0.000228</div>
+                <div><strong>Hydrogen:</strong> 6.613421 ± 0.000228</div>
+              </div>
+
+              <p class="section-note">
+                Natural isotope abundance data are based on the
+                <a
+                  href="https://ciaaw.org/isotopic-abundances.htm"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >CIAAW isotopic abundance reference tables</a>.
+                Representative values are used when isotope
+                abundances are expressed as ranges.
+              </p>
+
+            </div>
+          </details>
 
         </div>
 
         <!-- MANUAL / ISOTOPE SECTION -->
-        <h3>Isotope / manual element calculator</h3>
+        <h3 id="isotope">Isotope / manual element calculator</h3>
 
         <div class="box">
           <p class="section-note">
@@ -220,7 +242,7 @@
         </div>
 
         <!-- MOLECULE SECTION -->
-        <h3>Molecule calculator</h3>
+        <h3 id="molecule">Molecule calculator</h3>
 
         <div class="box">
 
@@ -237,18 +259,12 @@
           <p class="section-note">
             The inertial mass is obtained by summing the inertial
             masses of all constituent atoms multiplied by their
-            quantities in the molecule.
-          </p>
-
-          <p class="section-note">
-            The gravitational mass is calculated in the same way
-            using the SPD gravitational masses of the selected elements.
-          </p>
-
-          <p class="section-note">
-            The molecular G-value is then obtained by dividing the
-            total gravitational mass by the total inertial mass and
-            multiplying the result by the G-value of hydrogen.
+            quantities in the molecule. The gravitational mass is
+            calculated the same way, using the SPD gravitational
+            masses of the selected elements, then the molecular
+            G-value is obtained by dividing the total gravitational
+            mass by the total inertial mass and multiplying by the
+            G-value of hydrogen.
           </p>
 
           <div id="molecule-rows"></div>
@@ -262,7 +278,7 @@
         </div>
 
         <!-- MIXED MATERIALS SECTION -->
-        <h3>Mixed materials calculator</h3>
+        <h3 id="mixed">Mixed materials calculator</h3>
 
         <div class="box">
           <p class="section-note">
@@ -307,7 +323,7 @@
         </div>
 
         <!-- EFFECTIVE G-VALUE SECTION -->
-        <h3>Effective G-value calculator</h3>
+        <h3 id="effective">Effective G-value calculator</h3>
 
         <div class="box">
           <p class="section-note">

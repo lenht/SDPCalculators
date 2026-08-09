@@ -73,8 +73,8 @@ function formatIsotopes(element) {
   return element.isotopes
     .map(iso => `
       <div>
-        <strong>${iso.massNumber}${element.symbol}:</strong>
-        ${iso.abundance}
+        <strong>${iso.massNumber}${element.symbol}</strong>
+        <span>${iso.abundance}</span>
       </div>
     `)
     .join("");
@@ -94,6 +94,11 @@ document.getElementById("element-select").addEventListener("change", event => {
   lookupResult.innerHTML = `
     <h4>${element.name} (${element.symbol})</h4>
 
+    <div class="lookup-row lookup-highlight">
+      <span class="lookup-label">G-value:</span>
+      <span class="lookup-value">${displayG(element.gValue)}</span>
+    </div>
+
     <div class="lookup-row">
       <span class="lookup-label">Atomic number:</span>
       <span class="lookup-value">${element.atomicNumber ?? "—"}</span>
@@ -107,11 +112,6 @@ document.getElementById("element-select").addEventListener("change", event => {
     <div class="lookup-row">
       <span class="lookup-label">Gravitational mass:</span>
       <span class="lookup-value">${formatNumber(element.gravitationalMass)}</span>
-    </div>
-
-    <div class="lookup-row">
-      <span class="lookup-label">G-value:</span>
-      <span class="lookup-value">${displayG(element.gValue)}</span>
     </div>
 
     <div class="lookup-isotopes-title">Isotope abundance</div>

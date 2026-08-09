@@ -2,46 +2,46 @@
    THEME: SKY BLUE CLOUD — NEW
    Built from the extracted palette:
    #B6CBDD  #646472  #6891B6  #C5BFCC  #A0B4CC
-
+ 
    soft blue cloud + smoky slate + pale lavender mist.
    No warm/brown dominance; the mood is airy, cool, calm,
    and readable.
    ═══════════════════════════════════════════════ */
-
+ 
 :root {
   --sidebar-width: 300px;
-
+ 
   --bg:             #edf3f8;
   --panel:          #f8fbfd;
   --panel-raised:   #f2f6fa;
-
+ 
   --border:         #c5bfcc;
   --border-strong:  #a0b4cc;
-
+ 
   --text:           #343746;
   --muted:          #646472;
-
+ 
   --accent:         #6891b6;
   --accent-dark:    #4f7398;
   --accent-light:   rgba(104,145,182,0.12);
-
+ 
   --cloud:          #b6cbdd;
   --cloud-deep:     #a0b4cc;
   --mist:           #c5bfcc;
   --mist-light:     rgba(197,191,204,0.18);
-
+ 
   --heading:        #343746;
-
+ 
   --shadow-soft:    0 6px 22px rgba(100,100,114,0.07);
   --shadow-card:    0 12px 42px rgba(100,100,114,0.10);
-
+ 
   --formula-bg:     #646472;
   --formula-border: #a0b4cc;
   --formula-color:  #ffffff;
 }
-
+ 
 * { box-sizing: border-box; }
-
+ 
 @keyframes drift-cloud {
   0%   { transform: translateX(0px) translateY(0px);  opacity: 0.18; }
   50%  { transform: translateX(6px)  translateY(-4px); opacity: 0.28; }
@@ -51,7 +51,7 @@
   0%, 100% { opacity: 0.55; }
   50%       { opacity: 0.15; }
 }
-
+ 
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
@@ -61,7 +61,7 @@ body {
     linear-gradient(180deg, #edf3f8 0%, #f6f8fb 54%, #edf3f8 100%);
   color: var(--text);
 }
-
+ 
 select {
   appearance: none; -webkit-appearance: none; -moz-appearance: none;
   background-color: var(--panel);
@@ -73,9 +73,9 @@ select {
   background-repeat: no-repeat;
   padding-right: 48px;
 }
-
+ 
 .app { display: flex; min-height: 100vh; }
-
+ 
 /* ══════════════════════════════════════════════
    SIDEBAR — deep slate, like the dark part of
    a stormy sky at the horizon
@@ -91,7 +91,7 @@ select {
   height: 100vh; overflow-y: auto; z-index: 100;
   display: flex; flex-direction: column;
 }
-
+ 
 .sidebar h1 {
   margin-top: 0; margin-bottom: 8px; font-size: 24px;
   background: linear-gradient(120deg, #ffffff, #c5bfcc 35%, #b6cbdd 70%, #6891b6);
@@ -101,7 +101,7 @@ select {
 .subtitle {
   color: #d4dce6; font-size: 14px; line-height: 1.5; margin-bottom: 24px;
 }
-
+ 
 .category {
   margin-bottom: 10px;
   border: 1px solid rgba(182,203,221,0.22);
@@ -131,12 +131,12 @@ select {
   background: rgba(104,145,182,0.22); color: #ffffff; font-weight: 700;
 }
 a.formula-link { display: block; text-decoration: none; }
-
+ 
 /* ══════════════════════════════════════════════
    MAIN
    ══════════════════════════════════════════════ */
 .main { flex: 1; margin-left: var(--sidebar-width); padding: 0; }
-
+ 
 /* ── HERO — the sky, with drifting cloud wisps ── */
 .page-header {
   position: relative;
@@ -150,7 +150,7 @@ a.formula-link { display: block; text-decoration: none; }
     linear-gradient(145deg, #646472 0%, #5f7894 38%, #6891b6 72%, #b6cbdd 100%);
   overflow: hidden;
 }
-
+ 
 /* cloud wisps — softly drifting ellipses */
 .page-header::before {
   content: '';
@@ -170,7 +170,7 @@ a.formula-link { display: block; text-decoration: none; }
   animation: drift-cloud 12s ease-in-out infinite;
   pointer-events: none;
 }
-
+ 
 /* secondary star layer — faster twinkle */
 .page-header::after {
   content: '';
@@ -183,7 +183,7 @@ a.formula-link { display: block; text-decoration: none; }
   animation: twinkle-sky 4s ease-in-out infinite;
   pointer-events: none;
 }
-
+ 
 .page-header h2 {
   position: relative; z-index: 1;
   margin: 0 0 18px; font-size: 36px; letter-spacing: -0.01em;
@@ -191,7 +191,7 @@ a.formula-link { display: block; text-decoration: none; }
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text;
 }
-
+ 
 .page-header .description-box {
   position: relative; z-index: 1;
   margin-top: 0; margin-bottom: 20px; padding: 20px 24px;
@@ -204,8 +204,8 @@ a.formula-link { display: block; text-decoration: none; }
 }
 .page-header .description-box p { margin-top:0; margin-bottom:14px; font-size:15px; }
 .page-header .description-box p:last-child { margin-bottom:0; }
-
-
+ 
+ 
 /* ══════════════════════════════════════════════
    CALCULATOR CARD & CONTENT
    ══════════════════════════════════════════════ */
@@ -219,7 +219,7 @@ a.formula-link { display: block; text-decoration: none; }
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
 }
-
+ 
 .formula-box {
   background:
     radial-gradient(circle at 78% 35%, rgba(182,203,221,0.24) 0%, transparent 42%),
@@ -233,7 +233,7 @@ a.formula-link { display: block; text-decoration: none; }
     0 10px 30px rgba(100,100,114,0.14),
     inset 0 1px 0 rgba(255,255,255,0.12);
 }
-
+ 
 .legend-box {
   background: rgba(255,255,255,0.46);
   border: 1px solid rgba(197,191,204,0.42);
@@ -244,10 +244,10 @@ a.formula-link { display: block; text-decoration: none; }
   -webkit-backdrop-filter: blur(5px);
 }
 .legend-box p { margin: 7px 0; }
-
+ 
 h3 { margin-top: 38px; margin-bottom: 14px; color: var(--heading); font-size: 21px; }
 h3:first-of-type { margin-top: 24px; }
-
+ 
 .box, .note-box {
   background: rgba(255,255,255,0.54); border: 1px solid rgba(197,191,204,0.42);
   border-radius: 14px; padding: 22px 24px;
@@ -256,16 +256,16 @@ h3:first-of-type { margin-top: 24px; }
   -webkit-backdrop-filter: blur(5px);
 }
 .note-box p { color: var(--muted); line-height: 1.6; }
-
+ 
 .form-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; align-items:stretch; }
 .form-grid > div { display:flex; flex-direction:column; }
 .form-grid > div label { min-height:22px; margin-bottom:8px; }
 .form-grid > div input, .form-grid > div select { flex-shrink:0; margin-top:auto; }
 .mixed-grid { margin-top:24px; }
 .full-width-field { grid-column: 1 / -1; }
-
+ 
 label { display:block; margin-bottom:6px; font-weight:700; color:#4f5c72; font-size:14px; }
-
+ 
 input, select {
   width:100%; padding:12px 13px;
   border:1px solid var(--border-strong); border-radius:10px;
@@ -277,7 +277,7 @@ input:focus, select:focus {
   box-shadow: 0 0 0 3px rgba(104,145,182,0.16);
 }
 input:disabled { background:#f3f0f4; color:var(--muted); cursor:not-allowed; }
-
+ 
 .primary {
   margin-top:22px; border:none;
   background:
@@ -294,7 +294,7 @@ input:disabled { background:#f3f0f4; color:var(--muted); cursor:not-allowed; }
     border-color 0.15s,
     filter 0.15s;
 }
-
+ 
 .primary:hover {
   background:
     linear-gradient(
@@ -303,10 +303,10 @@ input:disabled { background:#f3f0f4; color:var(--muted); cursor:not-allowed; }
       #5c84b4
     );
 }
-
+ 
 .primary:active {
   transform: translateY(1px);
-
+ 
   background:
     linear-gradient(
       135deg,
@@ -314,24 +314,24 @@ input:disabled { background:#f3f0f4; color:var(--muted); cursor:not-allowed; }
       #4c6f95
     );
 }
-
+ 
 .result-box {
   margin-top:20px; padding:18px 20px; border-radius:12px;
   background: rgba(242,246,250,0.82);
   border:1px solid var(--border); font-family:monospace;
   line-height:1.7; color:var(--accent);
 }
-
+ 
 .small-formula { font-size:17px; padding:16px 24px; margin-top:14px; margin-bottom:14px; }
-
+ 
 .section-note, .lookup-methodology p {
   color:var(--muted); line-height:1.8; font-size:15px;
   margin-bottom:18px; max-width:850px;
 }
-
+ 
 .lookup-methodology { margin-top:32px; padding-top:28px; border-top:1px solid var(--border); }
 .lookup-methodology h4 { margin-top:0; margin-bottom:18px; font-size:24px; color:var(--heading); }
-
+ 
 #lookup-result {
   margin-top:22px;
   background: linear-gradient(to bottom, rgba(248,251,253,0.78), rgba(242,246,250,0.72));
@@ -340,16 +340,16 @@ input:disabled { background:#f3f0f4; color:var(--muted); cursor:not-allowed; }
 }
 #lookup-result h4 { margin-top:0; margin-bottom:18px; font-size:20px; font-weight:700; color:var(--heading); }
 #lookup-result strong { color:var(--heading); font-size:18px; }
-
+ 
 .lookup-row { margin-bottom:10px; display:flex; gap:10px; flex-wrap:wrap; }
 .lookup-label { font-weight:700; color:var(--accent-dark); }
 .lookup-value { font-family:monospace; color:var(--text); }
 .lookup-isotopes-title { margin-top:24px; margin-bottom:14px; font-size:18px; font-weight:700; color:var(--heading); }
-
+ 
 .isotope-list { padding:16px 18px; margin-top:12px; background:rgba(255,255,255,0.56); border:1px solid var(--border); border-radius:10px; }
 .isotope-list div { margin-bottom:8px; font-size:14px; line-height:1.5; }
 .isotope-list div:last-child { margin-bottom:0; }
-
+ 
 .reference-values {
   margin:22px 0; padding:18px 22px;
   background: linear-gradient(to bottom, rgba(248,251,253,0.78), rgba(242,246,250,0.72));
@@ -358,14 +358,14 @@ input:disabled { background:#f3f0f4; color:var(--muted); cursor:not-allowed; }
 }
 .reference-values div { margin-bottom:10px; color:var(--text); }
 .reference-values div:last-child { margin-bottom:0; }
-
+ 
 .note-box a, .lookup-methodology a, .section-note a {
   color:var(--accent); text-decoration:none;
   border-bottom:1px solid rgba(104,145,182,0.34);
   font-weight:600; transition:color 0.2s;
 }
 .note-box a:hover, .lookup-methodology a:hover, .section-note a:hover { color:var(--accent-dark); }
-
+ 
 #molecule-rows { display:flex; flex-direction:column; gap:12px; margin-bottom:16px; }
 .molecule-row-inner { display:flex; align-items:flex-end; gap:12px; }
 .molecule-row-inner > .remove-row-btn { margin-bottom:1px; }
@@ -387,12 +387,12 @@ input:disabled { background:#f3f0f4; color:var(--muted); cursor:not-allowed; }
 }
 .molecule-btn-row .primary { margin-top:0; }
 .add-element-btn:hover { background:var(--accent-light); }
-
+ 
 .comparison-flag { margin-top:16px; padding:14px 18px; border-radius:10px; font-size:14px; line-height:1.6; border-left:5px solid; }
 .flag-below { background:#f0f7f4; border-color:#4a9e7a; color:#1e5c42; }
 .flag-above { background:#fdf4ee; border-color:#c87a40; color:#7a3e18; }
 .flag-equal { background:var(--accent-light); border-color:var(--accent); color:var(--accent-dark); }
-
+ 
 /* ══════════════════════════════════════════════
    SIDEBAR ATTRIBUTION
    ══════════════════════════════════════════════ */
@@ -416,7 +416,7 @@ input:disabled { background:#f3f0f4; color:var(--muted); cursor:not-allowed; }
 .sidebar-attribution a:hover { color:#c5bfcc; }
 .attr-row { display:flex; align-items:center; gap:6px; margin-bottom:4px; }
 .attr-icon { flex-shrink:0; width:14px; height:14px; opacity:0.6; }
-
+ 
 /* ══════════════════════════════════════════════
    SKIN SWITCHER
    ══════════════════════════════════════════════ */
@@ -432,7 +432,7 @@ input:disabled { background:#f3f0f4; color:var(--muted); cursor:not-allowed; }
 }
 .skin-swatch:hover { transform:scale(1.18); }
 .skin-swatch.active { border-color:#b6cbdd; transform:scale(1.18); }
-
+ 
 /* ══════════════════════════════════════════════
    MOBILE
    ══════════════════════════════════════════════ */
@@ -448,7 +448,7 @@ input:disabled { background:#f3f0f4; color:var(--muted); cursor:not-allowed; }
   .molecule-btn-row { flex-direction:column; align-items:stretch; }
   .molecule-btn-row .primary { width:100%; }
   .page-header h2 { font-size:26px; }
-
+ 
   /* formula boxes: smaller text, tighter padding, horizontal scroll */
   .formula-box {
     font-size: 15px;
@@ -465,13 +465,13 @@ input:disabled { background:#f3f0f4; color:var(--muted); cursor:not-allowed; }
     display: block;
     -webkit-overflow-scrolling: touch;
   }
-
+ 
   .small-formula {
     font-size: 14px;
     padding: 12px 10px;
   }
 }
-
+ 
 /* MathJax global scroll safety — applies at all widths */
 mjx-container {
   max-width: 100%;
@@ -479,10 +479,10 @@ mjx-container {
 mjx-container svg {
   max-width: 100%;
 }
-
-
-
-
+ 
+ 
+ 
+ 
 /* note paragraph inside description box */
 .description-box .description-note {
   margin-top: 14px;
@@ -493,4 +493,3 @@ mjx-container svg {
   line-height: 1.6;
   opacity: 0.88;
 }
-
