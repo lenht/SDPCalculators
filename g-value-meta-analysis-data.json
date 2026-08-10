@@ -652,7 +652,8 @@
       "sd": 0.041,
       "year": 1798,
       "type": "lowacc",
-      "scale": "lab"
+      "scale": "lab",
+      "pComp": 0.5786461166347133
     },
     {
       "id": 103,
@@ -663,7 +664,8 @@
       "sd": 0.017,
       "year": 1873,
       "type": "lowacc",
-      "scale": "lab"
+      "scale": "lab",
+      "pComp": 0.40865533332912546
     },
     {
       "id": 104,
@@ -674,7 +676,8 @@
       "sd": 0.11,
       "year": 1878,
       "type": "lowacc",
-      "scale": "lab"
+      "scale": "lab",
+      "pComp": 0.47073704384233644
     },
     {
       "id": 105,
@@ -685,7 +688,8 @@
       "sd": 0.011,
       "year": 1888,
       "type": "lowacc",
-      "scale": "lab"
+      "scale": "lab",
+      "pComp": 0.6651180832670257
     },
     {
       "id": 106,
@@ -696,7 +700,8 @@
       "sd": 0.15,
       "year": 1889,
       "type": "lowacc",
-      "scale": "lab"
+      "scale": "lab",
+      "pComp": 0.49522770678714567
     },
     {
       "id": 107,
@@ -707,7 +712,8 @@
       "sd": 0.013,
       "year": 1896,
       "type": "lowacc",
-      "scale": "lab"
+      "scale": "lab",
+      "pComp": 0.37071114525171645
     },
     {
       "id": 108,
@@ -718,7 +724,8 @@
       "sd": 0.04,
       "year": 1902,
       "type": "lowacc",
-      "scale": "lab"
+      "scale": "lab",
+      "pComp": 0.4688004893446843
     },
     {
       "id": 109,
@@ -755,7 +762,8 @@
       "sd": 0.012,
       "year": 1969,
       "type": "lowacc",
-      "scale": "lab"
+      "scale": "lab",
+      "pComp": 0.5149703323758746
     },
     {
       "id": 112,
@@ -766,7 +774,8 @@
       "sd": 0.021,
       "year": 1957,
       "type": "lowacc",
-      "scale": "large"
+      "scale": "large",
+      "pComp": 0.6553606562399424
     },
     {
       "id": 113,
@@ -777,7 +786,8 @@
       "sd": 0.014,
       "year": 1965,
       "type": "lowacc",
-      "scale": "large"
+      "scale": "large",
+      "pComp": 0.6464709960819939
     },
     {
       "id": 114,
@@ -788,7 +798,8 @@
       "sd": 0.012,
       "year": 1965,
       "type": "lowacc",
-      "scale": "large"
+      "scale": "large",
+      "pComp": 0.7012331891654661
     },
     {
       "id": 115,
@@ -799,7 +810,8 @@
       "sd": 0.013,
       "year": 1965,
       "type": "lowacc",
-      "scale": "large"
+      "scale": "large",
+      "pComp": 0.7340630054606968
     },
     {
       "id": 116,
@@ -810,7 +822,8 @@
       "sd": 0.026,
       "year": 1976,
       "type": "lowacc",
-      "scale": "lab"
+      "scale": "lab",
+      "pComp": 0.4107772503120252
     },
     {
       "id": 117,
@@ -821,7 +834,8 @@
       "sd": 0.07,
       "year": 1978,
       "type": "lowacc",
-      "scale": "large"
+      "scale": "large",
+      "pComp": 0.5162614397704933
     },
     {
       "id": 118,
@@ -832,7 +846,8 @@
       "sd": 0.06,
       "year": 1981,
       "type": "lowacc",
-      "scale": "large"
+      "scale": "large",
+      "pComp": 0.5051554088548668
     },
     {
       "id": 119,
@@ -843,7 +858,8 @@
       "sd": 0.4,
       "year": 1981,
       "type": "lowacc",
-      "scale": "lab"
+      "scale": "lab",
+      "pComp": 0.49426081225405616
     },
     {
       "id": 120,
@@ -854,7 +870,8 @@
       "sd": 0.23,
       "year": 1983,
       "type": "lowacc",
-      "scale": "lab"
+      "scale": "lab",
+      "pComp": 0.49996281276555443
     },
     {
       "id": 121,
@@ -865,7 +882,8 @@
       "sd": 0.2,
       "year": 1984,
       "type": "lowacc",
-      "scale": "lab"
+      "scale": "lab",
+      "pComp": 0.5000544839357054
     },
     {
       "id": 122,
@@ -876,7 +894,8 @@
       "sd": 0.037,
       "year": 1987,
       "type": "lowacc",
-      "scale": "large"
+      "scale": "large",
+      "pComp": 0.5476277059179285
     },
     {
       "id": 123,
@@ -887,7 +906,8 @@
       "sd": 0.025,
       "year": 1987,
       "type": "lowacc",
-      "scale": "large"
+      "scale": "large",
+      "pComp": 0.6462670864898193
     },
     {
       "id": 124,
@@ -898,7 +918,8 @@
       "sd": 0.026,
       "year": 1987,
       "type": "lowacc",
-      "scale": "lab"
+      "scale": "lab",
+      "pComp": 0.4982372823499289
     },
     {
       "id": 125,
@@ -909,7 +930,8 @@
       "sd": 0.027,
       "year": 1990,
       "type": "lowacc",
-      "scale": "large"
+      "scale": "large",
+      "pComp": 0.5599737874211868
     },
     {
       "id": 126,
@@ -920,7 +942,8 @@
       "sd": 0.013,
       "year": 1991,
       "type": "lowacc",
-      "scale": "large"
+      "scale": "large",
+      "pComp": 0.5967490830535946
     },
     {
       "id": 127,
@@ -931,7 +954,8 @@
       "sd": 0.06,
       "year": 1992,
       "type": "lowacc",
-      "scale": "lab"
+      "scale": "lab",
+      "pComp": 0.49562237473545206
     },
     {
       "id": 128,
@@ -942,7 +966,8 @@
       "sd": 0.011,
       "year": 1999,
       "type": "lowacc",
-      "scale": "lab"
+      "scale": "lab",
+      "pComp": 0.5057429258064451
     },
     {
       "id": 129,
@@ -953,7 +978,8 @@
       "sd": 0.011,
       "year": 2001,
       "type": "lowacc",
-      "scale": "large"
+      "scale": "large",
+      "pComp": 0.7214358760466256
     },
     {
       "id": 140,
@@ -964,7 +990,8 @@
       "sd": 0.004,
       "year": 1891,
       "type": "outofrange",
-      "scale": "lab"
+      "scale": "lab",
+      "pComp": 0.9999817655344907
     },
     {
       "id": 141,
@@ -975,7 +1002,8 @@
       "sd": 0.007,
       "year": 1895,
       "type": "outofrange",
-      "scale": "lab"
+      "scale": "lab",
+      "pComp": 0.15626756999927977
     },
     {
       "id": 142,
@@ -986,7 +1014,8 @@
       "sd": 0.002,
       "year": 1897,
       "type": "outofrange",
-      "scale": "lab"
+      "scale": "lab",
+      "pComp": 1.8973856670066016e-07
     },
     {
       "id": 144,
@@ -997,7 +1026,8 @@
       "sd": 0.0025,
       "year": 1965,
       "type": "outofrange",
-      "scale": "large"
+      "scale": "large",
+      "pComp": 0.9999999998734985
     },
     {
       "id": 145,
@@ -1008,7 +1038,8 @@
       "sd": 0.00057,
       "year": 1988,
       "type": "outofrange",
-      "scale": "large"
+      "scale": "large",
+      "pComp": 1.0
     },
     {
       "id": 146,
@@ -1019,7 +1050,8 @@
       "sd": 0.007,
       "year": 1995,
       "type": "outofrange",
-      "scale": "large"
+      "scale": "large",
+      "pComp": 0.7108606870314337
     },
     {
       "id": 147,
@@ -1030,7 +1062,8 @@
       "sd": 0.00056,
       "year": 1996,
       "type": "outofrange",
-      "scale": "lab"
+      "scale": "lab",
+      "pComp": 1.0
     },
     {
       "id": 148,
@@ -1041,7 +1074,8 @@
       "sd": 0.0094,
       "year": 1999,
       "type": "outofrange",
-      "scale": "lab"
+      "scale": "lab",
+      "pComp": 0.7050319771332408
     },
     {
       "id": 149,
@@ -1087,7 +1121,8 @@
       "sd": 0.06,
       "year": 1838,
       "type": "homogenized",
-      "scale": "lab"
+      "scale": "lab",
+      "pComp": 0.4891514290038461
     },
     {
       "id": 102,
@@ -1098,7 +1133,8 @@
       "sd": 0.07,
       "year": 1843,
       "type": "homogenized",
-      "scale": "lab"
+      "scale": "lab",
+      "pComp": 0.48882279616991176
     }
   ]
 }
