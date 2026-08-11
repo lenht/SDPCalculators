@@ -280,98 +280,18 @@
       <!-- MAIN CARD -->
       <section class="calculator-card">
 
-        <!-- TWO-COLUMN DASHBOARD — the interactive tool, front and centre -->
-        <div class="meta-dashboard" id="dashboard">
-
-          <!-- LEFT — sticky: chart, stats, filters -->
-          <div class="meta-left">
-
-            <div>
-              <div class="meta-panel-label">Composition dependence of big-G</div>
-              <div class="chart-container">
-                <div class="chart-header">
-                  Predicted vs observed, sorted by predicted value
-                  <div class="chart-legend">
-                    <div class="chart-legend-line" style="background:#8fb4c2;"></div>Predicted
-                  </div>
-                  <div class="chart-legend">
-                    <div class="chart-legend-line" style="background:#e0a758;"></div>Observed
-                  </div>
-                </div>
-                <canvas id="meta-canvas"></canvas>
-              </div>
-            </div>
-
-            <div>
-              <div class="meta-panel-label">Live statistics</div>
-              <div class="meta-stats-grid">
-                <div class="meta-stat">
-                  <div class="meta-stat-label">Measurements (n)</div>
-                  <div class="meta-stat-val" id="s-n">27</div>
-                </div>
-                <div class="meta-stat">
-                  <div class="meta-stat-label">Kendall's τ-b+</div>
-                  <div class="meta-stat-val" id="s-tau">—</div>
-                </div>
-                <div class="meta-stat">
-                  <div class="meta-stat-label">z-score</div>
-                  <div class="meta-stat-val" id="s-z">—</div>
-                </div>
-                <div class="meta-stat">
-                  <div class="meta-stat-label">p-value (right-tailed)</div>
-                  <div class="meta-stat-val" id="s-p">—</div>
-                </div>
-                <div class="meta-stat">
-                  <div class="meta-stat-label">Odds against chance</div>
-                  <div class="meta-stat-val" id="s-odds">—</div>
-                </div>
-                <div class="meta-stat">
-                  <div class="meta-stat-label">Concordant – Discordant</div>
-                  <div class="meta-stat-val" id="s-cd">—</div>
-                </div>
-                <div class="meta-stat">
-                  <div class="meta-stat-label">Ties (pred / obs)</div>
-                  <div class="meta-stat-val" id="s-ties">—</div>
-                </div>
-                <div class="meta-stat" style="grid-column: 1 / -1;">
-                  <div class="meta-stat-label">Observed hierarchy (A = lowest predicted)</div>
-                  <div class="meta-stat-val" id="s-seq" style="font-size:13px; letter-spacing:0.08em;">—</div>
-                </div>
-                <div class="meta-stat meta-stat-headline" style="grid-column: 1 / -1;">
-                  <div class="meta-stat-label">Fisher-combined p (range-based, agreement in value)</div>
-                  <div class="meta-stat-val" id="s-p-fisher" style="font-size:14px;">—</div>
-                </div>
-                <div class="meta-stat meta-stat-headline" style="grid-column: 1 / -1;">
-                  <div class="meta-stat-label">Fisher-combined p (comparative, vs. GR/Newtonian gravity)</div>
-                  <div class="meta-stat-val" id="s-p-fisher-comp" style="font-size:14px;">—</div>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <div class="meta-panel-label">Quick filters — click to exclude</div>
-              <div class="filter-btns" id="filter-btns"></div>
-            </div>
-
-          </div><!-- /.meta-left -->
-
-          <!-- RIGHT — scrollable measurement list -->
-          <div class="meta-right">
-            <h3 id="measurements" style="margin-top:0; font-size:16px;">Individual measurements</h3>
-            <p class="section-note" style="font-size:12px;">
-              Click a card to toggle it. Click ▼ for details.
-              Use "Select all / Deselect all" to toggle a category.
-            </p>
-            <div id="meas-lists"></div>
-          </div><!-- /.meta-right -->
-
-        </div><!-- /.meta-dashboard -->
-
-        <!-- THE METHOD — full derivation, collapsed by default -->
-        <details class="method-accordion" id="method" style="margin-top:32px;">
+        <!-- THE METHOD — collapsed by default, positioned right after the hero
+             and before the dashboard so every page follows the same
+             hero → method → flagship tool order. The affordance pill spells
+             out "Click to expand / collapse" in words, not just a chevron. -->
+        <details class="method-accordion" id="method">
           <summary>
             <span>The method — rank correlation, agreement-in-value p-values &amp; Fisher combination</span>
-            <span class="chev">▾</span>
+            <span class="accordion-affordance">
+              <span class="accordion-hint accordion-hint-closed">Click to expand</span>
+              <span class="accordion-hint accordion-hint-open">Click to collapse</span>
+              <span class="chev">▾</span>
+            </span>
           </summary>
           <div class="method-accordion-body">
 
@@ -567,12 +487,99 @@
 
             <p class="section-note" style="margin-bottom:0;">
               The results are shown as two second, independent p-values
-              alongside the rank-correlation statistics in the dashboard above
+              alongside the rank-correlation statistics in the dashboard below
               — one range-based, one comparative against GR.
             </p>
 
           </div>
         </details>
+
+        <!-- TWO-COLUMN DASHBOARD — the interactive tool -->
+        <div class="meta-dashboard" id="dashboard">
+
+          <!-- LEFT — sticky: chart, stats, filters -->
+          <div class="meta-left">
+
+            <div>
+              <div class="meta-panel-label">Composition dependence of big-G</div>
+              <div class="chart-container">
+                <div class="chart-header">
+                  Predicted vs observed, sorted by predicted value
+                  <div class="chart-legend">
+                    <div class="chart-legend-line" style="background:#8fb4c2;"></div>Predicted
+                  </div>
+                  <div class="chart-legend">
+                    <div class="chart-legend-line" style="background:#e0a758;"></div>Observed
+                  </div>
+                </div>
+                <canvas id="meta-canvas"></canvas>
+              </div>
+            </div>
+
+            <div>
+              <div class="meta-panel-label">Live statistics</div>
+              <div class="meta-stats-grid">
+                <div class="meta-stat">
+                  <div class="meta-stat-label">Measurements (n)</div>
+                  <div class="meta-stat-val" id="s-n">27</div>
+                </div>
+                <div class="meta-stat">
+                  <div class="meta-stat-label">Kendall's τ-b+</div>
+                  <div class="meta-stat-val" id="s-tau">—</div>
+                </div>
+                <div class="meta-stat">
+                  <div class="meta-stat-label">z-score</div>
+                  <div class="meta-stat-val" id="s-z">—</div>
+                </div>
+                <div class="meta-stat">
+                  <div class="meta-stat-label">p-value (right-tailed)</div>
+                  <div class="meta-stat-val" id="s-p">—</div>
+                </div>
+                <div class="meta-stat">
+                  <div class="meta-stat-label">Odds against chance</div>
+                  <div class="meta-stat-val" id="s-odds">—</div>
+                </div>
+                <div class="meta-stat">
+                  <div class="meta-stat-label">Concordant – Discordant</div>
+                  <div class="meta-stat-val" id="s-cd">—</div>
+                </div>
+                <div class="meta-stat">
+                  <div class="meta-stat-label">Ties (pred / obs)</div>
+                  <div class="meta-stat-val" id="s-ties">—</div>
+                </div>
+                <div class="meta-stat" style="grid-column: 1 / -1;">
+                  <div class="meta-stat-label">Observed hierarchy (A = lowest predicted)</div>
+                  <div class="meta-stat-val" id="s-seq" style="font-size:13px; letter-spacing:0.08em;">—</div>
+                </div>
+                <div class="meta-stat meta-stat-headline" style="grid-column: 1 / -1;">
+                  <div class="meta-stat-label">Fisher-combined p (range-based, agreement in value)</div>
+                  <div class="meta-stat-val" id="s-p-fisher" style="font-size:14px;">—</div>
+                </div>
+                <div class="meta-stat meta-stat-headline" style="grid-column: 1 / -1;">
+                  <div class="meta-stat-label">Fisher-combined p (comparative, vs. GR/Newtonian gravity)</div>
+                  <div class="meta-stat-val" id="s-p-fisher-comp" style="font-size:14px;">—</div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="meta-panel-label">Quick filters — click to exclude</div>
+              <div class="filter-btns" id="filter-btns"></div>
+            </div>
+
+          </div><!-- /.meta-left -->
+
+          <!-- RIGHT — scrollable measurement list -->
+          <div class="meta-right">
+            <h3 id="measurements" style="margin-top:0; font-size:16px;">Individual measurements</h3>
+            <p class="section-note" style="font-size:12px;">
+              Click a card to toggle it. Click ▼ for details.
+              Use "Select all / Deselect all" to toggle a category.
+            </p>
+            <div id="meas-lists"></div>
+          </div><!-- /.meta-right -->
+
+        </div><!-- /.meta-dashboard -->
 
       </section>
     </main>

@@ -84,11 +84,17 @@
       <!-- MAIN CARD -->
       <section class="calculator-card">
 
-        <!-- FORMULA & HUBBLE CONSTANT — collapsed by default -->
+        <!-- FORMULA & HUBBLE CONSTANT — collapsed by default so the calculator is
+             immediate. Affordance pill spells out "Click to expand / collapse" in
+             words, not just a chevron, so the row reads as interactive at a glance. -->
         <details class="method-accordion" id="method">
           <summary>
             <span>The main formula &amp; the Hubble constant</span>
-            <span class="chev">▾</span>
+            <span class="accordion-affordance">
+              <span class="accordion-hint accordion-hint-closed">Click to expand</span>
+              <span class="accordion-hint accordion-hint-open">Click to collapse</span>
+              <span class="chev">▾</span>
+            </span>
           </summary>
           <div class="method-accordion-body">
 
@@ -136,43 +142,8 @@
           </div>
         </details>
 
-        <!-- REFERENCE CONSTANTS SECTION -->
-        <details class="mini-accordion" style="margin-top:0; margin-bottom:28px;">
-          <summary>
-            <span>Reference values used by this calculator</span>
-            <span class="chev">▾</span>
-          </summary>
-          <div class="mini-accordion-body">
-            <div class="form-grid" style="margin-top:14px;">
-              <div>
-                <label for="const-c">Speed of light c (m/s)</label>
-                <input id="const-c" disabled />
-              </div>
-
-              <div>
-                <label for="const-h0-kms">H<sub>0</sub> default (km/s/Mpc)</label>
-                <input id="const-h0-kms" disabled />
-              </div>
-
-              <div>
-                <label for="const-h0-err">H<sub>0</sub> uncertainty ± (km/s/Mpc)</label>
-                <input id="const-h0-err" disabled />
-              </div>
-
-              <div>
-                <label for="const-h0-msl">H<sub>0</sub> in m/s/ls</label>
-                <input id="const-h0-msl" disabled />
-              </div>
-
-              <div>
-                <label for="const-k">Coefficient K = 3c/H<sub>0</sub> (lyr per unit z)</label>
-                <input id="const-k" disabled />
-              </div>
-            </div>
-          </div>
-        </details>
-
-        <!-- CALCULATOR SECTION -->
+        <!-- CALCULATOR SECTION — the flagship calculator, right after the
+             method accordion, same position it holds on every other page -->
         <h3 id="calculator" style="margin-top:4px;">Calculator</h3>
 
         <div class="box primary-card">
@@ -252,7 +223,11 @@
           <details class="mini-accordion">
             <summary>
               <span>Full derivation — formulas &amp; physical constants</span>
-              <span class="chev">▾</span>
+              <span class="accordion-affordance">
+                <span class="accordion-hint accordion-hint-closed">Click to expand</span>
+                <span class="accordion-hint accordion-hint-open">Click to collapse</span>
+                <span class="chev">▾</span>
+              </span>
             </summary>
             <div class="mini-accordion-body">
 
@@ -369,6 +344,51 @@
           </p>
 
         </div>
+
+        <!-- REFERENCE CONSTANTS SECTION — moved to the end of the page, mirroring
+             the "Physical constants used" section on the Elementary Space Radius
+             page, instead of sitting between the method accordion and the
+             calculator where it broke the hero → method → calculator pattern. -->
+        <h3 id="reference">Reference values used by this calculator</h3>
+
+        <details class="mini-accordion" style="margin-top:0;">
+          <summary>
+            <span>Speed of light, default H₀ &amp; the derived coefficient</span>
+            <span class="accordion-affordance">
+              <span class="accordion-hint accordion-hint-closed">Click to expand</span>
+              <span class="accordion-hint accordion-hint-open">Click to collapse</span>
+              <span class="chev">▾</span>
+            </span>
+          </summary>
+          <div class="mini-accordion-body">
+            <div class="form-grid" style="margin-top:14px;">
+              <div>
+                <label for="const-c">Speed of light c (m/s)</label>
+                <input id="const-c" disabled />
+              </div>
+
+              <div>
+                <label for="const-h0-kms">H<sub>0</sub> default (km/s/Mpc)</label>
+                <input id="const-h0-kms" disabled />
+              </div>
+
+              <div>
+                <label for="const-h0-err">H<sub>0</sub> uncertainty ± (km/s/Mpc)</label>
+                <input id="const-h0-err" disabled />
+              </div>
+
+              <div>
+                <label for="const-h0-msl">H<sub>0</sub> in m/s/ls</label>
+                <input id="const-h0-msl" disabled />
+              </div>
+
+              <div>
+                <label for="const-k">Coefficient K = 3c/H<sub>0</sub> (lyr per unit z)</label>
+                <input id="const-k" disabled />
+              </div>
+            </div>
+          </div>
+        </details>
 
       </section>
     </main>

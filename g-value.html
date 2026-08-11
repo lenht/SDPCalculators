@@ -87,11 +87,17 @@
       <!-- MAIN CARD -->
       <section class="calculator-card">
 
-        <!-- FORMULA & METHODOLOGY — collapsed by default so the calculator is immediate -->
+        <!-- FORMULA & METHODOLOGY — collapsed by default so the calculator is immediate.
+             The affordance pill spells out "Click to expand / collapse" in words, not
+             just a chevron, so the row reads as interactive at a glance. -->
         <details class="method-accordion" id="method">
           <summary>
             <span>The main formula &amp; methodology</span>
-            <span class="chev">▾</span>
+            <span class="accordion-affordance">
+              <span class="accordion-hint accordion-hint-closed">Click to expand</span>
+              <span class="accordion-hint accordion-hint-open">Click to collapse</span>
+              <span class="chev">▾</span>
+            </span>
           </summary>
           <div class="method-accordion-body">
             <div class="formula-box mj">
@@ -128,7 +134,11 @@
           <details class="mini-accordion">
             <summary>
               <span>How these values are calculated</span>
-              <span class="chev">▾</span>
+              <span class="accordion-affordance">
+                <span class="accordion-hint accordion-hint-closed">Click to expand</span>
+                <span class="accordion-hint accordion-hint-open">Click to collapse</span>
+                <span class="chev">▾</span>
+              </span>
             </summary>
             <div class="mini-accordion-body">
 

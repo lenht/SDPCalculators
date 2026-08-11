@@ -36,7 +36,7 @@
      ECD = eddy current damper (steel/iron)
    ══════════════════════════════════════════════ */
 
-/* Measurement data now lives in g-value-meta-analysis-data.json
+/* Measurement data now lives in data/g-value-meta-analysis-data.json
    (see that file for the full list, grouped in the same order/
    categories as before, with the same id/label/pair/pr/ob/sd/year/
    type/scale/note fields). Loaded asynchronously below in BOOT. */
@@ -784,7 +784,7 @@ function renderCards() {
 
 window.addEventListener("resize", () => drawChart(getActiveData()));
 
-fetch("g-value-meta-analysis-data.json")
+fetch("data/g-value-meta-analysis-data.json")
   .then(response => response.json())
   .then(data => {
     META_DATA = data.measurements;
@@ -798,6 +798,6 @@ fetch("g-value-meta-analysis-data.json")
     const list = document.getElementById("meas-lists");
     if (list) {
       list.innerHTML =
-        "Could not load measurement data. Make sure g-value-meta-analysis-data.json is in the same folder as the HTML files.";
+        "Could not load measurement data. Make sure g-value-meta-analysis-data.json is in the data/ folder alongside the HTML files.";
     }
   });

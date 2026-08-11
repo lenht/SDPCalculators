@@ -385,7 +385,10 @@ input:disabled { background:#f0ece1; color:var(--muted); cursor:not-allowed; }
 
 /* ══════════════════════════════════════════════
    COLLAPSIBLE SECTIONS (native <details>)
-   Text chevron only — no SVG/icon sizing risk.
+   Text chevron + an always-visible "Click to expand /
+   Click to collapse" pill — the chevron alone wasn't
+   reading as interactive to everyone, so the affordance
+   is now spelled out in words as well as shape.
    ══════════════════════════════════════════════ */
 .method-accordion {
   background: var(--panel);
@@ -440,6 +443,7 @@ input:disabled { background:#f0ece1; color:var(--muted); cursor:not-allowed; }
   cursor: pointer;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 8px;
   padding: 11px 15px;
   font-size: 13px;
@@ -459,6 +463,48 @@ input:disabled { background:#f0ece1; color:var(--muted); cursor:not-allowed; }
 .mini-accordion[open] > summary .chev { transform: rotate(180deg); }
 .mini-accordion-body { padding: 2px 16px 16px; }
 .mini-accordion-body > *:first-child { margin-top: 8px; }
+
+/* ── Accordion affordance pill ──────────────────
+   Sits next to the chevron on every <details> summary
+   in the site (method-accordion AND mini-accordion) and
+   spells out, in words, that the row is expandable —
+   and flips its own wording once opened, so the state
+   is unambiguous without relying on the chevron alone. */
+.accordion-affordance {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.accordion-hint {
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 4px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+  background: var(--accent-light);
+  color: var(--accent-dark);
+  transition: background 0.15s, color 0.15s;
+}
+.accordion-hint-open { display: none; }
+details[open] > summary .accordion-hint-open { display: inline-block; }
+details[open] > summary .accordion-hint-closed { display: none; }
+
+.method-accordion > summary:hover .accordion-hint,
+.mini-accordion > summary:hover .accordion-hint {
+  background: var(--accent);
+  color: #ffffff;
+}
+.mini-accordion .accordion-hint {
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  color: var(--accent-dark);
+}
+.mini-accordion > summary:hover .accordion-hint {
+  border-color: var(--accent);
+}
 
 .primary-card { border: 1.5px solid var(--accent); }
 
@@ -538,6 +584,8 @@ input:disabled { background:#f0ece1; color:var(--muted); cursor:not-allowed; }
 
   .page-nav { gap: 7px; margin-top: 18px; }
   .page-nav a { font-size: 10.5px; padding: 6px 11px; }
+
+  .accordion-hint { font-size: 9.5px; padding: 3px 8px; }
 }
 
 /* MathJax global scroll safety */

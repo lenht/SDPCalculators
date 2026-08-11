@@ -149,11 +149,17 @@
       <!-- MAIN CARD -->
       <section class="calculator-card">
 
-        <!-- FORMULAS — collapsed by default so the calculator is immediate -->
+        <!-- FORMULAS — collapsed by default so the calculator is immediate.
+             The affordance pill spells out "Click to expand / collapse" in words, not
+             just a chevron, so the row reads as interactive at a glance. -->
         <details class="method-accordion" id="method">
           <summary>
             <span>Formulas — main, massive &amp; massless particles</span>
-            <span class="chev">▾</span>
+            <span class="accordion-affordance">
+              <span class="accordion-hint accordion-hint-closed">Click to expand</span>
+              <span class="accordion-hint accordion-hint-open">Click to collapse</span>
+              <span class="chev">▾</span>
+            </span>
           </summary>
           <div class="method-accordion-body">
 

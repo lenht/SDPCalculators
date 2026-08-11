@@ -11,7 +11,7 @@ const MN = 1.008665;
 
 /* LOAD ELEMENT DATA */
 
-fetch("g-values-elements.json")
+fetch("data/g-values-elements.json")
   .then(response => response.json())
   .then(data => {
     elements = data.elements;
@@ -24,7 +24,7 @@ fetch("g-values-elements.json")
     const lookupResult = document.getElementById("lookup-result");
     if (lookupResult) {
       lookupResult.innerHTML =
-        "Could not load element data. Make sure the JSON file is in the same folder as the HTML files.";
+        "Could not load element data. Make sure the JSON file is in the data/ folder alongside the HTML files.";
     }
   });
 
