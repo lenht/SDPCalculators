@@ -206,7 +206,7 @@ a.formula-link { display: block; text-decoration: none; }
   transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
 .page-nav a:first-child { background: var(--accent); border-color: var(--accent); color: #fff; }
-.page-nav a:first-child:hover { background: var(--accent-dark); }
+.page-nav a:first-child:hover { background: var(--accent-dark); color: #fff; }
 .page-nav a:hover { background: #ffffff; border-color: var(--accent); color: var(--accent-dark); }
 
 /* ══════════════════════════════════════════════
