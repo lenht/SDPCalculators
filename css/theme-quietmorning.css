@@ -221,12 +221,55 @@ a.formula-link { display: block; text-decoration: none; }
 }
 
 .formula-box {
+  position: relative; /* anchors the scroll-hint caption below */
   background: var(--formula-bg);
   border: 1px solid #5c574c;
   border-radius: 10px; padding: 20px 26px;
   margin-top: 18px; margin-bottom: 18px;
   text-align: center; font-size: 20px;
   color: var(--formula-color); line-height: 1.9;
+  overflow-x: visible; /* the box itself never clips — only the equation inside scrolls, via mjx-container below */
+}
+
+/* Long formulas: mjx-container is the thing that actually scrolls, so the
+   box's border/padding stay put and only the equation itself moves.
+   fitFormulas() in shared.js tries shrinking the formula to fit first —
+   this scroll behaviour is now the fallback, not the default outcome. */
+.formula-box mjx-container {
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+  display: block;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+/* Only added by fitFormulas() when a formula is still too wide even at
+   the smallest still-readable scale. A soft edge fade plus an explicit
+   caption make the horizontal scroll obvious instead of a silent
+   surprise — this was the actual bug being fixed: scrollability with
+   no visible cue that it existed. */
+.formula-box.is-scrollable mjx-container {
+  background:
+    linear-gradient(to right, var(--formula-bg) 30%, rgba(77,71,61,0)),
+    linear-gradient(to left,  var(--formula-bg) 30%, rgba(77,71,61,0)) 100% 0,
+    linear-gradient(to right, rgba(0,0,0,.35), rgba(0,0,0,0)),
+    linear-gradient(to left,  rgba(0,0,0,.35), rgba(0,0,0,0)) 100% 0;
+  background-repeat: no-repeat;
+  background-color: var(--formula-bg);
+  background-size: 36px 100%, 36px 100%, 14px 100%, 14px 100%;
+  background-attachment: local, local, scroll, scroll;
+}
+.formula-box.is-scrollable::after {
+  content: "⇄  Scroll to see the full formula";
+  display: block;
+  margin-top: 10px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-align: center;
+  color: rgba(255,255,255,0.6);
 }
 
 .legend-box {
@@ -569,15 +612,7 @@ details[open] > summary .accordion-hint-closed { display: none; }
   .formula-box {
     font-size: 15px;
     padding: 14px 12px;
-    overflow-x: visible;
     text-align: center;
-  }
-  .formula-box mjx-container {
-    overflow-x: auto;
-    overflow-y: hidden;
-    max-width: 100%;
-    display: block;
-    -webkit-overflow-scrolling: touch;
   }
 
   .small-formula { font-size: 14px; padding: 12px 10px; }

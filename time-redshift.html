@@ -400,10 +400,13 @@
   <script src="js/time-redshift.js"></script>
 
   <script>
-    // Trigger MathJax typesetting once the page is fully loaded
+    // Trigger MathJax typesetting once the page is fully loaded, then fit
+    // any long formulas to the viewport (see fitFormulas() in shared.js).
     window.addEventListener("load", () => {
       if (window.MathJax && MathJax.typesetPromise) {
-        MathJax.typesetPromise();
+        MathJax.typesetPromise().then(() => {
+          if (window.fitFormulas) fitFormulas();
+        });
       }
     });
   </script>
