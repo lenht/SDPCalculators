@@ -18,7 +18,7 @@
 @import url('https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital,wght@0,500;0,600;1,500&display=swap');
 
 :root {
-  --sidebar-width: 300px;
+  --header-height:  64px;
 
   --bg:             #f4f1ea;
   --panel:          #ffffff;
@@ -71,90 +71,102 @@ select {
   padding-right: 48px;
 }
 
-.app { display: flex; min-height: 100vh; }
+.app { display: block; min-height: 100vh; }
 
 /* ══════════════════════════════════════════════
-   SIDEBAR — flat, solid, quiet
+   TOP NAV — flat, solid, quiet (replaces the
+   former fixed-width left sidebar)
    ══════════════════════════════════════════════ */
-.sidebar {
-  position: fixed; top: 0; left: 0;
-  width: var(--sidebar-width);
+.topnav {
+  position: sticky; top: 0; z-index: 100;
   background: #3a352e;
-  border-right: 1px solid #4d473d;
-  padding: 24px 18px;
-  height: 100vh; overflow-y: auto; z-index: 100;
-  display: flex; flex-direction: column;
+  border-bottom: 1px solid #4d473d;
+  padding: 0 24px;
+}
+.topnav-inner {
+  max-width: 1400px; margin: 0 auto;
+  height: var(--header-height);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 20px;
 }
 
-.sidebar h1 {
-  margin-top: 0; margin-bottom: 8px; font-size: 24px;
-  font-family: var(--font-display); font-weight: 600;
+.topnav-brand-link {
   display: flex; align-items: center; gap: 9px;
+  text-decoration: none; flex-shrink: 0;
+}
+.topnav-brand-link span {
+  font-family: var(--font-display); font-weight: 600; font-size: 18px;
   color: #f2eae0;
 }
-.sidebar h1 .kicker-mark line { stroke: #6b6559; }
-.sidebar h1 .kicker-mark .k-pred { fill: var(--accent); }
-.sidebar h1 .kicker-mark .k-obs  { fill: var(--birch); stroke: none; }
-.subtitle {
-  color: #b3ac9d; font-size: 14px; line-height: 1.5; margin-bottom: 24px;
-}
+.topnav-brand-link .kicker-mark line { stroke: #6b6559; }
+.topnav-brand-link .kicker-mark .k-pred { fill: var(--accent); }
+.topnav-brand-link .kicker-mark .k-obs  { fill: var(--birch); stroke: none; }
 
-.category {
-  margin-bottom: 10px;
-  border: 1px solid rgba(255,255,255,0.10);
-  border-radius: 10px; overflow: hidden;
-  background: rgba(255,255,255,0.04);
-}
-.category-button {
-  width: 100%; border: none; background: transparent;
-  padding: 13px 16px;
-  display: flex; justify-content: space-between; align-items: center;
-  gap: 12px; cursor: pointer; font-size: 14px; font-weight: 700;
-  color: #cfc9bb; text-align: left;
+.topnav-cats { display: flex; align-items: center; gap: 4px; }
+.topnav-cat { position: relative; }
+.topnav-cat-btn {
+  border: none; background: transparent;
+  display: flex; align-items: center; gap: 6px;
+  padding: 10px 14px; border-radius: 8px;
+  font-size: 13px; font-weight: 700; white-space: nowrap;
+  color: #cfc9bb; cursor: pointer;
   transition: background 0.15s, color 0.15s;
 }
-.category-button:hover { background: rgba(255,255,255,0.06); color: #ffffff; }
-.category-button span { flex-shrink: 0; }
-.formula-list { display: none; padding: 8px; border-top: 1px solid rgba(255,255,255,0.10); }
-.category.open .formula-list { display: block; }
+.topnav-cat-btn:hover { background: rgba(255,255,255,0.08); color: #ffffff; }
+.topnav-cat.has-active .topnav-cat-btn {
+  color: #ffffff; box-shadow: inset 0 -2px 0 var(--accent);
+}
+.topnav-cat.open .topnav-cat-btn { background: rgba(255,255,255,0.08); color: #ffffff; }
+.topnav-cat-btn .chev { font-size: 10px; opacity: 0.8; transition: transform 0.15s ease; }
+.topnav-cat.open .chev { transform: rotate(180deg); }
+
+.topnav-dropdown {
+  display: none;
+  position: absolute; top: calc(100% + 6px); left: 0;
+  min-width: 230px;
+  background: #3a352e;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 10px; padding: 6px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.28);
+  z-index: 200;
+}
+.topnav-cat.open .topnav-dropdown { display: block; }
+
 .formula-link {
-  width: 100%; border: none; background: transparent;
-  text-align: left; padding: 9px 12px; margin-bottom: 3px;
-  border-radius: 7px; cursor: pointer;
+  display: block; text-decoration: none;
+  padding: 9px 12px; margin-bottom: 2px;
+  border-radius: 7px;
   color: #b3ac9d; font-size: 14px;
   transition: background 0.15s, color 0.15s;
 }
+.formula-link:last-child { margin-bottom: 0; }
 .formula-link:hover, .formula-link.active {
   background: var(--accent); color: #ffffff; font-weight: 700;
 }
-a.formula-link { display: block; text-decoration: none; }
 
 /* ══════════════════════════════════════════════
    MAIN
    ══════════════════════════════════════════════ */
-.main { flex: 1; margin-left: var(--sidebar-width); padding: 36px; }
+.main { padding: 32px 32px 60px; }
 
 /* ── HERO ──────────────────────────────────────
-   A flat wash of colour, not a bordered card — the
-   calculator-card below is the one thing on the page
-   that gets a border + shadow, so the hero reads as
-   atmosphere/context rather than "another box". ── */
+   Flat — no card, no fill. Kicker, heading, a short
+   accent rule, then the intro text, sitting directly
+   on the page background. Narrower than the old 1300px
+   card so paragraph lines stay a comfortable reading
+   width instead of stretching edge to edge. ── */
 .page-header {
-  max-width: 1100px;
-  margin-bottom: 32px;
-  padding: 38px 44px 30px;
-  background: var(--birch-tint);
-  border-radius: 22px;
+  max-width: 920px;
+  margin: 0 auto 40px;
 }
 
-/* Kicker: names the sidebar category the page lives under,
-   led by a small mark of two dots on a line — the same
-   predicted / observed motif the meta-analysis chart legend
-   uses (mist-blue = predicted, birch = observed). It's the
-   one signature element repeated across every page. */
+/* Kicker: names the category the page lives under, led by
+   the small two-dot mark (mist-blue = predicted, birch =
+   observed) — the one signature element repeated on every
+   page and in the top nav brand. */
 .page-kicker {
   display: inline-flex; align-items: center; gap: 9px;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
   font-size: 11px; font-weight: 700; text-transform: uppercase;
   letter-spacing: 0.12em; color: var(--accent-dark);
 }
@@ -164,12 +176,20 @@ a.formula-link { display: block; text-decoration: none; }
 .kicker-mark .k-obs  { fill: var(--birch); stroke: var(--accent-dark); stroke-width: 0.75; }
 
 .page-header h2 {
-  margin: 0 0 16px;
+  margin: 0 0 14px;
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 35px;
+  font-size: 32px;
   letter-spacing: -0.005em;
   color: var(--heading);
+}
+
+/* Short accent rule standing in for the old colored card —
+   just enough of a mark to separate heading from body copy. */
+.hero-rule {
+  width: 40px; height: 2px;
+  background: var(--accent);
+  margin: 0 0 20px;
 }
 
 .description-box {
@@ -181,8 +201,8 @@ a.formula-link { display: block; text-decoration: none; }
 .description-box p:first-of-type { font-size: 17px; color: var(--heading); }
 .description-box p:last-of-type { margin-bottom: 0; }
 .description-box .description-note {
-  margin-top: 18px; padding-top: 16px;
-  border-top: 1px solid var(--border-strong);
+  margin-top: 20px; padding: 2px 0 2px 16px;
+  border-left: 3px solid var(--border-strong);
   font-size: 13px; line-height: 1.6; color: var(--muted);
 }
 .description-box .description-note strong {
@@ -191,34 +211,36 @@ a.formula-link { display: block; text-decoration: none; }
 }
 .description-box .description-note strong em { font-style: normal; }
 
-/* Quiet nav pills — the first link (the "start here" one)
-   is filled to give the eye one clear place to land. */
+/* Quiet text nav — plain links with an underline on hover;
+   the first one ("start here") stays in the accent color so
+   the eye still has one clear place to land, but nothing here
+   is a button anymore. */
 .page-nav {
-  display: flex; flex-wrap: wrap; gap: 8px;
-  margin-top: 24px; padding-top: 0; border-top: none;
+  display: flex; flex-wrap: wrap; gap: 8px 22px;
+  margin-top: 26px;
 }
 .page-nav a {
   font-size: 12px; font-weight: 700; text-transform: uppercase;
-  letter-spacing: 0.05em; color: var(--accent-dark); text-decoration: none;
-  white-space: nowrap; padding: 7px 14px; border-radius: 20px;
-  border: 1px solid var(--border-strong);
-  background: rgba(255,255,255,0.55);
-  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  letter-spacing: 0.05em; color: var(--muted); text-decoration: none;
+  white-space: nowrap; padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
 }
-.page-nav a:first-child { background: var(--accent); border-color: var(--accent); color: #fff; }
-.page-nav a:first-child:hover { background: var(--accent-dark); color: #fff; }
-.page-nav a:hover { background: #ffffff; border-color: var(--accent); color: var(--accent-dark); }
+.page-nav a:first-child { color: var(--accent-dark); }
+.page-nav a:hover { color: var(--accent-dark); border-color: var(--accent); }
 
 /* ══════════════════════════════════════════════
    CALCULATOR CARD & CONTENT
    ══════════════════════════════════════════════ */
 .calculator-card {
-  max-width: 1100px;
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 16px; padding: 32px;
-  box-shadow: var(--shadow-card);
+  max-width: 920px;
+  margin: 0 auto;
 }
+/* The meta-analysis dashboard is the one page where the content
+   itself — the chart — genuinely needs more than a reading-width
+   column, so it opts into a wider ceiling rather than every page
+   inheriting it. */
+.calculator-card.wide { max-width: 1400px; }
 
 .formula-box {
   position: relative; /* anchors the scroll-hint caption below */
@@ -273,24 +295,39 @@ a.formula-link { display: block; text-decoration: none; }
 }
 
 .legend-box {
-  background: var(--panel-raised);
-  border: 1px solid var(--border);
-  border-radius: 12px; padding: 20px 24px;
+  padding: 2px 0 2px 16px;
+  border-left: 3px solid var(--border-strong);
   margin-bottom: 26px; color: var(--muted);
   font-size: 14px;
 }
 .legend-box p { margin: 7px 0; }
 
-h3 { margin-top: 36px; margin-bottom: 14px; color: var(--heading); font-size: 21px; font-family: var(--font-display); font-weight: 600; }
-h3:first-of-type { margin-top: 0; }
-.method-accordion + h3 { margin-top: 20px; }
+/* h3 is now the thing that separates sections that used to each
+   get their own bordered box — a top rule + generous spacing
+   instead of nested cards. */
+h3 {
+  margin-top: 52px; padding-top: 30px;
+  border-top: 1px solid var(--border);
+  color: var(--heading); font-size: 21px;
+  font-family: var(--font-display); font-weight: 600;
+}
+h3:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
+.method-accordion + h3 { margin-top: 32px; padding-top: 0; border-top: none; }
 
 .box, .note-box {
-  background: var(--panel); border: 1px solid var(--border);
-  border-radius: 12px; padding: 22px 24px;
-  margin-bottom: 26px; box-shadow: var(--shadow-soft);
+  background: transparent; border: none; box-shadow: none;
+  border-radius: 0; padding: 0;
+  margin-bottom: 8px;
 }
 .note-box p { color: var(--muted); line-height: 1.6; }
+/* The flagship tool on each page keeps a soft fill — the one
+   deliberate exception, so there's still a single clear place
+   the eye lands as "the thing to use", without a border. */
+.primary-card {
+  background: var(--panel-raised);
+  border-radius: 14px;
+  padding: 28px 26px;
+}
 
 .form-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; align-items:stretch; }
 .form-grid > div { display:flex; flex-direction:column; }
@@ -325,10 +362,10 @@ input:disabled { background:#f0ece1; color:var(--muted); cursor:not-allowed; }
 .primary:active { transform: translateY(1px); box-shadow: 0 1px 3px rgba(68,63,55,0.15); }
 
 .result-box {
-  margin-top:20px; padding:16px 20px; border-radius:10px;
-  background: var(--panel-raised);
-  border:1px solid var(--border); font-family:monospace;
-  line-height:1.7; color:var(--accent-dark);
+  margin-top: 20px; padding-top: 16px;
+  border-top: 1px solid var(--border);
+  font-family: monospace;
+  line-height: 1.7; color: var(--accent-dark);
 }
 
 .small-formula { font-size:17px; padding:16px 24px; margin-top:14px; margin-bottom:14px; }
@@ -342,10 +379,8 @@ input:disabled { background:#f0ece1; color:var(--muted); cursor:not-allowed; }
 .lookup-methodology h4 { margin-top:0; margin-bottom:16px; font-size:20px; color:var(--heading); }
 
 #lookup-result {
-  margin-top:22px;
-  background: var(--panel-raised);
-  border:1px solid var(--border);
-  color:var(--heading); padding:20px 22px; border-radius:12px;
+  margin-top: 22px; padding-top: 16px;
+  color: var(--heading);
 }
 #lookup-result h4 { margin-top:0; margin-bottom:16px; font-size:19px; font-weight:700; color:var(--heading); }
 #lookup-result strong { color:var(--heading); font-size:17px; }
@@ -358,10 +393,8 @@ input:disabled { background:#f0ece1; color:var(--muted); cursor:not-allowed; }
    flat label/value list instead of sitting at the same weight as
    atomic number, inertial mass, etc. */
 .lookup-highlight {
-  margin: 14px 0 4px; padding: 14px 16px;
-  background: var(--accent-light);
-  border: 1px solid var(--accent);
-  border-radius: 9px;
+  margin: 14px 0 4px; padding: 8px 0 8px 16px;
+  border-left: 3px solid var(--accent);
 }
 .lookup-highlight .lookup-label { color: var(--accent-dark); }
 .lookup-highlight .lookup-value {
@@ -384,10 +417,8 @@ input:disabled { background:#f0ece1; color:var(--muted); cursor:not-allowed; }
 .isotope-list strong { color:var(--accent-dark); font-family:monospace; }
 
 .reference-values {
-  margin:20px 0; padding:16px 20px;
-  background: var(--panel-raised);
-  border:1px solid var(--border); border-left:4px solid var(--accent);
-  border-radius:10px;
+  margin: 20px 0; padding: 4px 0 4px 18px;
+  border-left: 3px solid var(--accent);
 }
 .reference-values div { margin-bottom:8px; color:var(--text); }
 .reference-values div:last-child { margin-bottom:0; }
@@ -434,9 +465,8 @@ input:disabled { background:#f0ece1; color:var(--muted); cursor:not-allowed; }
    is now spelled out in words as well as shape.
    ══════════════════════════════════════════════ */
 .method-accordion {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 12px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
   margin-bottom: 26px;
 }
 .method-accordion > summary {
@@ -446,15 +476,15 @@ input:disabled { background:#f0ece1; color:var(--muted); cursor:not-allowed; }
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 15px 20px;
+  padding: 16px 2px;
   font-weight: 700;
   color: var(--heading);
   font-size: 15px;
-  transition: background 0.15s;
+  transition: color 0.15s;
 }
 .method-accordion > summary::-webkit-details-marker { display: none; }
 .method-accordion > summary::marker { content: ""; }
-.method-accordion > summary:hover { background: var(--panel-raised); }
+.method-accordion > summary:hover { color: var(--accent-dark); }
 .method-accordion .chev {
   flex-shrink: 0;
   font-size: 11px;
@@ -465,7 +495,7 @@ input:disabled { background:#f0ece1; color:var(--muted); cursor:not-allowed; }
 }
 .method-accordion[open] > summary .chev { transform: rotate(180deg); }
 .method-accordion-body {
-  padding: 2px 20px 20px;
+  padding: 2px 2px 22px;
   border-top: 1px solid var(--border);
 }
 .method-accordion-body > *:first-child { margin-top: 18px; }
@@ -477,9 +507,9 @@ input:disabled { background:#f0ece1; color:var(--muted); cursor:not-allowed; }
 .method-accordion-body h4:first-child { margin-top: 18px; }
 
 .mini-accordion {
-  border: 1px solid var(--border);
-  border-radius: 10px;
+  border-bottom: 1px solid var(--border);
   margin-top: 20px;
+  padding-bottom: 2px;
 }
 .mini-accordion > summary {
   list-style: none;
@@ -488,15 +518,15 @@ input:disabled { background:#f0ece1; color:var(--muted); cursor:not-allowed; }
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding: 11px 15px;
+  padding: 11px 2px;
   font-size: 13px;
   font-weight: 700;
   color: var(--accent-dark);
-  transition: background 0.15s;
+  transition: color 0.15s;
 }
 .mini-accordion > summary::-webkit-details-marker { display: none; }
 .mini-accordion > summary::marker { content: ""; }
-.mini-accordion > summary:hover { background: var(--panel-raised); }
+.mini-accordion > summary:hover { color: var(--accent); }
 .mini-accordion .chev {
   font-size: 11px;
   line-height: 1;
@@ -504,7 +534,7 @@ input:disabled { background:#f0ece1; color:var(--muted); cursor:not-allowed; }
   transition: transform 0.15s ease;
 }
 .mini-accordion[open] > summary .chev { transform: rotate(180deg); }
-.mini-accordion-body { padding: 2px 16px 16px; }
+.mini-accordion-body { padding: 2px 2px 18px; }
 .mini-accordion-body > *:first-child { margin-top: 8px; }
 
 /* ── Accordion affordance pill ──────────────────
@@ -524,12 +554,9 @@ input:disabled { background:#f0ece1; color:var(--muted); cursor:not-allowed; }
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  padding: 4px 10px;
-  border-radius: 20px;
   white-space: nowrap;
-  background: var(--accent-light);
   color: var(--accent-dark);
-  transition: background 0.15s, color 0.15s;
+  transition: color 0.15s;
 }
 .accordion-hint-open { display: none; }
 details[open] > summary .accordion-hint-open { display: inline-block; }
@@ -537,43 +564,29 @@ details[open] > summary .accordion-hint-closed { display: none; }
 
 .method-accordion > summary:hover .accordion-hint,
 .mini-accordion > summary:hover .accordion-hint {
-  background: var(--accent);
-  color: #ffffff;
+  color: var(--accent);
 }
-.mini-accordion .accordion-hint {
-  background: transparent;
-  border: 1px solid var(--border-strong);
-  color: var(--accent-dark);
-}
-.mini-accordion > summary:hover .accordion-hint {
-  border-color: var(--accent);
-}
-
-.primary-card { border: 1.5px solid var(--accent); }
 
 /* ══════════════════════════════════════════════
-   SIDEBAR ATTRIBUTION
+   SITE FOOTER (replaces the former sidebar attribution)
    ══════════════════════════════════════════════ */
-.sidebar-attribution {
-  margin-top:auto; padding-top:20px;
-  border-top:1px solid rgba(255,255,255,0.10);
-  font-size:12px; color:#a49d8e; line-height:1.6;
+.site-footer {
+  max-width: 920px; margin: 44px auto 0;
+  padding: 18px 4px 0;
+  border-top: 1px solid var(--border);
+  display: flex; flex-wrap: wrap; align-items: center; gap: 18px;
+  font-size: 12px; color: var(--muted); line-height: 1.6;
 }
-.sidebar-attribution .attr-title {
-  font-size:11px; font-weight:700; text-transform:uppercase;
-  letter-spacing:0.07em; color:#d9c39a; margin-bottom:6px;
+.footer-row { display: flex; align-items: center; gap: 6px; }
+.footer-name { font-weight: 700; color: var(--heading); font-size: 13px; }
+.footer-icon { flex-shrink: 0; width: 14px; height: 14px; opacity: 0.6; }
+.site-footer a {
+  color: var(--muted); text-decoration: none;
+  border-bottom: 1px solid var(--border-strong);
+  transition: color 0.15s;
 }
-.sidebar-attribution .attr-name {
-  font-weight:700; color:#dcd6c9; font-size:13px; margin-bottom:8px;
-}
-.sidebar-attribution a {
-  color:#a9c1cc; text-decoration:none;
-  border-bottom:1px solid rgba(169,193,204,0.24);
-  transition:color 0.2s;
-}
-.sidebar-attribution a:hover { color:#d9c39a; }
-.attr-row { display:flex; align-items:center; gap:6px; margin-bottom:4px; }
-.attr-icon { flex-shrink:0; width:14px; height:14px; opacity:0.6; }
+.site-footer a:hover { color: var(--accent-dark); }
+.footer-copyright { margin-left: auto; color: var(--muted); }
 
 /* ══════════════════════════════════════════════
    SKIN SWITCHER
@@ -595,16 +608,30 @@ details[open] > summary .accordion-hint-closed { display: none; }
    MOBILE
    ══════════════════════════════════════════════ */
 @media (max-width:800px) {
-  .app { flex-direction:column; }
-  .sidebar { position:static; width:100%; height:auto; border-right:none; border-bottom:1px solid #4d473d; }
-  .main { margin-left:0; padding: 20px 16px; }
-  .calculator-card { padding:18px; }
+  .topnav { padding: 10px 16px 12px; }
+  .topnav-inner {
+    height: auto; flex-direction: column; align-items: stretch; gap: 10px;
+  }
+  .topnav-cats {
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    padding-bottom: 2px;
+  }
+  .topnav-cat-btn {
+    border-radius: 20px; border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(255,255,255,0.05);
+  }
+  .topnav-cat.has-active .topnav-cat-btn { box-shadow: none; border-color: var(--accent); }
+  .topnav-dropdown {
+    position: static; margin-top: 8px; min-width: 0;
+    box-shadow: none;
+  }
+  .main { padding: 20px 16px; }
+  .primary-card { padding: 18px; }
   .form-grid { grid-template-columns:1fr; }
   .molecule-row-fields { grid-template-columns:1fr 100px; }
   .add-element-btn { width:100%; justify-content:center; }
   .molecule-btn-row { flex-direction:column; align-items:stretch; }
   .molecule-btn-row .primary { width:100%; }
-  .page-header { padding: 26px 22px 24px; border-radius: 16px; }
   .page-kicker { font-size: 10px; margin-bottom: 10px; }
   .page-header h2 { font-size:25px; }
   .description-box p:first-of-type { font-size: 15.5px; }
@@ -617,10 +644,10 @@ details[open] > summary .accordion-hint-closed { display: none; }
 
   .small-formula { font-size: 14px; padding: 12px 10px; }
 
-  .page-nav { gap: 7px; margin-top: 18px; }
-  .page-nav a { font-size: 10.5px; padding: 6px 11px; }
+  .page-nav { gap: 6px 16px; margin-top: 18px; }
+  .page-nav a { font-size: 10.5px; }
 
-  .accordion-hint { font-size: 9.5px; padding: 3px 8px; }
+  .accordion-hint { font-size: 9.5px; }
 }
 
 /* MathJax global scroll safety */
