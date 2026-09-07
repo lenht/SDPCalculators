@@ -110,47 +110,44 @@ select {
   padding: 10px 14px; border-radius: 8px;
   font-size: 13px; font-weight: 700; white-space: nowrap;
   color: #cfc9bb; cursor: pointer;
-  transition: background 0.15s, color 0.15s;
+  transition: color 0.15s;
 }
 .cat-label { position: relative; }
 
-/* Hover / open: underline only the label text, animated left → right */
-.cat-label::after {
+/* Hover: one cue — the text brightens. The chevron flip (below) is a
+   separate, functional signal tied to the dropdown actually opening,
+   not a second decorative hover effect stacked on top of this one. */
+.topnav-cat-btn:hover { color: #ffffff; }
+
+/* Active category: a persistent underline — always present, never a
+   hover effect — so "where you are" never borrows the same visual
+   language as "what you're about to click". */
+.topnav-cat.has-active .topnav-cat-btn { color: #ffffff; }
+.topnav-cat.has-active .cat-label::after {
   content: "";
   position: absolute;
   left: 0; right: 0; bottom: -3px;
   height: 2px;
   background: var(--accent);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.25s ease;
 }
-.topnav-cat-btn:hover { color: #ffffff; }
-.topnav-cat-btn:hover .cat-label::after { transform: scaleX(1); }
-.topnav-cat.open .topnav-cat-btn { color: #ffffff; }
-.topnav-cat.open .topnav-cat-btn .cat-label::after { transform: scaleX(1); }
 
-/* Active category: subtle lighter-brown highlight, no underline */
-.topnav-cat.has-active .topnav-cat-btn {
-  color: #ffffff;
-  background: rgba(255,255,255,0.08);
-}
-.topnav-cat.has-active .topnav-cat-btn .cat-label::after { display: none; }
 .topnav-cat-btn .chev { font-size: 10px; opacity: 0.8; transition: transform 0.15s ease; }
 .topnav-cat.open .chev { transform: rotate(180deg); }
 
 .topnav-dropdown {
   display: none;
   position: absolute; top: 100%; left: 0;
-  min-width: 230px;
-  padding-top: 6px; /* the old "gap" now lives inside the hoverable element itself */
+  min-width: 220px;
+  padding-top: 7px; /* the old "gap" now lives inside the hoverable element itself */
   z-index: 200;
 }
+/* Lighter chrome — softer shadow, quieter border, tighter link padding —
+   now that there's less visual competition from the button above it. */
 .topnav-dropdown-inner {
   background: #3a352e;
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 10px; padding: 6px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.28);
+  border: 1px solid rgba(255,255,255,0.09);
+  border-radius: 9px; padding: 5px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.20);
 }
 .topnav-cat.open .topnav-dropdown,
 .topnav-cat:hover .topnav-dropdown { display: block; }
@@ -158,14 +155,24 @@ select {
 
 .formula-link {
   display: block; text-decoration: none;
-  padding: 9px 12px; margin-bottom: 2px;
-  border-radius: 7px;
+  padding: 8px 11px; margin-bottom: 1px;
+  border-radius: 6px;
   color: #b3ac9d; font-size: 14px;
   transition: background 0.15s, color 0.15s;
 }
 .formula-link:last-child { margin-bottom: 0; }
-.formula-link:hover, .formula-link.active {
+.formula-link:hover {
   background: var(--accent); color: #ffffff; font-weight: 700;
+}
+/* Current-page link inside an open dropdown: quiet birch text, no
+   fill — distinct from hover's solid accent fill, so "this is the
+   page I'm on" and "this is what I'm about to click" never collide,
+   even on the one link where both states can apply at once. */
+.formula-link.active {
+  color: var(--birch); font-weight: 700; background: transparent;
+}
+.formula-link.active:hover {
+  background: var(--accent); color: #ffffff;
 }
 
 /* ══════════════════════════════════════════════
@@ -646,6 +653,9 @@ details[open] > summary .accordion-hint-closed { display: none; }
   }
   .topnav-cat.has-active .topnav-cat-btn { box-shadow: none; border-color: var(--accent); }
   .topnav-cat.has-active .topnav-cat-btn::after { display: none; }
+  /* The pill border above already signals "active" on mobile — the
+     desktop underline would just double up on that inside the pill. */
+  .topnav-cat.has-active .cat-label::after { display: none; }
   .topnav-dropdown {
     position: static; margin-top: 8px; min-width: 0;
     box-shadow: none;
