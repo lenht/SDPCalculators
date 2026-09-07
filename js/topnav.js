@@ -59,6 +59,12 @@
       closeAll(cat);
       cat.classList.toggle("open", !wasOpen);
     });
+    // Hovering onto a different category should release any category
+    // that was pinned open by a click — otherwise its .open class keeps
+    // its dropdown visible underneath/alongside the one now showing via
+    // :hover, since :hover and .open are independent triggers for the
+    // same display: block rule.
+    cat.addEventListener("mouseenter", () => closeAll(cat));
   });
 
   document.addEventListener("click", () => closeAll(null));

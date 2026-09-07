@@ -112,25 +112,49 @@ select {
   color: #cfc9bb; cursor: pointer;
   transition: background 0.15s, color 0.15s;
 }
-.topnav-cat-btn:hover { background: rgba(255,255,255,0.08); color: #ffffff; }
-.topnav-cat.has-active .topnav-cat-btn {
-  color: #ffffff; box-shadow: inset 0 -2px 0 var(--accent);
+.cat-label { position: relative; }
+
+/* Hover / open: underline only the label text, animated left → right */
+.cat-label::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -3px;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
 }
-.topnav-cat.open .topnav-cat-btn { background: rgba(255,255,255,0.08); color: #ffffff; }
+.topnav-cat-btn:hover { color: #ffffff; }
+.topnav-cat-btn:hover .cat-label::after { transform: scaleX(1); }
+.topnav-cat.open .topnav-cat-btn { color: #ffffff; }
+.topnav-cat.open .topnav-cat-btn .cat-label::after { transform: scaleX(1); }
+
+/* Active category: subtle lighter-brown highlight, no underline */
+.topnav-cat.has-active .topnav-cat-btn {
+  color: #ffffff;
+  background: rgba(255,255,255,0.08);
+}
+.topnav-cat.has-active .topnav-cat-btn .cat-label::after { display: none; }
 .topnav-cat-btn .chev { font-size: 10px; opacity: 0.8; transition: transform 0.15s ease; }
 .topnav-cat.open .chev { transform: rotate(180deg); }
 
 .topnav-dropdown {
   display: none;
-  position: absolute; top: calc(100% + 6px); left: 0;
+  position: absolute; top: 100%; left: 0;
   min-width: 230px;
+  padding-top: 6px; /* the old "gap" now lives inside the hoverable element itself */
+  z-index: 200;
+}
+.topnav-dropdown-inner {
   background: #3a352e;
   border: 1px solid rgba(255,255,255,0.12);
   border-radius: 10px; padding: 6px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.28);
-  z-index: 200;
 }
-.topnav-cat.open .topnav-dropdown { display: block; }
+.topnav-cat.open .topnav-dropdown,
+.topnav-cat:hover .topnav-dropdown { display: block; }
+.topnav-cat:hover .chev { transform: rotate(180deg); }
 
 .formula-link {
   display: block; text-decoration: none;
@@ -621,6 +645,7 @@ details[open] > summary .accordion-hint-closed { display: none; }
     background: rgba(255,255,255,0.05);
   }
   .topnav-cat.has-active .topnav-cat-btn { box-shadow: none; border-color: var(--accent); }
+  .topnav-cat.has-active .topnav-cat-btn::after { display: none; }
   .topnav-dropdown {
     position: static; margin-top: 8px; min-width: 0;
     box-shadow: none;
