@@ -71,4 +71,64 @@
   document.addEventListener("keydown", event => {
     if (event.key === "Escape") closeAll(null);
   });
+
+  // ── Mobile slide-in drawer ────────────────────
+  // On narrow viewports .topnav-cats becomes an off-canvas panel
+  // (see the mobile media query in theme-quietmorning.css). The
+  // hamburger button toggles it; the categories inside keep working
+  // exactly as before (click to expand a category's links), just
+  // stacked vertically instead of shown as a hovering dropdown.
+  const hamburger  = header.querySelector("#topnav-hamburger");
+  const drawer     = header.querySelector("#topnav-cats");
+  const overlay    = document.getElementById("topnav-overlay");
+
+  function openDrawer() {
+    if (!drawer) return;
+    drawer.classList.add("open");
+    if (overlay) overlay.classList.add("open");
+    if (hamburger) hamburger.setAttribute("aria-expanded", "true");
+    document.body.classList.add("nav-drawer-open");
+  }
+
+  function closeDrawer() {
+    if (!drawer) return;
+    drawer.classList.remove("open");
+    if (overlay) overlay.classList.remove("open");
+    if (hamburger) hamburger.setAttribute("aria-expanded", "false");
+    document.body.classList.remove("nav-drawer-open");
+    // Also collapse any category left expanded inside the drawer,
+    // so it doesn't reopen already-expanded next time.
+    closeAll(null);
+  }
+
+  if (hamburger) {
+    hamburger.addEventListener("click", event => {
+      event.stopPropagation();
+      const isOpen = drawer && drawer.classList.contains("open");
+      isOpen ? closeDrawer() : openDrawer();
+    });
+  }
+
+  if (overlay) {
+    overlay.addEventListener("click", closeDrawer);
+  }
+
+  // Closing on Escape is handled by the existing keydown listener
+  // above for categories — extend it to also close the drawer.
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape") closeDrawer();
+  });
+
+  // Picking a destination (or the brand link) should close the drawer
+  // rather than leaving it open underneath the page that loads next.
+  header.querySelectorAll("a.formula-link, .topnav-brand-link").forEach(link => {
+    link.addEventListener("click", closeDrawer);
+  });
+
+  // If the viewport is widened past the mobile breakpoint while the
+  // drawer is open, close it so it doesn't linger as a fixed-position
+  // panel over the desktop layout.
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 800) closeDrawer();
+  });
 })();

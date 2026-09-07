@@ -175,6 +175,61 @@ select {
   background: var(--accent); color: #ffffff;
 }
 
+/* ── Hamburger toggle — hidden on desktop, shown only inside the
+   mobile media query below, where .topnav-cats becomes the sliding
+   drawer this button opens and closes. ── */
+.topnav-hamburger {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: 40px; height: 40px;
+  padding: 0; margin: 0;
+  border: none; background: transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.hamburger-bar {
+  display: block;
+  width: 22px; height: 2px;
+  background: #cfc9bb;
+  border-radius: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease, background 0.15s;
+}
+.topnav-hamburger:hover .hamburger-bar { background: #ffffff; }
+/* Bars morph into an ✕ once the drawer is open, so the same button
+   doubles as the close control — no separate close icon needed. */
+.topnav-hamburger[aria-expanded="true"] .hamburger-bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.topnav-hamburger[aria-expanded="true"] .hamburger-bar:nth-child(2) {
+  opacity: 0;
+}
+.topnav-hamburger[aria-expanded="true"] .hamburger-bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ── Drawer backdrop — dims the page behind the open panel and
+   provides a large "tap anywhere to close" target. Only ever
+   activated on mobile (see media query), and inert otherwise. ── */
+.topnav-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(20,18,15,0.5);
+  z-index: 150;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+.topnav-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Prevent the page behind the drawer from scrolling while it's open. */
+body.nav-drawer-open { overflow: hidden; }
+
 /* ══════════════════════════════════════════════
    MAIN
    ══════════════════════════════════════════════ */
@@ -639,27 +694,73 @@ details[open] > summary .accordion-hint-closed { display: none; }
    MOBILE
    ══════════════════════════════════════════════ */
 @media (max-width:800px) {
-  .topnav { padding: 10px 16px 12px; }
+  .topnav { padding: 0 16px; }
   .topnav-inner {
-    height: auto; flex-direction: column; align-items: stretch; gap: 10px;
+    height: var(--header-height);
+    flex-direction: row; align-items: center; justify-content: space-between;
   }
+
+  /* Reveal the hamburger and the backdrop — both are display:none
+     on desktop, since the drawer they operate only exists here. */
+  .topnav-hamburger { display: flex; }
+  .topnav-overlay { display: block; }
+
+  /* ── The drawer itself ──
+     .topnav-cats stops being a horizontal row and becomes a fixed,
+     full-height panel anchored to the left edge, hidden off-screen
+     until .open slides it into view. */
   .topnav-cats {
-    overflow-x: auto; -webkit-overflow-scrolling: touch;
-    padding-bottom: 2px;
+    position: fixed;
+    top: 0; left: 0;
+    width: min(82vw, 300px);
+    height: 100vh;
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+    background: #3a352e;
+    padding: 84px 14px 24px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    box-shadow: 6px 0 28px rgba(0,0,0,0.28);
+    transform: translateX(-100%);
+    transition: transform 0.28s ease;
   }
+  .topnav-cats.open { transform: translateX(0); }
+
+  /* Category rows read as a vertical list now, not pills — full
+     width, left-aligned, generous tap targets. */
   .topnav-cat-btn {
-    border-radius: 20px; border: 1px solid rgba(255,255,255,0.14);
-    background: rgba(255,255,255,0.05);
+    width: 100%;
+    justify-content: space-between;
+    border-radius: 8px; border: none;
+    background: transparent;
+    padding: 14px 10px;
+    font-size: 14.5px;
   }
-  .topnav-cat.has-active .topnav-cat-btn { box-shadow: none; border-color: var(--accent); }
+  .topnav-cat-btn:hover,
+  .topnav-cat-btn:active { background: rgba(255,255,255,0.06); }
+
+  /* "Where you are" now reads as a left accent bar + tinted row,
+     since the desktop underline doesn't read well stacked vertically. */
+  .topnav-cat.has-active {
+    border-left: 3px solid var(--accent);
+    background: rgba(255,255,255,0.04);
+    border-radius: 8px;
+  }
   .topnav-cat.has-active .topnav-cat-btn::after { display: none; }
-  /* The pill border above already signals "active" on mobile — the
-     desktop underline would just double up on that inside the pill. */
   .topnav-cat.has-active .cat-label::after { display: none; }
+
+  /* Category links expand inline underneath their button, indented,
+     rather than floating as an absolutely-positioned dropdown. */
   .topnav-dropdown {
-    position: static; margin-top: 8px; min-width: 0;
-    box-shadow: none;
+    position: static; margin-top: 2px; min-width: 0;
+    box-shadow: none; padding-left: 8px;
   }
+  .topnav-dropdown-inner { background: transparent; border: none; padding: 0; }
+  .topnav-cats .formula-link { padding: 11px 10px; font-size: 14px; }
+
   .main { padding: 20px 16px; }
   .primary-card { padding: 18px; }
   .form-grid { grid-template-columns:1fr; }
