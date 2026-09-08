@@ -43,7 +43,19 @@
     });
   });
 
-  // ── Dropdown open/close — one at a time ──────
+  // ── Viewport check ────────────────────────────
+  // Mirrors the 800px breakpoint in theme-quietmorning.css. Desktop
+  // keeps the original one-dropdown-at-a-time accordion behaviour
+  // (hover-driven menus benefit from only ever showing one at once).
+  // The mobile drawer is a deliberately different interaction — a
+  // vertical list the person taps through — where multiple categories
+  // staying open at the same time is the better, less fiddly behaviour,
+  // so every "close the others" call below is gated behind this check.
+  function isMobileNav() {
+    return window.matchMedia("(max-width: 800px)").matches;
+  }
+
+  // ── Dropdown open/close ───────────────────────
   function closeAll(except) {
     cats.forEach(cat => {
       if (cat !== except) cat.classList.remove("open");
@@ -56,31 +68,48 @@
     btn.addEventListener("click", event => {
       event.stopPropagation();
       const wasOpen = cat.classList.contains("open");
-      closeAll(cat);
+      // Desktop: collapse any other open category first, so only one
+      // dropdown is ever showing at a time (unchanged behaviour).
+      // Mobile: skip this — each category toggles independently, so
+      // several can stay expanded in the drawer at once.
+      if (!isMobileNav()) closeAll(cat);
       cat.classList.toggle("open", !wasOpen);
     });
     // Hovering onto a different category should release any category
     // that was pinned open by a click — otherwise its .open class keeps
     // its dropdown visible underneath/alongside the one now showing via
     // :hover, since :hover and .open are independent triggers for the
-    // same display: block rule.
-    cat.addEventListener("mouseenter", () => closeAll(cat));
+    // same display: block rule. This is a desktop-only interaction
+    // (mobile has no hover state to speak of), so it's gated the same way.
+    cat.addEventListener("mouseenter", () => {
+      if (!isMobileNav()) closeAll(cat);
+    });
   });
 
-  document.addEventListener("click", () => closeAll(null));
+  document.addEventListener("click", () => {
+    // Desktop: a stray click anywhere else collapses any open dropdown.
+    // Mobile: leave open categories as they are — tapping outside a
+    // category inside the drawer shouldn't collapse it; only the
+    // drawer's own close button, the backdrop, or Escape should close
+    // things on mobile (handled below via closeDrawer()).
+    if (!isMobileNav()) closeAll(null);
+  });
   document.addEventListener("keydown", event => {
     if (event.key === "Escape") closeAll(null);
   });
 
   // ── Mobile slide-in drawer ────────────────────
   // On narrow viewports .topnav-cats becomes an off-canvas panel
-  // (see the mobile media query in theme-quietmorning.css). The
-  // hamburger button toggles it; the categories inside keep working
+  // (see the mobile media query in theme-quietmorning.css), with its
+  // own header (brand + close button) above a scrollable list of
+  // categories. The hamburger button and the drawer's own close
+  // button both toggle it; the categories inside keep working
   // exactly as before (click to expand a category's links), just
   // stacked vertically instead of shown as a hovering dropdown.
-  const hamburger  = header.querySelector("#topnav-hamburger");
-  const drawer     = header.querySelector("#topnav-cats");
-  const overlay    = document.getElementById("topnav-overlay");
+  const hamburger   = header.querySelector("#topnav-hamburger");
+  const drawer      = header.querySelector("#topnav-cats");
+  const drawerClose = header.querySelector("#topnav-drawer-close");
+  const overlay     = document.getElementById("topnav-overlay");
 
   function openDrawer() {
     if (!drawer) return;
@@ -97,7 +126,9 @@
     if (hamburger) hamburger.setAttribute("aria-expanded", "false");
     document.body.classList.remove("nav-drawer-open");
     // Also collapse any category left expanded inside the drawer,
-    // so it doesn't reopen already-expanded next time.
+    // so it doesn't reopen already-expanded next time. This applies
+    // regardless of the mobile-multi-open behaviour above — closing
+    // the whole drawer is still a full reset.
     closeAll(null);
   }
 
@@ -106,6 +137,13 @@
       event.stopPropagation();
       const isOpen = drawer && drawer.classList.contains("open");
       isOpen ? closeDrawer() : openDrawer();
+    });
+  }
+
+  if (drawerClose) {
+    drawerClose.addEventListener("click", event => {
+      event.stopPropagation();
+      closeDrawer();
     });
   }
 

@@ -103,6 +103,17 @@ select {
 .topnav-brand-link .kicker-mark .k-obs  { fill: var(--birch); stroke: none; }
 
 .topnav-cats { display: flex; align-items: center; gap: 4px; }
+
+/* The drawer header/body wrapper only matters on mobile (see the
+   media query below, where .topnav-cats becomes a fixed off-canvas
+   panel with its own header). On desktop, .topnav-drawer-header
+   stays hidden and .topnav-drawer-body is display:contents, so the
+   .topnav-cat buttons inside it still act as direct flex children
+   of .topnav-cats — the desktop horizontal category row is
+   unaffected by the wrapper markup that mobile needs. */
+.topnav-drawer-header { display: none; }
+.topnav-drawer-body { display: contents; }
+
 .topnav-cat { position: relative; }
 .topnav-cat-btn {
   border: none; background: transparent;
@@ -149,9 +160,19 @@ select {
   border-radius: 9px; padding: 5px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.20);
 }
-.topnav-cat.open .topnav-dropdown,
-.topnav-cat:hover .topnav-dropdown { display: block; }
-.topnav-cat:hover .chev { transform: rotate(180deg); }
+.topnav-cat.open .topnav-dropdown { display: block; }
+
+/* Hover-to-open is a mouse-pointer affordance only — gated behind
+   (hover: hover) so it can never fire on touch. Touchscreens
+   simulate/"stick" :hover on tap until the next tap lands elsewhere
+   on the page; left unguarded, that could pop a category's dropdown
+   open (and flip its chevron) independently of the real click-driven
+   `.open` toggle above, leaving that category out of sync with the
+   mobile drawer's own open/closed styling. */
+@media (hover: hover) and (pointer: fine) {
+  .topnav-cat:hover .topnav-dropdown { display: block; }
+  .topnav-cat:hover .chev { transform: rotate(180deg); }
+}
 
 .formula-link {
   display: block; text-decoration: none;
@@ -161,9 +182,6 @@ select {
   transition: background 0.15s, color 0.15s;
 }
 .formula-link:last-child { margin-bottom: 0; }
-.formula-link:hover {
-  background: var(--accent); color: #ffffff; font-weight: 700;
-}
 /* Current-page link inside an open dropdown: quiet birch text, no
    fill — distinct from hover's solid accent fill, so "this is the
    page I'm on" and "this is what I'm about to click" never collide,
@@ -171,8 +189,16 @@ select {
 .formula-link.active {
   color: var(--birch); font-weight: 700; background: transparent;
 }
-.formula-link.active:hover {
-  background: var(--accent); color: #ffffff;
+/* Mouse-only hover — see the (hover: hover) note above the desktop
+   dropdown-open rule. Without this gate, a tap on a touch device can
+   leave either state "stuck" on whichever link was last touched. */
+@media (hover: hover) and (pointer: fine) {
+  .formula-link:hover {
+    background: var(--accent); color: #ffffff; font-weight: 700;
+  }
+  .formula-link.active:hover {
+    background: var(--accent); color: #ffffff;
+  }
 }
 
 /* ── Hamburger toggle — hidden on desktop, shown only inside the
@@ -197,7 +223,9 @@ select {
   border-radius: 2px;
   transition: transform 0.2s ease, opacity 0.2s ease, background 0.15s;
 }
-.topnav-hamburger:hover .hamburger-bar { background: #ffffff; }
+@media (hover: hover) and (pointer: fine) {
+  .topnav-hamburger:hover .hamburger-bar { background: #ffffff; }
+}
 /* Bars morph into an ✕ once the drawer is open, so the same button
    doubles as the close control — no separate close icon needed. */
 .topnav-hamburger[aria-expanded="true"] .hamburger-bar:nth-child(1) {
@@ -708,58 +736,204 @@ details[open] > summary .accordion-hint-closed { display: none; }
   /* ── The drawer itself ──
      .topnav-cats stops being a horizontal row and becomes a fixed,
      full-height panel anchored to the left edge, hidden off-screen
-     until .open slides it into view. */
+     until .open slides it into view. It now has its own header
+     (brand + explicit close button) above a scrollable category
+     list, rather than the site's sticky header (which sits *behind*
+     the open drawer) being the only way to close it. */
   .topnav-cats {
     position: fixed;
     top: 0; left: 0;
-    width: min(82vw, 300px);
+    width: min(85vw, 320px);
     height: 100vh;
     z-index: 200;
     display: flex;
     flex-direction: column;
-    align-items: stretch;
-    gap: 2px;
     background: #3a352e;
-    padding: 84px 14px 24px;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
     box-shadow: 6px 0 28px rgba(0,0,0,0.28);
     transform: translateX(-100%);
     transition: transform 0.28s ease;
   }
   .topnav-cats.open { transform: translateX(0); }
 
+  /* Drawer's own header — shown only here (desktop keeps it
+     display:none via the base rule above). Repeats the brand mark
+     since the real header brand sits underneath the open panel and
+     is not visible while it's open. `width: 100%` is a deliberate
+     belt-and-suspenders addition: `justify-content: space-between`
+     is what actually pins the brand (dots + "Menu") to the left edge
+     and the ✕ close button to the right edge of this row — this just
+     guarantees the row always spans the full drawer width so that
+     space-between has the full distance to work with. */
+  .topnav-drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+    width: 100%;
+    padding: 18px 14px 16px 18px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .topnav-drawer-brand { display: flex; align-items: center; gap: 9px; }
+  .topnav-drawer-brand span {
+    font-family: var(--font-display); font-weight: 600; font-size: 15px;
+    color: #f2eae0;
+  }
+  .topnav-drawer-brand .kicker-mark line { stroke: #6b6559; }
+  .topnav-drawer-brand .kicker-mark .k-pred { fill: var(--accent); }
+  .topnav-drawer-brand .kicker-mark .k-obs  { fill: var(--birch); stroke: none; }
+
+  .topnav-drawer-close {
+    width: 34px; height: 34px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    border: none; border-radius: 8px;
+    background: rgba(255,255,255,0.06);
+    color: #cfc9bb; font-size: 15px; line-height: 1; cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .topnav-drawer-close { -webkit-tap-highlight-color: transparent; }
+  .topnav-drawer-close:active { background: rgba(255,255,255,0.14); color: #fff; }
+  @media (hover: hover) and (pointer: fine) {
+    .topnav-drawer-close:hover { background: rgba(255,255,255,0.14); color: #fff; }
+  }
+
+  /* On mobile the body stops being display:contents (set in the
+     base rule above) and becomes the scrollable list itself — only
+     this part scrolls, the header above stays fixed in place. */
+  .topnav-drawer-body {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 12px 10px 22px;
+  }
+
+  /* Category row wrapper. No background fill and no rounded corner
+     while open any more — previously `.topnav-cat.open` added a
+     lightened, rounded-corner background behind the whole open
+     category (button + its revealed sub-links). That box was the
+     source of two problems at once: its rounded bottom-left corner
+     is what showed up as a curved guide-line instead of a straight
+     one, and its lightened fill was an unwanted second layer sitting
+     on top of the drawer's own flat background. Removing it means
+     the guide-line border below renders directly against the plain
+     drawer background, and "this category is open" is communicated
+     purely by the chevron rotation and the revealed links — no
+     background state needed. */
+  .topnav-cat { border-radius: 10px; }
+  .topnav-cat.open { background: transparent; }
+
   /* Category rows read as a vertical list now, not pills — full
-     width, left-aligned, generous tap targets. */
+     width, generous 48px tap targets. `white-space: normal` and
+     `text-align: left` are deliberate overrides of the desktop
+     `.topnav-cat-btn` rule above: that rule sets `white-space: nowrap`
+     (needed for the horizontal pill row on desktop) and buttons
+     center their contents by default in most browsers. Without both
+     overrides here, `.cat-label`'s `flex: 1` stretches the label
+     across the full row width, and the un-wrappable, center-aligned
+     text sits in the middle of that stretched space instead of
+     flush against the left edge like the rest of the drawer. */
   .topnav-cat-btn {
     width: 100%;
-    justify-content: space-between;
-    border-radius: 8px; border: none;
+    min-height: 48px;
+    gap: 8px;
+    border-radius: 10px; border: none;
     background: transparent;
-    padding: 14px 10px;
+    padding: 13px 12px;
     font-size: 14.5px;
+    white-space: normal;
+    text-align: left;
+    /* Suppress the browser's own native tap-highlight flash — it
+       follows this button's border-radius and can otherwise linger
+       as an extra rounded overlay on top of / instead of the
+       deliberate :active feedback below. */
+    -webkit-tap-highlight-color: transparent;
   }
-  .topnav-cat-btn:hover,
-  .topnav-cat-btn:active { background: rgba(255,255,255,0.06); }
+  /* :active is genuine, momentary tap feedback — it clears on
+     release. :hover is mouse-only (see the (hover: hover) note near
+     the top of this file): unguarded, touch "sticks" it on whichever
+     category was last tapped, showing a lightened, rounded-corner
+     background behind that one row that doesn't clear until the
+     person taps elsewhere — this was the source of the mobile
+     drawer's inconsistent "raised card" look and the guide line
+     appearing to curve around it. */
+  .topnav-cat-btn:active { background: rgba(255,255,255,0.07); }
+  @media (hover: hover) and (pointer: fine) {
+    .topnav-cat-btn:hover { background: rgba(255,255,255,0.07); }
+  }
 
-  /* "Where you are" now reads as a left accent bar + tinted row,
-     since the desktop underline doesn't read well stacked vertically. */
-  .topnav-cat.has-active {
-    border-left: 3px solid var(--accent);
-    background: rgba(255,255,255,0.04);
-    border-radius: 8px;
+  /* Leading dot echoes the site's own predicted/observed kicker
+     mark — used here to mean "this is the section you're currently
+     browsing", not as decoration. Space for it is always reserved
+     so rows align whether or not the dot is actually showing. */
+  .topnav-cat-btn::before {
+    content: "";
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); flex-shrink: 0; opacity: 0;
+    transition: opacity 0.15s;
   }
+  .topnav-cat.has-active .topnav-cat-btn::before { opacity: 1; }
+  .topnav-cat.has-active .topnav-cat-btn { color: #ffffff; }
+  /* Cancel the desktop underline treatment — full-width mobile rows
+     use the leading dot instead of an underline under the label. */
   .topnav-cat.has-active .topnav-cat-btn::after { display: none; }
   .topnav-cat.has-active .cat-label::after { display: none; }
 
-  /* Category links expand inline underneath their button, indented,
-     rather than floating as an absolutely-positioned dropdown. */
+  .cat-label { flex: 1; }
+
+  /* Category links expand inline underneath their button, rather
+     than floating as an absolutely-positioned dropdown. A straight
+     guide line ties them visually to their parent category, so a
+     fully expanded menu still reads as grouped sections rather than
+     one flat list of links. With the rounded/tinted `.topnav-cat.open`
+     background removed above, this border-left now renders as a
+     plain straight vertical rule against the flat drawer background,
+     with no rounded card edge behind it to read as a curve. */
   .topnav-dropdown {
-    position: static; margin-top: 2px; min-width: 0;
-    box-shadow: none; padding-left: 8px;
+    position: static; min-width: 0;
+    box-shadow: none;
+    padding: 2px 0 6px;
   }
-  .topnav-dropdown-inner { background: transparent; border: none; padding: 0; }
-  .topnav-cats .formula-link { padding: 11px 10px; font-size: 14px; }
+  .topnav-dropdown-inner {
+    background: transparent; border: none;
+    border-radius: 0;
+    box-shadow: none;
+    margin-left: 24px;
+    padding: 0 0 0 12px;
+    border-left: 2px solid rgba(255,255,255,0.10);
+    display: flex; flex-direction: column; gap: 1px;
+  }
+  .topnav-cats .formula-link {
+    padding: 10px 10px;
+    font-size: 13.5px;
+    border-radius: 8px;
+    margin-bottom: 0;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .topnav-cats .formula-link:active { background: rgba(255,255,255,0.07); color: #fff; }
+  @media (hover: hover) and (pointer: fine) {
+    .topnav-cats .formula-link:hover { background: rgba(255,255,255,0.07); color: #fff; }
+  }
+
+  /* Current page: a birch dot — the kicker's "observed" color —
+     instead of just bold+color, so "you are here" is legible at a
+     glance while scanning a long expanded list. */
+  .topnav-cats .formula-link.active { background: transparent; }
+  .topnav-cats .formula-link.active::before {
+    content: "";
+    display: inline-block;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--birch); margin-right: 8px; vertical-align: middle;
+  }
+  .topnav-cats .formula-link.active:active {
+    background: rgba(255,255,255,0.07); color: var(--birch);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .topnav-cats .formula-link.active:hover {
+      background: rgba(255,255,255,0.07); color: var(--birch);
+    }
+  }
 
   .main { padding: 20px 16px; }
   .primary-card { padding: 18px; }

@@ -13,39 +13,62 @@
   </button>
 
   <nav class="topnav-cats" id="topnav-cats">
-    <div class="topnav-cat" data-cat="spd">
-      <button class="topnav-cat-btn" type="button">
-        <span class="cat-label">Space particle dualism</span><span class="chev">▾</span>
-      </button>
-      <div class="topnav-dropdown">
-        <div class="topnav-dropdown-inner">
-          <a href="elementary-space-radius.html" class="formula-link">Elementary space radius</a>
-        </div>
+
+    <!-- Drawer's own header — only shown on mobile (see
+         .topnav-drawer-header in theme-quietmorning.css). The real
+         site brand sits underneath the open panel and isn't visible
+         while it's open, so this repeats it, plus gives an explicit
+         close control instead of relying solely on remembering that
+         the hamburger doubles as ✕. -->
+    <div class="topnav-drawer-header">
+      <div class="topnav-drawer-brand">
+        <svg class="kicker-mark" viewBox="0 0 22 12" aria-hidden="true"><line x1="3" y1="6" x2="19" y2="6"/><circle class="k-pred" cx="7" cy="6" r="3"/><circle class="k-obs" cx="17" cy="6" r="3"/></svg>
+        <span>Menu</span>
       </div>
+      <button class="topnav-drawer-close" type="button" id="topnav-drawer-close" aria-label="Close menu">✕</button>
     </div>
 
-    <div class="topnav-cat" data-cat="cosmology">
-      <button class="topnav-cat-btn" type="button">
-        <span class="cat-label">Entropic expansion cosmology</span><span class="chev">▾</span>
-      </button>
-      <div class="topnav-dropdown">
-        <div class="topnav-dropdown-inner">
-          <a href="time-redshift.html" class="formula-link">Time-redshift equation</a>
-        </div>
-      </div>
-    </div>
+    <!-- On desktop this is display:contents, so the category buttons
+         below still lay out as direct flex children of .topnav-cats,
+         exactly as before. On mobile it becomes the scrollable list
+         body beneath the fixed drawer header above. -->
+    <div class="topnav-drawer-body">
 
-    <div class="topnav-cat" data-cat="chromogravity">
-      <button class="topnav-cat-btn" type="button">
-        <span class="cat-label">SPD-chromogravity &amp; electrogravity </span><span class="chev">▾</span>
-      </button>
-      <div class="topnav-dropdown">
-        <div class="topnav-dropdown-inner">
-          <a href="g-value.html" class="formula-link">G-value calculator</a>
-          <a href="g-value-meta-analysis.html" class="formula-link">G-value meta-analysis</a>
+      <div class="topnav-cat" data-cat="spd">
+        <button class="topnav-cat-btn" type="button">
+          <span class="cat-label">Space particle dualism</span><span class="chev">▾</span>
+        </button>
+        <div class="topnav-dropdown">
+          <div class="topnav-dropdown-inner">
+            <a href="elementary-space-radius.html" class="formula-link">Elementary space radius</a>
+          </div>
         </div>
       </div>
-    </div>
+
+      <div class="topnav-cat" data-cat="cosmology">
+        <button class="topnav-cat-btn" type="button">
+          <span class="cat-label">Entropic expansion cosmology</span><span class="chev">▾</span>
+        </button>
+        <div class="topnav-dropdown">
+          <div class="topnav-dropdown-inner">
+            <a href="time-redshift.html" class="formula-link">Time-redshift equation</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="topnav-cat" data-cat="chromogravity">
+        <button class="topnav-cat-btn" type="button">
+          <span class="cat-label">SPD-chromogravity &amp; electrogravity </span><span class="chev">▾</span>
+        </button>
+        <div class="topnav-dropdown">
+          <div class="topnav-dropdown-inner">
+            <a href="g-value.html" class="formula-link">G-value calculator</a>
+            <a href="g-value-meta-analysis.html" class="formula-link">G-value meta-analysis</a>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /.topnav-drawer-body -->
   </nav>
 </div>
 
