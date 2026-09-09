@@ -78,8 +78,8 @@
         <div class="page-nav">
           <a href="#calculator">↓ Calculator</a>
           <a href="#bao">BAO size &amp; age of the universe</a>
-          <a href="#method">Formula &amp; the Hubble constant</a>
-          <a href="#reference">Reference values</a>
+          <a href="#constants">Constants</a>
+          <a href="#method">Method</a>
         </div>
       </div>
 
@@ -91,7 +91,7 @@
              words, not just a chevron, so the row reads as interactive at a glance. -->
         <details class="method-accordion" id="method">
           <summary>
-            <span>The main formula &amp; the Hubble constant</span>
+            <span>The main formula &amp; methodology</span>
             <span class="accordion-affordance">
               <span class="accordion-hint accordion-hint-closed">Click to expand</span>
               <span class="accordion-hint accordion-hint-open">Click to collapse</span>
@@ -139,6 +139,44 @@
 
             <div class="formula-box small-formula mj">
               \[t_{\mathrm{0}} = 39{,}624{,}161{,}384 \ \text{lyr} \times z\]
+            </div>
+
+            <h4>BAO size &amp; full age of the universe</h4>
+
+            <p class="section-note">
+              The full age follows directly from expressing redshift through
+              the temperature ratio of the CMB at decoupling versus today:
+            </p>
+
+            <div class="formula-box small-formula mj">
+              \[t_{\mathrm{0}} = \left(\dfrac{T_{\mathrm{i}}}{T_{\mathrm{0}}} - 1\right) \times \Delta x_z \quad \text{(full age of the universe)}\]
+            </div>
+
+            <div class="legend-box" style="margin-top:0; margin-bottom:24px;">
+              <p>\(t_{\mathrm{0}}\) = full age of the universe (lightyears)</p>
+              <p>\(T_{\mathrm{i}}\) = initial CMB temperature at decoupling (K) — true value: 4,021 K</p>
+              <p>\(T_{\mathrm{0}}\) = current CMB temperature = 2.725 K</p>
+              <p>\(\Delta x_z = 3 \, c \,/\, H_{\mathrm{0}}\) — lightyear-per-unit-z coefficient from the time-redshift equation</p>
+            </div>
+
+            <p class="section-note">
+              The BAO size uses the same bracket, scaled by the sound speed
+              fraction at the time of decoupling, and subtracts the duration
+              of the decoupling epoch \(t_{\mathrm{d}}\):
+            </p>
+
+            <div class="formula-box small-formula mj">
+              \[d_{\mathrm{BAO}} = \dfrac{\sqrt{\dfrac{5}{3} \, \dfrac{k_{\mathrm{B}} \, T_{\mathrm{i}}}{m_{\mathrm{p}}}}}{c} \times \left[\left(\dfrac{T_{\mathrm{i}}}{T_{\mathrm{0}}} - 1\right) \Delta x_z - t_{\mathrm{d}}\right]\]
+            </div>
+
+            <div class="legend-box" style="margin-top:0; margin-bottom:0;">
+              <p>\(T_{\mathrm{i}}\) = initial CMB temperature at decoupling (K) — true value: 4,021 K</p>
+              <p>\(T_{\mathrm{0}}\) = current CMB temperature = 2.725 K</p>
+              <p>\(\Delta x_z = 3 \, c \,/\, H_{\mathrm{0}}\) — the lightyear-per-unit-z coefficient from the time-redshift equation</p>
+              <p>\(t_{\mathrm{d}}\) = duration of the decoupling epoch \(\approx 4.2 \times 10^{13}\ \text{yr}\)</p>
+              <p>\(m_{\mathrm{p}}\) = proton mass</p>
+              <p>\(k_\mathrm{B}\) = Boltzmann constant</p>
+              <p>\(c\) = speed of light</p>
             </div>
 
           </div>
@@ -212,89 +250,19 @@
         <!-- BAO SIZE & FULL AGE SECTION -->
         <h3 id="bao">BAO size &amp; full age of the universe</h3>
 
-        <div class="box primary-card">
+        <div class="box">
 
           <p class="section-note">
             Using the time-redshift equation, it is possible to calculate both
             the full age of the universe and the size of Baryon Acoustic
             Oscillations (BAO) — the distance sound waves could travel from
             the Big Bang until decoupling, the moment photons and matter
-            separated.
+            separated. See the Method section above for the full derivation
+            and the physical constants involved.
           </p>
 
-          <details class="mini-accordion">
-            <summary>
-              <span>Full derivation — formulas &amp; physical constants</span>
-              <span class="accordion-affordance">
-                <span class="accordion-hint accordion-hint-closed">Click to expand</span>
-                <span class="accordion-hint accordion-hint-open">Click to collapse</span>
-                <span class="chev">▾</span>
-              </span>
-            </summary>
-            <div class="mini-accordion-body">
-
-              <p class="section-note">
-                The full age follows directly from expressing redshift through
-                the temperature ratio of the CMB at decoupling versus today:
-              </p>
-
-              <div class="formula-box small-formula mj">
-                \[t_{\mathrm{0}} = \left(\dfrac{T_{\mathrm{i}}}{T_{\mathrm{0}}} - 1\right) \times \Delta x_z \quad \text{(full age of the universe)}\]
-              </div>
-
-              <div class="legend-box" style="margin-top:0; margin-bottom:24px;">
-                <p>\(t_{\mathrm{0}}\) = full age of the universe (lightyears)</p>
-                <p>\(T_{\mathrm{i}}\) = initial CMB temperature at decoupling (K) — true value: 4,021 K</p>
-                <p>\(T_{\mathrm{0}}\) = current CMB temperature = 2.725 K</p>
-                <p>\(\Delta x_z = 3 \, c \,/\, H_{\mathrm{0}}\) — lightyear-per-unit-z coefficient from the time-redshift equation</p>
-              </div>
-
-              <p class="section-note">
-                The BAO size uses the same bracket, scaled by the sound speed
-                fraction at the time of decoupling, and subtracts the duration
-                of the decoupling epoch \(t_{\mathrm{d}}\):
-              </p>
-
-              <div class="formula-box small-formula mj">
-                \[d_{\mathrm{BAO}} = \dfrac{\sqrt{\dfrac{5}{3} \, \dfrac{k_{\mathrm{B}} \, T_{\mathrm{i}}}{m_{\mathrm{p}}}}}{c} \times \left[\left(\dfrac{T_{\mathrm{i}}}{T_{\mathrm{0}}} - 1\right) \Delta x_z - t_{\mathrm{d}}\right]\]
-              </div>
-
-              <div class="legend-box" style="margin-top:0; margin-bottom:24px;">
-                <p>\(T_{\mathrm{i}}\) = initial CMB temperature at decoupling (K) — true value: 4,021 K</p>
-                <p>\(T_{\mathrm{0}}\) = current CMB temperature = 2.725 K</p>
-                <p>\(\Delta x_z = 3 \, c \,/\, H_{\mathrm{0}}\) — the lightyear-per-unit-z coefficient from the time-redshift equation</p>
-                <p>\(t_{\mathrm{d}}\) = duration of the decoupling epoch \(\approx 4.2 \times 10^{13}\ \text{yr}\)</p>
-                <p>\(m_{\mathrm{p}}\) = proton mass</p>
-                <p>\(k_\mathrm{B}\) = Boltzmann constant</p>
-                <p>\(c\) = speed of light</p>
-              </div>
-
-              <h4 style="margin-top:0;">Physical constants used</h4>
-
-              <div class="form-grid" style="margin-bottom:8px;">
-                <div>
-                  <label for="bao-const-kb">Boltzmann constant k<sub>B</sub> (J/K)</label>
-                  <input id="bao-const-kb" disabled />
-                </div>
-                <div>
-                  <label for="bao-const-mp">Proton mass m<sub>p</sub> (kg)</label>
-                  <input id="bao-const-mp" disabled />
-                </div>
-                <div>
-                  <label for="bao-const-T0">Current CMB temperature T<sub>0</sub> (K)</label>
-                  <input id="bao-const-T0" disabled />
-                </div>
-                <div>
-                  <label for="bao-const-td">Decoupling epoch duration t<sub>d</sub> (yr)</label>
-                  <input id="bao-const-td" disabled />
-                </div>
-              </div>
-
-            </div>
-          </details>
-
           <!-- Calculator inputs -->
-          <h4 style="margin-top:26px; margin-bottom:14px; color:var(--heading); font-size:17px;">Calculator</h4>
+          <h4 style="margin-top:26px; margin-bottom:14px; color:var(--heading); font-size:17px;">BAO &amp; age calculator</h4>
 
           <p class="section-note">
             Enter the initial CMB temperature \(T_{\mathrm{i}}\) at decoupling.
@@ -347,50 +315,69 @@
 
         </div>
 
-        <!-- REFERENCE CONSTANTS SECTION — moved to the end of the page, mirroring
-             the "Physical constants used" section on the Elementary Space Radius
-             page, instead of sitting between the method accordion and the
-             calculator where it broke the hero → method → calculator pattern. -->
-        <h3 id="reference">Reference values used by this calculator</h3>
+        <!-- CONSTANTS SECTION — at the end of the page, mirroring the
+             "Constants used" section on the Elementary Space Radius page.
+             Consolidates every constant used by both calculators above
+             into one plain, always-visible reference block (not an
+             accordion — this is reference data, not derivation, so it
+             doesn't need to be collapsed). -->
+        <h3 id="constants">Constants used</h3>
 
-        <details class="mini-accordion" style="margin-top:0;">
-          <summary>
-            <span>Speed of light, default H₀ &amp; the derived coefficient</span>
-            <span class="accordion-affordance">
-              <span class="accordion-hint accordion-hint-closed">Click to expand</span>
-              <span class="accordion-hint accordion-hint-open">Click to collapse</span>
-              <span class="chev">▾</span>
-            </span>
-          </summary>
-          <div class="mini-accordion-body">
-            <div class="form-grid" style="margin-top:14px;">
-              <div>
-                <label for="const-c">Speed of light c (m/s)</label>
-                <input id="const-c" disabled />
-              </div>
+        <div class="box">
 
-              <div>
-                <label for="const-h0-kms">H<sub>0</sub> default (km/s/Mpc)</label>
-                <input id="const-h0-kms" disabled />
-              </div>
+          <p class="section-note">
+            Every physical constant referenced by the calculators above,
+            gathered in one place for reference.
+          </p>
 
-              <div>
-                <label for="const-h0-err">H<sub>0</sub> uncertainty ± (km/s/Mpc)</label>
-                <input id="const-h0-err" disabled />
-              </div>
+          <div class="form-grid" style="margin-top:14px;">
+            <div>
+              <label for="const-c">Speed of light c (m/s)</label>
+              <input id="const-c" disabled />
+            </div>
 
-              <div>
-                <label for="const-h0-msl">H<sub>0</sub> in m/s/ls</label>
-                <input id="const-h0-msl" disabled />
-              </div>
+            <div>
+              <label for="const-h0-kms">H<sub>0</sub> default (km/s/Mpc)</label>
+              <input id="const-h0-kms" disabled />
+            </div>
 
-              <div>
-                <label for="const-k">Coefficient K = 3c/H<sub>0</sub> (lyr per unit z)</label>
-                <input id="const-k" disabled />
-              </div>
+            <div>
+              <label for="const-h0-err">H<sub>0</sub> uncertainty ± (km/s/Mpc)</label>
+              <input id="const-h0-err" disabled />
+            </div>
+
+            <div>
+              <label for="const-h0-msl">H<sub>0</sub> in m/s/ls</label>
+              <input id="const-h0-msl" disabled />
+            </div>
+
+            <div>
+              <label for="const-k">Coefficient K = 3c/H<sub>0</sub> (lyr per unit z)</label>
+              <input id="const-k" disabled />
+            </div>
+
+            <div>
+              <label for="bao-const-kb">Boltzmann constant k<sub>B</sub> (J/K)</label>
+              <input id="bao-const-kb" disabled />
+            </div>
+
+            <div>
+              <label for="bao-const-mp">Proton mass m<sub>p</sub> (kg)</label>
+              <input id="bao-const-mp" disabled />
+            </div>
+
+            <div>
+              <label for="bao-const-T0">Current CMB temperature T<sub>0</sub> (K)</label>
+              <input id="bao-const-T0" disabled />
+            </div>
+
+            <div>
+              <label for="bao-const-td">Decoupling epoch duration t<sub>d</sub> (yr)</label>
+              <input id="bao-const-td" disabled />
             </div>
           </div>
-        </details>
+
+        </div>
 
       </section>
 

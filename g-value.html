@@ -81,7 +81,8 @@
           <a href="#molecule">Molecule calculator</a>
           <a href="#mixed">Mixed materials</a>
           <a href="#effective">Effective G-value</a>
-          <a href="#method">Formula &amp; methodology</a>
+          <a href="#constants">Constants</a>
+          <a href="#method">Method</a>
         </div>
       </div>
 
@@ -114,6 +115,55 @@
               <p>\(m_{\mathrm{n}}\) = neutron mass</p>
               <p>\(m_\mathrm{X}\) = inertial mass of isotope X</p>
             </div>
+
+            <h4>How the element lookup values are calculated</h4>
+
+            <p class="section-note">
+              The values in the lookup tool are based on
+              isotope-weighted inertial masses,
+              isotope-weighted gravitational masses,
+              and the corresponding G-value for each
+              naturally occurring element.
+            </p>
+
+            <p class="section-note">
+              For most elements, the G-value is
+              calculated by dividing the gravitational
+              mass by the inertial mass and multiplying
+              the result by the G-value of hydrogen:
+            </p>
+
+            <div class="formula-box small-formula mj">
+              \[G_{\mathrm{X}} = G_{\mathrm{H}} \times \dfrac{\text{gravitational mass}}{\text{inertial mass}}\]
+            </div>
+
+            <p class="section-note">
+              Copper is treated as the reference case.
+              The G-value of copper is taken directly
+              from Armstrong (2003) copper-copper
+              measurements and serves as the anchor.
+              The G-value of hydrogen is then inferred
+              from copper's inertial-to-gravitational
+              mass ratio, and every other element's
+              G-value is derived from hydrogen's.
+            </p>
+
+            <div class="reference-values">
+              <div><strong>Copper (anchor):</strong> 6.673985 ± 0.000228</div>
+              <div><strong>Iron:</strong> 6.674190 ± 0.000228</div>
+              <div><strong>Hydrogen:</strong> 6.613421 ± 0.000228</div>
+            </div>
+
+            <p class="section-note" style="margin-bottom:0;">
+              Natural isotope abundance data are based on the
+              <a
+                href="https://ciaaw.org/isotopic-abundances.htm"
+                target="_blank"
+                rel="noopener noreferrer"
+              >CIAAW isotopic abundance reference tables</a>.
+              Representative values are used when isotope
+              abundances are expressed as ranges.
+            </p>
           </div>
         </details>
 
@@ -131,67 +181,6 @@
           <div class="result-box" id="lookup-result">
             <div class="lookup-placeholder">Select an element</div>
           </div>
-
-          <details class="mini-accordion">
-            <summary>
-              <span>How these values are calculated</span>
-              <span class="accordion-affordance">
-                <span class="accordion-hint accordion-hint-closed">Click to expand</span>
-                <span class="accordion-hint accordion-hint-open">Click to collapse</span>
-                <span class="chev">▾</span>
-              </span>
-            </summary>
-            <div class="mini-accordion-body">
-
-              <p class="section-note">
-                The values in the lookup tool are based on
-                isotope-weighted inertial masses,
-                isotope-weighted gravitational masses,
-                and the corresponding G-value for each
-                naturally occurring element.
-              </p>
-
-              <p class="section-note">
-                For most elements, the G-value is
-                calculated by dividing the gravitational
-                mass by the inertial mass and multiplying
-                the result by the G-value of hydrogen:
-              </p>
-
-              <div class="formula-box small-formula mj">
-            \[G_{\mathrm{X}} = G_{\mathrm{H}} \times \dfrac{\text{gravitational mass}}{\text{inertial mass}}\]
-          </div>
-
-              <p class="section-note">
-                Copper is treated as the reference case.
-                The G-value of copper is taken directly
-                from Armstrong (2003) copper-copper
-                measurements and serves as the anchor.
-                The G-value of hydrogen is then inferred
-                from copper's inertial-to-gravitational
-                mass ratio, and every other element's
-                G-value is derived from hydrogen's.
-              </p>
-
-              <div class="reference-values">
-                <div><strong>Copper (anchor):</strong> 6.673985 ± 0.000228</div>
-                <div><strong>Iron:</strong> 6.674190 ± 0.000228</div>
-                <div><strong>Hydrogen:</strong> 6.613421 ± 0.000228</div>
-              </div>
-
-              <p class="section-note">
-                Natural isotope abundance data are based on the
-                <a
-                  href="https://ciaaw.org/isotopic-abundances.htm"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >CIAAW isotopic abundance reference tables</a>.
-                Representative values are used when isotope
-                abundances are expressed as ranges.
-              </p>
-
-            </div>
-          </details>
 
         </div>
 
@@ -224,28 +213,21 @@
               <input id="neutrons" type="number" />
             </div>
 
-            <div>
-              <label for="gh">G-value of hydrogen</label>
-              <input id="gh" disabled />
-            </div>
-
-            <div>
-              <label for="mp">Mass of proton</label>
-              <input id="mp" disabled />
-            </div>
-
-            <div>
-              <label for="mn">Mass of neutron</label>
-              <input id="mn" disabled />
-            </div>
-
-            <div>
+            <div class="full-width-field">
               <label for="mass">Inertial mass of isotope</label>
               <input id="mass" type="number" step="any" />
             </div>
           </div>
 
-          <button class="primary" id="calculate-btn">Calculate</button>
+          <p class="section-note" style="margin-top:14px; margin-bottom:0;">
+            Uses the G-value of hydrogen, proton mass, and neutron mass —
+            see <a href="#constants">Constants used</a> below.
+          </p>
+
+          <div class="molecule-btn-row">
+            <button class="add-element-btn" id="manual-reset-btn">↺ Reset</button>
+            <button class="primary" id="calculate-btn">Calculate</button>
+          </div>
 
           <div class="result-box" id="manual-result">
             G<sub>X</sub> = —
@@ -281,6 +263,7 @@
           <div id="molecule-rows"></div>
 
           <div class="molecule-btn-row">
+            <button class="add-element-btn" id="molecule-reset-btn">↺ Reset</button>
             <button class="add-element-btn" id="molecule-add-btn">+ Add element</button>
             <button class="primary" id="molecule-btn">Calculate Molecule</button>
           </div>
@@ -328,7 +311,10 @@
             </div>
           </div>
 
-          <button class="primary" id="mixed-btn">Calculate Mixed Material</button>
+          <div class="molecule-btn-row">
+            <button class="add-element-btn" id="mixed-reset-btn">↺ Reset</button>
+            <button class="primary" id="mixed-btn">Calculate Mixed Material</button>
+          </div>
 
           <div class="result-box" id="mixed-result">—</div>
         </div>
@@ -359,9 +345,44 @@
             </div>
           </div>
 
-          <button class="primary" id="effective-btn">Calculate Effective G-value</button>
+          <div class="molecule-btn-row">
+            <button class="add-element-btn" id="effective-reset-btn">↺ Reset</button>
+            <button class="primary" id="effective-btn">Calculate Effective G-value</button>
+          </div>
 
           <div class="result-box" id="effective-result">—</div>
+        </div>
+
+        <!-- CONSTANTS SECTION — every reference constant used by the
+             calculators above, gathered in one place at the end of the
+             page, mirroring the "Constants used" section on the
+             Elementary Space Radius and Time-Redshift pages. -->
+        <h3 id="constants">Constants used</h3>
+
+        <div class="box">
+
+          <p class="section-note">
+            The three constants used throughout the isotope and molecule
+            calculations above.
+          </p>
+
+          <div class="form-grid">
+            <div>
+              <label for="gh">G-value of hydrogen</label>
+              <input id="gh" disabled />
+            </div>
+
+            <div>
+              <label for="mp">Mass of proton</label>
+              <input id="mp" disabled />
+            </div>
+
+            <div>
+              <label for="mn">Mass of neutron</label>
+              <input id="mn" disabled />
+            </div>
+          </div>
+
         </div>
 
       </section>

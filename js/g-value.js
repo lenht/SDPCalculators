@@ -160,6 +160,15 @@ document.getElementById("calculate-btn").addEventListener("click", () => {
   document.getElementById("manual-result").innerHTML = `G-value: ${displayG(gValue)}`;
 });
 
+document.getElementById("manual-reset-btn").addEventListener("click", () => {
+  document.getElementById("manual-element-select").value = "";
+  document.getElementById("protons").value = "";
+  document.getElementById("neutrons").value = "";
+  document.getElementById("mass").value = "";
+  document.getElementById("mass").placeholder = "Enter isotope inertial mass";
+  document.getElementById("manual-result").innerHTML = "G<sub>X</sub> = —";
+});
+
 /* MOLECULE CALCULATOR */
 
 let moleculeRowCount = 0;
@@ -219,6 +228,13 @@ function initMoleculeRows() {
 
 document.getElementById("molecule-add-btn").addEventListener("click", () => {
   addMoleculeRow(1);
+});
+
+document.getElementById("molecule-reset-btn").addEventListener("click", () => {
+  document.getElementById("molecule-rows").innerHTML = "";
+  moleculeRowCount = 0;
+  initMoleculeRows();
+  document.getElementById("molecule-result").innerHTML = "—";
 });
 
 document.getElementById("molecule-btn").addEventListener("click", () => {
@@ -302,6 +318,15 @@ document.getElementById("mixed-btn").addEventListener("click", () => {
   `;
 });
 
+document.getElementById("mixed-reset-btn").addEventListener("click", () => {
+  document.getElementById("mixed-element-1").value = "";
+  document.getElementById("mixed-element-2").value = "";
+  document.getElementById("mixed-percent-1").value = "50";
+  document.getElementById("mixed-percent-2").value = "50";
+  document.getElementById("percentage-type").value = "atomic";
+  document.getElementById("mixed-result").innerHTML = "—";
+});
+
 /* EFFECTIVE G-VALUE CALCULATOR */
 
 document.getElementById("effective-btn").addEventListener("click", () => {
@@ -318,4 +343,10 @@ document.getElementById("effective-btn").addEventListener("click", () => {
     <strong>Results</strong><br><br>
     Effective G-value: ${displayG(effectiveG)}
   `;
+});
+
+document.getElementById("effective-reset-btn").addEventListener("click", () => {
+  document.getElementById("source-g").value = "";
+  document.getElementById("test-g").value = "";
+  document.getElementById("effective-result").innerHTML = "—";
 });
