@@ -1,8 +1,7 @@
 /* ═══════════════════════════════════════════════
    SPD Formulae — theme
-   Palette: "Quiet Morning" (recolored) — mist grey
-   #C3CFD2 · dove grey #DDD9D4 · parchment #EBE1D0 ·
-   ivory #FAF4EB · taupe #B7ACA3. Flat solid colors, no
+   Palette: "Quiet Morning" — mist blue · soft gray ·
+   birch · ivory · taupe. Flat solid colors, no
    decorative gradients, minimal chrome.
 
    Display type is STIX Two Text — the same letterform
@@ -21,22 +20,22 @@
 :root {
   --header-height:  64px;
 
-  --bg:             #FAF4EB;
+  --bg:             #f4f1ea;
   --panel:          #ffffff;
-  --panel-raised:   #EBE1D0;
+  --panel-raised:   #f3efe6;
 
-  --border:         #DDD9D4;
-  --border-strong:  #B7ACA3;
+  --border:         #ddd4bf;
+  --border-strong:  #c9bda0;
 
   --text:           #443f37;
   --muted:          #8c8479;
 
-  --accent:         #61929E;
-  --accent-dark:    #4E757F;
-  --accent-light:   #C3CFD2;
+  --accent:         #7096a6;
+  --accent-dark:    #557c8c;
+  --accent-light:   #e8eff1;
 
-  --birch:          #C6B89F;
-  --birch-tint:     #F2EAD9;
+  --birch:          #d9c39a;
+  --birch-tint:     #f2e6cd;
 
   --heading:        #3a352e;
 
@@ -55,7 +54,19 @@
 
 * { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  /* Quick-links (.page-nav) and topnav dropdown links jump to in-page
+     #ids. Without this, the browser scrolls a target's top edge flush
+     to the very top of the viewport — but .topnav is sticky at 64px,
+     so it then sits on top of the section and hides its heading/first
+     line. scroll-padding-top reserves that space for every anchor
+     jump site-wide (native <a href="#…"> navigation, not just JS
+     scrollIntoView), so the landed section is fully visible below the
+     header instead of appearing to overshoot. The extra 16px beyond
+     --header-height is just breathing room, not a header-height fix. */
+  scroll-padding-top: calc(var(--header-height) + 16px);
+}
 
 body {
   margin: 0;
@@ -481,7 +492,7 @@ input:focus, select:focus {
   outline:none; border-color:var(--accent);
   box-shadow: 0 0 0 3px var(--accent-light);
 }
-input:disabled { background:#EAE0CE; color:var(--muted); cursor:not-allowed; }
+input:disabled { background:#f0ece1; color:var(--muted); cursor:not-allowed; }
 
 .primary {
   margin-top:22px; border:none;
@@ -491,7 +502,7 @@ input:disabled { background:#EAE0CE; color:var(--muted); cursor:not-allowed; }
   box-shadow: 0 1px 3px rgba(68,63,55,0.15);
   transition: background-color 0.15s, box-shadow 0.15s, transform 0.15s;
 }
-.primary:hover { background: var(--accent-dark); box-shadow: 0 4px 12px rgba(78,117,127,0.28); }
+.primary:hover { background: var(--accent-dark); box-shadow: 0 4px 12px rgba(85,124,140,0.28); }
 .primary:active { transform: translateY(1px); box-shadow: 0 1px 3px rgba(68,63,55,0.15); }
 
 .result-box {
@@ -741,7 +752,7 @@ details[open] > summary .accordion-hint-closed { display: none; }
   border:2px solid transparent; transition:transform 0.15s, border-color 0.15s;
 }
 .skin-swatch:hover { transform:scale(1.15); }
-.skin-swatch.active { border-color:#4E757F; transform:scale(1.15); }
+.skin-swatch.active { border-color:#86a9b8; transform:scale(1.15); }
 
 /* ══════════════════════════════════════════════
    MOBILE
