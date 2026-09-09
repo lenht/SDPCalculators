@@ -1,7 +1,8 @@
 /* ═══════════════════════════════════════════════
    SPD Formulae — theme
-   Palette: "Quiet Morning" — mist blue · soft gray ·
-   birch · ivory · taupe. Flat solid colors, no
+   Palette: "Quiet Morning" (recolored) — mist grey
+   #C3CFD2 · dove grey #DDD9D4 · parchment #EBE1D0 ·
+   ivory #FAF4EB · taupe #B7ACA3. Flat solid colors, no
    decorative gradients, minimal chrome.
 
    Display type is STIX Two Text — the same letterform
@@ -20,30 +21,34 @@
 :root {
   --header-height:  64px;
 
-  --bg:             #f4f1ea;
+  --bg:             #FAF4EB;
   --panel:          #ffffff;
-  --panel-raised:   #f3efe6;
+  --panel-raised:   #EBE1D0;
 
-  --border:         #ddd4bf;
-  --border-strong:  #c9bda0;
+  --border:         #DDD9D4;
+  --border-strong:  #B7ACA3;
 
   --text:           #443f37;
   --muted:          #8c8479;
 
-  --accent:         #7096a6;
-  --accent-dark:    #557c8c;
-  --accent-light:   #e8eff1;
+  --accent:         #61929E;
+  --accent-dark:    #4E757F;
+  --accent-light:   #C3CFD2;
 
-  --birch:          #d9c39a;
-  --birch-tint:     #f2e6cd;
+  --birch:          #C6B89F;
+  --birch-tint:     #F2EAD9;
 
   --heading:        #3a352e;
 
   --shadow-soft: 0 2px 8px rgba(68,63,55,0.06);
   --shadow-card: 0 3px 14px rgba(68,63,55,0.08);
 
-  --formula-bg:     #4d473d;
-  --formula-color:  #ffffff;
+  /* Formulas now sit on the same quiet white surface as inputs and
+     .isotope-list, instead of an inverted dark slab — see .formula-box
+     below. Text uses --heading directly so equations read in the same
+     ink as page headings. */
+  --formula-bg:     #ffffff;
+  --formula-color:  var(--heading);
 
   --font-display:   'STIX Two Text', Georgia, 'Times New Roman', serif;
 }
@@ -359,11 +364,18 @@ body.nav-drawer-open { overflow: hidden; }
 .formula-box {
   position: relative; /* anchors the scroll-hint caption below */
   background: var(--formula-bg);
-  border: 1px solid #5c574c;
-  border-radius: 10px; padding: 20px 26px;
+  border: 1px solid var(--border);
+  /* Slim accent top rule — the one signal that this is "the formula",
+     reusing the same blue as .hero-rule / .lookup-highlight instead of
+     inverting the whole box to a dark slab. .small-formula (below)
+     resets this back to a plain border, so a page with several
+     derivation steps still has exactly one thing that reads as the
+     headline equation per section. */
+  border-top: 3px solid var(--accent);
+  border-radius: 8px; padding: 20px 26px;
   margin-top: 18px; margin-bottom: 18px;
   text-align: center; font-size: 20px;
-  color: var(--formula-color); line-height: 1.9;
+  color: var(--formula-color); line-height: 1.8;
   overflow-x: visible; /* the box itself never clips — only the equation inside scrolls, via mjx-container below */
 }
 
@@ -386,11 +398,18 @@ body.nav-drawer-open { overflow: hidden; }
    surprise — this was the actual bug being fixed: scrollability with
    no visible cue that it existed. */
 .formula-box.is-scrollable mjx-container {
+  /* Note: the transparent stops below (255,255,255,0) must match the
+     RGB of --formula-bg, or the fade shows a mismatched color fringe
+     instead of dissolving cleanly into the box — keep them in sync if
+     --formula-bg ever changes. The shadow-hint pair is a much lighter
+     dark tint than before (.08 vs the old .35), since a dark edge
+     shadow reads far more strongly on a light surface than it did on
+     the previous dark one. */
   background:
-    linear-gradient(to right, var(--formula-bg) 30%, rgba(77,71,61,0)),
-    linear-gradient(to left,  var(--formula-bg) 30%, rgba(77,71,61,0)) 100% 0,
-    linear-gradient(to right, rgba(0,0,0,.35), rgba(0,0,0,0)),
-    linear-gradient(to left,  rgba(0,0,0,.35), rgba(0,0,0,0)) 100% 0;
+    linear-gradient(to right, var(--formula-bg) 30%, rgba(255,255,255,0)),
+    linear-gradient(to left,  var(--formula-bg) 30%, rgba(255,255,255,0)) 100% 0,
+    linear-gradient(to right, rgba(58,53,46,.08), rgba(58,53,46,0)),
+    linear-gradient(to left,  rgba(58,53,46,.08), rgba(58,53,46,0)) 100% 0;
   background-repeat: no-repeat;
   background-color: var(--formula-bg);
   background-size: 36px 100%, 36px 100%, 14px 100%, 14px 100%;
@@ -405,7 +424,7 @@ body.nav-drawer-open { overflow: hidden; }
   letter-spacing: 0.05em;
   text-transform: uppercase;
   text-align: center;
-  color: rgba(255,255,255,0.6);
+  color: var(--muted);
 }
 
 .legend-box {
@@ -462,7 +481,7 @@ input:focus, select:focus {
   outline:none; border-color:var(--accent);
   box-shadow: 0 0 0 3px var(--accent-light);
 }
-input:disabled { background:#f0ece1; color:var(--muted); cursor:not-allowed; }
+input:disabled { background:#EAE0CE; color:var(--muted); cursor:not-allowed; }
 
 .primary {
   margin-top:22px; border:none;
@@ -472,7 +491,7 @@ input:disabled { background:#f0ece1; color:var(--muted); cursor:not-allowed; }
   box-shadow: 0 1px 3px rgba(68,63,55,0.15);
   transition: background-color 0.15s, box-shadow 0.15s, transform 0.15s;
 }
-.primary:hover { background: var(--accent-dark); box-shadow: 0 4px 12px rgba(85,124,140,0.28); }
+.primary:hover { background: var(--accent-dark); box-shadow: 0 4px 12px rgba(78,117,127,0.28); }
 .primary:active { transform: translateY(1px); box-shadow: 0 1px 3px rgba(68,63,55,0.15); }
 
 .result-box {
@@ -482,7 +501,13 @@ input:disabled { background:#f0ece1; color:var(--muted); cursor:not-allowed; }
   line-height: 1.7; color: var(--accent-dark);
 }
 
-.small-formula { font-size:17px; padding:16px 24px; margin-top:14px; margin-bottom:14px; }
+.small-formula {
+  font-size: 17px; padding: 14px 22px; margin-top: 14px; margin-bottom: 14px;
+  /* Plain border, no accent rule — reserves the accented top edge for
+     the one banner .formula-box per section, so a run of derivation
+     steps reads as quiet supporting detail, not repeated headlines. */
+  border-top: 1px solid var(--border);
+}
 
 .section-note, .lookup-methodology p {
   color:var(--muted); line-height:1.8; font-size:15px;
@@ -716,7 +741,7 @@ details[open] > summary .accordion-hint-closed { display: none; }
   border:2px solid transparent; transition:transform 0.15s, border-color 0.15s;
 }
 .skin-swatch:hover { transform:scale(1.15); }
-.skin-swatch.active { border-color:#86a9b8; transform:scale(1.15); }
+.skin-swatch.active { border-color:#4E757F; transform:scale(1.15); }
 
 /* ══════════════════════════════════════════════
    MOBILE
