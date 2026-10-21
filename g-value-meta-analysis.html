@@ -90,8 +90,8 @@
 
     /* Chart — fixed neutral dark bg, independent of theme formula-box colors */
     .chart-container {
-      background: #322f2a;
-      border: 1px solid #4a453d;
+      background: #1a2535;
+      border: 1px solid #2c3d57;
       border-radius: 12px;
       overflow: hidden;
     }
@@ -100,12 +100,12 @@
       align-items: center;
       gap: 12px;
       padding: 8px 13px;
-      border-bottom: 1px solid #4a453d;
+      border-bottom: 1px solid #2c3d57; 
+      color: #9fb3cc;
       font-size: 11px;
-      color: #b7a893;
       flex-wrap: wrap;
     }
-    .chart-legend { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #cfc9bb; }
+    .chart-legend { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #c5d2e3; }
     .chart-legend-line { width: 18px; height: 3px; border-radius: 2px; }
     #meta-canvas { display: block; width: 100%; height: 200px; }
 
@@ -507,10 +507,10 @@
                 <div class="chart-header">
                   Predicted vs observed, sorted by predicted value
                   <div class="chart-legend">
-                    <div class="chart-legend-line" style="background:#8fb4c2;"></div>Predicted
+                    <div class="chart-legend-line" style="background:#3b9ae1;"></div>Predicted
                   </div>
                   <div class="chart-legend">
-                    <div class="chart-legend-line" style="background:#e0a758;"></div>Observed
+                    <div class="chart-legend-line" style="background:#f5791f;"></div>Observed
                   </div>
                 </div>
                 <canvas id="meta-canvas"></canvas>

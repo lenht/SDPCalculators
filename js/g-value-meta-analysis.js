@@ -552,10 +552,10 @@ function drawChart(data) {
 
   // ── Chart always renders on a fixed dark background (#1a2535)
   // so ink colors are always the light-on-dark variants.
-  const C_TICK_TEXT = "#cfc4b0";
-  const C_GRID      = "rgba(207,196,176,0.16)";
-  const C_AXIS      = "#7a7062";
-  const C_LABEL     = "#cfc4b0";
+  const C_TICK_TEXT = "#c5d2e3";
+  const C_GRID      = "rgba(197,210,227,0.14)";
+  const C_AXIS      = "#6a7b92";
+  const C_LABEL     = "#c5d2e3";  
 
   // ── Canvas sizing — always use actual CSS pixel size × dpr for crispness
   const dpr = Math.round(window.devicePixelRatio || 1);
@@ -642,8 +642,8 @@ function drawChart(data) {
     });
   }
 
-  drawLine("#8fb4c2", "pr");   // predicted — mist blue, visible on both light & dark
-  drawLine("#e0a758", "ob");   // observed  — warm birch amber, visible on both light & dark
+  drawLine("#3b9ae1", "pr");   // predicted: vivid blue
+  drawLine("#f5791f", "ob");   // observed: vivid orange
 }
 
 /* ══════════════════════════════════════════════
