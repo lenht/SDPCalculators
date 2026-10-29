@@ -114,7 +114,7 @@
       "year": 1982,
       "type": "high",
       "scale": "lab",
-      "pAgr": 0.7623762376237624,
+      "pAgr": 0.6633663366336634,
       "pComp": 0.9999999911506633
     },
     {
@@ -127,7 +127,7 @@
       "year": 1987,
       "type": "high",
       "scale": "lab",
-      "pAgr": 0.36363636363636365,
+      "pAgr": 0.45454545454545453,
       "pComp": 0.2689775299941845
     },
     {
@@ -231,7 +231,7 @@
       "year": 2008,
       "type": "high",
       "scale": "lab",
-      "pAgr": 0.36363636363636365,
+      "pAgr": 0.45454545454545453,
       "pComp": 0.05878910436955287
     },
     {
@@ -349,7 +349,7 @@
       "type": "conflicting",
       "scale": "lab",
       "note": "Average of conflicting values from Luo (1999): 6.6699 ± 0.0007, HUST-05-A (2005): 6.67228 ± 0.00087, and HUST-05-B (2016): 6.67222 ± 0.00087 — different theoretical values derived from the same 1999-experimental data.",
-      "pAgr": 0.5841584158415841,
+      "pAgr": 0.49504950495049505,
       "pComp": 0.4285102842370426
     },
     {
@@ -454,7 +454,7 @@
       "year": 2009,
       "type": "freefall",
       "scale": "lab",
-      "pAgr": 0.297029702970297,
+      "pAgr": 0.48514851485148514,
       "pComp": 0.49774803003785917
     },
     {
@@ -495,7 +495,7 @@
       "type": "speculative",
       "scale": "lab",
       "note": "Speculative same-material pairing (Pontikis 1971); reported SD.",
-      "pAgr": 0.2727272727272727,
+      "pAgr": 0.45454545454545453,
       "pComp": 0.00032569588547845817
     },
     {
@@ -566,19 +566,6 @@
       "pComp": 0.4197583756859982
     },
     {
-      "id": 73,
-      "label": "Hubler (1995-A)",
-      "pair": "H₂O–Steel",
-      "pr": 6.667903,
-      "ob": 6.669,
-      "sd": 0.005,
-      "year": 1995,
-      "type": "lowestval",
-      "scale": "large",
-      "pAgr": 0.2727272727272727,
-      "pComp": 0.3688213422770811
-    },
-    {
       "id": 80,
       "label": "Oldham (1993)",
       "pair": "H₂O–Cu",
@@ -588,7 +575,7 @@
       "year": 1993,
       "type": "largescale",
       "scale": "large",
-      "pAgr": 0.6363636363636364,
+      "pAgr": 0.5454545454545454,
       "pComp": 0.4994758374707344
     },
     {
@@ -614,7 +601,7 @@
       "year": 1999,
       "type": "largescale",
       "scale": "large",
-      "pAgr": 0.8217821782178217,
+      "pAgr": 0.9405940594059405,
       "pComp": 0.9999945943675383
     },
     {
@@ -750,7 +737,7 @@
       "year": 1930,
       "type": "lowacc",
       "scale": "lab",
-      "pAgr": 0.2727272727272727,
+      "pAgr": 1.0,
       "pComp": 0.48886249013348293
     },
     {

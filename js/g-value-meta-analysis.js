@@ -117,7 +117,54 @@ const CATEGORIES = [
   },
 ];
 
+/* ══════════════════════════════════════════════
+   SPECULATIVE TEST MASS — MUTUALLY EXCLUSIVE COMPOSITIONS
+   ══════════════════════════════════════════════
+   Pontikis (1971) reported lead and mercury source masses paired with
+   brass test masses ("reported"). Sky Darmos' re-evaluation is that he
+   most likely also ran identical-material trials, lead–lead and
+   mercury–mercury ("alleged"). Each source mass therefore has two
+   candidate readings of the SAME experiment, and only one can be true,
+   so they must never be selected together — doing so would count one
+   source mass twice in the rank correlation and the Fisher
+   combinations.
 
+   The switch below picks exactly one group; entries in the other group
+   are locked (greyed, not selectable) until the switch is flipped.
+   Default is "alleged" (lead–lead, mercury–mercury).                    */
+
+const SPECULATIVE_GROUPS = {
+  alleged: {
+    label: "Alleged",
+    ids: [60, 61],   // Pb–Pb?, Hg–Hg?
+    note: "Alleged composition: lead–lead and mercury–mercury, i.e. identical-material source and test masses.",
+  },
+  reported: {
+    label: "Reported",
+    ids: [62, 63],   // Pb–Brass, Hg–Brass
+    note: "Reported composition: lead–brass and mercury–brass, exactly as published.",
+  },
+};
+const SPECULATIVE_DEFAULT_MODE = "alleged";
+let speculativeMode = SPECULATIVE_DEFAULT_MODE;
+
+// True when m is a speculative entry belonging to the group that is
+// currently switched off.
+function isSpeculativeLocked(m) {
+  if (m.type !== "speculative") return false;
+  return !SPECULATIVE_GROUPS[speculativeMode].ids.includes(m.id);
+}
+
+function setSpeculativeMode(mode) {
+  if (!SPECULATIVE_GROUPS[mode]) return;
+  speculativeMode = mode;
+  // Deselect the group that is now off; select everything in the group now on.
+  Object.entries(SPECULATIVE_GROUPS).forEach(([key, group]) => {
+    group.ids.forEach(id => (key === mode ? activeIds.add(id) : activeIds.delete(id)));
+  });
+  updateStats();
+  renderCards();
+}
 
 const FILTERS = [
   { key: "bigsd",       label: "SD ≥ 0.01",                        fn: m => m.sd >= 0.01 },
@@ -150,13 +197,17 @@ function getActiveData() {
   // by tau-b via the T1 (prediction-tie) count; their relationships
   // with all other entries are still fully counted as concordant or
   // discordant pairs.
-  const active = META_DATA.filter(m => activeIds.has(m.id) && !isFilteredOut(m));
+  // Locked speculative entries (the composition currently switched off)
+  // are excluded here as a safety net, so the two mutually exclusive
+  // readings of Pontikis (1971) can never both reach the statistics.
+  const active = META_DATA.filter(
+    m => activeIds.has(m.id) && !isFilteredOut(m) && !isSpeculativeLocked(m)
+  );
 
-  // A few measurements (currently just Hubler 1995-A) are stored under
-  // two different ids so the same card can be toggled from either of
-  // the categories it legitimately belongs to. If both of those
-  // categories are active at once, both ids end up in activeIds — this
-  // dedupes by the underlying measurement so it is never counted twice.
+  // Safety net: if the same underlying measurement is ever stored under
+  // two different ids (as Hubler 1995-A once was, in both the
+  // lowest-value and large-scale categories), this makes sure it is
+  // never counted twice. Currently no such duplicates exist.
   const seen = new Set();
   const deduped = [];
   for (const m of active) {
@@ -542,7 +593,12 @@ function updateStats() {
 
 /* ══════════════════════════════════════════════
    CHART
-   ══════════════════════════════════════════════ */
+   ══════════════════════════════════════════════
+   The canvas height is controlled in CSS (a fixed 2:1 aspect ratio —
+   see #meta-canvas in g-value-meta-analysis.html), so
+   the chart keeps a screenshot-friendly shape at any window width
+   instead of stretching into a very wide, flat strip. Everything below
+   simply draws into whatever size the canvas ends up with.             */
 
 function drawChart(data) {
   const canvas = document.getElementById("meta-canvas");
@@ -581,7 +637,16 @@ function drawChart(data) {
   const minV   = Math.min(...vals) - 0.0008;
   const maxV   = Math.max(...vals) + 0.0008;
 
-  const PL = 62, PR = 16, PT = 18, PB = 62;
+  // Bottom margin is sized to the longest rotated material label, so
+  // long pairs (e.g. Dy₆Fe₂₃–Dy₆Fe₂₃) are never clipped no matter how
+  // short or tall the canvas is.
+  const LABEL_ANGLE = Math.PI * 55 / 180;
+  ctx.font = "8px Arial";
+  const maxLabelW = Math.max(...sorted.map(d => ctx.measureText(d.pair).width));
+  const labelDrop = Math.ceil(maxLabelW * Math.sin(LABEL_ANGLE) + 8 * Math.cos(LABEL_ANGLE));
+
+  const PL = 62, PR = 16, PT = 18;
+  const PB = Math.max(62, labelDrop + 18);
   const pw = W - PL - PR;
   const ph = H - PT - PB;
 
@@ -617,7 +682,7 @@ function drawChart(data) {
   sorted.forEach((d, i) => {
     ctx.save();
     ctx.translate(xOf(i), PT + ph + 6);
-    ctx.rotate(-Math.PI * 55 / 180);
+    ctx.rotate(-LABEL_ANGLE);
     ctx.textAlign = "right";
     ctx.fillText(d.pair, 0, 0);
     ctx.restore();
@@ -685,6 +750,30 @@ function buildFilters() {
    MEASUREMENT CARDS
    ══════════════════════════════════════════════ */
 
+// The composition switch shown at the top of the speculative category.
+function buildSpeculativeSwitch() {
+  const box = document.createElement("div");
+  box.className = "spec-switch";
+  box.innerHTML = `
+    <div class="spec-switch-label">Pontikis (1971) composition</div>
+    <div class="spec-switch-btns" role="radiogroup" aria-label="Pontikis (1971) composition">
+      ${Object.entries(SPECULATIVE_GROUPS).map(([key, g]) => `
+        <button type="button" role="radio"
+                class="spec-switch-btn${key === speculativeMode ? " active" : ""}"
+                aria-checked="${key === speculativeMode}"
+                data-mode="${key}">${g.label}</button>`).join("")}
+    </div>
+    <p class="spec-switch-note">${SPECULATIVE_GROUPS[speculativeMode].note}
+      The two readings are mutually exclusive, so only one can be selected at a time.</p>`;
+
+  box.querySelectorAll(".spec-switch-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (btn.dataset.mode !== speculativeMode) setSpeculativeMode(btn.dataset.mode);
+    });
+  });
+  return box;
+}
+
 function renderCards() {
   const wrap = document.getElementById("meas-lists");
   if (!wrap) return;
@@ -694,7 +783,10 @@ function renderCards() {
     const items = META_DATA.filter(cat.fn);
     if (!items.length) return;
 
-    const allOn = items.every(m => activeIds.has(m.id));
+    // Entries the user can actually toggle (locked speculative entries
+    // are excluded, so "Select all" never turns on both compositions).
+    const selectable = items.filter(m => !isSpeculativeLocked(m));
+    const allOn = selectable.length > 0 && selectable.every(m => activeIds.has(m.id));
 
     // Category group wrapper with border
     const group = document.createElement("div");
@@ -713,13 +805,15 @@ function renderCards() {
       </button>`;
 
     hdr.querySelector(".meas-sel-all").addEventListener("click", () => {
-      const shouldTurnOn = !items.every(m => activeIds.has(m.id));
-      items.forEach(m => shouldTurnOn ? activeIds.add(m.id) : activeIds.delete(m.id));
+      const shouldTurnOn = !selectable.every(m => activeIds.has(m.id));
+      selectable.forEach(m => shouldTurnOn ? activeIds.add(m.id) : activeIds.delete(m.id));
       updateStats();
       renderCards();
     });
 
     group.appendChild(hdr);
+
+    if (cat.key === "speculative") group.appendChild(buildSpeculativeSwitch());
 
     const body = document.createElement("div");
     body.className = "meas-cat-body";
@@ -729,21 +823,22 @@ function renderCards() {
 
     // Cards
     items.forEach(m => {
-      const active   = activeIds.has(m.id);
+      const locked   = isSpeculativeLocked(m);
+      const active   = activeIds.has(m.id) && !locked;
       const filtered = isFilteredOut(m);
       const within   = Math.abs(m.ob - m.pr) <= m.sd;
       const acc      = ((1 - Math.abs(m.ob - m.pr) / m.pr) * 100).toFixed(4);
       const detOpen  = openDetails.has(m.id);
 
       const card = document.createElement("div");
-      card.className = `meas-card${active ? " active" : ""}${filtered ? " filtered" : ""}`;
+      card.className = `meas-card${active ? " active" : ""}${filtered ? " filtered" : ""}${locked ? " locked" : ""}`;
 
       card.innerHTML = `
         <div class="meas-row">
           <div class="meas-chk${active ? " on" : ""}">✓</div>
           <div class="meas-info">
             <div class="meas-name">${m.label}</div>
-            <div class="meas-meta">${m.pair} &middot; ${m.year} &middot; ${TYPE_LABELS[m.type]}${filtered ? " &middot; <em>filtered out</em>" : ""}</div>
+            <div class="meas-meta">${m.pair} &middot; ${m.year} &middot; ${TYPE_LABELS[m.type]}${filtered ? " &middot; <em>filtered out</em>" : ""}${locked ? " &middot; <em>switch composition to use</em>" : ""}</div>
           </div>
           <div class="meas-toggle">${detOpen ? "▲" : "▼"}</div>
         </div>
@@ -759,8 +854,10 @@ function renderCards() {
           <strong>Comparative p-value (vs. GR):</strong> ${m.pComp !== undefined ? formatP(m.pComp) : "not available (not yet computed)"}${m.note ? `<br><strong>Note:</strong> ${m.note}` : ""}
         </div>`;
 
-      // Toggle active on row click
+      // Toggle active on row click (locked speculative entries ignore it —
+      // the composition switch is what turns them on)
       card.querySelector(".meas-row").addEventListener("click", () => {
+        if (locked) return;
         activeIds.has(m.id) ? activeIds.delete(m.id) : activeIds.add(m.id);
         updateStats();
         renderCards();
@@ -788,7 +885,22 @@ fetch("data/g-value-meta-analysis-data.json")
   .then(response => response.json())
   .then(data => {
     META_DATA = data.measurements;
-    activeIds = new Set(META_DATA.filter(m => !DEFAULT_EXCLUDED_TYPES.has(m.type)).map(m => m.id));
+
+    // Default selection: every category not excluded by type, minus the
+    // speculative composition that is switched off by default — the two
+    // readings of Pontikis (1971) are mutually exclusive and must never
+    // both start out selected.
+    const lockedAtStart = new Set(
+      Object.entries(SPECULATIVE_GROUPS)
+        .filter(([key]) => key !== SPECULATIVE_DEFAULT_MODE)
+        .flatMap(([, g]) => g.ids)
+    );
+    activeIds = new Set(
+      META_DATA
+        .filter(m => !DEFAULT_EXCLUDED_TYPES.has(m.type) && !lockedAtStart.has(m.id))
+        .map(m => m.id)
+    );
+
     buildFilters();
     renderCards();
     updateStats();
