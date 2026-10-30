@@ -379,18 +379,66 @@ function kendallTauB(data) {
     z = sigma === 0 ? 0 : adjustedTau / sigma;
   }
 
-  const p = 1 - normalCDF(z);
+  // Right-tailed p-value, computed directly on the tail (see
+  // normalUpperTail below) rather than as 1 − CDF, so very small
+  // p-values keep full precision.
+  const p = normalUpperTail(z);
 
   return { tau, z, p, n, C, D, T1, T2, S, adjustedTau };
 }
 
-// Abramowitz & Stegun approximation — accurate to 7.5 × 10⁻⁸
-function normalCDF(z) {
-  const t    = 1 / (1 + 0.2316419 * Math.abs(z));
-  const poly = t * (0.319381530 + t * (-0.356563782 + t * (1.781477937 + t * (-1.821255978 + t * 1.330274429))));
-  const pdf  = Math.exp(-0.5 * z * z) / Math.sqrt(2 * Math.PI);
-  const q    = 1 - pdf * poly;
-  return z >= 0 ? q : 1 - q;
+/* ══════════════════════════════════════════════
+   NORMAL UPPER TAIL  —  P(Z > z) for a standard normal Z
+   ══════════════════════════════════════════════
+   Accurate to about 1e-13 relative error (usually ~1e-15) for every z,
+   with no dependencies. This replaces the Abramowitz & Stegun 26.2.17
+   polynomial, which only guarantees an ABSOLUTE error of 7.5e-8 (so
+   p-values near 1e-8 carried a ~0.2 % relative error) and, combined
+   with computing the tail as 1 − CDF, rounded p to exactly 0 once
+   z ≳ 8.5.
+
+   Two exact expansions, each used where it is numerically safe:
+
+   • 0 ≤ z < 2.5 — Taylor series of the CDF
+       Φ(z) = 1/2 + φ(z) · Σ_{n≥0} z^(2n+1) / (1·3·5···(2n+1)),
+       so P(Z > z) = 1/2 − φ(z) · Σ …     (φ = standard normal density)
+
+   • z ≥ 2.5 — continued fraction for the Mills ratio, evaluated with
+     the modified Lentz algorithm
+       P(Z > z) = φ(z) / ( z + 1/( z + 2/( z + 3/( z + … ))) )
+     This is computed directly on the tail, so there is no
+     "1 − (1 − tiny)" cancellation.
+
+   Negative z uses P(Z > −a) = 1 − P(Z > a). For z > 38.6 the true value
+   is below the smallest representable double, so 0 is returned.       */
+
+function normalUpperTail(z) {
+  if (Number.isNaN(z)) return NaN;
+  if (z < 0) return 1 - normalUpperTail(-z);
+  if (z === 0) return 0.5;
+  if (z > 38.6) return 0;
+  const phi = Math.exp(-0.5 * z * z) / Math.sqrt(2 * Math.PI);
+
+  if (z < 2.5) {
+    let term = z, sum = z;
+    for (let n = 1; n < 200; n++) {
+      term *= z * z / (2 * n + 1);
+      sum  += term;
+      if (term < sum * 1e-17) break;
+    }
+    return 0.5 - phi * sum;
+  }
+
+  const TINY = 1e-300;
+  let f = z, Cc = z, Dd = 0;
+  for (let n = 1; n < 2000; n++) {
+    Dd = z + n * Dd; if (Dd === 0) Dd = TINY; Dd = 1 / Dd;
+    Cc = z + n / Cc; if (Cc === 0) Cc = TINY;
+    const delta = Cc * Dd;
+    f *= delta;
+    if (Math.abs(delta - 1) < 1e-16) break;
+  }
+  return phi / f;
 }
 
 /* ══════════════════════════════════════════════
@@ -611,7 +659,7 @@ function drawChart(data) {
   const C_TICK_TEXT = "#c5d2e3";
   const C_GRID      = "rgba(197,210,227,0.14)";
   const C_AXIS      = "#6a7b92";
-  const C_LABEL     = "#c5d2e3";  
+  const C_LABEL     = "#c5d2e3";
 
   // ── Canvas sizing — always use actual CSS pixel size × dpr for crispness
   const dpr = Math.round(window.devicePixelRatio || 1);
