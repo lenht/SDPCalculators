@@ -377,8 +377,8 @@
 
             <p class="section-note">
               Only the \(T = T_X + T_Y\) exclusive ties are still "ambiguous"
-              here — joint ties (\(T_{XY}\)) are already resolved into \(C\)
-              above, so they play no part in this step. Each exclusive tied
+              here — joint ties (\(T_{XY}\)) are already counted in the
+              numerator above, so they play no part in this step. Each exclusive tied
               pair could in principle have gone concordant or discordant; we
               search over every way the group of \(T\) ties could have shifted
               the numerator, and take the smallest shift whose resulting tau-a
@@ -392,7 +392,7 @@
             </div>
 
             <p class="section-note">
-              where \(S = C - D\). That value is then used with the simple
+              where \(S = C - D + T_{XY}\). That value is then used with the simple
               tau-a standard deviation:
             </p>
 
@@ -413,21 +413,79 @@
               so the number actually feeding \(z\) is never hidden.
             </p>
 
+            <p class="section-note">
+              <strong>How the p-value is computed.</strong> The p-value is the
+              right tail of the standard normal distribution — the probability
+              that a standard normal variable exceeds \(z\):
+            </p>
+
+            <div class="formula-box small-formula mj">
+              \[
+                p = P(Z > z) = 1 - \Phi(z) = \tfrac{1}{2}\,\operatorname{erfc}\!\left(\frac{z}{\sqrt{2}}\right)
+              \]
+            </div>
+
+            <p class="section-note">
+              The page evaluates this tail directly, with no lookup table and no
+              approximating polynomial, using two exact expansions, each in the
+              range where it is numerically safe. Both use the standard normal
+              density \(\varphi(z) = e^{-z^2/2}/\sqrt{2\pi}\). For
+              \(0 \le z < 2.5\) it sums the Taylor series of the cumulative
+              distribution function:
+            </p>
+
+            <div class="formula-box small-formula mj">
+              \[
+                p = \frac{1}{2} - \varphi(z) \sum_{n=0}^{\infty} \frac{z^{2n+1}}{(2n+1)!!}
+              \]
+            </div>
+
+            <p class="section-note">
+              where \((2n+1)!! = 1 \cdot 3 \cdot 5 \cdots (2n+1)\). For
+              \(z \ge 2.5\) it uses the continued-fraction expansion of the
+              tail, evaluated with the modified Lentz algorithm until it stops
+              changing in double precision:
+            </p>
+
+            <div class="formula-box small-formula mj">
+              \[
+                p = \cfrac{\varphi(z)}{z + \cfrac{1}{z + \cfrac{2}{z + \cfrac{3}{z + \cdots}}}}
+              \]
+            </div>
+
+            <p class="section-note">
+              Negative \(z\) uses \(P(Z > -a) = 1 - P(Z > a)\). Because the tail
+              is computed directly rather than as \(1 - \Phi(z)\) on a number
+              already close to 1, very small p-values keep full relative
+              precision: the result agrees with high-precision reference calculations
+              to better than \(10^{-12}\) in relative terms for every \(z\) tested. We avoid the common
+              polynomial shortcut for the normal distribution (Abramowitz &amp;
+              Stegun, formula 26.2.17), because it only guarantees an
+              <em>absolute</em> error of \(7.5\times10^{-8}\), which is too coarse
+              for p-values this small. The odds shown are simply
+              \(1/p\), rounded to the nearest whole number. P-values below
+              \(10^{-10}\) are calculated in full but displayed as
+              "&lt; 10<sup>−10</sup>".
+            </p>
+
             <div class="legend-box">
-              <p>\(C\) = number of concordant pairs, including joint ties (see below)</p>
+              <p>\(C\) = number of concordant pairs, <em>excluding</em> joint ties — those are counted separately as \(T_{XY}\) (see below)</p>
               <p>\(D\) = number of discordant pairs — pairs where the ordering disagrees</p>
               <p>\(T_X\) = pairs tied on predicted value only &nbsp;·&nbsp; \(T_Y\) = pairs tied on observed value only</p>
               <p>\(T_{XY}\) = "joint ties" — pairs tied on <em>both</em> predicted and observed value</p>
-              <p>\(S = C - D\) &nbsp;·&nbsp; \(P\) = total pairs \(= C+D+T_X+T_Y+T_{XY} = n(n-1)/2\)</p>
+              <p>\(S = C - D + T_{XY}\) &nbsp;·&nbsp; \(P\) = total pairs \(= C+D+T_X+T_Y+T_{XY} = n(n-1)/2\)</p>
               <p>\(n\) = number of selected measurements</p>
-              <p>The p-value is right-tailed, computed from the normal CDF of \(z\).
+              <p>The p-value is the right tail of the standard normal distribution at \(z\), computed exactly (see above).
                  Ties arise from measurement uncertainty, not from fundamental degeneracy.</p>
               <p><strong>On \(\tau_b^+\) vs. standard \(\tau_b\):</strong> standard
                  tau-b drops a pair tied on <em>both</em> predicted and observed
                  value entirely — it contributes to neither \(C\), \(D\), \(T_X\),
                  nor \(T_Y\). Here, such a "joint tie" is instead counted as
-                 concordant, added to \(C\) and to \(T_{XY}\) — \(T_X\) and \(T_Y\)
-                 stay pure exclusive tie-counts, unaffected. Two different
+                 concordant: it is tallied as \(T_{XY}\), which is added to the
+                 numerator and to both factors of the denominator, while \(C\),
+                 \(T_X\) and \(T_Y\) stay pure — \(C\) excludes joint ties, and
+                 \(T_X\), \(T_Y\) are exclusive tie-counts, unaffected. (The
+                 dashboard's "Concordant" figure is \(C + T_{XY}\).) Two different
                  experiments independently landing on the same predicted
                  <em>and</em> observed value is treated as supporting evidence,
                  not as an uninformative pair. Keeping \(T_{XY}\) out of \(T_X\)
@@ -435,7 +493,9 @@
                  denominator large enough that perfect agreement can never push
                  \(\tau_b^+\) above 1. This affects exactly two pairs in the
                  default dataset — De Boer (1987) & Lamporesi (2008) and
-                 Goldblum (1987) & Ritter (1990).</p>
+                 Goldblum (1987) & Ritter (1990). (A selection of just the
+                 paper's 19 high-precision measurements contains only the
+                 first pair.)</p>
             </div>
 
             <h4>A second, independent check: agreement in value</h4>

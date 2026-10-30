@@ -236,16 +236,21 @@ function getActiveData() {
    is itself a striking piece of concordant evidence (motivated by
    prior Eotvos-experiment analysis, where identical composition
    producing identical measured gravity was counted as support, not
-   noise). So here, joint ties are counted as CONCORDANT (added to C)
-   ONLY -- T1 and T2 remain pure exclusive tie-counts (predicted-only,
-   observed-only), unaffected by joint ties. Formula:
+   noise). So here, joint ties are counted as CONCORDANT -- they enter
+   the numerator -- while T1 and T2 remain pure exclusive tie-counts
+   (predicted-only, observed-only), unaffected by joint ties. Formula,
+   with C = concordant pairs EXCLUDING joint ties (as in the page's
+   method text):
      tau_b+ = (C - D + Txy) / sqrt((C+D+T1+Txy) * (C+D+T2+Txy))
-   which is exactly what the code below computes, since C already
-   includes Txy and C+D+T1+Txy = P-T2 algebraically. This keeps the
-   denominator large enough that perfect agreement can never push
-   tau_b+ above 1. Only two pairs in the default dataset are
-   affected: De Boer (1987) & Lamporesi (2008), and Goldblum (1987) &
-   Ritter (1990).
+   NOTATION: the variable C in the code below is C + Txy (a joint tie
+   does C++), so the code computes (C - D) / sqrt((P-T2)*(P-T1)),
+   which is exactly the formula above because C+D+T1+Txy = P-T2
+   algebraically. The dashboard's "Concordant" count is this C + Txy.
+   This keeps the denominator large enough that perfect agreement can
+   never push tau_b+ above 1. Only two pairs in the default selection
+   are affected: De Boer (1987) & Lamporesi (2008), and Goldblum
+   (1987) & Ritter (1990). (The paper's 19-row selection contains
+   only the first pair.)
 
    Method (from Sky Darmos):
    ─────────────────────────
@@ -292,20 +297,21 @@ function kendallTauB(data) {
 
       if (tieP && tieO) {
         // Joint tie (tau-b+, not standard tau-b): counted as concordant
-        // AND added to both tie counts T1 and T2. Deliberate departure
-        // from standard tau-b (which drops joint ties entirely) — see
-        // header note above. Applies to exactly two pairs in this
-        // dataset: De Boer (1987) & Lamporesi (2008) and Goldblum
-        // (1987)/Ritter (1990).
+        // (C++ only). Deliberate departure from standard tau-b (which
+        // drops joint ties entirely) — see header note above. Applies
+        // to exactly two pairs in the default selection: De Boer (1987)
+        // & Lamporesi (2008) and Goldblum (1987)/Ritter (1990).
         //
         // NOTE: added to C only — NOT to T1 or T2. Per the exact
         // formula tau = (C-D+Txy) / sqrt((C+D+Tx+Txy)*(C+D+Ty+Txy)),
-        // Txy only inflates the numerator; T1/T2 stay pure exclusive
-        // tie-counts (predicted-only / observed-only). Adding Txy to
-        // T1/T2 as well (an earlier bug here) double-benefits joint
-        // ties and can push tau above what a perfect-agreement case
-        // should give — with the correct formula, all-joint-tie data
-        // gives tau = 1 exactly, never more.
+        // with C excluding joint ties, Txy appears in the numerator and
+        // in both denominator factors — all of which this single C++
+        // reproduces, because C+D+Tx+Txy = P-Ty. T1/T2 stay pure
+        // exclusive tie-counts (predicted-only / observed-only).
+        // Adding Txy to T1/T2 as well (an earlier bug here)
+        // double-benefits joint ties and can push tau above what a
+        // perfect-agreement case should give — with the correct
+        // formula, all-joint-tie data gives tau = 1 exactly, never more.
         C++;
       } else if (tieP) {
         // Tied on predicted only
