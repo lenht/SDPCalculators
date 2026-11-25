@@ -524,7 +524,7 @@
     },
     {
       "id": 20,
-      "label": "HUST (1999 & 2005)",
+      "label": "HUST (1999 – 2005)",
       "pair": "Steel–Cu",
       "pr": 6.674041,
       "ob": 6.6711,
@@ -538,7 +538,7 @@
     },
     {
       "id": 201,
-      "label": "Gundlach (2000)",
+      "label": "Gundlach (2000-A&B)",
       "pair": "Steel–Silica",
       "pr": 6.67197,
       "ob": 6.67406,
@@ -566,7 +566,7 @@
     },
     {
       "id": 203,
-      "label": "HUST-18 (2018)",
+      "label": "HUST (2018)",
       "pair": "Steel–Silica",
       "pr": 6.67197,
       "ob": 6.674334,

@@ -561,6 +561,15 @@ function formatOdds(p) {
   return "1 in " + Math.round(odds).toLocaleString("en-US");
 }
 
+/* Percent agreement between two values A and B: min(A,B) / max(A,B) × 100,
+   i.e. the smaller value divided by the larger. This is the Excel
+   workbook's own definition (accuracy = A/B with A < B), it is
+   symmetric in A and B, and a single division introduces less
+   rounding error than 1 − |A−B|/A. */
+function agreementPercent(a, b) {
+  return (Math.min(a, b) / Math.max(a, b)) * 100;
+}
+
 /* Accuracy as a percentage with enough decimals to show at least two
    significant digits of the shortfall from 100 % (so 99.999955 is not
    rounded to 100.0000). */
@@ -920,7 +929,7 @@ function renderCards() {
       const filtered = isFilteredOut(m);
       const withinSPD = agreesWithinErrors(m.ob, m.sd, m.pr, SPD_SIGMA_PRED);
       const withinGR  = agreesWithinErrors(m.ob, m.sd, GR_VALUE, GR_SIGMA_PRED);
-      const acc      = formatAccuracy((1 - Math.abs(m.ob - m.pr) / m.pr) * 100);
+      const acc      = formatAccuracy(agreementPercent(m.ob, m.pr));
       const detOpen  = openDetails.has(m.id);
 
       const card = document.createElement("div");
