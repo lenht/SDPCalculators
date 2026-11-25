@@ -18,18 +18,26 @@
    ══════════════════════════════════════════════ */
 
 /* ══════════════════════════════════════════════
-   CATEGORIES (type field):
-     "high"       – high accuracy Cavendish (main list)
-     "freefall"   – freefall / atom interferometer experiments
-     "speculative"– test mass composition uncertain or speculative
-     "lowestval"  – lowest value selected (insufficient environmental isolation)
-     "lowacc"     – low accuracy (pre-modern or poor SD > 0.01)
-     "outofrange"  – beyond reasonable range 6.660–6.676
-     "largescale" – large-scale / long-range / intermediate-range experiments
-     "homogenized"– averages of mixed/heterogeneous compositions (Pontikis 1972,
-                     and the two 19th-century multi-material trials Reich 1838 & Bailey 1843)
-     "conflicting"– averages of values literally from the same experiment/apparatus
-                     that disagree with each other (off by default)
+   CATEGORIES (type field) — exactly the 12 sections of the Excel file
+   "Data for the G-value meta-analysis calculator.xlsx" and the paper,
+   in the same order:
+     "high"            – high accuracy Cavendish: all values that agree
+                          with each other (the paper's main 19)
+     "speculative"     – test mass composition uncertain or speculative
+     "freefall"        – freefall / atom interferometer (absolute gravimeter)
+     "lowestval"       – lowest value selected (insufficient environmental isolation)
+     "conflictingHigh" – conflicting with other high precision values
+     "conflictingPub"  – conflicting only with other values from the same publication
+     "conflicting"     – averages of conflicting values from the same experiments
+                          that also conflict with other values in the list
+     "largescale"      – intermediate range (Poynting method)
+     "homogenized"     – averages of mixed/heterogeneous compositions (Pontikis 1972,
+                          and the two 19th-century multi-material trials Reich 1838 & Bailey 1843)
+     "lowacc"          – low precision (historic)
+     "modernlow"       – modern low precision measurements
+     "outofrange"      – small standard deviations but beyond the inclusion range
+   Individual values behind a "conflicting" average (e.g. Luther 1997
+   coated / uncoated) are not listed; only the average is.
    Notation for damping disks:
      SM – [TM ≪ DD]  means source mass – [test mass ≪ dominant damping disk]
      DD  = damping disk (aluminum)
@@ -44,15 +52,18 @@
    let META_DATA = [];
 
 const TYPE_LABELS = {
-  high:         "High accuracy Cavendish",
-  freefall:     "Freefall / atom interferometer",
-  speculative:  "Speculative test mass composition",
-  lowestval:    "Lowest value selected (insufficient isolation)",
-  lowacc:       "Low accuracy / historic",
-  largescale:   "Large-scale / intermediate-range (Poynting method)",
-  outofrange:   "Beyond reasonable range",
-  homogenized:  "Homogenized / mixed-composition average (off by default)",
-  conflicting:  "Average of conflicting values (off by default)",
+  high:            "High accuracy Cavendish",
+  speculative:     "Speculative test mass (Pontikis Pb & Hg)",
+  freefall:        "Freefall atom interferometer (absolute gravimeter) experiments",
+  lowestval:       "Lowest value selected (insufficient isolation)",
+  conflictingHigh: "Conflicting with other high precision values",
+  conflictingPub:  "Conflicting only with other values from the same publication",
+  conflicting:     "Averages of conflicting values from the same experiments that also conflict with other values in the list",
+  largescale:      "Intermediate range (Poynting method)",
+  homogenized:     "Average of homogenized values",
+  lowacc:          "Low precision",
+  modernlow:       "Modern low precision measurements",
+  outofrange:      "Small standard deviations but beyond the inclusion range",
 };
 
 /* ══════════════════════════════════════════════
@@ -90,62 +101,23 @@ const SCALE_LABELS = {
   large: "Large-scale / long-range",
 };
 
+/* Categories and their order are exactly those of the Excel file
+   "Data for the G-value meta-analysis calculator.xlsx" and the paper.
+   Titles use the Excel's own wording. */
 const CATEGORIES = [
-  {
-    key: "high",
-    title: "High accuracy Cavendish",
-    color: "#1a8c5c",
-    fn: m => m.type === "high",
-  },
-  {
-    key: "freefall",
-    title: "Freefall / atom interferometer",
-    color: "#4c6f95",
-    fn: m => m.type === "freefall",
-  },
-  {
-    key: "speculative",
-    title: "Speculative test mass (Pontikis Pb & Hg)",
-    color: "#7a5c9e",
-    fn: m => m.type === "speculative",
-  },
-  {
-    key: "lowestval",
-    title: "Lowest value selected (insufficient isolation)",
-    color: "#7a7a40",
-    fn: m => m.type === "lowestval",
-  },
-  {
-    key: "largescale",
-    title: "Large-scale / intermediate-range",
-    color: "#c87a40",
-    fn: m => m.type === "largescale",
-  },
-  {
-    key: "lowacc",
-    title: "Low accuracy / historic",
-    color: "#888",
-    fn: m => m.type === "lowacc",
-  },
-  {
-    key: "outofrange",
-    title: "Beyond reasonable range (6.660 – 6.676)",
-    color: "#b84040",
-    fn: m => m.type === "outofrange",
-  },
-  {
-    key: "homogenized",
-    title: "Homogenized / mixed-composition average (off by default)",
-    color: "#3f7a8c",
-    fn: m => m.type === "homogenized",
-  },
-  {
-    key: "conflicting",
-    title: "Average of conflicting values (off by default)",
-    color: "#8a6040",
-    fn: m => m.type === "conflicting",
-  },
-];
+  { key: "high",            color: "#1a8c5c", title: TYPE_LABELS.high },
+  { key: "speculative",     color: "#7a5c9e", title: TYPE_LABELS.speculative },
+  { key: "freefall",        color: "#4c6f95", title: TYPE_LABELS.freefall },
+  { key: "lowestval",       color: "#7a7a40", title: TYPE_LABELS.lowestval },
+  { key: "conflictingHigh", color: "#a8683c", title: TYPE_LABELS.conflictingHigh },
+  { key: "conflictingPub",  color: "#b08a5a", title: TYPE_LABELS.conflictingPub },
+  { key: "conflicting",     color: "#8a6040", title: TYPE_LABELS.conflicting },
+  { key: "largescale",      color: "#c87a40", title: TYPE_LABELS.largescale },
+  { key: "homogenized",     color: "#3f7a8c", title: TYPE_LABELS.homogenized },
+  { key: "lowacc",          color: "#888",    title: TYPE_LABELS.lowacc },
+  { key: "modernlow",       color: "#6f6f6f", title: TYPE_LABELS.modernlow },
+  { key: "outofrange",      color: "#b84040", title: TYPE_LABELS.outofrange },
+].map(c => ({ ...c, fn: m => m.type === c.key }));
 
 /* ══════════════════════════════════════════════
    SPECULATIVE TEST MASS — MUTUALLY EXCLUSIVE COMPOSITIONS
@@ -200,7 +172,7 @@ const FILTERS = [
   { key: "bigsd",       label: "SD ≥ 0.01",                        fn: m => m.sd >= 0.01 },
   { key: "outofrange",  label: "Outside 6.660 – 6.676",            fn: m => m.ob < 6.660 || m.ob > 6.676 },
   { key: "largescale",  label: "Large-scale / intermediate-range",  fn: m => m.type === "largescale" },
-  { key: "lowacc",      label: "Low accuracy / historic",           fn: m => m.type === "lowacc" },
+  { key: "lowacc",      label: "Low precision (historic & modern)", fn: m => m.type === "lowacc" || m.type === "modernlow" },
   { key: "freefall",    label: "Freefall / interferometer",         fn: m => m.type === "freefall" },
   { key: "homogenized", label: "Homogenized / mixed-composition",   fn: m => m.type === "homogenized" },
   { key: "speculative", label: "Speculative test mass",             fn: m => m.type === "speculative" },
@@ -211,8 +183,11 @@ const FILTERS = [
    STATE
    ══════════════════════════════════════════════ */
 
-// Default: include only high, freefall, speculative, lowestval entries
-const DEFAULT_EXCLUDED_TYPES = new Set(["lowacc","outofrange","largescale","conflicting","homogenized"]);
+// Default: include the high, conflictingHigh, conflictingPub, freefall,
+// speculative and lowestval entries. (The first two conflicting categories
+// were originally part of the high-precision list, so they stay on; only the
+// averages of conflicting values — "conflicting" — are off by default.)
+const DEFAULT_EXCLUDED_TYPES = new Set(["conflicting","largescale","homogenized","lowacc","modernlow","outofrange"]);
 let activeIds;   // initialized once META_DATA loads — see BOOT at bottom
 let activeFilters = new Set(["outofrange"]);
 let openDetails   = new Set();
