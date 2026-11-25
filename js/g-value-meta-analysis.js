@@ -751,11 +751,18 @@ function drawChart(data) {
   // long pairs (e.g. Dy₆Fe₂₃–Dy₆Fe₂₃) are never clipped no matter how
   // short or tall the canvas is.
   const LABEL_ANGLE = Math.PI * 55 / 180;
-  ctx.font = "8px Arial";
+  const LABEL_PX    = 11;   // x-axis material-pair labels (was 8)
+  const TICK_PX     = 11;   // y-axis value labels (was 9)
+  const LINE_W      = 3.5;  // predicted / observed lines (was 2.5)
+  const DOT_R       = 5;    // data-point dots (was 4)
+  ctx.font = `${LABEL_PX}px Arial`;
   const maxLabelW = Math.max(...sorted.map(d => ctx.measureText(d.pair).width));
-  const labelDrop = Math.ceil(maxLabelW * Math.sin(LABEL_ANGLE) + 8 * Math.cos(LABEL_ANGLE));
+  const labelDrop = Math.ceil(maxLabelW * Math.sin(LABEL_ANGLE) + LABEL_PX * Math.cos(LABEL_ANGLE));
 
-  const PL = 62, PR = 16, PT = 18;
+  // Left margin must fit the widest y tick label ("6.6700") plus its gap.
+  ctx.font = `${TICK_PX}px monospace`;
+  const tickW = Math.ceil(ctx.measureText("6.6700").width);
+  const PL = Math.max(62, tickW + 18), PR = 18, PT = 18;
   const PB = Math.max(62, labelDrop + 18);
   const pw = W - PL - PR;
   const ph = H - PT - PB;
@@ -773,7 +780,7 @@ function drawChart(data) {
     ctx.lineWidth   = 1;
     ctx.beginPath(); ctx.moveTo(PL, y); ctx.lineTo(PL + pw, y); ctx.stroke();
     ctx.fillStyle    = C_TICK_TEXT;
-    ctx.font         = "9px monospace";
+    ctx.font         = `${TICK_PX}px monospace`;
     ctx.textAlign    = "right";
     ctx.textBaseline = "middle";
     ctx.fillText(t.toFixed(4), PL - 5, y);
@@ -787,7 +794,7 @@ function drawChart(data) {
 
   // x-axis labels (rotated)
   ctx.fillStyle    = C_LABEL;
-  ctx.font         = "8px Arial";
+  ctx.font         = `${LABEL_PX}px Arial`;
   ctx.textBaseline = "top";
   sorted.forEach((d, i) => {
     ctx.save();
@@ -801,7 +808,7 @@ function drawChart(data) {
   // draw a line + dots
   function drawLine(color, key) {
     ctx.strokeStyle = color;
-    ctx.lineWidth   = 2.5;
+    ctx.lineWidth   = LINE_W;
     ctx.lineJoin    = "round";
     ctx.beginPath();
     sorted.forEach((d, i) => {
@@ -812,7 +819,7 @@ function drawChart(data) {
     sorted.forEach((d, i) => {
       ctx.fillStyle = color;
       ctx.beginPath();
-      ctx.arc(xOf(i), yOf(d[key]), 4, 0, 2 * Math.PI);
+      ctx.arc(xOf(i), yOf(d[key]), DOT_R, 0, 2 * Math.PI);
       ctx.fill();
     });
   }
