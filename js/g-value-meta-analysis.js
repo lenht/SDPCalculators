@@ -55,6 +55,36 @@ const TYPE_LABELS = {
   conflicting:  "Average of conflicting values (off by default)",
 };
 
+/* ══════════════════════════════════════════════
+   AGREEMENT WITHIN MARGINS OF ERROR
+   ══════════════════════════════════════════════
+   A prediction agrees with a measurement "within margins of error"
+   when the measured value ± its standard deviation overlaps the
+   predicted value ± the prediction's own standard deviation:
+
+       |G_obs − G_pred|  ≤  SD_obs + σ_pred
+
+   Both uncertainties count, not just the measurement's. Sky Darmos'
+   equivalent ratio form: divide the measurement range by the
+   prediction range; the prediction agrees when 1 lies between the
+   smallest ratio (G_obs − SD_obs)/(G_pred + σ_pred) and the largest
+   ratio (G_obs + SD_obs)/(G_pred − σ_pred). Example (Schlamminger
+   2026-servo, Cu–Cu): the largest ratio is
+   (6.673642 + 0.00015)/(6.673985 − 0.000228) = 1.0000052 ≥ 1, so SPD
+   agrees, although the gap (0.000343) exceeds the measurement's own
+   SD (0.00015).
+
+   σ_pred is 0.000228 for every SPD prediction, whatever the
+   composition; GR is the CODATA value 6.6743 ± 0.00015.            */
+
+const SPD_SIGMA_PRED = 0.000228;
+const GR_VALUE       = 6.6743;
+const GR_SIGMA_PRED  = 0.00015;
+
+function agreesWithinErrors(ob, sd, pred, sigmaPred) {
+  return Math.abs(ob - pred) <= sd + sigmaPred + 1e-12;   // 1e-12: float-rounding guard on exact ties
+}
+
 const SCALE_LABELS = {
   lab:   "Laboratory",
   large: "Large-scale / long-range",
@@ -268,17 +298,18 @@ function getActiveData() {
       trustworthy than the alternative below. Instead:
         - Only the T = T_X + T_Y exclusive ties are "still ambiguous"
           (joint ties are already resolved into C, not part of this).
-        - Search net = T, T-2, T-4, ... for the SMALLEST net such
+        - Search net = -T, -T+2, ..., T for the SMALLEST net such
           that the tau-a candidate (S+net)/P first exceeds tau_b+.
           That is the "next higher tau-a".
         - sigma = sqrt(2(2n+5) / 9n(n−1))  [simple, uncorrected tau-a
           variance — exact only when there are no ties, used here as
-          a conservative proxy]
+          a proxy]
         - z = (next higher tau-a) / sigma
         - p = right-tailed normal CDF of z
-      This is conservative by construction: using the closest tau-a
-      value that is still strictly above tau_b+ never makes the
-      result look MORE significant than a direct approach would.
+      The nearest attainable value above tau_b+ is used, not the
+      maximum (S+T)/P. The result therefore sits between the two:
+      slightly more favourable than plugging tau_b+ into the simple
+      formula directly, and less favourable than the maximum.
    ══════════════════════════════════════════════ */
 
 function kendallTauB(data) {
@@ -344,22 +375,23 @@ function kendallTauB(data) {
   // messy, and not obviously more trustworthy than the alternative
   // below even if we did. Instead we get a p-value by deliberately
   // using the SIMPLE, well-known tau-a variance (which assumes no
-  // ties) as a conservative proxy, applied to a tau-a value chosen
-  // to never understate how tied pairs could have gone against us:
+  // ties) as a proxy, applied to a tau-a value chosen as the nearest
+  // attainable value above tau_b+ (not the most flattering one):
   //
   //   Only the T1+T2 EXCLUSIVE ties (T_X, T_Y) are "still ambiguous"
   //   here — joint ties (T_XY) are already resolved into C above, not
   //   part of this search. Each exclusive tied pair could in
   //   principle have been concordant (+1 to S) or discordant (-1 to
-  //   S); we search over net = T, T-2, T-4, ..., for the SMALLEST net
+  //   S); we search over net = -T, -T+2, ..., T for the SMALLEST net
   //   such that the resulting tau-a candidate (S+net)/P first exceeds
   //   the true tau_b+. That "next higher tau-a" is then used as the
   //   numerator for z, with the simple uncorrected tau-a sigma as the
-  //   denominator. Because we picked the closest tau-a value that is
-  //   still strictly above tau_b+ (not the true, generally larger,
-  //   tau-a upper bound), this is a conservative estimate: it never
-  //   makes the result look MORE significant than the simple-sigma
-  //   approach would, only equally or less.
+  //   denominator. We pick the NEAREST attainable value above tau_b+,
+  //   not the maximum (S+T)/P (every exclusive tie going the favourable
+  //   way), which would be the most flattering choice. So the result
+  //   sits between the two: slightly more favourable than using tau_b+
+  //   directly in the simple formula, and less favourable than the
+  //   maximum. (Paper's 19 rows: z = 4.12 direct, 4.16 here, 4.30 max.)
   const sigma = Math.sqrt((2 * (2 * n + 5)) / (9 * n * (n - 1)));
 
   let z, adjustedTau;
@@ -370,9 +402,12 @@ function kendallTauB(data) {
     adjustedTau = tau;
     z = sigma === 0 ? 0 : tau / sigma;
   } else {
-    const startNet = (T % 2 === 0) ? 2 : 1;
+    // Full set of attainable net shifts: -T, -T+2, ..., T (same parity
+    // as T). Scanning upward, the first candidate above tau_b+ is the
+    // smallest one. For S > 0 only positive shifts can qualify; for
+    // S <= 0, zero or negative shifts can too, so they must be searched.
     let found = false;
-    for (let net = startNet; net <= T; net += 2) {
+    for (let net = -T; net <= T; net += 2) {
       const candidateTau = (S + net) / P;
       if (candidateTau > tau) {
         adjustedTau = candidateTau;
@@ -525,19 +560,40 @@ function toSuperscript(n) {
 
 function formatP(p) {
   if (p === null || isNaN(p)) return "—";
-  if (p < 1e-10) return "< 10⁻¹⁰";
+  // Only a value too small for a double (below ~1e-300) is shown as a bound;
+  // everything else is displayed at full three-digit precision.
+  if (p < 1e-300) return "< 10⁻³⁰⁰";
   if (p < 0.001) {
-    const exp = Math.floor(Math.log10(p));
-    const man = (p / Math.pow(10, exp)).toFixed(2);
-    return `${man} × 10${toSuperscript(exp)}`;
+    // toExponential handles mantissa rounding (e.g. 9.996e-5 -> 1.00e-4)
+    const [man, exp] = p.toExponential(2).split("e");
+    return `${man} × 10${toSuperscript(parseInt(exp, 10))}`;
   }
   return p.toFixed(6);
 }
 
 function formatOdds(p) {
-  if (!p || p <= 0 || isNaN(p)) return "—";
+  if (p === null || isNaN(p) || p < 0) return "—";
+  if (p < 1e-300) return "> 1 in 10³⁰⁰";
+  if (p === 0) return "—";
   if (p >= 0.5) return "< 2 : 1";
-  return "1 in " + Math.round(1 / p).toLocaleString("en-US");
+  const odds = 1 / p;
+  // A double carries ~15-16 significant digits, so very large odds are
+  // shown in scientific notation instead of with meaningless trailing digits.
+  if (odds >= 1e15) {
+    const [man, exp] = odds.toExponential(2).split("e");
+    return `1 in ${man} × 10${toSuperscript(parseInt(exp, 10))}`;
+  }
+  return "1 in " + Math.round(odds).toLocaleString("en-US");
+}
+
+/* Accuracy as a percentage with enough decimals to show at least two
+   significant digits of the shortfall from 100 % (so 99.999955 is not
+   rounded to 100.0000). */
+function formatAccuracy(acc) {
+  const shortfall = 100 - acc;
+  if (!(shortfall > 0)) return "100";
+  const decimals = Math.min(10, Math.max(2, Math.ceil(-Math.log10(shortfall)) + 1));
+  return acc.toFixed(decimals);
 }
 
 /* ══════════════════════════════════════════════
@@ -880,8 +936,9 @@ function renderCards() {
       const locked   = isSpeculativeLocked(m);
       const active   = activeIds.has(m.id) && !locked;
       const filtered = isFilteredOut(m);
-      const within   = Math.abs(m.ob - m.pr) <= m.sd;
-      const acc      = ((1 - Math.abs(m.ob - m.pr) / m.pr) * 100).toFixed(4);
+      const withinSPD = agreesWithinErrors(m.ob, m.sd, m.pr, SPD_SIGMA_PRED);
+      const withinGR  = agreesWithinErrors(m.ob, m.sd, GR_VALUE, GR_SIGMA_PRED);
+      const acc      = formatAccuracy((1 - Math.abs(m.ob - m.pr) / m.pr) * 100);
       const detOpen  = openDetails.has(m.id);
 
       const card = document.createElement("div");
@@ -899,11 +956,13 @@ function renderCards() {
         <div class="meas-detail${detOpen ? " open" : ""}">
           <strong>Material pair:</strong> ${m.pair}<br>
           <strong>SPD predicted:</strong> ${m.pr.toFixed(6)}<br>
-          <strong>Observed:</strong> ${m.ob.toFixed(4)} ± ${m.sd}<br>
+          <strong>Observed:</strong> ${m.ob} ± ${m.sd}<br>
           <strong>SPD accuracy:</strong> ${acc}%<br>
           <strong>Setup:</strong> ${SCALE_LABELS[m.scale] || m.scale}<br>
-          <strong>Within SD:</strong>
-            <span class="${within ? "meas-within-yes" : "meas-within-no"}">${within ? "Yes" : "No"}</span><br>
+          <strong>SPD agrees within margins of error:</strong>
+            <span class="${withinSPD ? "meas-within-yes" : "meas-within-no"}">${withinSPD ? "Yes" : "No"}</span><br>
+          <strong>GR agrees within margins of error:</strong>
+            <span class="${withinGR ? "meas-within-yes" : "meas-within-no"}">${withinGR ? "Yes" : "No"}</span><br>
           <strong>Range-based p-value:</strong> ${m.pAgr !== undefined ? formatP(m.pAgr) : "not available (outside 6.666–6.676 null range, or not yet computed)"}<br>
           <strong>Comparative p-value (vs. GR):</strong> ${m.pComp !== undefined ? formatP(m.pComp) : "not available (not yet computed)"}${m.note ? `<br><strong>Note:</strong> ${m.note}` : ""}
         </div>`;

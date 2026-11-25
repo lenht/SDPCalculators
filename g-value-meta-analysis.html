@@ -370,9 +370,9 @@
               structure has no clean closed form, and deriving one honestly
               would be genuinely messy and complicated, without
               being any more trustworthy than the alternative below. Instead we
-              get a conservative p-value using the simple, well-known variance
+              get a p-value using the simple, well-known variance
               of tau-a (exact when there are no ties) applied to a deliberately
-              cautious stand-in value: the <strong>next higher tau-a</strong>.
+              restrained stand-in value: the <strong>next higher tau-a</strong>.
             </p>
 
             <p class="section-note">
@@ -387,7 +387,7 @@
 
             <div class="formula-box small-formula mj">
               \[
-                \tau_a^{\text{next}} \;=\; \min_{k} \left\{ \frac{S+k}{P} \; : \; \frac{S+k}{P} > \tau_b^+ \right\}, \quad k \in \{T, T-2, T-4, \dots\}
+                \tau_a^{\text{next}} \;=\; \min_{k} \left\{ \frac{S+k}{P} \; : \; \frac{S+k}{P} > \tau_b^+ \right\}, \quad k \in \{-T,\, -T+2,\, \dots,\, T-2,\, T\}
               \]
             </div>
 
@@ -403,14 +403,21 @@
             </div>
 
             <p class="section-note">
-              This is conservative by construction: since \(\tau_a^{\text{next}}\)
-              is chosen as the <em>closest</em> tau-a value that still exceeds
-              \(\tau_b^+\) — not the true, generally larger, worst-case tau-a —
-              it never makes the result look more significant than it is. When
-              there are no exclusive ties (\(T=0\)), \(\tau_a^{\text{next}} =
-              \tau_b^+\) and this reduces to the direct formula. The page shows
-              both values side by side ("τ-b+: … / τ-a: …") whenever they differ,
-              so the number actually feeding \(z\) is never hidden.
+              Why this choice: \(\tau_a^{\text{next}}\) is the
+              <em>nearest</em> attainable tie-free value above
+              \(\tau_b^+\), not the maximum \((S+T)/P\), which would
+              assume every exclusive tie had gone in the favourable
+              direction and is the most flattering value available. It
+              therefore sits between the two: slightly more favourable than
+              plugging \(\tau_b^+\) into the formula directly, and
+              noticeably less favourable than the maximum. For the paper's 19
+              measurements, for example, \(z\) is 4.12 using
+              \(\tau_b^+\) directly, 4.16 using \(\tau_a^{\text{next}}\),
+              and 4.30 using the maximum. When there are no exclusive ties
+              (\(T=0\)), \(\tau_a^{\text{next}} = \tau_b^+\) and this
+              reduces to the direct formula. The page shows both values side
+              by side ("τ-b+: … / τ-a: …") whenever they differ, so the
+              number actually feeding \(z\) is never hidden.
             </p>
 
             <p class="section-note">
@@ -463,9 +470,13 @@
               Stegun, formula 26.2.17), because it only guarantees an
               <em>absolute</em> error of \(7.5\times10^{-8}\), which is too coarse
               for p-values this small. The odds shown are simply
-              \(1/p\), rounded to the nearest whole number. P-values below
-              \(10^{-10}\) are calculated in full but displayed as
-              "&lt; 10<sup>−10</sup>".
+              \(1/p\), rounded to the nearest whole number; odds above
+              \(10^{15}\) are shown in scientific notation, because a
+              double-precision number cannot carry more digits than that.
+              P-values are displayed in scientific notation to three
+              significant digits however small they are. Only a value too small
+              for a computer to store, below about \(10^{-300}\), is shown as
+              "&lt; 10<sup>−300</sup>".
             </p>
 
             <div class="legend-box">
@@ -508,7 +519,25 @@
               6.666–6.676 null range used throughout this dataset — agree with
               the prediction at least as well as the actual observation does,
               then divide by the total count of possible values in that range.
-              This is not defined for observations falling outside the
+            </p>
+
+            <p class="section-note">
+              Two details make this exact. First, the observation's precision
+              is the number of decimals as it is written, so a trailing zero
+              counts (6.67520 has five decimals, 6.670 has three), and the
+              possible values are every number of that precision between 6.666
+              and 6.676 inclusive. Second, the prediction is first rounded
+              half-up to that same precision, and a possible value counts as
+              agreeing when its distance from the rounded prediction is no
+              larger than the observation's own distance. Example: Heyl (1942)
+              measured 6.672 against a prediction of 6.671185, which rounds to
+              6.671; the observation is 0.001 away, so 6.670, 6.671 and 6.672
+              all agree at least as well, giving 3 of the 11 possible values
+              (p = 3/11).
+            </p>
+
+            <p class="section-note">
+              The measure is not defined for observations falling outside the
               6.666–6.676 range, so not every measurement has one.
             </p>
 
@@ -532,7 +561,11 @@
 
             <p class="section-note">
               The comparative p-value is obtained by computing a chi-square value for
-              each theory's prediction against the same observation:
+              each theory's prediction against the same observation, where
+              \(\sigma_{\mathrm{pred,\,theory}}\) is the uncertainty of that
+              theory's predicted value. For SPD it is always
+              \(\pm 0.000228\), whatever the composition; for GR it is the
+              \(\pm 0.00015\) of the CODATA value above:
             </p>
 
             <div class="formula-box small-formula mj">
@@ -567,6 +600,39 @@
               predicted uncertainty is far tighter than the other's.
             </p>
 
+            <h4>Agreement within margins of error</h4>
+
+            <p class="section-note">
+              Each measurement card also states whether SPD, and for comparison
+              GR, agrees with the measurement <em>within margins of error</em>.
+              The margin includes the uncertainty of the prediction, not only
+              the measurement's own standard deviation: the measurement is
+              \(G_{\mathrm{obs}} \pm \sigma_{\mathrm{obs}}\), the prediction is
+              \(G_{\mathrm{pred}} \pm \sigma_{\mathrm{pred}}\), with
+              \(\sigma_{\mathrm{pred}} = 0.000228\) for every SPD prediction and
+              \(\pm 0.00015\) for GR, and the two agree when their ranges overlap:
+            </p>
+
+            <div class="formula-box small-formula mj">
+              \[
+                \left| G_{\mathrm{obs}} - G_{\mathrm{pred}} \right| \;\le\; \sigma_{\mathrm{obs}} + \sigma_{\mathrm{pred}}
+              \]
+            </div>
+
+            <p class="section-note">
+              Equivalently, divide the measurement range by the prediction
+              range: the two agree when 1 lies between the smallest ratio
+              \((G_{\mathrm{obs}} - \sigma_{\mathrm{obs}})/(G_{\mathrm{pred}} + \sigma_{\mathrm{pred}})\)
+              and the largest ratio
+              \((G_{\mathrm{obs}} + \sigma_{\mathrm{obs}})/(G_{\mathrm{pred}} - \sigma_{\mathrm{pred}})\).
+              Example: Schlamminger (2026-servo), copper–copper, measured
+              \(6.673642 \pm 0.00015\) against a prediction of 6.673985. The
+              gap, 0.000343, is larger than the measurement's own 0.00015, but
+              \((6.673642 + 0.00015)/(6.673985 + 0.000228) = 0.9999369\) and
+              \((6.673642 + 0.00015)/(6.673985 - 0.000228) = 1.0000052\) lie
+              on either side of 1, so SPD agrees within margins of error.
+            </p>
+
             <h4>Combining p-values with Fisher's method</h4>
 
             <p class="section-note">
@@ -597,9 +663,9 @@
             </div>
 
             <p class="section-note" style="margin-bottom:0;">
-              The results are shown as two second, independent p-values
-              alongside the rank-correlation statistics in the dashboard below
-              — one range-based, one comparative against GR.
+              The combined results appear in the dashboard below, next to the
+              rank-correlation statistics, as two further p-values: one
+              range-based, one comparative against GR.
             </p>
 
           </div>
